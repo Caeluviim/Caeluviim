@@ -1,0 +1,419 @@
+@prefix sicrp: <https://caeluviim.org/ontology/sicrp#> .
+@prefix emgn:  <https://caeluviim.org/ontology/emgn#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:caeluviim:condition:service-access-insolvency-001>
+  a sicrp:StructuralInsolvencyCondition ;
+  sicrp:status "evidenced" ;
+  sicrp:criterion "mechanism_flow_configuration_fails_declared_obligations_for_affected_constituency" ;
+  sicrp:producedByMechanism <urn:caeluviim:mechanism:priority-gate-001> ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:hasMaterialDeficit <urn:caeluviim:deficit:service-hours-001> ;
+  sicrp:governedByObligation <urn:caeluviim:obligation:minimum-service-001> ;
+  sicrp:hasResourceFlow <urn:caeluviim:flow:service-hours-before> ;
+  sicrp:hasExclusionEvent <urn:caeluviim:exclusion:priority-gate-denial-001> ;
+  sicrp:hasCapacityEvidence <urn:caeluviim:capacity:service-hours-001> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:allocation-ledger-before> .
+
+<urn:caeluviim:mechanism:priority-gate-001>
+  a sicrp:ProducingMechanism ;
+  sicrp:mechanismType "exclusionary_gate" ;
+  sicrp:description "A priority rule routes available service capacity away from the affected constituency." ;
+  sicrp:hasRuleOrProcess <urn:caeluviim:rule:priority-allocation-v1> ;
+  sicrp:hasResponsibleActor <urn:caeluviim:institution:allocation-board> ;
+  sicrp:hasResourceFlow <urn:caeluviim:flow:service-hours-before> ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:hasMaterialDeficit <urn:caeluviim:deficit:service-hours-001> ;
+  sicrp:status "evidenced" ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:priority-rule-text> .
+
+<urn:caeluviim:constituency:district-households-001>
+  a sicrp:AffectedConstituency ;
+  sicrp:description "Households in the declared district eligible for the minimum service obligation during the measurement window." ;
+  sicrp:hasMemberScope <urn:caeluviim:scope:district-households-2026q3> ;
+  sicrp:hasEligibilityBasis <urn:caeluviim:authority:eligibility-rule-001> ;
+  sicrp:representationMethod "mixed" ;
+  sicrp:hasRepresentative
+    <urn:caeluviim:agent:constituency-delegate-001>,
+    <urn:caeluviim:body:constituency-assembly-001> ;
+  sicrp:isAffected true ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:membership-scope-001> .
+
+<urn:caeluviim:deficit:service-hours-001>
+  a sicrp:MaterialDeficit ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:governedByObligation <urn:caeluviim:obligation:minimum-service-001> ;
+  sicrp:resourceType "essential-service-hours" ;
+  sicrp:observedQuantity 40.0 ;
+  sicrp:requiredQuantity 100.0 ;
+  sicrp:shortfallQuantity 60.0 ;
+  sicrp:unit "service-hours-per-week" ;
+  sicrp:windowStart "2026-07-01T00:00:00Z"^^xsd:dateTime ;
+  sicrp:windowEnd "2026-07-07T23:59:59Z"^^xsd:dateTime ;
+  sicrp:producedByMechanism <urn:caeluviim:mechanism:priority-gate-001> ;
+  sicrp:hasResourceFlow <urn:caeluviim:flow:service-hours-before> ;
+  sicrp:status "supported" ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:constituency-measurement-before> .
+
+<urn:caeluviim:obligation:minimum-service-001>
+  a sicrp:InstitutionalObligation ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:hasDutyBearer <urn:caeluviim:institution:service-authority> ;
+  sicrp:hasAuthorityBasis <urn:caeluviim:authority:minimum-service-standard-001> ;
+  sicrp:resourceType "essential-service-hours" ;
+  sicrp:thresholdValue 100.0 ;
+  sicrp:unit "service-hours-per-week" ;
+  sicrp:windowStart "2026-07-01T00:00:00Z"^^xsd:dateTime ;
+  sicrp:windowEnd "2026-09-30T23:59:59Z"^^xsd:dateTime ;
+  sicrp:waiverPermitted false .
+
+<urn:caeluviim:flow:service-hours-before>
+  a sicrp:ResourceFlow ;
+  sicrp:resourceType "essential-service-hours" ;
+  sicrp:hasProvider <urn:caeluviim:institution:service-authority> ;
+  sicrp:hasRecipient <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:quantity 40.0 ;
+  sicrp:unit "service-hours-per-week" ;
+  sicrp:direction "allocation" ;
+  sicrp:windowStart "2026-07-01T00:00:00Z"^^xsd:dateTime ;
+  sicrp:windowEnd "2026-07-07T23:59:59Z"^^xsd:dateTime ;
+  sicrp:hasAuthorityBasis <urn:caeluviim:rule:priority-allocation-v1> ;
+  sicrp:constrainedByMechanism <urn:caeluviim:mechanism:priority-gate-001> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:allocation-ledger-before> .
+
+<urn:caeluviim:flow:service-hours-after>
+  a sicrp:ResourceFlow ;
+  sicrp:resourceType "essential-service-hours" ;
+  sicrp:hasProvider <urn:caeluviim:institution:service-authority> ;
+  sicrp:hasRecipient <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:quantity 105.0 ;
+  sicrp:unit "service-hours-per-week" ;
+  sicrp:direction "redistribution" ;
+  sicrp:windowStart "2026-07-22T00:00:00Z"^^xsd:dateTime ;
+  sicrp:windowEnd "2026-07-28T23:59:59Z"^^xsd:dateTime ;
+  sicrp:hasAuthorityBasis <urn:caeluviim:rule:priority-allocation-v2> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:allocation-ledger-after> .
+
+<urn:caeluviim:exclusion:priority-gate-denial-001>
+  a sicrp:ExclusionEvent ;
+  sicrp:eventType "gate" ;
+  sicrp:producedByMechanism <urn:caeluviim:mechanism:priority-gate-001> ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:hasMaterialDeficit <urn:caeluviim:deficit:service-hours-001> ;
+  sicrp:occurredAt "2026-07-07T23:59:59Z"^^xsd:dateTime ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:priority-rule-text> .
+
+<urn:caeluviim:capacity:service-hours-001>
+  a sicrp:CapacityEvidence ;
+  sicrp:resourceType "essential-service-hours" ;
+  sicrp:heldBy <urn:caeluviim:institution:service-authority> ;
+  sicrp:availableQuantity 120.0 ;
+  sicrp:unit "service-hours-per-week" ;
+  sicrp:windowStart "2026-07-01T00:00:00Z"^^xsd:dateTime ;
+  sicrp:windowEnd "2026-07-07T23:59:59Z"^^xsd:dateTime ;
+  sicrp:governedByObligation <urn:caeluviim:obligation:minimum-service-001> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:capacity-ledger-001> .
+
+<urn:caeluviim:right:redirect-allocation-001>
+  a sicrp:InterventionRight ;
+  sicrp:heldBy <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:hasDutyBearer
+    <urn:caeluviim:institution:service-authority>,
+    <urn:caeluviim:institution:allocation-board> ;
+  sicrp:hasAuthorityBasis <urn:caeluviim:authority:allocation-review-001> ;
+  sicrp:rightType "redirect_flow" ;
+  sicrp:hasTargetMechanism <urn:caeluviim:mechanism:priority-gate-001> ;
+  sicrp:hasExercisableAction
+    <urn:caeluviim:action:replace-priority-rule>,
+    <urn:caeluviim:action:monitor-weekly-allocation> ;
+  sicrp:hasContestPath <urn:caeluviim:procedure:allocation-contest-001> ;
+  sicrp:status "exercised" ;
+  sicrp:nonwaivable true .
+
+<urn:caeluviim:intervention:allocation-rule-redesign-001>
+  a sicrp:Intervention, emgn:RemediationEvent ;
+  sicrp:interventionType "redesign_process" ;
+  sicrp:exercisesRight <urn:caeluviim:right:redirect-allocation-001> ;
+  sicrp:hasTargetMechanism <urn:caeluviim:mechanism:priority-gate-001> ;
+  sicrp:hasTargetExclusion <urn:caeluviim:exclusion:priority-gate-denial-001> ;
+  sicrp:hasParticipantConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:hasResponsibleActor
+    <urn:caeluviim:institution:allocation-board>,
+    <urn:caeluviim:agent:implementation-team-001> ;
+  sicrp:hasInputFlow <urn:caeluviim:flow:service-hours-before> ;
+  sicrp:hasOutputFlow <urn:caeluviim:flow:service-hours-after> ;
+  sicrp:startAt "2026-07-08T00:00:00Z"^^xsd:dateTime ;
+  sicrp:endAt "2026-07-21T23:59:59Z"^^xsd:dateTime ;
+  sicrp:status "completed" ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:rule-redesign-record-001> .
+
+<urn:caeluviim:plan:collective-service-resolution-001>
+  a sicrp:CollectiveResolutionPlan ;
+  sicrp:status "active" ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:targetsCondition <urn:caeluviim:condition:service-access-insolvency-001> ;
+  sicrp:hasTargetMechanism <urn:caeluviim:mechanism:priority-gate-001> ;
+  sicrp:hasIntervention <urn:caeluviim:intervention:allocation-rule-redesign-001> ;
+  sicrp:hasResolutionMetric
+    <urn:caeluviim:metric:service-obligation-discharge>,
+    <urn:caeluviim:metric:population-coverage>,
+    <urn:caeluviim:metric:mechanism-change> ;
+  sicrp:hasResponsibleActor
+    <urn:caeluviim:institution:service-authority>,
+    <urn:caeluviim:institution:allocation-board> ;
+  sicrp:hasDecisionRule <urn:caeluviim:decision-rule:collective-resolution-v1> ;
+  sicrp:adoptedAt "2026-07-08T00:00:00Z"^^xsd:dateTime ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:constituency-plan-approval-001> .
+
+<urn:caeluviim:metric:service-obligation-discharge>
+  a sicrp:ResolutionMetric ;
+  sicrp:metricType "obligation_discharge" ;
+  sicrp:measuresConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:measuresObligation <urn:caeluviim:obligation:minimum-service-001> ;
+  sicrp:unit "service-hours-per-week" ;
+  sicrp:thresholdValue 100.0 ;
+  sicrp:comparison "greater_than_or_equal" ;
+  sicrp:hasPopulationScope <urn:caeluviim:scope:district-households-2026q3> ;
+  sicrp:hasEvidence <urn:caeluviim:authority:minimum-service-standard-001> .
+
+<urn:caeluviim:metric:population-coverage>
+  a sicrp:ResolutionMetric ;
+  sicrp:metricType "distributional_coverage" ;
+  sicrp:measuresConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:unit "proportion" ;
+  sicrp:thresholdValue 0.95 ;
+  sicrp:comparison "greater_than_or_equal" ;
+  sicrp:hasPopulationScope <urn:caeluviim:scope:district-households-2026q3> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:coverage-method-001> .
+
+<urn:caeluviim:metric:mechanism-change>
+  a sicrp:ResolutionMetric ;
+  sicrp:metricType "mechanism_change" ;
+  sicrp:measuresConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:unit "binary" ;
+  sicrp:thresholdValue 1.0 ;
+  sicrp:comparison "equal" ;
+  sicrp:hasPopulationScope <urn:caeluviim:mechanism:priority-gate-001> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:priority-rule-v2> .
+
+<urn:caeluviim:observation:service-before-initiating>
+  a sicrp:ResolutionObservation ;
+  sicrp:measuresMetric <urn:caeluviim:metric:service-obligation-discharge> ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:phase "before" ;
+  sicrp:populationScopeKind "initiating_claimant" ;
+  sicrp:hasPopulationScope <urn:caeluviim:claimant:household-001> ;
+  sicrp:observedValue 40.0 ;
+  sicrp:unit "service-hours-per-week" ;
+  sicrp:thresholdMet false ;
+  sicrp:windowStart "2026-07-01T00:00:00Z"^^xsd:dateTime ;
+  sicrp:windowEnd "2026-07-07T23:59:59Z"^^xsd:dateTime ;
+  sicrp:assessedBy <urn:caeluviim:agent:measurement-lab-001> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:initiating-observation-before> .
+
+<urn:caeluviim:observation:service-before-noninitiating>
+  a sicrp:ResolutionObservation ;
+  sicrp:measuresMetric <urn:caeluviim:metric:service-obligation-discharge> ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:phase "before" ;
+  sicrp:populationScopeKind "non_initiating_members" ;
+  sicrp:hasPopulationScope <urn:caeluviim:scope:noninitiating-households-sample> ;
+  sicrp:observedValue 38.0 ;
+  sicrp:unit "service-hours-per-week" ;
+  sicrp:thresholdMet false ;
+  sicrp:windowStart "2026-07-01T00:00:00Z"^^xsd:dateTime ;
+  sicrp:windowEnd "2026-07-07T23:59:59Z"^^xsd:dateTime ;
+  sicrp:assessedBy <urn:caeluviim:agent:measurement-lab-001> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:noninitiating-observation-before> .
+
+<urn:caeluviim:observation:service-after-initiating>
+  a sicrp:ResolutionObservation ;
+  sicrp:measuresMetric <urn:caeluviim:metric:service-obligation-discharge> ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:phase "after" ;
+  sicrp:populationScopeKind "initiating_claimant" ;
+  sicrp:hasPopulationScope <urn:caeluviim:claimant:household-001> ;
+  sicrp:observedValue 106.0 ;
+  sicrp:unit "service-hours-per-week" ;
+  sicrp:thresholdMet true ;
+  sicrp:windowStart "2026-07-22T00:00:00Z"^^xsd:dateTime ;
+  sicrp:windowEnd "2026-07-28T23:59:59Z"^^xsd:dateTime ;
+  sicrp:assessedBy <urn:caeluviim:agent:measurement-lab-001> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:initiating-observation-after> .
+
+<urn:caeluviim:observation:service-after-noninitiating>
+  a sicrp:ResolutionObservation ;
+  sicrp:measuresMetric <urn:caeluviim:metric:service-obligation-discharge> ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:phase "after" ;
+  sicrp:populationScopeKind "non_initiating_members" ;
+  sicrp:hasPopulationScope <urn:caeluviim:scope:noninitiating-households-sample> ;
+  sicrp:observedValue 102.0 ;
+  sicrp:unit "service-hours-per-week" ;
+  sicrp:thresholdMet true ;
+  sicrp:windowStart "2026-07-22T00:00:00Z"^^xsd:dateTime ;
+  sicrp:windowEnd "2026-07-28T23:59:59Z"^^xsd:dateTime ;
+  sicrp:assessedBy <urn:caeluviim:agent:measurement-lab-001> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:noninitiating-observation-after> .
+
+<urn:caeluviim:observation:coverage-before>
+  a sicrp:ResolutionObservation ;
+  sicrp:measuresMetric <urn:caeluviim:metric:population-coverage> ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:phase "before" ;
+  sicrp:populationScopeKind "affected_constituency" ;
+  sicrp:hasPopulationScope <urn:caeluviim:scope:district-households-2026q3> ;
+  sicrp:observedValue 0.4 ;
+  sicrp:unit "proportion" ;
+  sicrp:thresholdMet false ;
+  sicrp:windowStart "2026-07-01T00:00:00Z"^^xsd:dateTime ;
+  sicrp:windowEnd "2026-07-07T23:59:59Z"^^xsd:dateTime ;
+  sicrp:assessedBy <urn:caeluviim:agent:measurement-lab-001> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:coverage-observation-before> .
+
+<urn:caeluviim:observation:coverage-after>
+  a sicrp:ResolutionObservation ;
+  sicrp:measuresMetric <urn:caeluviim:metric:population-coverage> ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:phase "after" ;
+  sicrp:populationScopeKind "affected_constituency" ;
+  sicrp:hasPopulationScope <urn:caeluviim:scope:district-households-2026q3> ;
+  sicrp:observedValue 0.96 ;
+  sicrp:unit "proportion" ;
+  sicrp:thresholdMet true ;
+  sicrp:windowStart "2026-07-22T00:00:00Z"^^xsd:dateTime ;
+  sicrp:windowEnd "2026-07-28T23:59:59Z"^^xsd:dateTime ;
+  sicrp:assessedBy <urn:caeluviim:agent:measurement-lab-001> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:coverage-observation-after> .
+
+<urn:caeluviim:observation:mechanism-before>
+  a sicrp:ResolutionObservation ;
+  sicrp:measuresMetric <urn:caeluviim:metric:mechanism-change> ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:phase "before" ;
+  sicrp:populationScopeKind "affected_constituency" ;
+  sicrp:hasPopulationScope <urn:caeluviim:mechanism:priority-gate-001> ;
+  sicrp:observedValue 0.0 ;
+  sicrp:unit "binary" ;
+  sicrp:thresholdMet false ;
+  sicrp:windowStart "2026-07-01T00:00:00Z"^^xsd:dateTime ;
+  sicrp:windowEnd "2026-07-07T23:59:59Z"^^xsd:dateTime ;
+  sicrp:assessedBy <urn:caeluviim:agent:measurement-lab-001> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:priority-rule-text> .
+
+<urn:caeluviim:observation:mechanism-after>
+  a sicrp:ResolutionObservation ;
+  sicrp:measuresMetric <urn:caeluviim:metric:mechanism-change> ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:phase "after" ;
+  sicrp:populationScopeKind "affected_constituency" ;
+  sicrp:hasPopulationScope <urn:caeluviim:mechanism:priority-gate-001> ;
+  sicrp:observedValue 1.0 ;
+  sicrp:unit "binary" ;
+  sicrp:thresholdMet true ;
+  sicrp:windowStart "2026-07-22T00:00:00Z"^^xsd:dateTime ;
+  sicrp:windowEnd "2026-07-28T23:59:59Z"^^xsd:dateTime ;
+  sicrp:assessedBy <urn:caeluviim:agent:measurement-lab-001> ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:priority-rule-v2> .
+
+<urn:caeluviim:residual:uncovered-households-001>
+  a sicrp:ResidualInsolvency ;
+  sicrp:residualType "uncovered_population" ;
+  sicrp:residualOfCondition <urn:caeluviim:condition:service-access-insolvency-001> ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:hasUnresolvedScope <urn:caeluviim:scope:uncovered-households-remaining> ;
+  sicrp:status "active" ;
+  sicrp:disclosed true ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:coverage-observation-after> .
+
+<urn:caeluviim:effect:service-distribution-001>
+  a sicrp:DistributionalEffect ;
+  sicrp:measuresMetric <urn:caeluviim:metric:service-obligation-discharge> ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:hasInitiatingObservation <urn:caeluviim:observation:service-after-initiating> ;
+  sicrp:hasNonInitiatingObservation <urn:caeluviim:observation:service-after-noninitiating> ;
+  sicrp:coverageCount 96 ;
+  sicrp:coverageUnit "households" ;
+  sicrp:generalizedBeyondInitiatingClaimant true ;
+  sicrp:nonRegressionPassed true ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:distribution-analysis-001> .
+
+<urn:caeluviim:assessment:resolution-001>
+  a sicrp:ValidatorAssessment ;
+  sicrp:validator <urn:caeluviim:agent:validator-1> ;
+  sicrp:assessmentScope "collective_resolution_claim" ;
+  sicrp:assesses <urn:caeluviim:claim:collective-resolution-001> ;
+  sicrp:decision "supports" ;
+  sicrp:assessedAt "2026-07-29T12:00:00Z"^^xsd:dateTime ;
+  sicrp:independentFromProposer true ;
+  sicrp:independentFromImplementers true ;
+  sicrp:hasEvidence <urn:caeluviim:evidence:validator-assessment-001> .
+
+<urn:caeluviim:claim:collective-resolution-001>
+  a sicrp:CollectiveResolutionClaim ;
+  sicrp:status "supported" ;
+  sicrp:criterion "mechanism_changed_and_effect_generalizes_beyond_initiating_claimant" ;
+  sicrp:affectsConstituency <urn:caeluviim:constituency:district-households-001> ;
+  sicrp:targetsCondition <urn:caeluviim:condition:service-access-insolvency-001> ;
+  sicrp:hasResolutionPlan <urn:caeluviim:plan:collective-service-resolution-001> ;
+  sicrp:hasBeforeObservation
+    <urn:caeluviim:observation:service-before-initiating>,
+    <urn:caeluviim:observation:service-before-noninitiating>,
+    <urn:caeluviim:observation:coverage-before>,
+    <urn:caeluviim:observation:mechanism-before> ;
+  sicrp:hasAfterObservation
+    <urn:caeluviim:observation:service-after-initiating>,
+    <urn:caeluviim:observation:service-after-noninitiating>,
+    <urn:caeluviim:observation:coverage-after>,
+    <urn:caeluviim:observation:mechanism-after> ;
+  sicrp:hasDistributionalEffect <urn:caeluviim:effect:service-distribution-001> ;
+  sicrp:disclosesResidual <urn:caeluviim:residual:uncovered-households-001> ;
+  sicrp:hasValidatorAssessment <urn:caeluviim:assessment:resolution-001> ;
+  sicrp:individualImprovementOnly false ;
+  sicrp:mechanismAltered true ;
+  sicrp:affectedPopulationDefined true ;
+  sicrp:resourceOrRightRestored true ;
+  sicrp:distributionalEffectMeasured true ;
+  sicrp:residualInsolvencyDisclosed true ;
+  sicrp:populationGeneralizationDemonstrated true ;
+  sicrp:rightsExercisable true ;
+  sicrp:coverageComplete false ;
+  sicrp:nonRegressionPassed true ;
+  sicrp:independentValidationRecorded true ;
+  sicrp:governedBy <urn:caeluviim:governance:sicrp-example-001> .
+
+<urn:caeluviim:governance:sicrp-example-001>
+  a sicrp:GovernanceRecord ;
+  sicrp:proposer <urn:caeluviim:agent:sicrp-proposer> ;
+  sicrp:validator <urn:caeluviim:agent:validator-1> ;
+  sicrp:governanceStatus "under_validation" ;
+  sicrp:requiredIndependentValidatorCount 2 ;
+  sicrp:ratificationClaimed false .
+
+<urn:caeluviim:trace:sicrp-emgn-001>
+  a sicrp:EMGNTrace ;
+  sicrp:observedInstitutionalFailure <urn:caeluviim:emgn:discrepancy:institutional-failure-001> ;
+  sicrp:retainedStructuralResidue <urn:caeluviim:emgn:residue:structural-error-001> ;
+  sicrp:collectiveRemediation <urn:caeluviim:intervention:allocation-rule-redesign-001> ;
+  sicrp:beforeAllocationRegime <urn:caeluviim:emgn:regime:allocation-before> ;
+  sicrp:afterAllocationRegime <urn:caeluviim:emgn:regime:allocation-after> ;
+  sicrp:beforeMaterialReachability <urn:caeluviim:emgn:reachability:material-before> ;
+  sicrp:afterMaterialReachability <urn:caeluviim:emgn:reachability:material-after> ;
+  sicrp:alignmentStatus "supported" .
+
+<urn:caeluviim:emgn:discrepancy:institutional-failure-001> a emgn:DiscrepancyEvent .
+<urn:caeluviim:emgn:residue:structural-error-001> a emgn:ErrorResidue .
+<urn:caeluviim:emgn:regime:allocation-before> a emgn:TransitionRegime .
+<urn:caeluviim:emgn:regime:allocation-after> a emgn:TransitionRegime .
+<urn:caeluviim:emgn:reachability:material-before> a emgn:ReachabilitySnapshot .
+<urn:caeluviim:emgn:reachability:material-after> a emgn:ReachabilitySnapshot .
+
+<urn:caeluviim:agent:sicrp-proposer> a prov:Agent .
+<urn:caeluviim:agent:validator-1> a prov:Agent .
+<urn:caeluviim:agent:measurement-lab-001> a prov:Agent .
+<urn:caeluviim:agent:implementation-team-001> a prov:Agent .
+<urn:caeluviim:institution:allocation-board> a prov:Agent .
+<urn:caeluviim:institution:service-authority> a prov:Agent .
+<urn:caeluviim:agent:constituency-delegate-001> a prov:Agent .
+<urn:caeluviim:body:constituency-assembly-001> a prov:Agent .

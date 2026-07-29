@@ -1,0 +1,623 @@
+{
+  "record_id": "urn:caeluviim:record:sicrp:example-001",
+  "module_version": "0.1.0",
+  "record_status": "under_validation",
+  "emgn_trace": {
+    "emgn_module_ref": "urn:caeluviim:module:emgn:0.1.0",
+    "discrepancy_refs": [
+      "urn:caeluviim:emgn:discrepancy:institutional-failure-001"
+    ],
+    "retained_residue_refs": [
+      "urn:caeluviim:emgn:residue:structural-error-001"
+    ],
+    "remediation_refs": [
+      "urn:caeluviim:intervention:allocation-rule-redesign-001"
+    ],
+    "before_transition_regime_ref": "urn:caeluviim:emgn:regime:allocation-before",
+    "after_transition_regime_ref": "urn:caeluviim:emgn:regime:allocation-after",
+    "before_reachability_ref": "urn:caeluviim:emgn:reachability:material-before",
+    "after_reachability_ref": "urn:caeluviim:emgn:reachability:material-after",
+    "novelty_witness_refs": [],
+    "alignment_status": "supported"
+  },
+  "structural_insolvency_conditions": [
+    {
+      "condition_id": "urn:caeluviim:condition:service-access-insolvency-001",
+      "status": "evidenced",
+      "criterion": "mechanism_flow_configuration_fails_declared_obligations_for_affected_constituency",
+      "mechanism_refs": [
+        "urn:caeluviim:mechanism:priority-gate-001"
+      ],
+      "constituency_refs": [
+        "urn:caeluviim:constituency:district-households-001"
+      ],
+      "material_deficit_refs": [
+        "urn:caeluviim:deficit:service-hours-001"
+      ],
+      "obligation_refs": [
+        "urn:caeluviim:obligation:minimum-service-001"
+      ],
+      "resource_flow_refs": [
+        "urn:caeluviim:flow:service-hours-before"
+      ],
+      "exclusion_event_refs": [
+        "urn:caeluviim:exclusion:priority-gate-denial-001"
+      ],
+      "capacity_evidence_refs": [
+        "urn:caeluviim:capacity:service-hours-001"
+      ],
+      "evidence_refs": [
+        "urn:caeluviim:evidence:allocation-ledger-before",
+        "urn:caeluviim:evidence:constituency-measurement-before"
+      ]
+    }
+  ],
+  "producing_mechanisms": [
+    {
+      "mechanism_id": "urn:caeluviim:mechanism:priority-gate-001",
+      "mechanism_type": "exclusionary_gate",
+      "description": "A priority rule routes available service capacity away from the affected constituency.",
+      "rule_or_process_refs": [
+        "urn:caeluviim:rule:priority-allocation-v1"
+      ],
+      "responsible_actor_refs": [
+        "urn:caeluviim:institution:allocation-board"
+      ],
+      "affected_flow_refs": [
+        "urn:caeluviim:flow:service-hours-before"
+      ],
+      "affected_constituency_refs": [
+        "urn:caeluviim:constituency:district-households-001"
+      ],
+      "material_deficit_refs": [
+        "urn:caeluviim:deficit:service-hours-001"
+      ],
+      "status": "evidenced",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:priority-rule-text",
+        "urn:caeluviim:evidence:allocation-ledger-before"
+      ]
+    }
+  ],
+  "affected_constituencies": [
+    {
+      "constituency_id": "urn:caeluviim:constituency:district-households-001",
+      "definition": "Households in the declared district eligible for the minimum service obligation during the measurement window.",
+      "member_scope_ref": "urn:caeluviim:scope:district-households-2026q3",
+      "eligibility_basis_ref": "urn:caeluviim:authority:eligibility-rule-001",
+      "representation_method": "mixed",
+      "representative_refs": [
+        "urn:caeluviim:agent:constituency-delegate-001",
+        "urn:caeluviim:body:constituency-assembly-001"
+      ],
+      "evidence_refs": [
+        "urn:caeluviim:evidence:membership-scope-001",
+        "urn:caeluviim:evidence:assembly-authorization-001"
+      ],
+      "is_affected": true
+    }
+  ],
+  "material_deficits": [
+    {
+      "deficit_id": "urn:caeluviim:deficit:service-hours-001",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "obligation_ref": "urn:caeluviim:obligation:minimum-service-001",
+      "resource_type": "essential-service-hours",
+      "observed_quantity": 40,
+      "required_quantity": 100,
+      "shortfall_quantity": 60,
+      "unit": "service-hours-per-week",
+      "measurement_window": {
+        "start": "2026-07-01T00:00:00Z",
+        "end": "2026-07-07T23:59:59Z"
+      },
+      "mechanism_refs": [
+        "urn:caeluviim:mechanism:priority-gate-001"
+      ],
+      "resource_flow_refs": [
+        "urn:caeluviim:flow:service-hours-before"
+      ],
+      "status": "supported",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:constituency-measurement-before"
+      ]
+    }
+  ],
+  "institutional_obligations": [
+    {
+      "obligation_id": "urn:caeluviim:obligation:minimum-service-001",
+      "beneficiary_constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "duty_bearer_refs": [
+        "urn:caeluviim:institution:service-authority"
+      ],
+      "authority_basis_ref": "urn:caeluviim:authority:minimum-service-standard-001",
+      "resource_type": "essential-service-hours",
+      "threshold_value": 100,
+      "unit": "service-hours-per-week",
+      "evaluation_period": {
+        "start": "2026-07-01T00:00:00Z",
+        "end": "2026-09-30T23:59:59Z"
+      },
+      "waiver_permitted": false
+    }
+  ],
+  "resource_flows": [
+    {
+      "flow_id": "urn:caeluviim:flow:service-hours-before",
+      "resource_type": "essential-service-hours",
+      "provider_ref": "urn:caeluviim:institution:service-authority",
+      "recipient_ref": "urn:caeluviim:constituency:district-households-001",
+      "quantity": 40,
+      "unit": "service-hours-per-week",
+      "direction": "allocation",
+      "time_window": {
+        "start": "2026-07-01T00:00:00Z",
+        "end": "2026-07-07T23:59:59Z"
+      },
+      "authority_basis_ref": "urn:caeluviim:rule:priority-allocation-v1",
+      "constrained_by_mechanism_refs": [
+        "urn:caeluviim:mechanism:priority-gate-001"
+      ],
+      "evidence_refs": [
+        "urn:caeluviim:evidence:allocation-ledger-before"
+      ]
+    },
+    {
+      "flow_id": "urn:caeluviim:flow:service-hours-after",
+      "resource_type": "essential-service-hours",
+      "provider_ref": "urn:caeluviim:institution:service-authority",
+      "recipient_ref": "urn:caeluviim:constituency:district-households-001",
+      "quantity": 105,
+      "unit": "service-hours-per-week",
+      "direction": "redistribution",
+      "time_window": {
+        "start": "2026-07-22T00:00:00Z",
+        "end": "2026-07-28T23:59:59Z"
+      },
+      "authority_basis_ref": "urn:caeluviim:rule:priority-allocation-v2",
+      "constrained_by_mechanism_refs": [],
+      "evidence_refs": [
+        "urn:caeluviim:evidence:allocation-ledger-after"
+      ]
+    }
+  ],
+  "exclusion_events": [
+    {
+      "exclusion_id": "urn:caeluviim:exclusion:priority-gate-denial-001",
+      "event_type": "gate",
+      "mechanism_ref": "urn:caeluviim:mechanism:priority-gate-001",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "material_deficit_ref": "urn:caeluviim:deficit:service-hours-001",
+      "occurred_at": "2026-07-07T23:59:59Z",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:priority-rule-text",
+        "urn:caeluviim:evidence:allocation-ledger-before"
+      ]
+    }
+  ],
+  "capacity_evidence": [
+    {
+      "capacity_id": "urn:caeluviim:capacity:service-hours-001",
+      "resource_type": "essential-service-hours",
+      "holder_ref": "urn:caeluviim:institution:service-authority",
+      "available_quantity": 120,
+      "unit": "service-hours-per-week",
+      "time_window": {
+        "start": "2026-07-01T00:00:00Z",
+        "end": "2026-07-07T23:59:59Z"
+      },
+      "obligation_refs": [
+        "urn:caeluviim:obligation:minimum-service-001"
+      ],
+      "evidence_refs": [
+        "urn:caeluviim:evidence:capacity-ledger-001"
+      ]
+    }
+  ],
+  "intervention_rights": [
+    {
+      "right_id": "urn:caeluviim:right:redirect-allocation-001",
+      "holder_constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "duty_bearer_refs": [
+        "urn:caeluviim:institution:service-authority",
+        "urn:caeluviim:institution:allocation-board"
+      ],
+      "authority_basis_ref": "urn:caeluviim:authority:allocation-review-001",
+      "right_type": "redirect_flow",
+      "target_mechanism_refs": [
+        "urn:caeluviim:mechanism:priority-gate-001"
+      ],
+      "exercisable_action_refs": [
+        "urn:caeluviim:action:replace-priority-rule",
+        "urn:caeluviim:action:monitor-weekly-allocation"
+      ],
+      "contest_path_ref": "urn:caeluviim:procedure:allocation-contest-001",
+      "status": "exercised",
+      "nonwaivable": true
+    }
+  ],
+  "interventions": [
+    {
+      "intervention_id": "urn:caeluviim:intervention:allocation-rule-redesign-001",
+      "intervention_type": "redesign_process",
+      "exercised_right_refs": [
+        "urn:caeluviim:right:redirect-allocation-001"
+      ],
+      "target_mechanism_refs": [
+        "urn:caeluviim:mechanism:priority-gate-001"
+      ],
+      "target_exclusion_refs": [
+        "urn:caeluviim:exclusion:priority-gate-denial-001"
+      ],
+      "participant_constituency_refs": [
+        "urn:caeluviim:constituency:district-households-001"
+      ],
+      "responsible_actor_refs": [
+        "urn:caeluviim:institution:allocation-board",
+        "urn:caeluviim:agent:implementation-team-001"
+      ],
+      "input_flow_refs": [
+        "urn:caeluviim:flow:service-hours-before"
+      ],
+      "output_flow_refs": [
+        "urn:caeluviim:flow:service-hours-after"
+      ],
+      "start_at": "2026-07-08T00:00:00Z",
+      "end_at": "2026-07-21T23:59:59Z",
+      "status": "completed",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:rule-redesign-record-001",
+        "urn:caeluviim:evidence:priority-rule-v2"
+      ]
+    }
+  ],
+  "collective_resolution_plans": [
+    {
+      "plan_id": "urn:caeluviim:plan:collective-service-resolution-001",
+      "status": "active",
+      "affected_constituency_refs": [
+        "urn:caeluviim:constituency:district-households-001"
+      ],
+      "target_condition_refs": [
+        "urn:caeluviim:condition:service-access-insolvency-001"
+      ],
+      "target_mechanism_refs": [
+        "urn:caeluviim:mechanism:priority-gate-001"
+      ],
+      "intervention_refs": [
+        "urn:caeluviim:intervention:allocation-rule-redesign-001"
+      ],
+      "resolution_metric_refs": [
+        "urn:caeluviim:metric:service-obligation-discharge",
+        "urn:caeluviim:metric:population-coverage",
+        "urn:caeluviim:metric:mechanism-change"
+      ],
+      "responsible_actor_refs": [
+        "urn:caeluviim:institution:service-authority",
+        "urn:caeluviim:institution:allocation-board"
+      ],
+      "decision_rule_refs": [
+        "urn:caeluviim:decision-rule:collective-resolution-v1"
+      ],
+      "adopted_at": "2026-07-08T00:00:00Z",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:constituency-plan-approval-001"
+      ]
+    }
+  ],
+  "resolution_metrics": [
+    {
+      "metric_id": "urn:caeluviim:metric:service-obligation-discharge",
+      "metric_type": "obligation_discharge",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "obligation_ref": "urn:caeluviim:obligation:minimum-service-001",
+      "unit": "service-hours-per-week",
+      "threshold_value": 100,
+      "comparison": "greater_than_or_equal",
+      "population_scope_ref": "urn:caeluviim:scope:district-households-2026q3",
+      "evidence_refs": [
+        "urn:caeluviim:authority:minimum-service-standard-001"
+      ]
+    },
+    {
+      "metric_id": "urn:caeluviim:metric:population-coverage",
+      "metric_type": "distributional_coverage",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "obligation_ref": null,
+      "unit": "proportion",
+      "threshold_value": 0.95,
+      "comparison": "greater_than_or_equal",
+      "population_scope_ref": "urn:caeluviim:scope:district-households-2026q3",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:coverage-method-001"
+      ]
+    },
+    {
+      "metric_id": "urn:caeluviim:metric:mechanism-change",
+      "metric_type": "mechanism_change",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "obligation_ref": null,
+      "unit": "binary",
+      "threshold_value": 1,
+      "comparison": "equal",
+      "population_scope_ref": "urn:caeluviim:mechanism:priority-gate-001",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:priority-rule-v2"
+      ]
+    }
+  ],
+  "resolution_observations": [
+    {
+      "observation_id": "urn:caeluviim:observation:service-before-initiating",
+      "metric_ref": "urn:caeluviim:metric:service-obligation-discharge",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "phase": "before",
+      "population_scope": "initiating_claimant",
+      "population_scope_ref": "urn:caeluviim:claimant:household-001",
+      "observed_value": 40,
+      "unit": "service-hours-per-week",
+      "threshold_met": false,
+      "measurement_window": {
+        "start": "2026-07-01T00:00:00Z",
+        "end": "2026-07-07T23:59:59Z"
+      },
+      "assessor_ref": "urn:caeluviim:agent:measurement-lab-001",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:initiating-observation-before"
+      ]
+    },
+    {
+      "observation_id": "urn:caeluviim:observation:service-before-noninitiating",
+      "metric_ref": "urn:caeluviim:metric:service-obligation-discharge",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "phase": "before",
+      "population_scope": "non_initiating_members",
+      "population_scope_ref": "urn:caeluviim:scope:noninitiating-households-sample",
+      "observed_value": 38,
+      "unit": "service-hours-per-week",
+      "threshold_met": false,
+      "measurement_window": {
+        "start": "2026-07-01T00:00:00Z",
+        "end": "2026-07-07T23:59:59Z"
+      },
+      "assessor_ref": "urn:caeluviim:agent:measurement-lab-001",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:noninitiating-observation-before"
+      ]
+    },
+    {
+      "observation_id": "urn:caeluviim:observation:service-after-initiating",
+      "metric_ref": "urn:caeluviim:metric:service-obligation-discharge",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "phase": "after",
+      "population_scope": "initiating_claimant",
+      "population_scope_ref": "urn:caeluviim:claimant:household-001",
+      "observed_value": 106,
+      "unit": "service-hours-per-week",
+      "threshold_met": true,
+      "measurement_window": {
+        "start": "2026-07-22T00:00:00Z",
+        "end": "2026-07-28T23:59:59Z"
+      },
+      "assessor_ref": "urn:caeluviim:agent:measurement-lab-001",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:initiating-observation-after"
+      ]
+    },
+    {
+      "observation_id": "urn:caeluviim:observation:service-after-noninitiating",
+      "metric_ref": "urn:caeluviim:metric:service-obligation-discharge",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "phase": "after",
+      "population_scope": "non_initiating_members",
+      "population_scope_ref": "urn:caeluviim:scope:noninitiating-households-sample",
+      "observed_value": 102,
+      "unit": "service-hours-per-week",
+      "threshold_met": true,
+      "measurement_window": {
+        "start": "2026-07-22T00:00:00Z",
+        "end": "2026-07-28T23:59:59Z"
+      },
+      "assessor_ref": "urn:caeluviim:agent:measurement-lab-001",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:noninitiating-observation-after"
+      ]
+    },
+    {
+      "observation_id": "urn:caeluviim:observation:coverage-before",
+      "metric_ref": "urn:caeluviim:metric:population-coverage",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "phase": "before",
+      "population_scope": "affected_constituency",
+      "population_scope_ref": "urn:caeluviim:scope:district-households-2026q3",
+      "observed_value": 0.4,
+      "unit": "proportion",
+      "threshold_met": false,
+      "measurement_window": {
+        "start": "2026-07-01T00:00:00Z",
+        "end": "2026-07-07T23:59:59Z"
+      },
+      "assessor_ref": "urn:caeluviim:agent:measurement-lab-001",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:coverage-observation-before"
+      ]
+    },
+    {
+      "observation_id": "urn:caeluviim:observation:coverage-after",
+      "metric_ref": "urn:caeluviim:metric:population-coverage",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "phase": "after",
+      "population_scope": "affected_constituency",
+      "population_scope_ref": "urn:caeluviim:scope:district-households-2026q3",
+      "observed_value": 0.96,
+      "unit": "proportion",
+      "threshold_met": true,
+      "measurement_window": {
+        "start": "2026-07-22T00:00:00Z",
+        "end": "2026-07-28T23:59:59Z"
+      },
+      "assessor_ref": "urn:caeluviim:agent:measurement-lab-001",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:coverage-observation-after"
+      ]
+    },
+    {
+      "observation_id": "urn:caeluviim:observation:mechanism-before",
+      "metric_ref": "urn:caeluviim:metric:mechanism-change",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "phase": "before",
+      "population_scope": "affected_constituency",
+      "population_scope_ref": "urn:caeluviim:mechanism:priority-gate-001",
+      "observed_value": 0,
+      "unit": "binary",
+      "threshold_met": false,
+      "measurement_window": {
+        "start": "2026-07-01T00:00:00Z",
+        "end": "2026-07-07T23:59:59Z"
+      },
+      "assessor_ref": "urn:caeluviim:agent:measurement-lab-001",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:priority-rule-text"
+      ]
+    },
+    {
+      "observation_id": "urn:caeluviim:observation:mechanism-after",
+      "metric_ref": "urn:caeluviim:metric:mechanism-change",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "phase": "after",
+      "population_scope": "affected_constituency",
+      "population_scope_ref": "urn:caeluviim:mechanism:priority-gate-001",
+      "observed_value": 1,
+      "unit": "binary",
+      "threshold_met": true,
+      "measurement_window": {
+        "start": "2026-07-22T00:00:00Z",
+        "end": "2026-07-28T23:59:59Z"
+      },
+      "assessor_ref": "urn:caeluviim:agent:measurement-lab-001",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:priority-rule-v2"
+      ]
+    }
+  ],
+  "residual_insolvency": [
+    {
+      "residual_id": "urn:caeluviim:residual:uncovered-households-001",
+      "residual_type": "uncovered_population",
+      "condition_ref": "urn:caeluviim:condition:service-access-insolvency-001",
+      "affected_constituency_refs": [
+        "urn:caeluviim:constituency:district-households-001"
+      ],
+      "unresolved_ref": "urn:caeluviim:scope:uncovered-households-remaining",
+      "status": "active",
+      "disclosed": true,
+      "evidence_refs": [
+        "urn:caeluviim:evidence:coverage-observation-after"
+      ]
+    }
+  ],
+  "distributional_effects": [
+    {
+      "effect_id": "urn:caeluviim:effect:service-distribution-001",
+      "metric_ref": "urn:caeluviim:metric:service-obligation-discharge",
+      "constituency_ref": "urn:caeluviim:constituency:district-households-001",
+      "initiating_observation_ref": "urn:caeluviim:observation:service-after-initiating",
+      "non_initiating_observation_refs": [
+        "urn:caeluviim:observation:service-after-noninitiating"
+      ],
+      "coverage_count": 96,
+      "coverage_unit": "households",
+      "generalized_beyond_initiating_claimant": true,
+      "non_regression_passed": true,
+      "evidence_refs": [
+        "urn:caeluviim:evidence:distribution-analysis-001"
+      ]
+    }
+  ],
+  "validator_assessments": [
+    {
+      "assessment_id": "urn:caeluviim:assessment:resolution-001",
+      "validator_ref": "urn:caeluviim:agent:validator-1",
+      "assessment_scope": "collective_resolution_claim",
+      "assessed_ref": "urn:caeluviim:claim:collective-resolution-001",
+      "decision": "supports",
+      "assessed_at": "2026-07-29T12:00:00Z",
+      "independent_from_proposer": true,
+      "independent_from_implementers": true,
+      "evidence_refs": [
+        "urn:caeluviim:evidence:validator-assessment-001"
+      ]
+    }
+  ],
+  "collective_resolution_claim": {
+    "claim_id": "urn:caeluviim:claim:collective-resolution-001",
+    "status": "supported",
+    "criterion": "mechanism_changed_and_effect_generalizes_beyond_initiating_claimant",
+    "initiating_claimant_ref": "urn:caeluviim:claimant:household-001",
+    "affected_constituency_refs": [
+      "urn:caeluviim:constituency:district-households-001"
+    ],
+    "condition_refs": [
+      "urn:caeluviim:condition:service-access-insolvency-001"
+    ],
+    "resolution_plan_refs": [
+      "urn:caeluviim:plan:collective-service-resolution-001"
+    ],
+    "before_observation_refs": [
+      "urn:caeluviim:observation:service-before-initiating",
+      "urn:caeluviim:observation:service-before-noninitiating",
+      "urn:caeluviim:observation:coverage-before",
+      "urn:caeluviim:observation:mechanism-before"
+    ],
+    "after_observation_refs": [
+      "urn:caeluviim:observation:service-after-initiating",
+      "urn:caeluviim:observation:service-after-noninitiating",
+      "urn:caeluviim:observation:coverage-after",
+      "urn:caeluviim:observation:mechanism-after"
+    ],
+    "distributional_effect_refs": [
+      "urn:caeluviim:effect:service-distribution-001"
+    ],
+    "residual_insolvency_refs": [
+      "urn:caeluviim:residual:uncovered-households-001"
+    ],
+    "validator_assessment_refs": [
+      "urn:caeluviim:assessment:resolution-001"
+    ],
+    "individual_improvement_only": false,
+    "criteria": {
+      "mechanism_altered": true,
+      "affected_population_defined": true,
+      "resource_or_right_restored": true,
+      "distributional_effect_measured": true,
+      "residual_insolvency_disclosed": true,
+      "population_generalization_demonstrated": true,
+      "rights_exercisable": true,
+      "coverage_complete": false,
+      "non_regression_passed": true,
+      "independent_validation_recorded": true
+    }
+  },
+  "provenance": {
+    "generated_by": "urn:caeluviim:agent:sicrp-proposer",
+    "generated_at": "2026-07-29T13:00:00Z",
+    "content_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "previous_hash": null,
+    "source_refs": [
+      "urn:caeluviim:module:emgn:0.1.0",
+      "urn:caeluviim:source:sicrp-formal-core-v0.1.0",
+      "urn:caeluviim:evidence:allocation-ledger-before",
+      "urn:caeluviim:evidence:allocation-ledger-after"
+    ]
+  },
+  "governance": {
+    "proposer_id": "urn:caeluviim:agent:sicrp-proposer",
+    "validators": [
+      "urn:caeluviim:agent:validator-1"
+    ],
+    "status": "under_validation",
+    "proposer_is_validator": false,
+    "required_independent_validator_count": 2,
+    "ratification_claimed": false
+  }
+}

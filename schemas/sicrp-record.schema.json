@@ -1,0 +1,1548 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schema/sicrp-record.schema.json",
+  "title": "Structural Insolvency and Collective Resolution Plane Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "module_version",
+    "record_status",
+    "emgn_trace",
+    "structural_insolvency_conditions",
+    "producing_mechanisms",
+    "affected_constituencies",
+    "material_deficits",
+    "institutional_obligations",
+    "resource_flows",
+    "exclusion_events",
+    "capacity_evidence",
+    "intervention_rights",
+    "interventions",
+    "collective_resolution_plans",
+    "resolution_metrics",
+    "resolution_observations",
+    "residual_insolvency",
+    "distributional_effects",
+    "validator_assessments",
+    "collective_resolution_claim",
+    "provenance",
+    "governance"
+  ],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "module_version": {
+      "const": "0.1.0"
+    },
+    "record_status": {
+      "enum": ["proposed", "under_validation", "ratified", "rejected"]
+    },
+    "emgn_trace": {
+      "$ref": "#/$defs/emgn_trace"
+    },
+    "structural_insolvency_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/structural_insolvency_condition"
+      }
+    },
+    "producing_mechanisms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/producing_mechanism"
+      }
+    },
+    "affected_constituencies": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/affected_constituency"
+      }
+    },
+    "material_deficits": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/material_deficit"
+      }
+    },
+    "institutional_obligations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/institutional_obligation"
+      }
+    },
+    "resource_flows": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "#/$defs/resource_flow"
+      }
+    },
+    "exclusion_events": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/exclusion_event"
+      }
+    },
+    "capacity_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/capacity_evidence"
+      }
+    },
+    "intervention_rights": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/intervention_right"
+      }
+    },
+    "interventions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/intervention"
+      }
+    },
+    "collective_resolution_plans": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/collective_resolution_plan"
+      }
+    },
+    "resolution_metrics": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "#/$defs/resolution_metric"
+      }
+    },
+    "resolution_observations": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "$ref": "#/$defs/resolution_observation"
+      }
+    },
+    "residual_insolvency": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/residual_insolvency"
+      }
+    },
+    "distributional_effects": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/distributional_effect"
+      }
+    },
+    "validator_assessments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/validator_assessment"
+      }
+    },
+    "collective_resolution_claim": {
+      "$ref": "#/$defs/collective_resolution_claim"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "governance": {
+      "$ref": "#/$defs/governance"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "collective_resolution_claim": {
+            "properties": {
+              "status": {
+                "const": "validated"
+              }
+            },
+            "required": ["status"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "structural_insolvency_conditions": {
+            "items": {
+              "properties": {
+                "status": {
+                  "const": "validated"
+                }
+              }
+            }
+          },
+          "interventions": {
+            "items": {
+              "properties": {
+                "status": {
+                  "const": "verified"
+                }
+              }
+            }
+          },
+          "validator_assessments": {
+            "minItems": 2,
+            "items": {
+              "properties": {
+                "decision": {
+                  "const": "supports"
+                },
+                "independent_from_proposer": {
+                  "const": true
+                },
+                "independent_from_implementers": {
+                  "const": true
+                }
+              }
+            }
+          },
+          "collective_resolution_claim": {
+            "properties": {
+              "criteria": {
+                "$ref": "#/$defs/satisfied_resolution_criteria"
+              }
+            }
+          },
+          "governance": {
+            "properties": {
+              "status": {
+                "const": "ratified"
+              },
+              "validators": {
+                "minItems": 2
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "governance": {
+            "properties": {
+              "status": {
+                "const": "ratified"
+              }
+            },
+            "required": ["status"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "record_status": {
+            "const": "ratified"
+          },
+          "collective_resolution_claim": {
+            "properties": {
+              "status": {
+                "const": "validated"
+              }
+            }
+          },
+          "governance": {
+            "properties": {
+              "validators": {
+                "minItems": 2
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "record_status": {
+            "const": "ratified"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "governance": {
+            "properties": {
+              "status": {
+                "const": "ratified"
+              },
+              "validators": {
+                "minItems": 2
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "uri_array": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "time_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end"],
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "emgn_trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "emgn_module_ref",
+        "discrepancy_refs",
+        "retained_residue_refs",
+        "remediation_refs",
+        "before_transition_regime_ref",
+        "after_transition_regime_ref",
+        "before_reachability_ref",
+        "after_reachability_ref",
+        "novelty_witness_refs",
+        "alignment_status"
+      ],
+      "properties": {
+        "emgn_module_ref": {
+          "const": "urn:caeluviim:module:emgn:0.1.0"
+        },
+        "discrepancy_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "retained_residue_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "remediation_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "before_transition_regime_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "after_transition_regime_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "before_reachability_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "after_reachability_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "novelty_witness_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "alignment_status": {
+          "enum": ["mapped", "supported", "validated"]
+        }
+      }
+    },
+    "structural_insolvency_condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "condition_id",
+        "status",
+        "criterion",
+        "mechanism_refs",
+        "constituency_refs",
+        "material_deficit_refs",
+        "obligation_refs",
+        "resource_flow_refs",
+        "exclusion_event_refs",
+        "capacity_evidence_refs",
+        "evidence_refs"
+      ],
+      "properties": {
+        "condition_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "status": {
+          "enum": ["alleged", "evidenced", "validated", "rejected"]
+        },
+        "criterion": {
+          "const": "mechanism_flow_configuration_fails_declared_obligations_for_affected_constituency"
+        },
+        "mechanism_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "constituency_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "material_deficit_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "obligation_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "resource_flow_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "exclusion_event_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "capacity_evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "producing_mechanism": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mechanism_id",
+        "mechanism_type",
+        "description",
+        "rule_or_process_refs",
+        "responsible_actor_refs",
+        "affected_flow_refs",
+        "affected_constituency_refs",
+        "material_deficit_refs",
+        "status",
+        "evidence_refs"
+      ],
+      "properties": {
+        "mechanism_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "mechanism_type": {
+          "enum": [
+            "extractive_transfer",
+            "exclusionary_gate",
+            "administrative_delay",
+            "resource_capture",
+            "cost_shifting",
+            "risk_externalization",
+            "debt_amplification",
+            "displacement",
+            "information_withholding",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_or_process_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "responsible_actor_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "affected_flow_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "affected_constituency_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "material_deficit_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "status": {
+          "enum": ["alleged", "evidenced", "validated", "neutralized", "unresolved"]
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "affected_constituency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "constituency_id",
+        "definition",
+        "member_scope_ref",
+        "eligibility_basis_ref",
+        "representation_method",
+        "representative_refs",
+        "evidence_refs",
+        "is_affected"
+      ],
+      "properties": {
+        "constituency_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "definition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "member_scope_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "eligibility_basis_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "representation_method": {
+          "enum": [
+            "direct_participation",
+            "elected_representative",
+            "authorized_delegate",
+            "documented_consultation",
+            "mixed"
+          ]
+        },
+        "representative_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "is_affected": {
+          "const": true
+        }
+      }
+    },
+    "material_deficit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deficit_id",
+        "constituency_ref",
+        "obligation_ref",
+        "resource_type",
+        "observed_quantity",
+        "required_quantity",
+        "shortfall_quantity",
+        "unit",
+        "measurement_window",
+        "mechanism_refs",
+        "resource_flow_refs",
+        "status",
+        "evidence_refs"
+      ],
+      "properties": {
+        "deficit_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "constituency_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "obligation_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "resource_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_quantity": {
+          "type": "number",
+          "minimum": 0
+        },
+        "required_quantity": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "shortfall_quantity": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "measurement_window": {
+          "$ref": "#/$defs/time_window"
+        },
+        "mechanism_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "resource_flow_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "status": {
+          "enum": ["proposed", "supported", "validated", "rejected"]
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "institutional_obligation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "obligation_id",
+        "beneficiary_constituency_ref",
+        "duty_bearer_refs",
+        "authority_basis_ref",
+        "resource_type",
+        "threshold_value",
+        "unit",
+        "evaluation_period",
+        "waiver_permitted"
+      ],
+      "properties": {
+        "obligation_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "beneficiary_constituency_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "duty_bearer_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "authority_basis_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "resource_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "threshold_value": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evaluation_period": {
+          "$ref": "#/$defs/time_window"
+        },
+        "waiver_permitted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "resource_flow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "flow_id",
+        "resource_type",
+        "provider_ref",
+        "recipient_ref",
+        "quantity",
+        "unit",
+        "direction",
+        "time_window",
+        "authority_basis_ref",
+        "constrained_by_mechanism_refs",
+        "evidence_refs"
+      ],
+      "properties": {
+        "flow_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "resource_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "recipient_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "quantity": {
+          "type": "number",
+          "minimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "direction": {
+          "enum": ["allocation", "delivery", "withholding", "extraction", "recovery", "redistribution"]
+        },
+        "time_window": {
+          "$ref": "#/$defs/time_window"
+        },
+        "authority_basis_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "constrained_by_mechanism_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "exclusion_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exclusion_id",
+        "event_type",
+        "mechanism_ref",
+        "constituency_ref",
+        "material_deficit_ref",
+        "occurred_at",
+        "evidence_refs"
+      ],
+      "properties": {
+        "exclusion_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "event_type": {
+          "enum": ["denial", "delay", "gate", "displacement", "withholding", "pricing_barrier", "administrative_burden"]
+        },
+        "mechanism_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "constituency_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "material_deficit_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "capacity_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capacity_id",
+        "resource_type",
+        "holder_ref",
+        "available_quantity",
+        "unit",
+        "time_window",
+        "obligation_refs",
+        "evidence_refs"
+      ],
+      "properties": {
+        "capacity_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "resource_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "holder_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "available_quantity": {
+          "type": "number",
+          "minimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "time_window": {
+          "$ref": "#/$defs/time_window"
+        },
+        "obligation_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "intervention_right": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "right_id",
+        "holder_constituency_ref",
+        "duty_bearer_refs",
+        "authority_basis_ref",
+        "right_type",
+        "target_mechanism_refs",
+        "exercisable_action_refs",
+        "contest_path_ref",
+        "status",
+        "nonwaivable"
+      ],
+      "properties": {
+        "right_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "holder_constituency_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "duty_bearer_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "authority_basis_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "right_type": {
+          "enum": [
+            "inspect",
+            "participate",
+            "veto",
+            "compel_disclosure",
+            "redirect_flow",
+            "recover_resource",
+            "suspend_mechanism",
+            "demand_remediation",
+            "contest",
+            "monitor"
+          ]
+        },
+        "target_mechanism_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "exercisable_action_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "contest_path_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "status": {
+          "enum": ["asserted", "recognized", "exercised", "denied", "suspended"]
+        },
+        "nonwaivable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "intervention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "intervention_id",
+        "intervention_type",
+        "exercised_right_refs",
+        "target_mechanism_refs",
+        "target_exclusion_refs",
+        "participant_constituency_refs",
+        "responsible_actor_refs",
+        "input_flow_refs",
+        "output_flow_refs",
+        "start_at",
+        "end_at",
+        "status",
+        "evidence_refs"
+      ],
+      "properties": {
+        "intervention_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "intervention_type": {
+          "enum": [
+            "halt",
+            "disclose",
+            "recover",
+            "redistribute",
+            "replenish",
+            "cancel_debt",
+            "restore_access",
+            "redesign_process",
+            "transfer_control",
+            "compensate",
+            "monitor"
+          ]
+        },
+        "exercised_right_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "target_mechanism_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "target_exclusion_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "participant_constituency_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "responsible_actor_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "input_flow_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "output_flow_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "start_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "enum": ["planned", "active", "completed", "verified", "failed"]
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "collective_resolution_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_id",
+        "status",
+        "affected_constituency_refs",
+        "target_condition_refs",
+        "target_mechanism_refs",
+        "intervention_refs",
+        "resolution_metric_refs",
+        "responsible_actor_refs",
+        "decision_rule_refs",
+        "adopted_at",
+        "evidence_refs"
+      ],
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "status": {
+          "enum": ["draft", "adopted", "active", "completed", "superseded", "rejected"]
+        },
+        "affected_constituency_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "target_condition_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "target_mechanism_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "intervention_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "resolution_metric_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "responsible_actor_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "decision_rule_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "adopted_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "resolution_metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric_id",
+        "metric_type",
+        "constituency_ref",
+        "obligation_ref",
+        "unit",
+        "threshold_value",
+        "comparison",
+        "population_scope_ref",
+        "evidence_refs"
+      ],
+      "properties": {
+        "metric_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "metric_type": {
+          "enum": [
+            "obligation_discharge",
+            "resource_restoration",
+            "right_restoration",
+            "mechanism_change",
+            "distributional_coverage",
+            "non_regression"
+          ]
+        },
+        "constituency_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "obligation_ref": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "threshold_value": {
+          "type": "number"
+        },
+        "comparison": {
+          "enum": ["greater_than_or_equal", "less_than_or_equal", "equal"]
+        },
+        "population_scope_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "resolution_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_id",
+        "metric_ref",
+        "constituency_ref",
+        "phase",
+        "population_scope",
+        "population_scope_ref",
+        "observed_value",
+        "unit",
+        "threshold_met",
+        "measurement_window",
+        "assessor_ref",
+        "evidence_refs"
+      ],
+      "properties": {
+        "observation_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "metric_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "constituency_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "phase": {
+          "enum": ["before", "after"]
+        },
+        "population_scope": {
+          "enum": ["initiating_claimant", "non_initiating_members", "affected_constituency"]
+        },
+        "population_scope_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "observed_value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "threshold_met": {
+          "type": "boolean"
+        },
+        "measurement_window": {
+          "$ref": "#/$defs/time_window"
+        },
+        "assessor_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "residual_insolvency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "residual_id",
+        "residual_type",
+        "condition_ref",
+        "affected_constituency_refs",
+        "unresolved_ref",
+        "status",
+        "disclosed",
+        "evidence_refs"
+      ],
+      "properties": {
+        "residual_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "residual_type": {
+          "enum": [
+            "material_deficit",
+            "producing_mechanism",
+            "exclusion",
+            "institutional_obligation",
+            "uncovered_population",
+            "rights_obstruction"
+          ]
+        },
+        "condition_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "affected_constituency_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "unresolved_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "status": {
+          "enum": ["active", "partially_resolved", "closed"]
+        },
+        "disclosed": {
+          "const": true
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "distributional_effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "effect_id",
+        "metric_ref",
+        "constituency_ref",
+        "initiating_observation_ref",
+        "non_initiating_observation_refs",
+        "coverage_count",
+        "coverage_unit",
+        "generalized_beyond_initiating_claimant",
+        "non_regression_passed",
+        "evidence_refs"
+      ],
+      "properties": {
+        "effect_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "metric_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "constituency_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "initiating_observation_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "non_initiating_observation_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "coverage_count": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "coverage_unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generalized_beyond_initiating_claimant": {
+          "type": "boolean"
+        },
+        "non_regression_passed": {
+          "type": "boolean"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "validator_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assessment_id",
+        "validator_ref",
+        "assessment_scope",
+        "assessed_ref",
+        "decision",
+        "assessed_at",
+        "independent_from_proposer",
+        "independent_from_implementers",
+        "evidence_refs"
+      ],
+      "properties": {
+        "assessment_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "validator_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "assessment_scope": {
+          "enum": ["structural_insolvency_condition", "collective_resolution_plan", "collective_resolution_claim"]
+        },
+        "assessed_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "decision": {
+          "enum": ["supports", "does_not_support", "pending"]
+        },
+        "assessed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "independent_from_proposer": {
+          "const": true
+        },
+        "independent_from_implementers": {
+          "const": true
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "resolution_criteria": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mechanism_altered",
+        "affected_population_defined",
+        "resource_or_right_restored",
+        "distributional_effect_measured",
+        "residual_insolvency_disclosed",
+        "population_generalization_demonstrated",
+        "rights_exercisable",
+        "coverage_complete",
+        "non_regression_passed",
+        "independent_validation_recorded"
+      ],
+      "properties": {
+        "mechanism_altered": {
+          "type": "boolean"
+        },
+        "affected_population_defined": {
+          "type": "boolean"
+        },
+        "resource_or_right_restored": {
+          "type": "boolean"
+        },
+        "distributional_effect_measured": {
+          "type": "boolean"
+        },
+        "residual_insolvency_disclosed": {
+          "type": "boolean"
+        },
+        "population_generalization_demonstrated": {
+          "type": "boolean"
+        },
+        "rights_exercisable": {
+          "type": "boolean"
+        },
+        "coverage_complete": {
+          "type": "boolean"
+        },
+        "non_regression_passed": {
+          "type": "boolean"
+        },
+        "independent_validation_recorded": {
+          "type": "boolean"
+        }
+      }
+    },
+    "satisfied_resolution_criteria": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mechanism_altered",
+        "affected_population_defined",
+        "resource_or_right_restored",
+        "distributional_effect_measured",
+        "residual_insolvency_disclosed",
+        "population_generalization_demonstrated",
+        "rights_exercisable",
+        "coverage_complete",
+        "non_regression_passed",
+        "independent_validation_recorded"
+      ],
+      "properties": {
+        "mechanism_altered": {
+          "const": true
+        },
+        "affected_population_defined": {
+          "const": true
+        },
+        "resource_or_right_restored": {
+          "const": true
+        },
+        "distributional_effect_measured": {
+          "const": true
+        },
+        "residual_insolvency_disclosed": {
+          "const": true
+        },
+        "population_generalization_demonstrated": {
+          "const": true
+        },
+        "rights_exercisable": {
+          "const": true
+        },
+        "coverage_complete": {
+          "const": true
+        },
+        "non_regression_passed": {
+          "const": true
+        },
+        "independent_validation_recorded": {
+          "const": true
+        }
+      }
+    },
+    "collective_resolution_claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_id",
+        "status",
+        "criterion",
+        "initiating_claimant_ref",
+        "affected_constituency_refs",
+        "condition_refs",
+        "resolution_plan_refs",
+        "before_observation_refs",
+        "after_observation_refs",
+        "distributional_effect_refs",
+        "residual_insolvency_refs",
+        "validator_assessment_refs",
+        "individual_improvement_only",
+        "criteria"
+      ],
+      "properties": {
+        "claim_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "status": {
+          "enum": ["proposed", "supported", "validated", "rejected"]
+        },
+        "criterion": {
+          "const": "mechanism_changed_and_effect_generalizes_beyond_initiating_claimant"
+        },
+        "initiating_claimant_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "affected_constituency_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "condition_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "resolution_plan_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "before_observation_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "after_observation_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "distributional_effect_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "residual_insolvency_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "validator_assessment_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "individual_improvement_only": {
+          "const": false
+        },
+        "criteria": {
+          "$ref": "#/$defs/resolution_criteria"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["generated_by", "generated_at", "content_hash", "source_refs"],
+      "properties": {
+        "generated_by": {
+          "type": "string",
+          "format": "uri"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "content_hash": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{64}$"
+        },
+        "previous_hash": {
+          "type": ["string", "null"],
+          "pattern": "^[a-fA-F0-9]{64}$"
+        },
+        "source_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proposer_id",
+        "validators",
+        "status",
+        "proposer_is_validator",
+        "required_independent_validator_count",
+        "ratification_claimed"
+      ],
+      "properties": {
+        "proposer_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "validators": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "status": {
+          "enum": ["proposed", "under_validation", "ratified", "rejected"]
+        },
+        "proposer_is_validator": {
+          "const": false
+        },
+        "required_independent_validator_count": {
+          "const": 2
+        },
+        "ratification_claimed": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ratified"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "validators": {
+                "minItems": 2
+              },
+              "ratification_claimed": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "ratification_claimed": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "ratified"
+              },
+              "validators": {
+                "minItems": 2
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,367 @@
+@prefix sicrp: <https://caeluviim.org/ontology/sicrp#> .
+@prefix emgn:  <https://caeluviim.org/ontology/emgn#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+sicrp:StructuralInsolvencyConditionShape a sh:NodeShape ;
+  sh:targetClass sicrp:StructuralInsolvencyCondition ;
+  sh:property [ sh:path sicrp:status ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("alleged" "evidenced" "validated" "contested" "rejected") ] ;
+  sh:property [ sh:path sicrp:criterion ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:producedByMechanism ; sh:minCount 1 ; sh:class sicrp:ProducingMechanism ] ;
+  sh:property [ sh:path sicrp:affectsConstituency ; sh:minCount 1 ; sh:class sicrp:AffectedConstituency ] ;
+  sh:property [ sh:path sicrp:hasMaterialDeficit ; sh:minCount 1 ; sh:class sicrp:MaterialDeficit ] ;
+  sh:property [ sh:path sicrp:governedByObligation ; sh:minCount 1 ; sh:class sicrp:InstitutionalObligation ] ;
+  sh:property [ sh:path sicrp:hasResourceFlow ; sh:minCount 1 ; sh:class sicrp:ResourceFlow ] ;
+  sh:property [ sh:path sicrp:hasExclusionEvent ; sh:minCount 1 ; sh:class sicrp:ExclusionEvent ] ;
+  sh:property [ sh:path sicrp:hasCapacityEvidence ; sh:minCount 1 ; sh:class sicrp:CapacityEvidence ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] .
+
+sicrp:ProducingMechanismShape a sh:NodeShape ;
+  sh:targetClass sicrp:ProducingMechanism ;
+  sh:property [ sh:path sicrp:mechanismType ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:description ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:hasRuleOrProcess ; sh:minCount 1 ] ;
+  sh:property [ sh:path sicrp:hasResponsibleActor ; sh:minCount 1 ] ;
+  sh:property [ sh:path sicrp:hasResourceFlow ; sh:minCount 1 ; sh:class sicrp:ResourceFlow ] ;
+  sh:property [ sh:path sicrp:affectsConstituency ; sh:minCount 1 ; sh:class sicrp:AffectedConstituency ] ;
+  sh:property [ sh:path sicrp:hasMaterialDeficit ; sh:minCount 1 ; sh:class sicrp:MaterialDeficit ] ;
+  sh:property [ sh:path sicrp:status ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] .
+
+sicrp:AffectedConstituencyShape a sh:NodeShape ;
+  sh:targetClass sicrp:AffectedConstituency ;
+  sh:property [ sh:path sicrp:description ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:hasMemberScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:hasEligibilityBasis ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:representationMethod ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:hasRepresentative ; sh:minCount 1 ] ;
+  sh:property [ sh:path sicrp:isAffected ; sh:hasValue true ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] .
+
+sicrp:MaterialDeficitShape a sh:NodeShape ;
+  sh:targetClass sicrp:MaterialDeficit ;
+  sh:property [ sh:path sicrp:affectsConstituency ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:AffectedConstituency ] ;
+  sh:property [ sh:path sicrp:governedByObligation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:InstitutionalObligation ] ;
+  sh:property [ sh:path sicrp:resourceType ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:observedQuantity ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ; sh:minInclusive 0 ] ;
+  sh:property [ sh:path sicrp:requiredQuantity ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ; sh:minExclusive 0 ] ;
+  sh:property [ sh:path sicrp:shortfallQuantity ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ; sh:minExclusive 0 ] ;
+  sh:property [ sh:path sicrp:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:windowStart ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ; sh:lessThan sicrp:windowEnd ] ;
+  sh:property [ sh:path sicrp:windowEnd ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+  sh:property [ sh:path sicrp:producedByMechanism ; sh:minCount 1 ; sh:class sicrp:ProducingMechanism ] ;
+  sh:property [ sh:path sicrp:hasResourceFlow ; sh:minCount 1 ; sh:class sicrp:ResourceFlow ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] ;
+  sh:sparql [
+    sh:message "shortfallQuantity must equal requiredQuantity minus observedQuantity." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this sicrp:observedQuantity ?observed ;
+              sicrp:requiredQuantity ?required ;
+              sicrp:shortfallQuantity ?shortfall .
+        FILTER (ABS((?required - ?observed) - ?shortfall) > 0.000001)
+      }
+    """
+  ] .
+
+sicrp:InstitutionalObligationShape a sh:NodeShape ;
+  sh:targetClass sicrp:InstitutionalObligation ;
+  sh:property [ sh:path sicrp:affectsConstituency ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:AffectedConstituency ] ;
+  sh:property [ sh:path sicrp:hasDutyBearer ; sh:minCount 1 ] ;
+  sh:property [ sh:path sicrp:hasAuthorityBasis ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:resourceType ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:thresholdValue ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ; sh:minExclusive 0 ] ;
+  sh:property [ sh:path sicrp:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:windowStart ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ; sh:lessThan sicrp:windowEnd ] ;
+  sh:property [ sh:path sicrp:windowEnd ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+  sh:property [ sh:path sicrp:waiverPermitted ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] .
+
+sicrp:ResourceFlowShape a sh:NodeShape ;
+  sh:targetClass sicrp:ResourceFlow ;
+  sh:property [ sh:path sicrp:resourceType ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:hasProvider ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:hasRecipient ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:quantity ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ; sh:minInclusive 0 ] ;
+  sh:property [ sh:path sicrp:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:direction ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:windowStart ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ; sh:lessThan sicrp:windowEnd ] ;
+  sh:property [ sh:path sicrp:windowEnd ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+  sh:property [ sh:path sicrp:hasAuthorityBasis ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] .
+
+sicrp:ExclusionEventShape a sh:NodeShape ;
+  sh:targetClass sicrp:ExclusionEvent ;
+  sh:property [ sh:path sicrp:eventType ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:producedByMechanism ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:ProducingMechanism ] ;
+  sh:property [ sh:path sicrp:affectsConstituency ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:AffectedConstituency ] ;
+  sh:property [ sh:path sicrp:hasMaterialDeficit ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:MaterialDeficit ] ;
+  sh:property [ sh:path sicrp:occurredAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] .
+
+sicrp:CapacityEvidenceShape a sh:NodeShape ;
+  sh:targetClass sicrp:CapacityEvidence ;
+  sh:property [ sh:path sicrp:resourceType ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:heldBy ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:availableQuantity ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ; sh:minInclusive 0 ] ;
+  sh:property [ sh:path sicrp:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:windowStart ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ; sh:lessThan sicrp:windowEnd ] ;
+  sh:property [ sh:path sicrp:windowEnd ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+  sh:property [ sh:path sicrp:governedByObligation ; sh:minCount 1 ; sh:class sicrp:InstitutionalObligation ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] .
+
+sicrp:InterventionRightShape a sh:NodeShape ;
+  sh:targetClass sicrp:InterventionRight ;
+  sh:property [ sh:path sicrp:heldBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:AffectedConstituency ] ;
+  sh:property [ sh:path sicrp:hasDutyBearer ; sh:minCount 1 ] ;
+  sh:property [ sh:path sicrp:hasAuthorityBasis ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:rightType ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:hasTargetMechanism ; sh:minCount 1 ; sh:class sicrp:ProducingMechanism ] ;
+  sh:property [ sh:path sicrp:hasExercisableAction ; sh:minCount 1 ] ;
+  sh:property [ sh:path sicrp:hasContestPath ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:status ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("recognized" "exercisable" "exercised" "blocked" "contested" "revoked") ] ;
+  sh:property [ sh:path sicrp:nonwaivable ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] .
+
+sicrp:InterventionShape a sh:NodeShape ;
+  sh:targetClass sicrp:Intervention ;
+  sh:property [ sh:path sicrp:interventionType ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:exercisesRight ; sh:minCount 1 ; sh:class sicrp:InterventionRight ] ;
+  sh:property [ sh:path sicrp:hasTargetMechanism ; sh:minCount 1 ; sh:class sicrp:ProducingMechanism ] ;
+  sh:property [ sh:path sicrp:hasParticipantConstituency ; sh:minCount 1 ; sh:class sicrp:AffectedConstituency ] ;
+  sh:property [ sh:path sicrp:hasResponsibleActor ; sh:minCount 1 ] ;
+  sh:property [ sh:path sicrp:hasInputFlow ; sh:minCount 1 ; sh:class sicrp:ResourceFlow ] ;
+  sh:property [ sh:path sicrp:hasOutputFlow ; sh:minCount 1 ; sh:class sicrp:ResourceFlow ] ;
+  sh:property [ sh:path sicrp:startAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ; sh:lessThan sicrp:endAt ] ;
+  sh:property [ sh:path sicrp:endAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+  sh:property [ sh:path sicrp:status ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("planned" "authorized" "active" "completed" "verified" "failed" "withdrawn") ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] .
+
+sicrp:CollectiveResolutionPlanShape a sh:NodeShape ;
+  sh:targetClass sicrp:CollectiveResolutionPlan ;
+  sh:property [ sh:path sicrp:status ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("draft" "proposed" "authorized" "active" "completed" "evaluated" "closed" "withdrawn") ] ;
+  sh:property [ sh:path sicrp:affectsConstituency ; sh:minCount 1 ; sh:class sicrp:AffectedConstituency ] ;
+  sh:property [ sh:path sicrp:targetsCondition ; sh:minCount 1 ; sh:class sicrp:StructuralInsolvencyCondition ] ;
+  sh:property [ sh:path sicrp:hasTargetMechanism ; sh:minCount 1 ; sh:class sicrp:ProducingMechanism ] ;
+  sh:property [ sh:path sicrp:hasIntervention ; sh:minCount 1 ; sh:class sicrp:Intervention ] ;
+  sh:property [ sh:path sicrp:hasResolutionMetric ; sh:minCount 1 ; sh:class sicrp:ResolutionMetric ] ;
+  sh:property [ sh:path sicrp:hasResponsibleActor ; sh:minCount 1 ] ;
+  sh:property [ sh:path sicrp:hasDecisionRule ; sh:minCount 1 ] ;
+  sh:property [ sh:path sicrp:adoptedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] .
+
+sicrp:ResolutionMetricShape a sh:NodeShape ;
+  sh:targetClass sicrp:ResolutionMetric ;
+  sh:property [ sh:path sicrp:metricType ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:measuresConstituency ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:AffectedConstituency ] ;
+  sh:property [ sh:path sicrp:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:thresholdValue ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ] ;
+  sh:property [ sh:path sicrp:comparison ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("greater_than_or_equal" "less_than_or_equal" "equal" "boolean_true") ] ;
+  sh:property [ sh:path sicrp:hasPopulationScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] .
+
+sicrp:ResolutionObservationShape a sh:NodeShape ;
+  sh:targetClass sicrp:ResolutionObservation ;
+  sh:property [ sh:path sicrp:measuresMetric ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:ResolutionMetric ] ;
+  sh:property [ sh:path sicrp:affectsConstituency ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:AffectedConstituency ] ;
+  sh:property [ sh:path sicrp:phase ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("before" "after" "follow_up") ] ;
+  sh:property [ sh:path sicrp:populationScopeKind ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("initiating_claimant" "non_initiating_members" "affected_constituency") ] ;
+  sh:property [ sh:path sicrp:hasPopulationScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:observedValue ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ] ;
+  sh:property [ sh:path sicrp:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:thresholdMet ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:property [ sh:path sicrp:windowStart ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ; sh:lessThan sicrp:windowEnd ] ;
+  sh:property [ sh:path sicrp:windowEnd ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+  sh:property [ sh:path sicrp:assessedBy ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] ;
+  sh:sparql [
+    sh:message "A resolution observation assessor must not be the proposer or an intervention implementer." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this sicrp:assessedBy ?assessor .
+        {
+          ?claim a sicrp:CollectiveResolutionClaim ;
+                 sicrp:governedBy ?governance .
+          ?governance sicrp:proposer ?assessor .
+        }
+        UNION
+        {
+          ?intervention a sicrp:Intervention ;
+                        sicrp:hasResponsibleActor ?assessor .
+        }
+      }
+    """
+  ] .
+
+sicrp:ResidualInsolvencyShape a sh:NodeShape ;
+  sh:targetClass sicrp:ResidualInsolvency ;
+  sh:property [ sh:path sicrp:residualType ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:residualOfCondition ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:StructuralInsolvencyCondition ] ;
+  sh:property [ sh:path sicrp:affectsConstituency ; sh:minCount 1 ; sh:class sicrp:AffectedConstituency ] ;
+  sh:property [ sh:path sicrp:hasUnresolvedScope ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:status ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:disclosed ; sh:hasValue true ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] .
+
+sicrp:DistributionalEffectShape a sh:NodeShape ;
+  sh:targetClass sicrp:DistributionalEffect ;
+  sh:property [ sh:path sicrp:measuresMetric ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:ResolutionMetric ] ;
+  sh:property [ sh:path sicrp:affectsConstituency ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:AffectedConstituency ] ;
+  sh:property [ sh:path sicrp:hasInitiatingObservation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:ResolutionObservation ] ;
+  sh:property [ sh:path sicrp:hasNonInitiatingObservation ; sh:minCount 1 ; sh:class sicrp:ResolutionObservation ; sh:disjoint sicrp:hasInitiatingObservation ] ;
+  sh:property [ sh:path sicrp:coverageCount ; sh:minCount 1 ; sh:maxCount 1 ; sh:minInclusive 2 ] ;
+  sh:property [ sh:path sicrp:coverageUnit ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:generalizedBeyondInitiatingClaimant ; sh:hasValue true ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:nonRegressionPassed ; sh:hasValue true ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] ;
+  sh:sparql [
+    sh:message "The initiating observation must concern the initiating claimant and every non-initiating observation must concern non-initiating members." ;
+    sh:select """
+      SELECT $this WHERE {
+        {
+          $this sicrp:hasInitiatingObservation ?observation .
+          FILTER NOT EXISTS { ?observation sicrp:populationScopeKind "initiating_claimant" }
+        }
+        UNION
+        {
+          $this sicrp:hasNonInitiatingObservation ?observation .
+          FILTER NOT EXISTS { ?observation sicrp:populationScopeKind "non_initiating_members" }
+        }
+      }
+    """
+  ] .
+
+sicrp:ValidatorAssessmentShape a sh:NodeShape ;
+  sh:targetClass sicrp:ValidatorAssessment ;
+  sh:property [ sh:path sicrp:validator ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:assessmentScope ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path sicrp:assesses ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:decision ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("supports" "opposes" "unknown" "error") ] ;
+  sh:property [ sh:path sicrp:assessedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+  sh:property [ sh:path sicrp:independentFromProposer ; sh:hasValue true ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:independentFromImplementers ; sh:hasValue true ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:hasEvidence ; sh:minCount 1 ] ;
+  sh:sparql [
+    sh:message "A validator must not be the claim proposer or an intervention implementer." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this sicrp:validator ?validator .
+        {
+          ?claim a sicrp:CollectiveResolutionClaim ;
+                 sicrp:hasValidatorAssessment $this ;
+                 sicrp:governedBy ?governance .
+          ?governance sicrp:proposer ?validator .
+        }
+        UNION
+        {
+          ?intervention a sicrp:Intervention ;
+                        sicrp:hasResponsibleActor ?validator .
+        }
+      }
+    """
+  ] .
+
+sicrp:CollectiveResolutionClaimShape a sh:NodeShape ;
+  sh:targetClass sicrp:CollectiveResolutionClaim ;
+  sh:property [ sh:path sicrp:status ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("proposed" "supported" "validated" "contested" "rejected" "retracted") ] ;
+  sh:property [ sh:path sicrp:criterion ; sh:hasValue "mechanism_changed_and_effect_generalizes_beyond_initiating_claimant" ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:affectsConstituency ; sh:minCount 1 ; sh:class sicrp:AffectedConstituency ] ;
+  sh:property [ sh:path sicrp:targetsCondition ; sh:minCount 1 ; sh:class sicrp:StructuralInsolvencyCondition ] ;
+  sh:property [ sh:path sicrp:hasResolutionPlan ; sh:minCount 1 ; sh:class sicrp:CollectiveResolutionPlan ] ;
+  sh:property [ sh:path sicrp:hasBeforeObservation ; sh:minCount 1 ; sh:class sicrp:ResolutionObservation ] ;
+  sh:property [ sh:path sicrp:hasAfterObservation ; sh:minCount 1 ; sh:class sicrp:ResolutionObservation ] ;
+  sh:property [ sh:path sicrp:hasDistributionalEffect ; sh:minCount 1 ; sh:class sicrp:DistributionalEffect ] ;
+  sh:property [ sh:path sicrp:disclosesResidual ; sh:minCount 1 ; sh:class sicrp:ResidualInsolvency ] ;
+  sh:property [ sh:path sicrp:hasValidatorAssessment ; sh:minCount 1 ; sh:class sicrp:ValidatorAssessment ] ;
+  sh:property [ sh:path sicrp:individualImprovementOnly ; sh:hasValue false ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path sicrp:mechanismAltered ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:property [ sh:path sicrp:affectedPopulationDefined ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:property [ sh:path sicrp:resourceOrRightRestored ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:property [ sh:path sicrp:distributionalEffectMeasured ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:property [ sh:path sicrp:residualInsolvencyDisclosed ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:property [ sh:path sicrp:populationGeneralizationDemonstrated ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:property [ sh:path sicrp:rightsExercisable ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:property [ sh:path sicrp:coverageComplete ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:property [ sh:path sicrp:nonRegressionPassed ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:property [ sh:path sicrp:independentValidationRecorded ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:property [ sh:path sicrp:governedBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class sicrp:GovernanceRecord ] ;
+  sh:sparql [
+    sh:message "A validated collective-resolution claim requires every decisive criterion, verified interventions, at least two supporting independent assessments, and ratified governance." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this sicrp:status "validated" .
+        FILTER (
+          NOT EXISTS { $this sicrp:mechanismAltered true } ||
+          NOT EXISTS { $this sicrp:affectedPopulationDefined true } ||
+          NOT EXISTS { $this sicrp:resourceOrRightRestored true } ||
+          NOT EXISTS { $this sicrp:distributionalEffectMeasured true } ||
+          NOT EXISTS { $this sicrp:residualInsolvencyDisclosed true } ||
+          NOT EXISTS { $this sicrp:populationGeneralizationDemonstrated true } ||
+          NOT EXISTS { $this sicrp:rightsExercisable true } ||
+          NOT EXISTS { $this sicrp:coverageComplete true } ||
+          NOT EXISTS { $this sicrp:nonRegressionPassed true } ||
+          NOT EXISTS { $this sicrp:independentValidationRecorded true } ||
+          NOT EXISTS {
+            $this sicrp:governedBy ?governance .
+            ?governance sicrp:governanceStatus "ratified" ;
+                        sicrp:ratificationClaimed true .
+          } ||
+          NOT EXISTS {
+            {
+              SELECT $this (COUNT(DISTINCT ?assessment) AS ?assessmentCount)
+              WHERE {
+                $this sicrp:hasValidatorAssessment ?assessment .
+                ?assessment sicrp:decision "supports" ;
+                            sicrp:independentFromProposer true ;
+                            sicrp:independentFromImplementers true .
+              }
+              GROUP BY $this
+              HAVING (?assessmentCount >= 2)
+            }
+          } ||
+          EXISTS {
+            $this sicrp:hasResolutionPlan ?plan .
+            ?plan sicrp:hasIntervention ?intervention .
+            FILTER NOT EXISTS { ?intervention sicrp:status "verified" }
+          }
+        )
+      }
+    """
+  ] .
+
+sicrp:GovernanceRecordShape a sh:NodeShape ;
+  sh:targetClass sicrp:GovernanceRecord ;
+  sh:property [ sh:path sicrp:proposer ; sh:minCount 1 ; sh:maxCount 1 ; sh:disjoint sicrp:validator ] ;
+  sh:property [ sh:path sicrp:validator ; sh:minCount 1 ] ;
+  sh:property [ sh:path sicrp:governanceStatus ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("proposed" "under_validation" "ratified" "contested" "rejected" "retracted") ] ;
+  sh:property [ sh:path sicrp:requiredIndependentValidatorCount ; sh:minCount 1 ; sh:maxCount 1 ; sh:minInclusive 2 ] ;
+  sh:property [ sh:path sicrp:ratificationClaimed ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ] ;
+  sh:sparql [
+    sh:message "Ratified governance requires ratificationClaimed=true and at least two distinct validators." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this sicrp:governanceStatus "ratified" .
+        {
+          FILTER NOT EXISTS { $this sicrp:ratificationClaimed true }
+        }
+        UNION
+        {
+          SELECT $this WHERE {
+            $this sicrp:governanceStatus "ratified" .
+            OPTIONAL { $this sicrp:validator ?validator }
+          }
+          GROUP BY $this
+          HAVING (COUNT(DISTINCT ?validator) < 2)
+        }
+      }
+    """
+  ] .
+
+sicrp:EMGNTraceShape a sh:NodeShape ;
+  sh:targetClass sicrp:EMGNTrace ;
+  sh:property [ sh:path sicrp:observedInstitutionalFailure ; sh:minCount 1 ; sh:class emgn:DiscrepancyEvent ] ;
+  sh:property [ sh:path sicrp:retainedStructuralResidue ; sh:minCount 1 ; sh:class emgn:ErrorResidue ] ;
+  sh:property [ sh:path sicrp:collectiveRemediation ; sh:minCount 1 ; sh:class emgn:RemediationEvent ] ;
+  sh:property [ sh:path sicrp:beforeAllocationRegime ; sh:minCount 1 ; sh:maxCount 1 ; sh:class emgn:TransitionRegime ; sh:disjoint sicrp:afterAllocationRegime ] ;
+  sh:property [ sh:path sicrp:afterAllocationRegime ; sh:minCount 1 ; sh:maxCount 1 ; sh:class emgn:TransitionRegime ] ;
+  sh:property [ sh:path sicrp:beforeMaterialReachability ; sh:minCount 1 ; sh:maxCount 1 ; sh:class emgn:ReachabilitySnapshot ; sh:disjoint sicrp:afterMaterialReachability ] ;
+  sh:property [ sh:path sicrp:afterMaterialReachability ; sh:minCount 1 ; sh:maxCount 1 ; sh:class emgn:ReachabilitySnapshot ] ;
+  sh:property [ sh:path sicrp:alignmentStatus ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("proposed" "supported" "validated" "rejected") ] .
