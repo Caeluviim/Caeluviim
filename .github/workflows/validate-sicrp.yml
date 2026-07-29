@@ -1,0 +1,41 @@
+name: Validate SICRP module
+
+on:
+  push:
+    paths:
+      - "docs/architecture/structural-insolvency-collective-resolution.md"
+      - "schemas/sicrp-*.schema.json"
+      - "ontology/sicrp.ttl"
+      - "ontology/emgn.ttl"
+      - "shapes/sicrp.shacl.ttl"
+      - "examples/sicrp-record.valid.*"
+      - "governance/sicrp-v0.1.0.status.json"
+      - "tests/test_sicrp.py"
+      - "requirements-dev.txt"
+      - ".github/workflows/validate-sicrp.yml"
+  pull_request:
+    paths:
+      - "docs/architecture/structural-insolvency-collective-resolution.md"
+      - "schemas/sicrp-*.schema.json"
+      - "ontology/sicrp.ttl"
+      - "ontology/emgn.ttl"
+      - "shapes/sicrp.shacl.ttl"
+      - "examples/sicrp-record.valid.*"
+      - "governance/sicrp-v0.1.0.status.json"
+      - "tests/test_sicrp.py"
+      - "requirements-dev.txt"
+      - ".github/workflows/validate-sicrp.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python -m unittest discover -s tests -v
+      - run: pyshacl -s shapes/emgn.shacl.ttl -e ontology/emgn.ttl examples/emgn-record.valid.ttl
+      - run: pyshacl -a -i rdfs -s shapes/sicrp.shacl.ttl -e ontology/sicrp.ttl examples/sicrp-record.valid.ttl

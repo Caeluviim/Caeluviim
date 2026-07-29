@@ -1,0 +1,221 @@
+@prefix sicrp: <https://caeluviim.org/ontology/sicrp#> .
+@prefix emgn:  <https://caeluviim.org/ontology/emgn#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+
+<https://caeluviim.org/ontology/sicrp> a owl:Ontology ;
+  owl:versionInfo "0.1.0" ;
+  owl:imports <https://caeluviim.org/ontology/emgn> ;
+  rdfs:label "Structural Insolvency and Collective Resolution Plane" ;
+  rdfs:comment "Proposed machine contract for proving structural conditions and collective resolution without equating individual improvement with collective resolution." .
+
+# Normative core classes
+
+sicrp:StructuralInsolvencyCondition a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:ProducingMechanism a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:AffectedConstituency a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:MaterialDeficit a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:InstitutionalObligation a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:ResourceFlow a owl:Class ; rdfs:subClassOf prov:Activity .
+sicrp:ExclusionEvent a owl:Class ; rdfs:subClassOf prov:Activity .
+sicrp:Intervention a owl:Class ;
+  rdfs:subClassOf prov:Activity, emgn:RemediationEvent .
+sicrp:CollectiveResolutionPlan a owl:Class ; rdfs:subClassOf prov:Plan .
+sicrp:ResolutionMetric a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:ResolutionObservation a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:ResidualInsolvency a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:DistributionalEffect a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:ValidatorAssessment a owl:Class ; rdfs:subClassOf prov:Entity .
+
+# Supporting contract classes
+
+sicrp:CapacityEvidence a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:InterventionRight a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:CollectiveResolutionClaim a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:GovernanceRecord a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:ModuleStatusRecord a owl:Class ; rdfs:subClassOf prov:Entity .
+sicrp:EMGNTrace a owl:Class ; rdfs:subClassOf prov:Entity .
+
+# Structural-insolvency graph
+
+sicrp:producedByMechanism a owl:ObjectProperty ;
+  rdfs:range sicrp:ProducingMechanism .
+sicrp:affectsConstituency a owl:ObjectProperty ;
+  rdfs:range sicrp:AffectedConstituency .
+sicrp:hasMaterialDeficit a owl:ObjectProperty ;
+  rdfs:range sicrp:MaterialDeficit .
+sicrp:governedByObligation a owl:ObjectProperty ;
+  rdfs:range sicrp:InstitutionalObligation .
+sicrp:hasResourceFlow a owl:ObjectProperty ;
+  rdfs:range sicrp:ResourceFlow .
+sicrp:hasExclusionEvent a owl:ObjectProperty ;
+  rdfs:range sicrp:ExclusionEvent .
+sicrp:hasCapacityEvidence a owl:ObjectProperty ;
+  rdfs:range sicrp:CapacityEvidence .
+sicrp:hasEvidence a owl:ObjectProperty ; rdfs:range prov:Entity .
+sicrp:hasRuleOrProcess a owl:ObjectProperty .
+sicrp:hasResponsibleActor a owl:ObjectProperty ; rdfs:range prov:Agent .
+sicrp:hasRepresentative a owl:ObjectProperty ; rdfs:range prov:Agent .
+sicrp:hasDutyBearer a owl:ObjectProperty ; rdfs:range prov:Agent .
+sicrp:hasAuthorityBasis a owl:ObjectProperty .
+sicrp:hasMemberScope a owl:ObjectProperty .
+sicrp:hasEligibilityBasis a owl:ObjectProperty .
+sicrp:hasExercisableAction a owl:ObjectProperty .
+sicrp:hasContestPath a owl:ObjectProperty .
+sicrp:constrainedByMechanism a owl:ObjectProperty ;
+  rdfs:range sicrp:ProducingMechanism .
+sicrp:hasProvider a owl:ObjectProperty ; rdfs:range prov:Agent .
+sicrp:hasRecipient a owl:ObjectProperty .
+sicrp:heldBy a owl:ObjectProperty .
+sicrp:hasTargetMechanism a owl:ObjectProperty ;
+  rdfs:range sicrp:ProducingMechanism .
+sicrp:hasTargetExclusion a owl:ObjectProperty ;
+  rdfs:range sicrp:ExclusionEvent .
+sicrp:exercisesRight a owl:ObjectProperty ;
+  rdfs:domain sicrp:Intervention ;
+  rdfs:range sicrp:InterventionRight .
+sicrp:hasParticipantConstituency a owl:ObjectProperty ;
+  rdfs:domain sicrp:Intervention ;
+  rdfs:range sicrp:AffectedConstituency .
+sicrp:hasInputFlow a owl:ObjectProperty ;
+  rdfs:domain sicrp:Intervention ;
+  rdfs:range sicrp:ResourceFlow .
+sicrp:hasOutputFlow a owl:ObjectProperty ;
+  rdfs:domain sicrp:Intervention ;
+  rdfs:range sicrp:ResourceFlow .
+sicrp:targetsCondition a owl:ObjectProperty ;
+  rdfs:range sicrp:StructuralInsolvencyCondition .
+sicrp:hasIntervention a owl:ObjectProperty ;
+  rdfs:range sicrp:Intervention .
+sicrp:hasResolutionMetric a owl:ObjectProperty ;
+  rdfs:range sicrp:ResolutionMetric .
+sicrp:hasDecisionRule a owl:ObjectProperty .
+sicrp:measuresConstituency a owl:ObjectProperty ;
+  rdfs:range sicrp:AffectedConstituency .
+sicrp:measuresObligation a owl:ObjectProperty ;
+  rdfs:range sicrp:InstitutionalObligation .
+sicrp:measuresMetric a owl:ObjectProperty ;
+  rdfs:range sicrp:ResolutionMetric .
+sicrp:hasPopulationScope a owl:ObjectProperty .
+sicrp:assessedBy a owl:ObjectProperty ; rdfs:range prov:Agent .
+sicrp:residualOfCondition a owl:ObjectProperty ;
+  rdfs:domain sicrp:ResidualInsolvency ;
+  rdfs:range sicrp:StructuralInsolvencyCondition .
+sicrp:hasUnresolvedScope a owl:ObjectProperty .
+sicrp:hasInitiatingObservation a owl:ObjectProperty ;
+  rdfs:domain sicrp:DistributionalEffect ;
+  rdfs:range sicrp:ResolutionObservation .
+sicrp:hasNonInitiatingObservation a owl:ObjectProperty ;
+  rdfs:domain sicrp:DistributionalEffect ;
+  rdfs:range sicrp:ResolutionObservation .
+sicrp:assesses a owl:ObjectProperty .
+sicrp:hasResolutionPlan a owl:ObjectProperty ;
+  rdfs:range sicrp:CollectiveResolutionPlan .
+sicrp:hasBeforeObservation a owl:ObjectProperty ;
+  rdfs:range sicrp:ResolutionObservation .
+sicrp:hasAfterObservation a owl:ObjectProperty ;
+  rdfs:range sicrp:ResolutionObservation .
+sicrp:hasDistributionalEffect a owl:ObjectProperty ;
+  rdfs:range sicrp:DistributionalEffect .
+sicrp:disclosesResidual a owl:ObjectProperty ;
+  rdfs:range sicrp:ResidualInsolvency .
+sicrp:hasValidatorAssessment a owl:ObjectProperty ;
+  rdfs:range sicrp:ValidatorAssessment .
+sicrp:governedBy a owl:ObjectProperty ;
+  rdfs:domain sicrp:CollectiveResolutionClaim ;
+  rdfs:range sicrp:GovernanceRecord .
+sicrp:proposer a owl:ObjectProperty ; rdfs:range prov:Agent .
+sicrp:validator a owl:ObjectProperty ; rdfs:range prov:Agent .
+
+# Explicit EMGN bridge
+
+sicrp:observedInstitutionalFailure a owl:ObjectProperty ;
+  rdfs:domain sicrp:EMGNTrace ;
+  rdfs:range emgn:DiscrepancyEvent .
+sicrp:retainedStructuralResidue a owl:ObjectProperty ;
+  rdfs:domain sicrp:EMGNTrace ;
+  rdfs:range emgn:ErrorResidue .
+sicrp:collectiveRemediation a owl:ObjectProperty ;
+  rdfs:domain sicrp:EMGNTrace ;
+  rdfs:range emgn:RemediationEvent .
+sicrp:beforeAllocationRegime a owl:ObjectProperty ;
+  rdfs:domain sicrp:EMGNTrace ;
+  rdfs:range emgn:TransitionRegime .
+sicrp:afterAllocationRegime a owl:ObjectProperty ;
+  rdfs:domain sicrp:EMGNTrace ;
+  rdfs:range emgn:TransitionRegime .
+sicrp:beforeMaterialReachability a owl:ObjectProperty ;
+  rdfs:domain sicrp:EMGNTrace ;
+  rdfs:range emgn:ReachabilitySnapshot .
+sicrp:afterMaterialReachability a owl:ObjectProperty ;
+  rdfs:domain sicrp:EMGNTrace ;
+  rdfs:range emgn:ReachabilitySnapshot .
+sicrp:noveltyWitness a owl:ObjectProperty ;
+  rdfs:domain sicrp:EMGNTrace ;
+  rdfs:range emgn:NovelFutureWitness .
+
+# Datatype properties
+
+sicrp:status a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:criterion a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:description a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:mechanismType a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:representationMethod a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:isAffected a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:resourceType a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:observedQuantity a owl:DatatypeProperty ; rdfs:range xsd:decimal .
+sicrp:requiredQuantity a owl:DatatypeProperty ; rdfs:range xsd:decimal .
+sicrp:shortfallQuantity a owl:DatatypeProperty ; rdfs:range xsd:decimal .
+sicrp:quantity a owl:DatatypeProperty ; rdfs:range xsd:decimal .
+sicrp:availableQuantity a owl:DatatypeProperty ; rdfs:range xsd:decimal .
+sicrp:unit a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:windowStart a owl:DatatypeProperty ; rdfs:range xsd:dateTime .
+sicrp:windowEnd a owl:DatatypeProperty ; rdfs:range xsd:dateTime .
+sicrp:thresholdValue a owl:DatatypeProperty ; rdfs:range xsd:decimal .
+sicrp:waiverPermitted a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:direction a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:eventType a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:occurredAt a owl:DatatypeProperty ; rdfs:range xsd:dateTime .
+sicrp:rightType a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:nonwaivable a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:interventionType a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:startAt a owl:DatatypeProperty ; rdfs:range xsd:dateTime .
+sicrp:endAt a owl:DatatypeProperty ; rdfs:range xsd:dateTime .
+sicrp:adoptedAt a owl:DatatypeProperty ; rdfs:range xsd:dateTime .
+sicrp:metricType a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:comparison a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:phase a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:populationScopeKind a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:observedValue a owl:DatatypeProperty ; rdfs:range xsd:decimal .
+sicrp:thresholdMet a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:residualType a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:disclosed a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:coverageCount a owl:DatatypeProperty ; rdfs:range xsd:nonNegativeInteger .
+sicrp:coverageUnit a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:generalizedBeyondInitiatingClaimant a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:nonRegressionPassed a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:assessmentScope a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:decision a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:assessedAt a owl:DatatypeProperty ; rdfs:range xsd:dateTime .
+sicrp:independentFromProposer a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:independentFromImplementers a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:individualImprovementOnly a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:mechanismAltered a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:affectedPopulationDefined a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:resourceOrRightRestored a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:distributionalEffectMeasured a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:residualInsolvencyDisclosed a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:populationGeneralizationDemonstrated a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:rightsExercisable a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:coverageComplete a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:independentValidationRecorded a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:governanceStatus a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:requiredIndependentValidatorCount a owl:DatatypeProperty ; rdfs:range xsd:positiveInteger .
+sicrp:ratificationClaimed a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+sicrp:moduleVersion a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:implementationStatus a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:alignmentStatus a owl:DatatypeProperty ; rdfs:range xsd:string .
+sicrp:contentHash a owl:DatatypeProperty ; rdfs:range xsd:string .

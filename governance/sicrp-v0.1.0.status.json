@@ -1,0 +1,50 @@
+{
+  "module_id": "urn:caeluviim:module:sicrp",
+  "module_version": "0.1.0",
+  "implementation_status": "implemented",
+  "governance_status": "proposed",
+  "proposer_id": "urn:caeluviim:agent:sicrp-proposer",
+  "independent_validators": [],
+  "required_independent_validator_count": 2,
+  "proposer_may_validate": false,
+  "ratification_claimed": false,
+  "recorded_at": "2026-07-29T18:00:00Z",
+  "artifact_manifest": [
+    {
+      "path": "docs/architecture/structural-insolvency-collective-resolution.md",
+      "sha256": "c7a902ec2a5b774439f39f674532e1d8dfe07ef8cc316e255c26fdbee04cc357"
+    },
+    {
+      "path": "schemas/sicrp-record.schema.json",
+      "sha256": "fba3d9753c845b6ae2d18d2104e931378154a230574057561916ccc59de9f7ed"
+    },
+    {
+      "path": "schemas/sicrp-module-status.schema.json",
+      "sha256": "6b0eb97f2af6f7b95d9c681aece6c76f6dddd226e19ac35990261361ca639965"
+    },
+    {
+      "path": "ontology/sicrp.ttl",
+      "sha256": "059d1a41f72b8ba60ac9dafd02d40a4479a2752d628d58f9cf64329442fcf3dc"
+    },
+    {
+      "path": "shapes/sicrp.shacl.ttl",
+      "sha256": "bd3f802264baeb8bf7abf2c0176eae2d158f679b7cf9ec41ede1612b1b44eb7b"
+    },
+    {
+      "path": "examples/sicrp-record.valid.json",
+      "sha256": "84988b7aea6f18cb7ce9565c0ace8ceffee534e5855efdf6828c29cd3fa30563"
+    },
+    {
+      "path": "examples/sicrp-record.valid.ttl",
+      "sha256": "2e7ffc70bfa02c08f4fdc825fabb821ff309442abcd830464fc34f99a81d5f78"
+    },
+    {
+      "path": "tests/test_sicrp.py",
+      "sha256": "0255be78465188e18e8bbacebea4444ccd256fdb921b40d7b6da952590f78fa6"
+    },
+    {
+      "path": ".github/workflows/validate-sicrp.yml",
+      "sha256": "084e274828223f29598dc7f671bf9a95126085afec73f002c9828d52f46dc6c0"
+    }
+  ]
+}
