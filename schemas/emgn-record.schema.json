@@ -1,0 +1,276 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schema/emgn-record.schema.json",
+  "title": "Error-Mediated Generative Non-Closure Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "module_version",
+    "universal_context",
+    "agents",
+    "interaction",
+    "discrepancies",
+    "residues",
+    "remediations",
+    "transition_change",
+    "reachability_change",
+    "novelty_claim",
+    "provenance",
+    "governance"
+  ],
+  "properties": {
+    "record_id": {"type": "string", "format": "uri"},
+    "module_version": {"const": "0.1.0"},
+    "universal_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system_id", "causally_bounded", "transition_semantics"],
+      "properties": {
+        "system_id": {"type": "string", "format": "uri"},
+        "causally_bounded": {"const": true},
+        "transition_semantics": {
+          "enum": ["not_asserted", "deterministic", "stochastic", "set_valued"]
+        }
+      }
+    },
+    "agents": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/agent"}
+    },
+    "interaction": {"$ref": "#/$defs/interaction"},
+    "discrepancies": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/discrepancy"}
+    },
+    "residues": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/residue"}
+    },
+    "remediations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/remediation"}
+    },
+    "transition_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["before_regime_ref", "after_regime_ref", "regime_changed", "modified_by_residue_refs"],
+      "properties": {
+        "before_regime_ref": {"type": "string", "format": "uri"},
+        "after_regime_ref": {"type": "string", "format": "uri"},
+        "regime_changed": {"type": "boolean"},
+        "modified_by_residue_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "format": "uri"}
+        }
+      }
+    },
+    "reachability_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["before_snapshot_ref", "after_snapshot_ref", "embedding_ref", "new_state_refs"],
+      "properties": {
+        "before_snapshot_ref": {"type": "string", "format": "uri"},
+        "after_snapshot_ref": {"type": "string", "format": "uri"},
+        "embedding_ref": {"type": "string", "format": "uri"},
+        "new_state_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "format": "uri"}
+        }
+      }
+    },
+    "novelty_claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_id", "status", "criterion", "witness_refs"],
+      "properties": {
+        "claim_id": {"type": "string", "format": "uri"},
+        "status": {"enum": ["proposed", "supported", "validated", "rejected"]},
+        "criterion": {"const": "later_reachable_state_not_in_prior_embedded_reachability"},
+        "witness_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "format": "uri"}
+        }
+      }
+    },
+    "provenance": {"$ref": "#/$defs/provenance"},
+    "governance": {"$ref": "#/$defs/governance"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "novelty_claim": {
+            "properties": {"status": {"enum": ["supported", "validated"]}},
+            "required": ["status"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "novelty_claim": {
+            "properties": {"witness_refs": {"minItems": 1}}
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "novelty_claim": {
+            "properties": {"status": {"const": "validated"}},
+            "required": ["status"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "transition_change": {
+            "properties": {"regime_changed": {"const": true}}
+          },
+          "reachability_change": {
+            "properties": {"new_state_refs": {"minItems": 1}}
+          },
+          "governance": {
+            "properties": {"validators": {"minItems": 2}}
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "governance": {
+            "properties": {"status": {"const": "ratified"}},
+            "required": ["status"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "governance": {
+            "properties": {"validators": {"minItems": 2}}
+          },
+          "novelty_claim": {
+            "properties": {"status": {"const": "validated"}}
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["agent_id", "state_ref", "model_ref", "finite_localization"],
+      "properties": {
+        "agent_id": {"type": "string", "format": "uri"},
+        "state_ref": {"type": "string", "format": "uri"},
+        "model_ref": {"type": "string", "format": "uri"},
+        "finite_localization": {"const": true}
+      }
+    },
+    "interaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["interaction_id", "participant_refs", "occurred_at", "relation_type"],
+      "properties": {
+        "interaction_id": {"type": "string", "format": "uri"},
+        "participant_refs": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {"type": "string", "format": "uri"}
+        },
+        "occurred_at": {"type": "string", "format": "date-time"},
+        "relation_type": {"type": "string", "minLength": 1}
+      }
+    },
+    "discrepancy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["discrepancy_id", "agent_ref", "predicted_ref", "observed_ref", "comparison_method", "magnitude"],
+      "properties": {
+        "discrepancy_id": {"type": "string", "format": "uri"},
+        "agent_ref": {"type": "string", "format": "uri"},
+        "predicted_ref": {"type": "string", "format": "uri"},
+        "observed_ref": {"type": "string", "format": "uri"},
+        "comparison_method": {"type": "string", "minLength": 1},
+        "magnitude": {"type": "number", "minimum": 0}
+      }
+    },
+    "residue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["residue_id", "source_discrepancy_ref", "carrier_ref", "retention_mode", "state_change_ref"],
+      "properties": {
+        "residue_id": {"type": "string", "format": "uri"},
+        "source_discrepancy_ref": {"type": "string", "format": "uri"},
+        "carrier_ref": {"type": "string", "format": "uri"},
+        "retention_mode": {
+          "enum": ["memory", "constraint", "institution", "artifact", "relation", "policy", "embodied_state", "other"]
+        },
+        "state_change_ref": {"type": "string", "format": "uri"}
+      }
+    },
+    "remediation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["remediation_id", "residue_refs", "mode", "output_ref"],
+      "properties": {
+        "remediation_id": {"type": "string", "format": "uri"},
+        "residue_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "format": "uri"}
+        },
+        "mode": {
+          "enum": ["erase", "preserve", "reinterpret", "redistribute", "amplify", "institutionalize", "repair", "reject"]
+        },
+        "output_ref": {"type": "string", "format": "uri"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["generated_by", "generated_at", "content_hash", "source_refs"],
+      "properties": {
+        "generated_by": {"type": "string", "format": "uri"},
+        "generated_at": {"type": "string", "format": "date-time"},
+        "content_hash": {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"},
+        "previous_hash": {"type": ["string", "null"], "pattern": "^[a-fA-F0-9]{64}$"},
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "format": "uri"}
+        }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["proposer_id", "validators", "status", "proposer_is_validator"],
+      "properties": {
+        "proposer_id": {"type": "string", "format": "uri"},
+        "validators": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "format": "uri"}
+        },
+        "status": {"enum": ["proposed", "under_validation", "ratified", "rejected"]},
+        "proposer_is_validator": {"const": false}
+      }
+    }
+  }
+}

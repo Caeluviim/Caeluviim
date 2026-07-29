@@ -1,0 +1,57 @@
+@prefix emgn: <https://caeluviim.org/ontology/emgn#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+emgn:UniversalSystemShape a sh:NodeShape ;
+  sh:targetClass emgn:UniversalSystem ;
+  sh:property [ sh:path emgn:causallyBounded ; sh:hasValue true ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path emgn:transitionSemantics ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("not_asserted" "deterministic" "stochastic" "set_valued") ] .
+
+emgn:AgenticNodeShape a sh:NodeShape ;
+  sh:targetClass emgn:AgenticNode ;
+  sh:property [ sh:path emgn:finiteLocalization ; sh:hasValue true ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+emgn:InteractionEventShape a sh:NodeShape ;
+  sh:targetClass emgn:InteractionEvent ;
+  sh:property [ sh:path emgn:hasParticipant ; sh:class emgn:AgenticNode ; sh:minCount 2 ] ;
+  sh:property [ sh:path emgn:hasDiscrepancy ; sh:class emgn:DiscrepancyEvent ; sh:minCount 1 ] .
+
+emgn:DiscrepancyEventShape a sh:NodeShape ;
+  sh:targetClass emgn:DiscrepancyEvent ;
+  sh:property [ sh:path emgn:experiencedBy ; sh:class emgn:AgenticNode ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path emgn:comparisonMethod ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path emgn:magnitude ; sh:datatype xsd:decimal ; sh:minInclusive 0 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path emgn:retainedAs ; sh:class emgn:ErrorResidue ; sh:minCount 1 ] .
+
+emgn:ErrorResidueShape a sh:NodeShape ;
+  sh:targetClass emgn:ErrorResidue ;
+  sh:property [ sh:path emgn:sourceDiscrepancy ; sh:class emgn:DiscrepancyEvent ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path emgn:retentionMode ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path emgn:transformedBy ; sh:class emgn:RemediationEvent ; sh:minCount 1 ] .
+
+emgn:RemediationEventShape a sh:NodeShape ;
+  sh:targetClass emgn:RemediationEvent ;
+  sh:property [ sh:path emgn:usesResidue ; sh:class emgn:ErrorResidue ; sh:minCount 1 ] ;
+  sh:property [ sh:path emgn:remediationMode ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+emgn:NovelFutureClaimShape a sh:NodeShape ;
+  sh:targetClass emgn:NovelFutureClaim ;
+  sh:property [ sh:path emgn:beforeRegime ; sh:class emgn:TransitionRegime ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path emgn:afterRegime ; sh:class emgn:TransitionRegime ; sh:minCount 1 ; sh:maxCount 1 ; sh:disjoint emgn:beforeRegime ] ;
+  sh:property [ sh:path emgn:beforeReachability ; sh:class emgn:ReachabilitySnapshot ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path emgn:afterReachability ; sh:class emgn:ReachabilitySnapshot ; sh:minCount 1 ; sh:maxCount 1 ; sh:disjoint emgn:beforeReachability ] ;
+  sh:property [ sh:path emgn:hasWitness ; sh:class emgn:NovelFutureWitness ; sh:minCount 1 ] ;
+  sh:property [ sh:path emgn:governedBy ; sh:class emgn:GovernanceDecision ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path emgn:contentHash ; sh:datatype xsd:string ; sh:pattern "^[a-fA-F0-9]{64}$" ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+emgn:NovelFutureWitnessShape a sh:NodeShape ;
+  sh:targetClass emgn:NovelFutureWitness ;
+  sh:property [ sh:path emgn:witnessesState ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path emgn:notInPriorEmbeddedReachability ; sh:hasValue true ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+emgn:GovernanceDecisionShape a sh:NodeShape ;
+  sh:targetClass emgn:GovernanceDecision ;
+  sh:property [ sh:path emgn:proposer ; sh:minCount 1 ; sh:maxCount 1 ; sh:disjoint emgn:validator ] ;
+  sh:property [ sh:path emgn:validator ; sh:minCount 2 ] ;
+  sh:property [ sh:path emgn:governanceStatus ; sh:hasValue "ratified" ; sh:minCount 1 ; sh:maxCount 1 ] .

@@ -1,0 +1,36 @@
+name: Validate EMGN module
+
+on:
+  push:
+    paths:
+      - "docs/architecture/error-mediated-generative-nonclosure.md"
+      - "schemas/emgn-record.schema.json"
+      - "ontology/emgn.ttl"
+      - "shapes/emgn.shacl.ttl"
+      - "examples/emgn-record.valid.*"
+      - "tests/test_emgn.py"
+      - "requirements-dev.txt"
+      - ".github/workflows/validate-emgn.yml"
+  pull_request:
+    paths:
+      - "docs/architecture/error-mediated-generative-nonclosure.md"
+      - "schemas/emgn-record.schema.json"
+      - "ontology/emgn.ttl"
+      - "shapes/emgn.shacl.ttl"
+      - "examples/emgn-record.valid.*"
+      - "tests/test_emgn.py"
+      - "requirements-dev.txt"
+      - ".github/workflows/validate-emgn.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python -m unittest discover -s tests -v
+      - run: pyshacl -s shapes/emgn.shacl.ttl -e ontology/emgn.ttl examples/emgn-record.valid.ttl
