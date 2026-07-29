@@ -1,0 +1,110 @@
+@prefix runtime: <https://caeluviim.org/ontology/sicrp/runtime#> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+runtime:ProvisionalAssessmentShape a sh:NodeShape ;
+  sh:targetClass runtime:ProvisionalAssessment ;
+  sh:property [
+    sh:path runtime:assessesRecord ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI
+  ] ;
+  sh:property [
+    sh:path runtime:evaluationSemantics ;
+    sh:hasValue "sicrp-runtime/0.1.0" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path runtime:inputDigest ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[a-f0-9]{64}$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path runtime:assessmentDigest ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[a-f0-9]{64}$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path runtime:asOf ;
+    sh:datatype xsd:dateTime ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path runtime:recordConforms ;
+    sh:datatype xsd:boolean ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path runtime:structuralInsolvencyVerdict ;
+    sh:in ("supported" "not_supported") ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path runtime:collectiveResolutionVerdict ;
+    sh:in ("requirements_satisfied" "not_established") ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path runtime:ratificationConferred ;
+    sh:hasValue false ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path runtime:assessmentPayload ;
+    sh:datatype rdf:JSON ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path runtime:hasObligationResult ;
+    sh:class runtime:ObligationResult ;
+    sh:minCount 1
+  ] .
+
+runtime:ObligationResultShape a sh:NodeShape ;
+  sh:targetClass runtime:ObligationResult ;
+  sh:property [
+    sh:path runtime:obligationIdentifier ;
+    sh:datatype xsd:string ;
+    sh:pattern "^O-[A-Z0-9-]+$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path runtime:dimension ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path runtime:resultStatus ;
+    sh:in ("pass" "fail" "unknown" "error") ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path runtime:resultCode ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[A-Z0-9_]+$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path runtime:resultMessage ;
+    sh:datatype xsd:string ;
+    sh:minLength 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .

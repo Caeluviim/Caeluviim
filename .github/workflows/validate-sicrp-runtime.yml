@@ -1,0 +1,61 @@
+name: Validate SICRP runtime
+
+on:
+  push:
+    paths:
+      - "docs/architecture/sicrp-operational-evaluation.md"
+      - "schemas/sicrp-*.schema.json"
+      - "ontology/sicrp*.ttl"
+      - "shapes/sicrp*.ttl"
+      - "examples/sicrp-record.valid.*"
+      - "examples/sicrp-assessment.provisional.json"
+      - "governance/sicrp-runtime-v0.1.0.status.json"
+      - "src/sicrp_runtime/**"
+      - "scripts/sicrp_runtime.py"
+      - "queries/sicrp-resolution-blockers.rq"
+      - "tests/test_sicrp*.py"
+      - "requirements-dev.txt"
+      - ".github/workflows/validate-sicrp-runtime.yml"
+  pull_request:
+    paths:
+      - "docs/architecture/sicrp-operational-evaluation.md"
+      - "schemas/sicrp-*.schema.json"
+      - "ontology/sicrp*.ttl"
+      - "shapes/sicrp*.ttl"
+      - "examples/sicrp-record.valid.*"
+      - "examples/sicrp-assessment.provisional.json"
+      - "governance/sicrp-runtime-v0.1.0.status.json"
+      - "src/sicrp_runtime/**"
+      - "scripts/sicrp_runtime.py"
+      - "queries/sicrp-resolution-blockers.rq"
+      - "tests/test_sicrp*.py"
+      - "requirements-dev.txt"
+      - ".github/workflows/validate-sicrp-runtime.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: src
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python -m unittest discover -s tests -v
+      - run: python scripts/sicrp_runtime.py --project-root . validate --record examples/sicrp-record.valid.json --rdf examples/sicrp-record.valid.ttl
+      - run: python scripts/sicrp_runtime.py --project-root . evaluate --record examples/sicrp-record.valid.json
+      - run: |
+          runtime_dir="$(mktemp -d)"
+          python scripts/sicrp_runtime.py --project-root . ingest \
+            --record examples/sicrp-record.valid.json \
+            --rdf examples/sicrp-record.valid.ttl \
+            --store "$runtime_dir/sicrp.trig" \
+            --graph urn:caeluviim:graph:sicrp:ci
+          python scripts/sicrp_runtime.py --project-root . inspect \
+            --store "$runtime_dir/sicrp.trig"
+          python scripts/sicrp_runtime.py --project-root . query \
+            --store "$runtime_dir/sicrp.trig" \
+            --sparql-file queries/sicrp-resolution-blockers.rq

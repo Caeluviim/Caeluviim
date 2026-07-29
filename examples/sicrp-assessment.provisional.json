@@ -1,0 +1,317 @@
+{
+  "$schema": "https://caeluviim.org/schema/sicrp-assessment.schema.json",
+  "as_of": "2026-07-29T13:00:00Z",
+  "assessment_digest": "92f19625deef0501f62b87c19fbe770bf040e099a0e283f2952aba96f553de6f",
+  "assessment_id": "urn:caeluviim:assessment:sicrp-runtime:92f19625deef0501f62b87c19fbe770bf040e099a0e283f2952aba96f553de6f",
+  "collective_resolution": {
+    "blocking_obligation_codes": [
+      "CONDITION_UNVALIDATED",
+      "COVERAGE_INCOMPLETE",
+      "DECLARED_CRITERIA_INCOMPLETE",
+      "INTERVENTION_UNVERIFIED",
+      "RESIDUAL_INSOLVENCY_REMAINS",
+      "VALIDATOR_QUORUM_MISSING"
+    ],
+    "claim_ref": "urn:caeluviim:claim:collective-resolution-001",
+    "failed_criteria": [
+      "coverage_complete"
+    ],
+    "individual_improvement_sufficient": false,
+    "passed_criteria": [
+      "affected_population_defined",
+      "distributional_effect_measured",
+      "independent_validation_recorded",
+      "mechanism_altered",
+      "non_regression_passed",
+      "population_generalization_demonstrated",
+      "residual_insolvency_disclosed",
+      "resource_or_right_restored",
+      "rights_exercisable"
+    ],
+    "ratification_conferred": false,
+    "verdict": "not_established"
+  },
+  "deterministic": true,
+  "emgn_alignment": {
+    "after_reachability_ref": "urn:caeluviim:emgn:reachability:material-after",
+    "after_transition_regime_ref": "urn:caeluviim:emgn:regime:allocation-after",
+    "before_reachability_ref": "urn:caeluviim:emgn:reachability:material-before",
+    "before_transition_regime_ref": "urn:caeluviim:emgn:regime:allocation-before",
+    "discrepancy_refs": [
+      "urn:caeluviim:emgn:discrepancy:institutional-failure-001"
+    ],
+    "novelty_validated": false,
+    "novelty_witness_refs": [],
+    "remediation_refs": [
+      "urn:caeluviim:intervention:allocation-rule-redesign-001"
+    ],
+    "retained_residue_refs": [
+      "urn:caeluviim:emgn:residue:structural-error-001"
+    ],
+    "status": "supported"
+  },
+  "evaluation_semantics": "sicrp-runtime/0.1.0",
+  "governance": {
+    "assessment_status": "provisional",
+    "input_governance_status": "under_validation",
+    "input_record_status": "under_validation",
+    "proposer_ref": "urn:caeluviim:agent:sicrp-proposer",
+    "ratification_conferred": false,
+    "required_independent_validator_count": 2,
+    "self_ratification_permitted": false,
+    "validator_refs": [
+      "urn:caeluviim:agent:validator-1"
+    ]
+  },
+  "input_digest": "5b877ee8cf4de328f79f19d5a1f7cc402ed261014eb9be291b503408da68cc51",
+  "obligations": [
+    {
+      "blocking_for": [
+        "record_conformance"
+      ],
+      "code": "RECORD_SCHEMA_CONFORMS",
+      "dimension": "syntax",
+      "evidence_refs": [],
+      "message": "The record conforms to the SICRP Draft 2020-12 schema.",
+      "obligation_id": "O-JSON-SCHEMA",
+      "status": "pass",
+      "subject_refs": [
+        "urn:caeluviim:record:sicrp:example-001"
+      ]
+    },
+    {
+      "blocking_for": [
+        "record_conformance"
+      ],
+      "code": "REFERENCE_INTEGRITY_PASSES",
+      "dimension": "reference_integrity",
+      "evidence_refs": [],
+      "message": "All SICRP internal references resolve to uniquely identified records.",
+      "obligation_id": "O-REFERENCE-INTEGRITY",
+      "status": "pass",
+      "subject_refs": [
+        "urn:caeluviim:record:sicrp:example-001"
+      ]
+    },
+    {
+      "blocking_for": [
+        "collective_resolution",
+        "record_conformance"
+      ],
+      "code": "DEFICIT_ARITHMETIC_PASSES",
+      "dimension": "arithmetic",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:constituency-measurement-before"
+      ],
+      "message": "Every shortfall equals max(0, required - observed) with matching obligation units.",
+      "obligation_id": "O-DEFICIT-ARITHMETIC",
+      "status": "pass",
+      "subject_refs": [
+        "urn:caeluviim:deficit:service-hours-001"
+      ]
+    },
+    {
+      "blocking_for": [
+        "record_conformance"
+      ],
+      "code": "TEMPORAL_ORDER_PASSES",
+      "dimension": "temporal_integrity",
+      "evidence_refs": [],
+      "message": "Every declared interval has a start strictly before its end.",
+      "obligation_id": "O-TEMPORAL-ORDER",
+      "status": "pass",
+      "subject_refs": [
+        "urn:caeluviim:record:sicrp:example-001"
+      ]
+    },
+    {
+      "blocking_for": [
+        "collective_resolution",
+        "record_conformance"
+      ],
+      "code": "VALIDATOR_INDEPENDENCE_PASSES",
+      "dimension": "validator_independence",
+      "evidence_refs": [],
+      "message": "Recorded assessors and validators are distinct from the proposer and intervention implementers.",
+      "obligation_id": "O-VALIDATOR-INDEPENDENCE",
+      "status": "pass",
+      "subject_refs": [
+        "urn:caeluviim:agent:validator-1"
+      ]
+    },
+    {
+      "blocking_for": [
+        "structural_insolvency"
+      ],
+      "code": "STRUCTURAL_INSOLVENCY_SUPPORTED",
+      "dimension": "structural_insolvency",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:allocation-ledger-before",
+        "urn:caeluviim:evidence:capacity-ledger-001",
+        "urn:caeluviim:evidence:constituency-measurement-before",
+        "urn:caeluviim:evidence:priority-rule-text"
+      ],
+      "message": "Positive, obligation-scoped deficits are linked through producing mechanisms, resource flows, exclusions, constituencies, and capacity evidence.",
+      "obligation_id": "O-STRUCTURAL-INSOLVENCY",
+      "status": "pass",
+      "subject_refs": [
+        "urn:caeluviim:condition:service-access-insolvency-001"
+      ]
+    },
+    {
+      "blocking_for": [
+        "collective_resolution"
+      ],
+      "code": "COVERAGE_INCOMPLETE",
+      "dimension": "coverage",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:coverage-observation-after",
+        "urn:caeluviim:evidence:coverage-observation-before",
+        "urn:caeluviim:evidence:distribution-analysis-001",
+        "urn:caeluviim:evidence:initiating-observation-after",
+        "urn:caeluviim:evidence:initiating-observation-before",
+        "urn:caeluviim:evidence:noninitiating-observation-after",
+        "urn:caeluviim:evidence:noninitiating-observation-before",
+        "urn:caeluviim:evidence:priority-rule-text",
+        "urn:caeluviim:evidence:priority-rule-v2"
+      ],
+      "message": "Collective coverage is incomplete even though some after-observations may show improvement.",
+      "obligation_id": "O-COLLECTIVE-COVERAGE",
+      "status": "fail",
+      "subject_refs": [
+        "urn:caeluviim:effect:service-distribution-001",
+        "urn:caeluviim:observation:coverage-after"
+      ]
+    },
+    {
+      "blocking_for": [
+        "collective_resolution",
+        "record_conformance"
+      ],
+      "code": "RESIDUAL_DISCLOSURE_PASSES",
+      "dimension": "residual_insolvency",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:coverage-observation-after"
+      ],
+      "message": "Every referenced residual-insolvency record is explicitly disclosed.",
+      "obligation_id": "O-RESIDUAL-DISCLOSURE",
+      "status": "pass",
+      "subject_refs": [
+        "urn:caeluviim:residual:uncovered-households-001"
+      ]
+    },
+    {
+      "blocking_for": [
+        "collective_resolution"
+      ],
+      "code": "RESIDUAL_INSOLVENCY_REMAINS",
+      "dimension": "residual_insolvency",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:coverage-observation-after"
+      ],
+      "message": "Disclosed residual insolvency remains active: urn:caeluviim:residual:uncovered-households-001",
+      "obligation_id": "O-RESIDUAL-RESOLUTION",
+      "status": "fail",
+      "subject_refs": [
+        "urn:caeluviim:residual:uncovered-households-001"
+      ]
+    },
+    {
+      "blocking_for": [
+        "collective_resolution"
+      ],
+      "code": "VALIDATOR_QUORUM_MISSING",
+      "dimension": "validator_independence",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:validator-assessment-001"
+      ],
+      "message": "1 supporting independent validator(s) are recorded; 2 are required.",
+      "obligation_id": "O-VALIDATOR-QUORUM",
+      "status": "fail",
+      "subject_refs": [
+        "urn:caeluviim:agent:validator-1"
+      ]
+    },
+    {
+      "blocking_for": [
+        "collective_resolution"
+      ],
+      "code": "INTERVENTION_UNVERIFIED",
+      "dimension": "intervention_verification",
+      "evidence_refs": [
+        "urn:caeluviim:evidence:priority-rule-v2",
+        "urn:caeluviim:evidence:rule-redesign-record-001"
+      ],
+      "message": "Completed activity is not outcome verification: urn:caeluviim:intervention:allocation-rule-redesign-001",
+      "obligation_id": "O-INTERVENTION-VERIFICATION",
+      "status": "fail",
+      "subject_refs": [
+        "urn:caeluviim:intervention:allocation-rule-redesign-001"
+      ]
+    },
+    {
+      "blocking_for": [
+        "collective_resolution"
+      ],
+      "code": "CONDITION_UNVALIDATED",
+      "dimension": "structural_insolvency",
+      "evidence_refs": [],
+      "message": "Claim-scope structural-insolvency conditions remain below validated status.",
+      "obligation_id": "O-CONDITION-VALIDATION",
+      "status": "fail",
+      "subject_refs": [
+        "urn:caeluviim:condition:service-access-insolvency-001"
+      ]
+    },
+    {
+      "blocking_for": [
+        "collective_resolution"
+      ],
+      "code": "DECLARED_CRITERIA_INCOMPLETE",
+      "dimension": "collective_resolution",
+      "evidence_refs": [],
+      "message": "Unsatisfied declared criteria: coverage_complete",
+      "obligation_id": "O-DECLARED-RESOLUTION-CRITERIA",
+      "status": "fail",
+      "subject_refs": [
+        "urn:caeluviim:claim:collective-resolution-001"
+      ]
+    },
+    {
+      "blocking_for": [
+        "record_conformance"
+      ],
+      "code": "EMGN_BRIDGE_PRESERVED",
+      "dimension": "emgn_alignment",
+      "evidence_refs": [],
+      "message": "The record preserves discrepancy, retained residue, remediation, regime, and reachability references without inferring novelty.",
+      "obligation_id": "O-EMGN-ALIGNMENT",
+      "status": "pass",
+      "subject_refs": [
+        "urn:caeluviim:emgn:discrepancy:institutional-failure-001",
+        "urn:caeluviim:emgn:reachability:material-after",
+        "urn:caeluviim:emgn:reachability:material-before",
+        "urn:caeluviim:emgn:regime:allocation-after",
+        "urn:caeluviim:emgn:regime:allocation-before",
+        "urn:caeluviim:emgn:residue:structural-error-001",
+        "urn:caeluviim:intervention:allocation-rule-redesign-001"
+      ]
+    }
+  ],
+  "record_conforms": true,
+  "record_ref": "urn:caeluviim:record:sicrp:example-001",
+  "structural_insolvency": {
+    "condition_refs": [
+      "urn:caeluviim:condition:service-access-insolvency-001"
+    ],
+    "verdict": "supported"
+  },
+  "summary": {
+    "collective_resolution_blocker_count": 6,
+    "error": 0,
+    "fail": 6,
+    "pass": 8,
+    "record_blocker_count": 0,
+    "unknown": 0
+  }
+}

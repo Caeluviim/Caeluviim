@@ -1,0 +1,12 @@
+PREFIX runtime: <https://caeluviim.org/ontology/sicrp/runtime#>
+
+SELECT ?assessment ?code ?blockingFor
+WHERE {
+  ?assessment a runtime:ProvisionalAssessment ;
+    runtime:hasObligationResult ?result .
+  ?result runtime:resultStatus "fail" ;
+    runtime:resultCode ?code ;
+    runtime:blockingFor ?blockingFor .
+  FILTER (?blockingFor = "collective_resolution")
+}
+ORDER BY ?code

@@ -1,0 +1,41 @@
+@prefix runtime: <https://caeluviim.org/ontology/sicrp/runtime#> .
+@prefix sicrp:   <https://caeluviim.org/ontology/sicrp#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+
+<https://caeluviim.org/ontology/sicrp/runtime> a owl:Ontology ;
+  owl:versionInfo "0.1.0" ;
+  owl:imports <https://caeluviim.org/ontology/sicrp> ;
+  rdfs:label "SICRP deterministic operational evaluation vocabulary" ;
+  rdfs:comment "Vocabulary for provisional machine assessments. It does not confer validation, novelty, or ratification." .
+
+runtime:ProvisionalAssessment a owl:Class ; rdfs:subClassOf prov:Entity .
+runtime:ObligationResult a owl:Class ; rdfs:subClassOf prov:Entity .
+runtime:IngestedRecordGraph a owl:Class ; rdfs:subClassOf prov:Entity .
+
+runtime:assessesRecord a owl:ObjectProperty .
+runtime:recordRef a owl:ObjectProperty .
+runtime:hasAssessmentGraph a owl:ObjectProperty .
+runtime:hasObligationResult a owl:ObjectProperty ;
+  rdfs:range runtime:ObligationResult .
+runtime:subjectRef a owl:ObjectProperty .
+runtime:evidenceRef a owl:ObjectProperty ; rdfs:range prov:Entity .
+
+runtime:evaluationSemantics a owl:DatatypeProperty ; rdfs:range xsd:string .
+runtime:inputDigest a owl:DatatypeProperty ; rdfs:range xsd:string .
+runtime:assessmentDigest a owl:DatatypeProperty ; rdfs:range xsd:string .
+runtime:asOf a owl:DatatypeProperty ; rdfs:range xsd:dateTime .
+runtime:recordConforms a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+runtime:structuralInsolvencyVerdict a owl:DatatypeProperty ; rdfs:range xsd:string .
+runtime:collectiveResolutionVerdict a owl:DatatypeProperty ; rdfs:range xsd:string .
+runtime:ratificationConferred a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+runtime:assessmentPayload a owl:DatatypeProperty ; rdfs:range rdf:JSON .
+runtime:obligationIdentifier a owl:DatatypeProperty ; rdfs:range xsd:string .
+runtime:dimension a owl:DatatypeProperty ; rdfs:range xsd:string .
+runtime:resultStatus a owl:DatatypeProperty ; rdfs:range xsd:string .
+runtime:resultCode a owl:DatatypeProperty ; rdfs:range xsd:string .
+runtime:resultMessage a owl:DatatypeProperty ; rdfs:range xsd:string .
+runtime:blockingFor a owl:DatatypeProperty ; rdfs:range xsd:string .
