@@ -1,0 +1,59 @@
+{
+  "protocol_version": "dap/0.2",
+  "ruleset_id": "ruleset:z4CX5QC3sNngsi6U7wR9443ARuHMXppSraZirPVxD8B2y",
+  "operation_id": "op:zFt9sE6a88n9QYMgqMWAc3NEekkpMMLTSPHqCg2HWwfu5",
+  "district_id": "district:alpha",
+  "author": {
+    "identity_id": "identity:alice",
+    "signing_key_id": "key:alice-device-2",
+    "actor_class": "human_direct"
+  },
+  "operation_type": "PROPOSAL_SUBMIT",
+  "target": {
+    "resource_type": "proposal",
+    "resource_id": "proposal:q3-roadmap",
+    "scope_path": [
+      "district:alpha",
+      "repository:planning",
+      "proposal:q3-roadmap"
+    ]
+  },
+  "payload": {
+    "proposal_id": "proposal:q3-roadmap",
+    "proposal_version": 3,
+    "decision_rule_id": "rule:simple-majority",
+    "review_period_seconds": 86400
+  },
+  "evidence_ids": ["evidence:budget-analysis"],
+  "parent_ids": [
+    "op:z1111111111111111111111111111111111111111111",
+    "op:z2222222222222222222222222222222222222222222"
+  ],
+  "dependencies": ["op:z3333333333333333333333333333333333333333333"],
+  "causal": {
+    "author_sequence": 42,
+    "previous_author_operation": "op:z4444444444444444444444444444444444444444444",
+    "observed_checkpoint": "checkpoint:119",
+    "logical_time": {
+      "lamport": 915,
+      "tie_breaker": "identity:alice"
+    }
+  },
+  "authorization": {
+    "authority_ids": ["authority:proposal-submit"],
+    "delegation_chain": [
+      "authority:genesis-governance",
+      "authority:planning-members"
+    ],
+    "required_capability": "proposal.submit"
+  },
+  "created_at": "2026-07-19T18:00:00Z",
+  "valid_from": null,
+  "expires_at": null,
+  "nonce": "OERbbXEq3kSyZJa2JDcERA",
+  "content_hash": "sha256:dd1e43546bd127a83d603834ca326a2c8995fcf9be45a1935e9afa783026e324",
+  "signature": {
+    "algorithm": "Ed25519",
+    "value": "FAzCCFpZt0Ji7dY2aF0YWmKaC7JoDOEpA7pZW31w_se156L9EdXakAqQdJLA-vMIbXu7SdJhJXSJieWnzqV9DA"
+  }
+}

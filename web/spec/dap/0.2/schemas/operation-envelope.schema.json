@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/spec/dap/0.2/schemas/operation-envelope.schema.json",
+  "title": "DAP v0.2 Operation Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "ruleset_id",
+    "operation_id",
+    "district_id",
+    "author",
+    "operation_type",
+    "target",
+    "payload",
+    "evidence_ids",
+    "parent_ids",
+    "dependencies",
+    "causal",
+    "authorization",
+    "created_at",
+    "valid_from",
+    "expires_at",
+    "nonce",
+    "content_hash",
+    "signature"
+  ],
+  "properties": {
+    "protocol_version": { "const": "dap/0.2" },
+    "ruleset_id": { "$ref": "#/$defs/rulesetId" },
+    "operation_id": { "$ref": "#/$defs/operationId" },
+    "district_id": { "$ref": "#/$defs/districtId" },
+    "author": { "$ref": "#/$defs/author" },
+    "operation_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^(?:[A-Z][A-Z0-9_]*|district:[A-Za-z0-9._:-]+/[A-Za-z][A-Za-z0-9._-]*)$"
+    },
+    "target": { "$ref": "#/$defs/target" },
+    "payload": {
+      "type": "object",
+      "maxProperties": 256
+    },
+    "evidence_ids": { "$ref": "#/$defs/idSet" },
+    "parent_ids": { "$ref": "#/$defs/operationIdSet" },
+    "dependencies": { "$ref": "#/$defs/operationIdSet" },
+    "causal": { "$ref": "#/$defs/causal" },
+    "authorization": { "$ref": "#/$defs/authorization" },
+    "created_at": { "$ref": "#/$defs/timestamp" },
+    "valid_from": {
+      "oneOf": [{ "$ref": "#/$defs/timestamp" }, { "type": "null" }]
+    },
+    "expires_at": {
+      "oneOf": [{ "$ref": "#/$defs/timestamp" }, { "type": "null" }]
+    },
+    "nonce": {
+      "type": "string",
+      "minLength": 22,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "content_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "signature": { "$ref": "#/$defs/signature" }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 512,
+      "pattern": "^[A-Za-z][A-Za-z0-9._-]*:[^\\s]+$"
+    },
+    "districtId": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 256,
+      "pattern": "^district:[A-Za-z0-9._:-]+$"
+    },
+    "rulesetId": {
+      "type": "string",
+      "pattern": "^ruleset:z[1-9A-HJ-NP-Za-km-z]{43,50}$"
+    },
+    "operationId": {
+      "type": "string",
+      "pattern": "^op:z[1-9A-HJ-NP-Za-km-z]{43,50}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "actorClass": {
+      "enum": [
+        "human_direct",
+        "human_assisted",
+        "autonomous_agent",
+        "institutional_agent",
+        "service_actor",
+        "witness",
+        "archive"
+      ]
+    },
+    "author": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity_id", "signing_key_id", "actor_class"],
+      "properties": {
+        "identity_id": { "$ref": "#/$defs/identifier" },
+        "signing_key_id": { "$ref": "#/$defs/identifier" },
+        "actor_class": { "$ref": "#/$defs/actorClass" }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resource_type", "resource_id", "scope_path"],
+      "properties": {
+        "resource_type": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z][A-Za-z0-9._-]*$"
+        },
+        "resource_id": { "$ref": "#/$defs/identifier" },
+        "scope_path": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        }
+      }
+    },
+    "idSet": {
+      "type": "array",
+      "maxItems": 256,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/identifier" }
+    },
+    "operationIdSet": {
+      "type": "array",
+      "maxItems": 256,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/operationId" }
+    },
+    "causal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "author_sequence",
+        "previous_author_operation",
+        "observed_checkpoint",
+        "logical_time"
+      ],
+      "properties": {
+        "author_sequence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "previous_author_operation": {
+          "oneOf": [{ "$ref": "#/$defs/operationId" }, { "type": "null" }]
+        },
+        "observed_checkpoint": {
+          "oneOf": [{ "$ref": "#/$defs/identifier" }, { "type": "null" }]
+        },
+        "logical_time": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["lamport", "tie_breaker"],
+          "properties": {
+            "lamport": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "tie_breaker": { "$ref": "#/$defs/identifier" }
+          }
+        }
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority_ids", "delegation_chain", "required_capability"],
+      "properties": {
+        "authority_ids": { "$ref": "#/$defs/idSet" },
+        "delegation_chain": {
+          "type": "array",
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/identifier" }
+        },
+        "required_capability": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "value"],
+      "properties": {
+        "algorithm": { "const": "Ed25519" },
+        "value": {
+          "type": "string",
+          "minLength": 86,
+          "maxLength": 86,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

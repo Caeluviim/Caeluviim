@@ -1,0 +1,43 @@
+{
+  "vocabulary_id": "urn:caeluviim:vocabulary:harm-operations:0.1",
+  "version": "0.1",
+  "status": "provisional_seed",
+  "coverage_status": "incomplete",
+  "assignment_rule": "Entries are controlled vocabulary candidates. Assignment to conduct requires exact behavioral grounding, evidence, alternatives, threshold review, and contestability.",
+  "entries": [
+    {"id": "HARM.EPISTEMIC.DECEPTION", "label": "Deception", "parent": "HARM.EPISTEMIC", "pattern_required": false},
+    {"id": "HARM.EPISTEMIC.MATERIAL_OMISSION", "label": "Material omission", "parent": "HARM.EPISTEMIC", "pattern_required": false},
+    {"id": "HARM.EPISTEMIC.GASLIGHTING", "label": "Gaslighting", "parent": "HARM.EPISTEMIC", "pattern_required": true},
+    {"id": "HARM.COGNITIVE.INFORMATION_FLOODING", "label": "Information flooding", "parent": "HARM.COGNITIVE", "pattern_required": false},
+    {"id": "HARM.COERCIVE.THREAT", "label": "Threat", "parent": "HARM.COERCIVE", "pattern_required": false},
+    {"id": "HARM.COERCIVE.CONTROL", "label": "Coercive control", "parent": "HARM.COERCIVE", "pattern_required": true},
+    {"id": "HARM.EXCLUSIONARY.OSTRACISM", "label": "Ostracism", "parent": "HARM.EXCLUSIONARY", "pattern_required": true},
+    {"id": "HARM.STATUS.DEHUMANIZATION", "label": "Dehumanization", "parent": "HARM.STATUS", "pattern_required": false},
+    {"id": "HARM.STATUS.HUMILIATION", "label": "Humiliation", "parent": "HARM.STATUS", "pattern_required": false},
+    {"id": "HARM.DEFENSIVE.DARVO", "label": "DARVO sequence", "parent": "HARM.DEFENSIVE", "pattern_required": true},
+    {"id": "HARM.CONVERSATIONAL.TOPIC_CONTROL", "label": "Topic control", "parent": "HARM.CONVERSATIONAL", "pattern_required": false},
+    {"id": "HARM.CONVERSATIONAL.ENTRAPMENT", "label": "Conversational entrapment", "parent": "HARM.CONVERSATIONAL", "pattern_required": false},
+    {"id": "HARM.PROCEDURAL.MOVING_GOALPOSTS", "label": "Moving the goalposts", "parent": "HARM.PROCEDURAL", "pattern_required": true},
+    {"id": "HARM.PROCEDURAL.WEAPONIZED_PROCESS", "label": "Weaponized process", "parent": "HARM.PROCEDURAL", "pattern_required": false},
+    {"id": "HARM.COLLECTIVE.HARASSMENT", "label": "Harassment", "parent": "HARM.COLLECTIVE", "pattern_required": true},
+    {"id": "HARM.MATERIAL.EXPLOITATION", "label": "Exploitation", "parent": "HARM.MATERIAL", "pattern_required": false},
+    {"id": "HARM.LEGITIMATING.WEAPONIZED_SAFETY", "label": "Weaponized safety", "parent": "HARM.LEGITIMATING", "pattern_required": false},
+    {"id": "HARM.RELATIONAL.INTERMITTENT_REINFORCEMENT", "label": "Intermittent reinforcement", "parent": "HARM.RELATIONAL", "pattern_required": true},
+    {"id": "HARM.TEMPORAL.GROOMING", "label": "Grooming process", "parent": "HARM.TEMPORAL", "pattern_required": true}
+  ],
+  "required_fields_for_canonical_revision": [
+    "definition",
+    "aliases",
+    "mechanism_type",
+    "required_features",
+    "supporting_features",
+    "exclusion_criteria",
+    "intent_requirement",
+    "impact_requirement",
+    "evidence_level",
+    "primary_sources",
+    "annotation_guidance",
+    "provenance_status"
+  ]
+}
+
