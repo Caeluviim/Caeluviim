@@ -1,0 +1,157 @@
+@prefix intake: <https://caeluviim.org/ontology/evidence-intake#> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+intake:EvidenceIntakeAssessmentShape a sh:NodeShape ;
+  sh:targetClass intake:EvidenceIntakeAssessment ;
+  sh:property [
+    sh:path intake:assessesManifest ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:manifestDigest ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[a-f0-9]{64}$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:assessmentDigest ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[a-f0-9]{64}$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:assessmentPayload ;
+    sh:datatype rdf:JSON ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+intake:FailureFactShape a sh:NodeShape ;
+  sh:targetClass intake:FailureFact ;
+  sh:property [
+    sh:path intake:failureCode ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[A-Z0-9_]+$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:failureClaim ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+intake:EvaluatedClaimShape a sh:NodeShape ;
+  sh:targetSubjectsOf intake:evaluatedClaimState ;
+  sh:property [
+    sh:path intake:recordedClaimState ;
+    sh:in (
+      "captured"
+      "supported"
+      "partially_supported"
+      "contradicted"
+      "unverifiable"
+      "quarantined"
+      "released"
+    ) ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:supportState ;
+    sh:in (
+      "supported"
+      "partially_supported"
+      "contradicted"
+      "unverifiable"
+    ) ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:evaluatedClaimState ;
+    sh:in ("released" "quarantined") ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:releaseAllowed ;
+    sh:datatype xsd:boolean ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:sparql [
+    sh:message "Only a released evaluated claim may have releaseAllowed true." ;
+    sh:select """
+      PREFIX intake: <https://caeluviim.org/ontology/evidence-intake#>
+      SELECT $this
+      WHERE {
+        $this intake:releaseAllowed true ;
+              intake:evaluatedClaimState ?state .
+        FILTER (?state != "released")
+      }
+    """
+  ] .
+
+intake:ProjectedEligibleAssertionShape a sh:NodeShape ;
+  sh:targetClass intake:EligibleSICRPAssertion ;
+  sh:property [
+    sh:path intake:eligibleClaim ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:eligibleFromRequest ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:targetField ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[a-z][a-z0-9_]*$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:assertionText ;
+    sh:datatype xsd:string ;
+    sh:minLength 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+intake:IngestedGraphSetShape a sh:NodeShape ;
+  sh:targetClass intake:IngestedGraphSet ;
+  sh:property [
+    sh:path intake:intakeGraph ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:quarantineGraph ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:assertedGraph ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:graphsDisjoint ;
+    sh:hasValue true ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .

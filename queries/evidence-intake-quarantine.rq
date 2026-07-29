@@ -1,0 +1,16 @@
+PREFIX intake: <https://caeluviim.org/ontology/evidence-intake#>
+
+SELECT DISTINCT ?claim ?supportState ?code ?related
+WHERE {
+  GRAPH ?quarantineGraph {
+    ?claim intake:evaluatedClaimState "quarantined" ;
+           intake:supportState ?supportState .
+  }
+  GRAPH ?assessmentGraph {
+    ?failure a intake:FailureFact ;
+             intake:failureClaim ?claim ;
+             intake:failureCode ?code .
+    OPTIONAL { ?failure intake:relatedRef ?related }
+  }
+}
+ORDER BY ?claim ?code ?related

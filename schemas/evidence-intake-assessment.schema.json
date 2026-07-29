@@ -1,0 +1,315 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schema/evidence-intake-assessment.schema.json",
+  "title": "Deterministic Evidence Intake Assessment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pipeline_version",
+    "assessment_id",
+    "assessment_digest",
+    "manifest_ref",
+    "manifest_digest",
+    "evaluation_as_of",
+    "manifest_conforms",
+    "reference_integrity",
+    "pipeline_result",
+    "claim_results",
+    "failure_facts",
+    "released_claim_refs",
+    "quarantined_claim_refs",
+    "eligible_sicrp_assertions",
+    "graph_separation",
+    "governance"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://caeluviim.org/schema/evidence-intake-assessment.schema.json"
+    },
+    "pipeline_version": {
+      "const": "0.1.0"
+    },
+    "assessment_id": {
+      "type": "string",
+      "pattern": "^urn:caeluviim:assessment:evidence-intake:[a-f0-9]{64}$"
+    },
+    "assessment_digest": {
+      "$ref": "#/$defs/sha256"
+    },
+    "manifest_ref": {
+      "$ref": "#/$defs/uri"
+    },
+    "manifest_digest": {
+      "$ref": "#/$defs/sha256"
+    },
+    "evaluation_as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "manifest_conforms": {
+      "type": "boolean"
+    },
+    "reference_integrity": {
+      "type": "boolean"
+    },
+    "pipeline_result": {
+      "enum": [
+        "all_released",
+        "released_with_quarantine",
+        "all_quarantined"
+      ]
+    },
+    "claim_results": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/claimResult"
+      }
+    },
+    "failure_facts": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/failureFact"
+      }
+    },
+    "released_claim_refs": {
+      "$ref": "#/$defs/uriArray"
+    },
+    "quarantined_claim_refs": {
+      "$ref": "#/$defs/uriArray"
+    },
+    "eligible_sicrp_assertions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/eligibleAssertion"
+      }
+    },
+    "graph_separation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "asserted_claim_refs",
+        "quarantined_claim_refs",
+        "claim_sets_disjoint",
+        "quarantined_claims_excluded_from_release_payload"
+      ],
+      "properties": {
+        "asserted_claim_refs": {
+          "$ref": "#/$defs/uriArray"
+        },
+        "quarantined_claim_refs": {
+          "$ref": "#/$defs/uriArray"
+        },
+        "claim_sets_disjoint": {
+          "const": true
+        },
+        "quarantined_claims_excluded_from_release_payload": {
+          "const": true
+        }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluation_semantics",
+        "release_authority_evaluated",
+        "independent_validation_conferred",
+        "sicrp_validation_conferred",
+        "ratification_conferred"
+      ],
+      "properties": {
+        "evaluation_semantics": {
+          "const": "evidence-intake/0.1.0"
+        },
+        "release_authority_evaluated": {
+          "const": true
+        },
+        "independent_validation_conferred": {
+          "const": false
+        },
+        "sicrp_validation_conferred": {
+          "const": false
+        },
+        "ratification_conferred": {
+          "const": false
+        }
+      }
+    }
+  },
+  "$defs": {
+    "uri": {
+      "type": "string",
+      "format": "uri",
+      "minLength": 1
+    },
+    "uriArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/uri"
+      }
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "claimResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_ref",
+        "recorded_state",
+        "support_state",
+        "evaluated_state",
+        "material_segment_refs",
+        "covered_segment_refs",
+        "uncovered_segment_refs",
+        "support_relation_refs",
+        "contradiction_relation_refs",
+        "release_decision_ref",
+        "release_allowed",
+        "failure_codes"
+      ],
+      "properties": {
+        "claim_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "recorded_state": {
+          "enum": [
+            "captured",
+            "supported",
+            "partially_supported",
+            "contradicted",
+            "unverifiable",
+            "quarantined",
+            "released"
+          ]
+        },
+        "support_state": {
+          "enum": [
+            "supported",
+            "partially_supported",
+            "contradicted",
+            "unverifiable"
+          ]
+        },
+        "evaluated_state": {
+          "enum": [
+            "released",
+            "quarantined"
+          ]
+        },
+        "material_segment_refs": {
+          "$ref": "#/$defs/uriArray"
+        },
+        "covered_segment_refs": {
+          "$ref": "#/$defs/uriArray"
+        },
+        "uncovered_segment_refs": {
+          "$ref": "#/$defs/uriArray"
+        },
+        "support_relation_refs": {
+          "$ref": "#/$defs/uriArray"
+        },
+        "contradiction_relation_refs": {
+          "$ref": "#/$defs/uriArray"
+        },
+        "release_decision_ref": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/uri"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "release_allowed": {
+          "type": "boolean"
+        },
+        "failure_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_]+$"
+          }
+        }
+      }
+    },
+    "failureFact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "claim_ref",
+        "related_refs",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z0-9_]+$"
+        },
+        "claim_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "related_refs": {
+          "$ref": "#/$defs/uriArray"
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "eligibleAssertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assertion_id",
+        "request_ref",
+        "claim_ref",
+        "evidence_bundle_ref",
+        "target_record_ref",
+        "target_entity_ref",
+        "target_field",
+        "assertion_text"
+      ],
+      "properties": {
+        "assertion_id": {
+          "type": "string",
+          "pattern": "^urn:caeluviim:assertion:eligible-sicrp:[a-f0-9]{64}$"
+        },
+        "request_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "claim_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "evidence_bundle_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "target_record_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "target_entity_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "target_field": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "assertion_text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

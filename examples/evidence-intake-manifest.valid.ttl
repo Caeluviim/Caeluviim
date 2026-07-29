@@ -1,0 +1,302 @@
+@prefix intake: <https://caeluviim.org/ontology/evidence-intake#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:caeluviim:intake:manifest:allocation-bulletin-2026q3>
+  a intake:IntakeManifest ;
+  intake:hasSourceArtifact
+    <urn:caeluviim:source:allocation-bulletin-2026q3> ;
+  intake:hasSourceSnapshot
+    <urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929> ;
+  intake:hasSourceLocator
+    <urn:caeluviim:locator:allocation-rule-replacement>,
+    <urn:caeluviim:locator:four-hour-request>,
+    <urn:caeluviim:locator:remaining-unserved-households> ;
+  intake:hasExtractedClaim
+    <urn:caeluviim:claim:intake:rule-replaced>,
+    <urn:caeluviim:claim:intake:compound-coverage> ;
+  intake:hasEvidenceBundle
+    <urn:caeluviim:evidence-bundle:rule-replaced>,
+    <urn:caeluviim:evidence-bundle:compound-coverage> ;
+  intake:hasQuarantineRecord
+    <urn:caeluviim:quarantine:compound-coverage> ;
+  intake:hasReleaseDecision
+    <urn:caeluviim:release-decision:rule-replaced>,
+    <urn:caeluviim:release-decision:compound-coverage> ;
+  intake:requestsSICRPAssertion
+    <urn:caeluviim:assertion-request:rule-replaced>,
+    <urn:caeluviim:assertion-request:compound-coverage> .
+
+<urn:caeluviim:source:allocation-bulletin-2026q3>
+  a intake:SourceArtifact ;
+  intake:sourceClass "official_record" ;
+  intake:generatedContent false ;
+  intake:originURI
+    <https://example.invalid/records/allocation-bulletin-2026q3> .
+
+<urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929>
+  a intake:SourceSnapshot ;
+  intake:snapshotOf
+    <urn:caeluviim:source:allocation-bulletin-2026q3> ;
+  intake:contentPath
+    "examples/evidence-intake/source/allocation-bulletin-2026q3.txt" ;
+  intake:contentDigest
+    "7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929" ;
+  intake:byteLength 350 ;
+  intake:immutableSnapshot true .
+
+<urn:caeluviim:locator:allocation-rule-replacement>
+  a intake:SourceLocator ;
+  intake:locatesSnapshot
+    <urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929> ;
+  intake:byteStart 28 ;
+  intake:byteEnd 103 ;
+  intake:quotedText
+    "On July 1, 2026, the board replaced Priority Rule v1 with Priority Rule v2." ;
+  intake:quoteDigest
+    "b895d5cebe5b4a0bec51e8de8a55e3907e8cef75a108b223eac2fb2e15d4defc" ;
+  intake:snapshotBound true ;
+  intake:exactLocator true ;
+  intake:allowedClaim
+    <urn:caeluviim:claim:intake:rule-replaced> .
+
+<urn:caeluviim:locator:four-hour-request>
+  a intake:SourceLocator ;
+  intake:locatesSnapshot
+    <urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929> ;
+  intake:byteStart 104 ;
+  intake:byteEnd 190 ;
+  intake:quotedText
+    "Under Rule v2, every district household may request up to four service hours per week." ;
+  intake:quoteDigest
+    "9749e9168c91864f9a59a14bc33ca841044e6ee19d477f7f457d15145e768507" ;
+  intake:snapshotBound true ;
+  intake:exactLocator true ;
+  intake:allowedClaim
+    <urn:caeluviim:claim:intake:compound-coverage> .
+
+<urn:caeluviim:locator:remaining-unserved-households>
+  a intake:SourceLocator ;
+  intake:locatesSnapshot
+    <urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929> ;
+  intake:byteStart 272 ;
+  intake:byteEnd 349 ;
+  intake:quotedText
+    "A later audit found that 18 pilot households still received no service hours." ;
+  intake:quoteDigest
+    "3e2d09814692551ed4311279f405af49bce9a30bf778784c5cddafd231ef82ad" ;
+  intake:snapshotBound true ;
+  intake:exactLocator true ;
+  intake:allowedClaim
+    <urn:caeluviim:claim:intake:compound-coverage> .
+
+<urn:caeluviim:claim:intake:rule-replaced>
+  a intake:ExtractedClaim ;
+  intake:normalizedClaimText
+    "On July 1, 2026, the board replaced Priority Rule v1 with Priority Rule v2." ;
+  intake:claimMode "observation" ;
+  intake:claimState intake:released ;
+  intake:hasMaterialSegment
+    <urn:caeluviim:claim-segment:rule-replaced> ;
+  intake:hasClaimSpan
+    <urn:caeluviim:claim-span:rule-replaced> .
+
+<urn:caeluviim:claim:intake:compound-coverage>
+  a intake:ExtractedClaim ;
+  intake:normalizedClaimText
+    "Rule v2 permits four service hours per week and eliminated all uncovered pilot households." ;
+  intake:claimMode "observation" ;
+  intake:claimState intake:quarantined ;
+  intake:hasMaterialSegment
+    <urn:caeluviim:claim-segment:four-hour-request>,
+    <urn:caeluviim:claim-segment:no-uncovered-households> ;
+  intake:hasClaimSpan
+    <urn:caeluviim:claim-span:four-hour-request>,
+    <urn:caeluviim:claim-span:remaining-unserved-households> .
+
+<urn:caeluviim:claim-segment:rule-replaced>
+  a intake:MaterialClaimSegment ;
+  intake:segmentOf
+    <urn:caeluviim:claim:intake:rule-replaced> ;
+  intake:segmentText
+    "On July 1, 2026, the board replaced Priority Rule v1 with Priority Rule v2." ;
+  intake:materialSegment true .
+
+<urn:caeluviim:claim-segment:four-hour-request>
+  a intake:MaterialClaimSegment ;
+  intake:segmentOf
+    <urn:caeluviim:claim:intake:compound-coverage> ;
+  intake:segmentText
+    "Under Rule v2, every district household may request up to four service hours per week." ;
+  intake:materialSegment true .
+
+<urn:caeluviim:claim-segment:no-uncovered-households>
+  a intake:MaterialClaimSegment ;
+  intake:segmentOf
+    <urn:caeluviim:claim:intake:compound-coverage> ;
+  intake:segmentText
+    "Rule v2 eliminated all uncovered pilot households." ;
+  intake:materialSegment true .
+
+<urn:caeluviim:claim-span:rule-replaced>
+  a intake:ClaimSpan ;
+  intake:spanOf
+    <urn:caeluviim:claim:intake:rule-replaced> ;
+  intake:spanForSegment
+    <urn:caeluviim:claim-segment:rule-replaced> ;
+  intake:spanLocator
+    <urn:caeluviim:locator:allocation-rule-replacement> ;
+  intake:extractedText
+    "On July 1, 2026, the board replaced Priority Rule v1 with Priority Rule v2." ;
+  intake:contentDigest
+    "b895d5cebe5b4a0bec51e8de8a55e3907e8cef75a108b223eac2fb2e15d4defc" .
+
+<urn:caeluviim:claim-span:four-hour-request>
+  a intake:ClaimSpan ;
+  intake:spanOf
+    <urn:caeluviim:claim:intake:compound-coverage> ;
+  intake:spanForSegment
+    <urn:caeluviim:claim-segment:four-hour-request> ;
+  intake:spanLocator
+    <urn:caeluviim:locator:four-hour-request> ;
+  intake:extractedText
+    "Under Rule v2, every district household may request up to four service hours per week." ;
+  intake:contentDigest
+    "9749e9168c91864f9a59a14bc33ca841044e6ee19d477f7f457d15145e768507" .
+
+<urn:caeluviim:claim-span:remaining-unserved-households>
+  a intake:ClaimSpan ;
+  intake:spanOf
+    <urn:caeluviim:claim:intake:compound-coverage> ;
+  intake:spanForSegment
+    <urn:caeluviim:claim-segment:no-uncovered-households> ;
+  intake:spanLocator
+    <urn:caeluviim:locator:remaining-unserved-households> ;
+  intake:extractedText
+    "A later audit found that 18 pilot households still received no service hours." ;
+  intake:contentDigest
+    "3e2d09814692551ed4311279f405af49bce9a30bf778784c5cddafd231ef82ad" .
+
+<urn:caeluviim:support:rule-replaced>
+  a intake:SupportRelation ;
+  intake:supportsClaim
+    <urn:caeluviim:claim:intake:rule-replaced> ;
+  intake:supportLocator
+    <urn:caeluviim:locator:allocation-rule-replacement> ;
+  intake:supportsSegment
+    <urn:caeluviim:claim-segment:rule-replaced> ;
+  intake:supportVerdict "supports" ;
+  intake:supportMode "direct" .
+
+<urn:caeluviim:support:four-hour-request>
+  a intake:SupportRelation ;
+  intake:supportsClaim
+    <urn:caeluviim:claim:intake:compound-coverage> ;
+  intake:supportLocator
+    <urn:caeluviim:locator:four-hour-request> ;
+  intake:supportsSegment
+    <urn:caeluviim:claim-segment:four-hour-request> ;
+  intake:supportVerdict "supports" ;
+  intake:supportMode "direct" .
+
+<urn:caeluviim:contradiction:uncovered-households-remain>
+  a intake:ContradictionRelation ;
+  intake:contradictsClaim
+    <urn:caeluviim:claim:intake:compound-coverage> ;
+  intake:contradictionLocator
+    <urn:caeluviim:locator:remaining-unserved-households> ;
+  intake:contradictsSegment
+    <urn:caeluviim:claim-segment:no-uncovered-households> ;
+  intake:contradictionDisclosed true ;
+  intake:contradictionResolutionStatus "unresolved" .
+
+<urn:caeluviim:authority-assessment:allocation-bulletin>
+  a intake:SourceAuthorityAssessment ;
+  intake:assessesArtifact
+    <urn:caeluviim:source:allocation-bulletin-2026q3> ;
+  intake:authorityIsNotSupport true .
+
+<urn:caeluviim:evidence-bundle:rule-replaced>
+  a intake:EvidenceBundle ;
+  intake:bundleForClaim
+    <urn:caeluviim:claim:intake:rule-replaced> ;
+  intake:includesSupport
+    <urn:caeluviim:support:rule-replaced> ;
+  intake:includesAuthorityAssessment
+    <urn:caeluviim:authority-assessment:allocation-bulletin> ;
+  intake:contradictionSearchCompleted true ;
+  intake:declaredCompleteSupport true ;
+  intake:contentDigestsVerified true .
+
+<urn:caeluviim:evidence-bundle:compound-coverage>
+  a intake:EvidenceBundle ;
+  intake:bundleForClaim
+    <urn:caeluviim:claim:intake:compound-coverage> ;
+  intake:includesSupport
+    <urn:caeluviim:support:four-hour-request> ;
+  intake:includesContradiction
+    <urn:caeluviim:contradiction:uncovered-households-remain> ;
+  intake:includesAuthorityAssessment
+    <urn:caeluviim:authority-assessment:allocation-bulletin> ;
+  intake:contradictionSearchCompleted true ;
+  intake:declaredCompleteSupport false ;
+  intake:contentDigestsVerified true .
+
+<urn:caeluviim:unsupported:no-uncovered-households>
+  a intake:UnsupportedClaim ;
+  intake:recordsUnsupportedClaim
+    <urn:caeluviim:claim:intake:compound-coverage> .
+
+<urn:caeluviim:quarantine:compound-coverage>
+  a intake:QuarantineRecord ;
+  intake:quarantinesClaim
+    <urn:caeluviim:claim:intake:compound-coverage> ;
+  intake:activeQuarantine true .
+
+<urn:caeluviim:release-decision:rule-replaced>
+  a intake:ReleaseDecision ;
+  intake:decidesClaim
+    <urn:caeluviim:claim:intake:rule-replaced> ;
+  intake:releaseAuthority
+    <urn:caeluviim:agent:evidence-release-authority-1> ;
+  intake:decision "approved" ;
+  intake:contentDigestsVerified true .
+
+<urn:caeluviim:release-decision:compound-coverage>
+  a intake:ReleaseDecision ;
+  intake:decidesClaim
+    <urn:caeluviim:claim:intake:compound-coverage> ;
+  intake:releaseAuthority
+    <urn:caeluviim:agent:evidence-release-authority-1> ;
+  intake:decision "denied" ;
+  intake:contentDigestsVerified true .
+
+<urn:caeluviim:assertion-request:rule-replaced>
+  a intake:SICRPAssertionRequest ;
+  intake:requestsClaim
+    <urn:caeluviim:claim:intake:rule-replaced> ;
+  intake:targetsSICRPRecord
+    <urn:caeluviim:record:sicrp:example-001> ;
+  intake:targetsSICRPEntity
+    <urn:caeluviim:intervention:allocation-rule-redesign-001> ;
+  intake:targetField "evidence_refs" ;
+  intake:assertionText
+    "On July 1, 2026, the board replaced Priority Rule v1 with Priority Rule v2." .
+
+<urn:caeluviim:assertion-request:compound-coverage>
+  a intake:SICRPAssertionRequest ;
+  intake:requestsClaim
+    <urn:caeluviim:claim:intake:compound-coverage> ;
+  intake:targetsSICRPRecord
+    <urn:caeluviim:record:sicrp:example-001> ;
+  intake:targetsSICRPEntity
+    <urn:caeluviim:claim:collective-resolution-001> ;
+  intake:targetField "evidence_refs" ;
+  intake:assertionText
+    "Rule v2 permits four service hours per week and eliminated all uncovered pilot households." .
+
+<urn:caeluviim:assertion:eligible-sicrp:fb044bcbc5d6e50a7aa25ef08d60fc3018630df7bb01cbe4aa3ede452b2e4d2a>
+  a intake:EligibleSICRPAssertion ;
+  intake:eligibleClaim
+    <urn:caeluviim:claim:intake:rule-replaced> ;
+  intake:eligibleFromRequest
+    <urn:caeluviim:assertion-request:rule-replaced> .

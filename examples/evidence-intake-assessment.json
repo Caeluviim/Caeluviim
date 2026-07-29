@@ -1,0 +1,142 @@
+{
+  "$schema": "https://caeluviim.org/schema/evidence-intake-assessment.schema.json",
+  "assessment_digest": "3416fb3fa342bca906d75e8edee5452c2eb95f96fe9e419378a66d0c96099a6f",
+  "assessment_id": "urn:caeluviim:assessment:evidence-intake:3416fb3fa342bca906d75e8edee5452c2eb95f96fe9e419378a66d0c96099a6f",
+  "claim_results": [
+    {
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "contradiction_relation_refs": [
+        "urn:caeluviim:contradiction:uncovered-households-remain"
+      ],
+      "covered_segment_refs": [
+        "urn:caeluviim:claim-segment:four-hour-request"
+      ],
+      "evaluated_state": "quarantined",
+      "failure_codes": [
+        "ACTIVE_QUARANTINE",
+        "COMPLETE_SUPPORT_NOT_DECLARED",
+        "PARTIAL_COMPOUND_SUPPORT",
+        "RELEASE_DECISION_DENIED",
+        "UNRESOLVED_CONTRADICTION"
+      ],
+      "material_segment_refs": [
+        "urn:caeluviim:claim-segment:four-hour-request",
+        "urn:caeluviim:claim-segment:no-uncovered-households"
+      ],
+      "recorded_state": "quarantined",
+      "release_allowed": false,
+      "release_decision_ref": "urn:caeluviim:release-decision:compound-coverage",
+      "support_relation_refs": [
+        "urn:caeluviim:support:four-hour-request"
+      ],
+      "support_state": "contradicted",
+      "uncovered_segment_refs": [
+        "urn:caeluviim:claim-segment:no-uncovered-households"
+      ]
+    },
+    {
+      "claim_ref": "urn:caeluviim:claim:intake:rule-replaced",
+      "contradiction_relation_refs": [],
+      "covered_segment_refs": [
+        "urn:caeluviim:claim-segment:rule-replaced"
+      ],
+      "evaluated_state": "released",
+      "failure_codes": [],
+      "material_segment_refs": [
+        "urn:caeluviim:claim-segment:rule-replaced"
+      ],
+      "recorded_state": "released",
+      "release_allowed": true,
+      "release_decision_ref": "urn:caeluviim:release-decision:rule-replaced",
+      "support_relation_refs": [
+        "urn:caeluviim:support:rule-replaced"
+      ],
+      "support_state": "supported",
+      "uncovered_segment_refs": []
+    }
+  ],
+  "eligible_sicrp_assertions": [
+    {
+      "assertion_id": "urn:caeluviim:assertion:eligible-sicrp:fb044bcbc5d6e50a7aa25ef08d60fc3018630df7bb01cbe4aa3ede452b2e4d2a",
+      "assertion_text": "On July 1, 2026, the board replaced Priority Rule v1 with Priority Rule v2.",
+      "claim_ref": "urn:caeluviim:claim:intake:rule-replaced",
+      "evidence_bundle_ref": "urn:caeluviim:evidence-bundle:rule-replaced",
+      "request_ref": "urn:caeluviim:assertion-request:rule-replaced",
+      "target_entity_ref": "urn:caeluviim:intervention:allocation-rule-redesign-001",
+      "target_field": "evidence_refs",
+      "target_record_ref": "urn:caeluviim:record:sicrp:example-001"
+    }
+  ],
+  "evaluation_as_of": "2026-07-29T17:30:00Z",
+  "failure_facts": [
+    {
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "code": "ACTIVE_QUARANTINE",
+      "message": "An active quarantine record blocks release.",
+      "related_refs": [
+        "urn:caeluviim:quarantine:compound-coverage"
+      ]
+    },
+    {
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "code": "COMPLETE_SUPPORT_NOT_DECLARED",
+      "message": "The release authority did not declare complete support.",
+      "related_refs": [
+        "urn:caeluviim:release-decision:compound-coverage"
+      ]
+    },
+    {
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "code": "PARTIAL_COMPOUND_SUPPORT",
+      "message": "Every material claim segment must have valid explicit support.",
+      "related_refs": [
+        "urn:caeluviim:claim-segment:no-uncovered-households"
+      ]
+    },
+    {
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "code": "RELEASE_DECISION_DENIED",
+      "message": "The recorded release authority denied release.",
+      "related_refs": [
+        "urn:caeluviim:release-decision:compound-coverage"
+      ]
+    },
+    {
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "code": "UNRESOLVED_CONTRADICTION",
+      "message": "Material contradictory evidence remains unresolved.",
+      "related_refs": [
+        "urn:caeluviim:contradiction:uncovered-households-remain"
+      ]
+    }
+  ],
+  "governance": {
+    "evaluation_semantics": "evidence-intake/0.1.0",
+    "independent_validation_conferred": false,
+    "ratification_conferred": false,
+    "release_authority_evaluated": true,
+    "sicrp_validation_conferred": false
+  },
+  "graph_separation": {
+    "asserted_claim_refs": [
+      "urn:caeluviim:claim:intake:rule-replaced"
+    ],
+    "claim_sets_disjoint": true,
+    "quarantined_claim_refs": [
+      "urn:caeluviim:claim:intake:compound-coverage"
+    ],
+    "quarantined_claims_excluded_from_release_payload": true
+  },
+  "manifest_conforms": true,
+  "manifest_digest": "3db3f47f66100f7a47b12499b2185fe6adbc8267225b78f732738914e974d3b1",
+  "manifest_ref": "urn:caeluviim:intake:manifest:allocation-bulletin-2026q3",
+  "pipeline_result": "released_with_quarantine",
+  "pipeline_version": "0.1.0",
+  "quarantined_claim_refs": [
+    "urn:caeluviim:claim:intake:compound-coverage"
+  ],
+  "reference_integrity": true,
+  "released_claim_refs": [
+    "urn:caeluviim:claim:intake:rule-replaced"
+  ]
+}

@@ -1,0 +1,16 @@
+PREFIX intake: <https://caeluviim.org/ontology/evidence-intake#>
+
+SELECT ?assertion ?claim ?targetRecord ?targetEntity ?targetField ?text
+WHERE {
+  GRAPH ?assertedGraph {
+    ?claim intake:evaluatedClaimState "released" ;
+           intake:releaseAllowed true .
+    ?assertion a intake:EligibleSICRPAssertion ;
+               intake:eligibleClaim ?claim ;
+               intake:targetsSICRPRecord ?targetRecord ;
+               intake:targetsSICRPEntity ?targetEntity ;
+               intake:targetField ?targetField ;
+               intake:assertionText ?text .
+  }
+}
+ORDER BY ?assertion

@@ -1,0 +1,102 @@
+{
+  "module_id": "urn:caeluviim:module:evidence-intake",
+  "module_version": "0.1.0",
+  "implementation_status": "implemented",
+  "governance_status": "proposed",
+  "proposer_id": "urn:caeluviim:agent:evidence-intake-proposer",
+  "independent_validators": [],
+  "required_independent_validator_count": 2,
+  "self_ratification_permitted": false,
+  "ratification_claimed": false,
+  "recorded_at": "2026-07-29T18:06:00Z",
+  "artifact_manifest": [
+    {
+      "path": "README.md",
+      "sha256": "286c388e229b8500268acc34b1b1b37bfb908a9a5a301230bd51ea8ce345cad2"
+    },
+    {
+      "path": "docs/architecture/source-bound-evidence-intake.md",
+      "sha256": "0afd9b82b7fc90a8f90c49429bab48be9cf1f14af41e78af220a4da024225c17"
+    },
+    {
+      "path": "schemas/evidence-intake-manifest.schema.json",
+      "sha256": "fe6ea62d12d7386c5168b20213794ed52548c56de82358561b6c0c3d0ad06374"
+    },
+    {
+      "path": "schemas/evidence-intake-assessment.schema.json",
+      "sha256": "27d1526b4c37e254ad062705f56429110517af2f5a0fd8ad83efec0c3dfd454a"
+    },
+    {
+      "path": "schemas/evidence-intake-status.schema.json",
+      "sha256": "c0d38079105e6cf8cfa424e24ceaa91b01bfdf727f32c221d1df474721d1237c"
+    },
+    {
+      "path": "ontology/evidence-intake.ttl",
+      "sha256": "b480156ca48779c10668a8ddd8436606fc0881dfb1930dc39051dd647c7c3355"
+    },
+    {
+      "path": "shapes/evidence-intake.shacl.ttl",
+      "sha256": "f22e30295d47ea49a2032dd83dc3f4f82e2b417990857e1a5c645373d30734ad"
+    },
+    {
+      "path": "shapes/evidence-intake-assessment.shacl.ttl",
+      "sha256": "ea7516ca924a7fbf696a8f4aa443b856af72db695807742c7be2cc031a61e796"
+    },
+    {
+      "path": "examples/evidence-intake/source/allocation-bulletin-2026q3.txt",
+      "sha256": "7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929"
+    },
+    {
+      "path": "examples/evidence-intake-manifest.valid.json",
+      "sha256": "d1932495e9b61c62055d2632ec8b06742b2bedbb95db34a306458eceb5ddde94"
+    },
+    {
+      "path": "examples/evidence-intake-manifest.valid.ttl",
+      "sha256": "f100b35c4f510f1ae3d204b85e430162ccc744bacb22e2aec9a381cd0465af3f"
+    },
+    {
+      "path": "examples/evidence-intake-assessment.json",
+      "sha256": "490355b0339dc441489f0fdff13692cad3f47fe71afb922474b713c111e6398a"
+    },
+    {
+      "path": "src/evidence_intake/__init__.py",
+      "sha256": "2169a283cf5bac1031e04ec3226c9243ff2febd3ade16ac9cb435c2c023a5064"
+    },
+    {
+      "path": "src/evidence_intake/canonical.py",
+      "sha256": "d9b4594baf0ef8e3d7f2d8b0a4af88e94d2e75c8ba855f2d804cdb18aebc8792"
+    },
+    {
+      "path": "src/evidence_intake/evaluator.py",
+      "sha256": "79c3fa4de4650d0518cbae8f848ff483d4227b0ac0e29e57ef9a3a147d888088"
+    },
+    {
+      "path": "src/evidence_intake/store.py",
+      "sha256": "47ff8488d7149d7c3ec4c235e5a555e5ea1afec8c087552c4b03b8267c6d91bb"
+    },
+    {
+      "path": "src/evidence_intake/cli.py",
+      "sha256": "7b3f33ad00ba07459214009afea626f30b95aca5b15af9e8d28496c8c1acaac2"
+    },
+    {
+      "path": "scripts/evidence_intake.py",
+      "sha256": "ae73f35cd842510dccd691a7588599183d2471e8b6aa364ff14318ee7c1d958d"
+    },
+    {
+      "path": "queries/evidence-intake-quarantine.rq",
+      "sha256": "22ee9eb0fe4e16f19527d455a0ab6f28e5c4d92b148c69576e03f6c67d47db62"
+    },
+    {
+      "path": "queries/evidence-intake-released-assertions.rq",
+      "sha256": "9ebc16eb56cb7e38ea4db2da1439541ef263cf6c4df41ef4ca989f00e273aef6"
+    },
+    {
+      "path": "tests/test_evidence_intake.py",
+      "sha256": "52c10b9a406405febfa43927c0b86486c9b6f371b180ff0c4801623545f4b2a3"
+    },
+    {
+      "path": ".github/workflows/validate-evidence-intake.yml",
+      "sha256": "2185f277fb3d7da5984aae30dc3fda31f20c40501ee12cf0dcae1408488c5b05"
+    }
+  ]
+}

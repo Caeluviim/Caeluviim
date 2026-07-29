@@ -1,0 +1,446 @@
+@prefix intake: <https://caeluviim.org/ontology/evidence-intake#> .
+@prefix sicrp:  <https://caeluviim.org/ontology/sicrp#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:   <http://www.w3.org/ns/prov#> .
+
+<https://caeluviim.org/ontology/evidence-intake> a owl:Ontology ;
+  owl:versionInfo "0.1.0" ;
+  owl:imports <https://caeluviim.org/ontology/sicrp> ;
+  rdfs:label "Caeluviim source-bound evidence intake ontology" ;
+  rdfs:comment "Fail-closed intake upstream of SICRP. Ontology conformance does not itself release a claim." .
+
+# Required first-class entities
+
+intake:SourceArtifact a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:SourceSnapshot a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:SourceLocator a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:ExtractedClaim a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:ClaimSpan a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:SupportRelation a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:ContradictionRelation a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:SourceAuthorityAssessment a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:EvidenceBundle a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:UnsupportedClaim a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:QuarantineRecord a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:ReleaseDecision a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:IntakeManifest a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+# Supporting entities for material scope and downstream release
+
+intake:MaterialClaimSegment a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:SICRPAssertionRequest a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:EligibleSICRPAssertion a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:EvidenceIntakeAssessment a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:FailureFact a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+intake:IngestedGraphSet a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
+# Claim state vocabulary
+
+intake:ClaimState a owl:Class .
+
+intake:captured a intake:ClaimState ;
+  rdfs:label "captured" .
+
+intake:supported a intake:ClaimState ;
+  rdfs:label "supported" .
+
+intake:partially_supported a intake:ClaimState ;
+  rdfs:label "partially_supported" .
+
+intake:contradicted a intake:ClaimState ;
+  rdfs:label "contradicted" .
+
+intake:unverifiable a intake:ClaimState ;
+  rdfs:label "unverifiable" .
+
+intake:quarantined a intake:ClaimState ;
+  rdfs:label "quarantined" .
+
+intake:released a intake:ClaimState ;
+  rdfs:label "released" .
+
+# Manifest topology
+
+intake:hasSourceArtifact a owl:ObjectProperty ;
+  rdfs:domain intake:IntakeManifest ;
+  rdfs:range intake:SourceArtifact .
+
+intake:hasSourceSnapshot a owl:ObjectProperty ;
+  rdfs:domain intake:IntakeManifest ;
+  rdfs:range intake:SourceSnapshot .
+
+intake:hasSourceLocator a owl:ObjectProperty ;
+  rdfs:domain intake:IntakeManifest ;
+  rdfs:range intake:SourceLocator .
+
+intake:hasExtractedClaim a owl:ObjectProperty ;
+  rdfs:domain intake:IntakeManifest ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:hasEvidenceBundle a owl:ObjectProperty ;
+  rdfs:domain intake:IntakeManifest ;
+  rdfs:range intake:EvidenceBundle .
+
+intake:hasQuarantineRecord a owl:ObjectProperty ;
+  rdfs:domain intake:IntakeManifest ;
+  rdfs:range intake:QuarantineRecord .
+
+intake:hasReleaseDecision a owl:ObjectProperty ;
+  rdfs:domain intake:IntakeManifest ;
+  rdfs:range intake:ReleaseDecision .
+
+intake:requestsSICRPAssertion a owl:ObjectProperty ;
+  rdfs:domain intake:IntakeManifest ;
+  rdfs:range intake:SICRPAssertionRequest .
+
+# Source capture and exact location
+
+intake:snapshotOf a owl:ObjectProperty ;
+  rdfs:domain intake:SourceSnapshot ;
+  rdfs:range intake:SourceArtifact .
+
+intake:locatesSnapshot a owl:ObjectProperty ;
+  rdfs:domain intake:SourceLocator ;
+  rdfs:range intake:SourceSnapshot .
+
+intake:originURI a owl:ObjectProperty ;
+  rdfs:domain intake:SourceArtifact .
+
+intake:sourceClass a owl:DatatypeProperty ;
+  rdfs:domain intake:SourceArtifact ;
+  rdfs:range xsd:string .
+
+intake:generatedContent a owl:DatatypeProperty ;
+  rdfs:domain intake:SourceArtifact ;
+  rdfs:range xsd:boolean .
+
+intake:contentPath a owl:DatatypeProperty ;
+  rdfs:domain intake:SourceSnapshot ;
+  rdfs:range xsd:string .
+
+intake:contentDigest a owl:DatatypeProperty ;
+  rdfs:range xsd:string .
+
+intake:byteLength a owl:DatatypeProperty ;
+  rdfs:domain intake:SourceSnapshot ;
+  rdfs:range xsd:nonNegativeInteger .
+
+intake:immutableSnapshot a owl:DatatypeProperty ;
+  rdfs:domain intake:SourceSnapshot ;
+  rdfs:range xsd:boolean .
+
+intake:byteStart a owl:DatatypeProperty ;
+  rdfs:domain intake:SourceLocator ;
+  rdfs:range xsd:nonNegativeInteger .
+
+intake:byteEnd a owl:DatatypeProperty ;
+  rdfs:domain intake:SourceLocator ;
+  rdfs:range xsd:positiveInteger .
+
+intake:quotedText a owl:DatatypeProperty ;
+  rdfs:domain intake:SourceLocator ;
+  rdfs:range xsd:string .
+
+intake:quoteDigest a owl:DatatypeProperty ;
+  rdfs:domain intake:SourceLocator ;
+  rdfs:range xsd:string .
+
+intake:snapshotBound a owl:DatatypeProperty ;
+  rdfs:domain intake:SourceLocator ;
+  rdfs:range xsd:boolean .
+
+intake:exactLocator a owl:DatatypeProperty ;
+  rdfs:domain intake:SourceLocator ;
+  rdfs:range xsd:boolean .
+
+intake:allowedClaim a owl:ObjectProperty ;
+  rdfs:domain intake:SourceLocator ;
+  rdfs:range intake:ExtractedClaim .
+
+# Claim, segment, and span topology
+
+intake:hasMaterialSegment a owl:ObjectProperty ;
+  rdfs:domain intake:ExtractedClaim ;
+  rdfs:range intake:MaterialClaimSegment .
+
+intake:segmentOf a owl:ObjectProperty ;
+  owl:inverseOf intake:hasMaterialSegment ;
+  rdfs:domain intake:MaterialClaimSegment ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:hasClaimSpan a owl:ObjectProperty ;
+  rdfs:domain intake:ExtractedClaim ;
+  rdfs:range intake:ClaimSpan .
+
+intake:spanOf a owl:ObjectProperty ;
+  rdfs:domain intake:ClaimSpan ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:spanForSegment a owl:ObjectProperty ;
+  rdfs:domain intake:ClaimSpan ;
+  rdfs:range intake:MaterialClaimSegment .
+
+intake:spanLocator a owl:ObjectProperty ;
+  rdfs:domain intake:ClaimSpan ;
+  rdfs:range intake:SourceLocator .
+
+intake:claimState a owl:ObjectProperty ;
+  rdfs:domain intake:ExtractedClaim ;
+  rdfs:range intake:ClaimState .
+
+intake:normalizedClaimText a owl:DatatypeProperty ;
+  rdfs:domain intake:ExtractedClaim ;
+  rdfs:range xsd:string .
+
+intake:claimMode a owl:DatatypeProperty ;
+  rdfs:domain intake:ExtractedClaim ;
+  rdfs:range xsd:string .
+
+intake:segmentText a owl:DatatypeProperty ;
+  rdfs:domain intake:MaterialClaimSegment ;
+  rdfs:range xsd:string .
+
+intake:materialSegment a owl:DatatypeProperty ;
+  rdfs:domain intake:MaterialClaimSegment ;
+  rdfs:range xsd:boolean .
+
+intake:extractedText a owl:DatatypeProperty ;
+  rdfs:domain intake:ClaimSpan ;
+  rdfs:range xsd:string .
+
+# Support, contradiction, authority, and bundle topology
+
+intake:supportsClaim a owl:ObjectProperty ;
+  rdfs:domain intake:SupportRelation ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:supportLocator a owl:ObjectProperty ;
+  rdfs:domain intake:SupportRelation ;
+  rdfs:range intake:SourceLocator .
+
+intake:supportsSegment a owl:ObjectProperty ;
+  rdfs:domain intake:SupportRelation ;
+  rdfs:range intake:MaterialClaimSegment .
+
+intake:contradictsClaim a owl:ObjectProperty ;
+  rdfs:domain intake:ContradictionRelation ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:contradictionLocator a owl:ObjectProperty ;
+  rdfs:domain intake:ContradictionRelation ;
+  rdfs:range intake:SourceLocator .
+
+intake:contradictsSegment a owl:ObjectProperty ;
+  rdfs:domain intake:ContradictionRelation ;
+  rdfs:range intake:MaterialClaimSegment .
+
+intake:bundleForClaim a owl:ObjectProperty ;
+  rdfs:domain intake:EvidenceBundle ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:includesSupport a owl:ObjectProperty ;
+  rdfs:domain intake:EvidenceBundle ;
+  rdfs:range intake:SupportRelation .
+
+intake:includesContradiction a owl:ObjectProperty ;
+  rdfs:domain intake:EvidenceBundle ;
+  rdfs:range intake:ContradictionRelation .
+
+intake:includesAuthorityAssessment a owl:ObjectProperty ;
+  rdfs:domain intake:EvidenceBundle ;
+  rdfs:range intake:SourceAuthorityAssessment .
+
+intake:assessesArtifact a owl:ObjectProperty ;
+  rdfs:domain intake:SourceAuthorityAssessment ;
+  rdfs:range intake:SourceArtifact .
+
+intake:supportVerdict a owl:DatatypeProperty ;
+  rdfs:domain intake:SupportRelation ;
+  rdfs:range xsd:string .
+
+intake:supportMode a owl:DatatypeProperty ;
+  rdfs:domain intake:SupportRelation ;
+  rdfs:range xsd:string .
+
+intake:contradictionDisclosed a owl:DatatypeProperty ;
+  rdfs:domain intake:ContradictionRelation ;
+  rdfs:range xsd:boolean .
+
+intake:contradictionResolutionStatus a owl:DatatypeProperty ;
+  rdfs:domain intake:ContradictionRelation ;
+  rdfs:range xsd:string .
+
+intake:contradictionSearchCompleted a owl:DatatypeProperty ;
+  rdfs:domain intake:EvidenceBundle ;
+  rdfs:range xsd:boolean .
+
+intake:declaredCompleteSupport a owl:DatatypeProperty ;
+  rdfs:domain intake:EvidenceBundle ;
+  rdfs:range xsd:boolean .
+
+intake:contentDigestsVerified a owl:DatatypeProperty ;
+  rdfs:range xsd:boolean .
+
+intake:authorityIsNotSupport a owl:DatatypeProperty ;
+  rdfs:domain intake:SourceAuthorityAssessment ;
+  rdfs:range xsd:boolean .
+
+# Fail-closed decisions and downstream boundary
+
+intake:recordsUnsupportedClaim a owl:ObjectProperty ;
+  rdfs:domain intake:UnsupportedClaim ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:quarantinesClaim a owl:ObjectProperty ;
+  rdfs:domain intake:QuarantineRecord ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:decidesClaim a owl:ObjectProperty ;
+  rdfs:domain intake:ReleaseDecision ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:releaseAuthority a owl:ObjectProperty ;
+  rdfs:domain intake:ReleaseDecision ;
+  rdfs:range prov:Agent .
+
+intake:decision a owl:DatatypeProperty ;
+  rdfs:domain intake:ReleaseDecision ;
+  rdfs:range xsd:string .
+
+intake:activeQuarantine a owl:DatatypeProperty ;
+  rdfs:domain intake:QuarantineRecord ;
+  rdfs:range xsd:boolean .
+
+intake:requestsClaim a owl:ObjectProperty ;
+  rdfs:domain intake:SICRPAssertionRequest ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:eligibleClaim a owl:ObjectProperty ;
+  rdfs:domain intake:EligibleSICRPAssertion ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:eligibleFromRequest a owl:ObjectProperty ;
+  rdfs:domain intake:EligibleSICRPAssertion ;
+  rdfs:range intake:SICRPAssertionRequest .
+
+intake:targetsSICRPRecord a owl:ObjectProperty ;
+  rdfs:domain intake:SICRPAssertionRequest .
+
+intake:targetsSICRPEntity a owl:ObjectProperty ;
+  rdfs:domain intake:SICRPAssertionRequest .
+
+intake:targetField a owl:DatatypeProperty ;
+  rdfs:range xsd:string .
+
+intake:assertionText a owl:DatatypeProperty ;
+  rdfs:range xsd:string .
+
+# Deterministic assessment and graph partition facts
+
+intake:assessesManifest a owl:ObjectProperty ;
+  rdfs:domain intake:EvidenceIntakeAssessment ;
+  rdfs:range intake:IntakeManifest .
+
+intake:hasFailureFact a owl:ObjectProperty ;
+  rdfs:domain intake:EvidenceIntakeAssessment ;
+  rdfs:range intake:FailureFact .
+
+intake:failureCode a owl:DatatypeProperty ;
+  rdfs:domain intake:FailureFact ;
+  rdfs:range xsd:string .
+
+intake:failureClaim a owl:ObjectProperty ;
+  rdfs:domain intake:FailureFact ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:relatedRef a owl:ObjectProperty ;
+  rdfs:domain intake:FailureFact .
+
+intake:recordedClaimState a owl:DatatypeProperty ;
+  rdfs:range xsd:string .
+
+intake:supportState a owl:DatatypeProperty ;
+  rdfs:range xsd:string .
+
+intake:evaluatedClaimState a owl:DatatypeProperty ;
+  rdfs:range xsd:string .
+
+intake:releaseAllowed a owl:DatatypeProperty ;
+  rdfs:range xsd:boolean .
+
+intake:releasedClaim a owl:ObjectProperty ;
+  rdfs:domain intake:EvidenceIntakeAssessment ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:quarantinedClaim a owl:ObjectProperty ;
+  rdfs:domain intake:EvidenceIntakeAssessment ;
+  rdfs:range intake:ExtractedClaim .
+
+intake:hasEligibleAssertion a owl:ObjectProperty ;
+  rdfs:domain intake:EvidenceIntakeAssessment ;
+  rdfs:range intake:EligibleSICRPAssertion .
+
+intake:manifestDigest a owl:DatatypeProperty ;
+  rdfs:range xsd:string .
+
+intake:assessmentDigest a owl:DatatypeProperty ;
+  rdfs:range xsd:string .
+
+intake:assessmentPayload a owl:DatatypeProperty ;
+  rdfs:domain intake:EvidenceIntakeAssessment ;
+  rdfs:range rdf:JSON .
+
+intake:graphRole a owl:DatatypeProperty ;
+  rdfs:range xsd:string .
+
+intake:assertedGraph a owl:ObjectProperty ;
+  rdfs:domain intake:IngestedGraphSet .
+
+intake:quarantineGraph a owl:ObjectProperty ;
+  rdfs:domain intake:IngestedGraphSet .
+
+intake:intakeGraph a owl:ObjectProperty ;
+  rdfs:domain intake:IngestedGraphSet .
+
+intake:graphsDisjoint a owl:DatatypeProperty ;
+  rdfs:domain intake:IngestedGraphSet ;
+  rdfs:range xsd:boolean .
