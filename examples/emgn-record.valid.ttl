@@ -1,0 +1,65 @@
+@prefix ex:   <urn:caeluviim:example:> .
+@prefix emgn: <https://caeluviim.org/ontology/emgn#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+ex:system a emgn:UniversalSystem ;
+  emgn:causallyBounded true ;
+  emgn:transitionSemantics "set_valued" .
+
+ex:agent-a a emgn:AgenticNode, prov:Agent ;
+  emgn:finiteLocalization true ;
+  emgn:participatedIn ex:interaction .
+
+ex:agent-b a emgn:AgenticNode, prov:Agent ;
+  emgn:finiteLocalization true ;
+  emgn:participatedIn ex:interaction .
+
+ex:interaction a emgn:InteractionEvent ;
+  emgn:hasParticipant ex:agent-a, ex:agent-b ;
+  emgn:hasDiscrepancy ex:discrepancy .
+
+ex:discrepancy a emgn:DiscrepancyEvent ;
+  emgn:experiencedBy ex:agent-a ;
+  emgn:comparisonMethod "semantic-constraint-difference" ;
+  emgn:magnitude 0.42 ;
+  emgn:retainedAs ex:residue .
+
+ex:residue a emgn:ErrorResidue ;
+  emgn:sourceDiscrepancy ex:discrepancy ;
+  emgn:retentionMode "constraint" ;
+  emgn:transformedBy ex:remediation .
+
+ex:remediation a emgn:RemediationEvent ;
+  emgn:usesResidue ex:residue ;
+  emgn:remediationMode "reinterpret" .
+
+ex:regime-v1 a emgn:TransitionRegime .
+ex:regime-v2 a emgn:TransitionRegime ;
+  emgn:modifiedByResidue ex:residue .
+ex:reachability-v1 a emgn:ReachabilitySnapshot .
+ex:reachability-v2 a emgn:ReachabilitySnapshot .
+ex:new-state a prov:Entity .
+
+ex:witness a emgn:NovelFutureWitness ;
+  emgn:witnessesState ex:new-state ;
+  emgn:notInPriorEmbeddedReachability true .
+
+ex:proposer a prov:Agent .
+ex:validator-1 a prov:Agent .
+ex:validator-2 a prov:Agent .
+
+ex:governance a emgn:GovernanceDecision ;
+  emgn:proposer ex:proposer ;
+  emgn:validator ex:validator-1, ex:validator-2 ;
+  emgn:governanceStatus "ratified" .
+
+ex:claim a emgn:NovelFutureClaim ;
+  emgn:claimStatus "validated" ;
+  emgn:beforeRegime ex:regime-v1 ;
+  emgn:afterRegime ex:regime-v2 ;
+  emgn:beforeReachability ex:reachability-v1 ;
+  emgn:afterReachability ex:reachability-v2 ;
+  emgn:hasWitness ex:witness ;
+  emgn:governedBy ex:governance ;
+  emgn:contentHash "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" .
