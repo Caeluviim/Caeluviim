@@ -139,8 +139,83 @@ P1–P4 plus transition-by-transition provenance coverage. In particular, P3
 cannot be used until identifier normalization is shown to recognize stable
 identity correctly.
 
-M10 is labeled **Conditional theorem**. Its condition is the existence of the
-required pullbacks plus the selected equivalence/coherence construction.
+M10 is labeled **Conditional theorem**. Its condition requires a
+`SpanComparisonPackage`—selected pullbacks together with explicit left-unitor,
+right-unitor, and associator span isomorphisms—and discharge of C2's triangle
+and pentagon equations. No such package or coherence proof is globally
+asserted.
+
+### Binary span composition boundary
+
+Cycle 2 distinguishes a semantic relation occurrence from the structural span
+used by categorical composition:
+
+```text
+BinaryRelationSpan := relation occurrence + typed source/target roles and legs
+StructuralSpan     := apex + typed source/target legs
+```
+
+Forgetting the semantic decoration is total:
+
+```text
+toStructuralSpan : BinaryRelationSpan(A, B) -> StructuralSpan(A, B)
+```
+
+The converse is not total. A pullback apex is not automatically a new
+`RelationOccurrence`; promotion requires separate relation-facet typing,
+formation, instantiation, and provenance evidence.
+
+`PullbackCone(left, right)` includes the commuting square, mediating morphism,
+factorization equations, and uniqueness equation. Pullback existence is not
+embedded in `FacetCategory`.
+
+Two selection interfaces are kept distinct:
+
+```text
+SelectedPullbacks(baseCategory)
+```
+
+is the stronger sufficient assumption for the ordinary bicategory-of-spans
+construction and chooses a pullback for every cospan. Defining this interface
+does not assert that every admitted facet category implements it.
+
+```text
+BinarySpanCompositionInterface(baseCategory, roleDiscipline)
+```
+
+is the minimal operational assumption. It chooses a pullback only for two
+adjacent binary relation spans when:
+
+1. the target object of the first span is the source object of the second; and
+2. the first target role and second source role satisfy the declared
+   `RoleCompatibility` predicate.
+
+Composition is then:
+
+```text
+composeBinaryRelationSpans :
+  compatible(first.targetRole, second.sourceRole)
+  -> StructuralSpan(A, C)
+```
+
+The diagonal span:
+
+```text
+A <-id- A -id-> A
+```
+
+is the structural identity definition. Pullback composition is not claimed to
+be literally unital or associative. `SpanIsomorphism` preserves both endpoint
+legs, and `SpanComparisonData` supplies:
+
+- a left unitor up to span isomorphism;
+- a right unitor up to span isomorphism; and
+- an associator up to span isomorphism.
+
+These comparisons are not called a completed coherence proof. Pentagon and
+triangle coherence remain explicit proof obligation C2 and are not silently
+included in the comparison package. M10 may be used only after C1, the
+comparison data, and C2 have been discharged for the selected profile.
 
 ## 5. Ledger projection wiring
 
@@ -260,11 +335,56 @@ but no executable profile depends on completing an infinite ascent.
 Status: **Definition** for the finite deployment boundary; relative reflection
 preservation remains **Proof obligation** M5.
 
-## 9. Remaining multispan obligation
+## 9. Typed multispan composition boundary
 
-Arbitrary-arity relation formation is defined. Only binary span composition is
-currently specified. Typed multispan composition remains Part X obligation 3
-and is not implied by the binary construction.
+Arbitrary-arity formation and arbitrary-arity composition remain distinct.
+The mechanized composition boundary now introduces:
+
+```text
+TypedMultispan(baseCategory, Port)
+```
+
+with an apex and a role-typed leg to the participant at every port.
+
+A `MultispanGluing` declares:
+
+- a joint index type;
+- the consumed left and right port for every joint;
+- equality of the two participant objects at every joint;
+- semantic-role compatibility at every joint; and
+- the exposed ports, proven to be exactly those not consumed by a joint.
+
+The output boundary is the disjoint sum of the exposed left and right ports.
+A `MultispanComposite` is evidence for one gluing. It supplies:
+
+- the composite apex;
+- projections to both input apexes;
+- and commutativity of every joined pair of legs after the declared
+  participant equality;
+- a mediating morphism for every other cone satisfying all joint equations;
+- factorization through both input-apex projections; and
+- uniqueness of that mediating morphism.
+
+The result's exposed legs are not free fields: each is derived by composing
+the relevant apex projection with the corresponding unconsumed input leg.
+
+`TypedMultispanCompositionInterface` requests such evidence for every declared
+gluing. The declaration of this structure is not a claim that it has an
+inhabitant.
+
+The categorical obligation register is:
+
+| Identifier | Statement | Status |
+| --- | --- | --- |
+| C1 | Required binary pullbacks can be selected for the chosen profile | Proof obligation |
+| C2 | Span comparison data satisfy triangle and pentagon coherence | Proof obligation |
+| C3 | Typed composites exist for the chosen multispan gluings | Proof obligation |
+| C4 | Multispan composition is associative under a declared comparison | Proof obligation |
+| C5 | Multispan composition preserves the declared typing judgments | Proof obligation |
+
+No existence, associativity, type-preservation, or confluence conclusion
+follows from the interface declarations alone. M7 confluence remains an open
+conjecture.
 
 ## 10. Corrected closure impact
 
@@ -278,6 +398,13 @@ The following Cycle 2 closure claims are narrowed:
 - Ledger projections are connected to the provenance, validation, and
   governance structures they expose.
 - M10 uses the permitted label **Conditional theorem**.
+- Binary relation composition requires role compatibility and selected
+  pullback evidence and returns a structural span.
+- Identity and associativity are stated up to leg-preserving span
+  isomorphism, not literal equality.
+- Typed multispan composition has a witness interface while C1–C5 retain
+  pullback selection, coherence, existence, and law claims as proof
+  obligations.
 - The reflection tower used by an executable deployment ends at a declared
   trusted kernel.
 

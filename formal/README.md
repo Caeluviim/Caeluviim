@@ -11,8 +11,18 @@ The formalized surface is deliberately narrow:
 | Facets and structural morphisms | `FacetCategory` | Definition with category laws |
 | Reified relation occurrence | `RelationOccurrence` | Definition |
 | Role-typed incidence map | `Incidence` | Definition |
-| Binary relation as span | `BinaryRelationSpan` | Definition |
-| Pullback requirement | `PullbackCone` | Abstract interface |
+| Binary relation as decorated span | `BinaryRelationSpan` | Definition |
+| Composable underlying span | `StructuralSpan` | Definition |
+| Pullback universal property | `PullbackCone` | Witness type |
+| All-cospan selected pullbacks | `SelectedPullbacks` | Sufficient interface; no global inhabitant |
+| Role-compatible binary pullbacks | `BinarySpanCompositionInterface` | Minimal interface; C1 proof obligation |
+| Binary span composition | `composeBinaryRelationSpans` | Definition from supplied pullback evidence |
+| Structural identity span | `StructuralSpan.identity` | Definition |
+| Span equivalence and comparisons | `SpanIsomorphism`, `SpanComparisonData` | Evidence types; triangle/pentagon are C2 |
+| Typed arbitrary-arity multispan | `TypedMultispan` | Definition |
+| Typed multispan gluing | `MultispanGluing` | Definition |
+| Multispan composite witness | `MultispanComposite` | Evidence type; existence not asserted |
+| Multispan composition implementation | `TypedMultispanCompositionInterface` | Interface; no global inhabitant |
 | Execution configuration `χ` | `ExecutionConfiguration` | Definition |
 | Runtime state `SΣ = ⟨H,A,W⟩` | `RuntimeState` with `Finset` history | Definition |
 | Stable ledger-entry identity | `RuntimeVocabulary.entryId` and `stableEntryIdentity` | Required interface |
@@ -34,12 +44,13 @@ The formalized surface is deliberately narrow:
 | Finite trusted reflection top | `ReflectionBoundary` | Definition |
 | Append-only transition | `Transition.append` | Definition |
 | Historical monotonicity M1 | `historical_monotonicity` | Proved theorem |
-| M1–M10 and P1–P4 status registers | `metatheoryStatus`, `provenanceLawStatus` | Definition |
+| M1–M10, P1–P4, and C1–C5 status registers | `metatheoryStatus`, `provenanceLawStatus`, `categoricalObligationStatus` | Definition |
 
 No declaration asserts type preservation, provenance preservation, relative
-reflection, termination, fixed-point existence, confluence, or functoriality.
-Replay agreement takes two distinct executor manifestations and is not stated
-as equality of an expression with itself.
+reflection, termination, fixed-point existence, confluence, functoriality,
+pullback availability, multispan-composite existence, or multispan
+associativity. Replay agreement takes two distinct executor manifestations and
+is not stated as equality of an expression with itself.
 
 ## Validation
 
@@ -51,17 +62,52 @@ lake build
 ```
 
 The project pins Mathlib to the same Lean release and imports only the
-`Finset` union surface required by the fixed theorem kernel. Category and
-pullback data remain represented locally.
+`Finset` union surface required by the fixed theorem kernel. Category,
+pullback, span-isomorphism, and multispan data remain represented locally.
 
-## Next proof boundary
+## Categorical proof boundary
 
-Before span composition is implemented, define:
+Cycle 2 now distinguishes two pullback assumptions:
 
-1. the exact class of facet categories admitted by the protocol;
-2. which cospans must have selected pullbacks;
-3. role compatibility for multispan legs; and
-4. equivalence or bicategorical coherence for composite span apexes.
+1. `SelectedPullbacks` is the stronger sufficient assumption used to state
+   general structural-span unitors and associators. It selects a pullback for
+   every cospan but is not globally inhabited.
+2. `BinarySpanCompositionInterface` is the minimal operational assumption. It
+   selects pullbacks only for adjacent binary relation occurrences whose
+   endpoint types agree and whose semantic roles satisfy a declared
+   `RoleCompatibility` predicate.
+
+Pullback composition returns a `StructuralSpan`. It does not silently promote
+the pullback apex to a `RelationOccurrence`; that requires separate relation
+typing, formation, and provenance evidence.
+
+The diagonal `StructuralSpan.identity` is defined, while unitality and
+associativity are represented up to `SpanIsomorphism`. A
+`SpanComparisonPackage` contains selected pullbacks and chosen unitor and
+associator isomorphisms. Those comparison data are not mislabeled as a full
+coherence proof: C2 separately requires the triangle and pentagon equations.
+M10 remains conditional on the package and C2. No package is asserted to
+exist, and no strictification is assumed.
+
+Typed multispan gluing declares:
+
+- a joint index;
+- the consumed left and right ports;
+- participant equality at each joint;
+- semantic-role compatibility;
+- and the exact unconsumed output boundary.
+
+`MultispanComposite` is the witness type for one such gluing, and
+`TypedMultispanCompositionInterface` is the implementation interface for all
+declared gluings. The witness contains the simultaneous joint equations,
+universal mediating map, both factorization equations, and uniqueness; exposed
+result legs are derived from the two apex projections. C1–C5 keep binary
+pullback selection, span triangle/pentagon coherence, multispan existence,
+multispan associativity, and multispan type preservation at proof-obligation
+status. M7 confluence remains a conjecture.
+
+The next proof work is to construct these interfaces for a selected bounded
+facet-category profile and then prove the registered laws for that profile.
 
 The normative symbol-and-wiring corrections driving this module are recorded
 in [`../docs/rrkc-cycle2-symbol-wiring-repair.md`](../docs/rrkc-cycle2-symbol-wiring-repair.md).

@@ -10,10 +10,10 @@ This module formalizes the first structural layer of the Cycle 2 repair:
 * incidence maps are morphisms;
 * operator symbols are separated from their denotations;
 * runtime history is append-only; and
-* historical monotonicity (M1) is proved.
-
-Span composition is intentionally left behind an abstract interface until the
-base category and its pullback conditions have been mechanized.
+* historical monotonicity (M1) is proved;
+* binary spans compose only when the required pullback data are supplied; and
+* typed multispan composition is represented by an uninhabited-by-default
+  interface rather than asserted to exist.
 -/
 
 namespace Caeluviim.RRKC.Cycle2
@@ -128,6 +128,475 @@ structure PullbackCone
       baseCategory.comp candidate fst = q₁ →
       baseCategory.comp candidate snd = q₂ →
       candidate = lift q₁ q₂ h
+
+/-- A structural span in the facet category. Unlike `BinaryRelationSpan`, this
+type does not assert that its apex is itself a semantic relation occurrence.
+Pullback composition naturally produces this structural layer. -/
+structure StructuralSpan
+    {sig : StaticSignature}
+    (baseCategory : FacetCategory sig)
+    (source target : baseCategory.Facet) where
+  apex : baseCategory.Facet
+  sourceLeg : baseCategory.Hom apex source
+  targetLeg : baseCategory.Hom apex target
+
+namespace StructuralSpan
+
+/-- The diagonal span is the structural identity candidate at `object`. This
+definition does not claim that selected pullback composition is strictly
+unital; unitors are stated separately as span isomorphisms. -/
+def identity
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    (object : baseCategory.Facet) :
+    StructuralSpan baseCategory object object where
+  apex := object
+  sourceLeg := baseCategory.id object
+  targetLeg := baseCategory.id object
+
+/-- Compose two structural spans using one supplied pullback of their shared
+legs. No global pullback-existence assumption is hidden in this operation. -/
+def composeGivenPullback
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B C : baseCategory.Facet}
+    (first : StructuralSpan baseCategory A B)
+    (second : StructuralSpan baseCategory B C)
+    (pullback :
+      PullbackCone baseCategory first.targetLeg second.sourceLeg) :
+    StructuralSpan baseCategory A C where
+  apex := pullback.apex
+  sourceLeg := baseCategory.comp pullback.fst first.sourceLeg
+  targetLeg := baseCategory.comp pullback.snd second.targetLeg
+
+end StructuralSpan
+
+/-- Forget the semantic decoration of a binary relation occurrence and retain
+the typed structural span that participates in pullback composition. -/
+def BinaryRelationSpan.toStructuralSpan
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B : baseCategory.Facet}
+    (span : BinaryRelationSpan baseCategory A B) :
+    StructuralSpan baseCategory A B where
+  apex := span.occurrence.apex
+  sourceLeg := span.sourceLeg
+  targetLeg := span.targetLeg
+
+/-- A sufficient, deliberately explicit assumption for the ordinary
+bicategory-of-spans construction: a pullback is selected for every cospan.
+Cycle 2 does not assert that a value of this structure exists for every facet
+category. The narrower binary-relation interface below requires less. -/
+structure SelectedPullbacks
+    {sig : StaticSignature}
+    (baseCategory : FacetCategory sig) where
+  select :
+    {B X Y : baseCategory.Facet} →
+    (left : baseCategory.Hom X B) →
+    (right : baseCategory.Hom Y B) →
+    PullbackCone baseCategory left right
+
+/-- Composition induced by an explicitly supplied all-cospan pullback
+selection. Its laws are not definitional equalities. -/
+def StructuralSpan.compose
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    (selected : SelectedPullbacks baseCategory)
+    {A B C : baseCategory.Facet}
+    (first : StructuralSpan baseCategory A B)
+    (second : StructuralSpan baseCategory B C) :
+    StructuralSpan baseCategory A C :=
+  StructuralSpan.composeGivenPullback
+    first
+    second
+    (selected.select first.targetLeg second.sourceLeg)
+
+/-- Isomorphism of spans with fixed endpoints. The commuting-leg equations
+make this stronger than an isomorphism of apex objects alone. -/
+structure SpanIsomorphism
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B : baseCategory.Facet}
+    (first second : StructuralSpan baseCategory A B) where
+  hom : baseCategory.Hom first.apex second.apex
+  inv : baseCategory.Hom second.apex first.apex
+  homInv : baseCategory.comp hom inv = baseCategory.id first.apex
+  invHom : baseCategory.comp inv hom = baseCategory.id second.apex
+  sourceCommutes :
+    baseCategory.comp hom second.sourceLeg = first.sourceLeg
+  targetCommutes :
+    baseCategory.comp hom second.targetLeg = first.targetLeg
+  inverseSourceCommutes :
+    baseCategory.comp inv first.sourceLeg = second.sourceLeg
+  inverseTargetCommutes :
+    baseCategory.comp inv first.targetLeg = second.targetLeg
+
+/-- Chosen left-unitor data, stated as a span isomorphism rather than literal
+equality. -/
+def SpanLeftUnitorData
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    (selected : SelectedPullbacks baseCategory) : Type u :=
+  ∀ {A B : baseCategory.Facet}
+    (span : StructuralSpan baseCategory A B),
+    SpanIsomorphism
+      (StructuralSpan.compose
+        selected
+        (StructuralSpan.identity A)
+        span)
+      span
+
+/-- Chosen right-unitor data, stated as a span isomorphism rather than literal
+equality. -/
+def SpanRightUnitorData
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    (selected : SelectedPullbacks baseCategory) : Type u :=
+  ∀ {A B : baseCategory.Facet}
+    (span : StructuralSpan baseCategory A B),
+    SpanIsomorphism
+      (StructuralSpan.compose
+        selected
+        span
+        (StructuralSpan.identity B))
+      span
+
+/-- Chosen associator data. No strictification is assumed. -/
+def SpanAssociatorData
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    (selected : SelectedPullbacks baseCategory) : Type u :=
+  ∀ {A B C D : baseCategory.Facet}
+    (first : StructuralSpan baseCategory A B)
+    (second : StructuralSpan baseCategory B C)
+    (third : StructuralSpan baseCategory C D),
+    SpanIsomorphism
+      (StructuralSpan.compose
+        selected
+        (StructuralSpan.compose selected first second)
+        third)
+      (StructuralSpan.compose
+        selected
+        first
+        (StructuralSpan.compose selected second third))
+
+/-- Chosen unitor and associator comparisons. These data do not by themselves
+prove the triangle or pentagon equations, so the name deliberately avoids
+calling the structure a completed coherence proof. -/
+structure SpanComparisonData
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    (selected : SelectedPullbacks baseCategory) where
+  leftUnitor : SpanLeftUnitorData selected
+  rightUnitor : SpanRightUnitorData selected
+  associator : SpanAssociatorData selected
+
+/-- Selected pullbacks plus comparison data. M10 additionally depends on the
+separate triangle-and-pentagon coherence obligation C2; this package alone is
+not advertised as a bicategory proof. No value is declared globally. -/
+structure SpanComparisonPackage
+    {sig : StaticSignature}
+    (baseCategory : FacetCategory sig) where
+  selected : SelectedPullbacks baseCategory
+  comparisons : SpanComparisonData selected
+
+/-- Semantic-role compatibility is protocol data, not equality smuggled
+through typography. -/
+structure RoleCompatibility (sig : StaticSignature) where
+  compatible : sig.Role → sig.Role → Prop
+
+/-- The minimal pullback assumption actually needed to compose binary
+relation spans: select a pullback only for role-compatible adjacent
+occurrences. This does not require pullbacks for unrelated cospans. -/
+structure BinarySpanCompositionInterface
+    {sig : StaticSignature}
+    (baseCategory : FacetCategory sig)
+    (roleDiscipline : RoleCompatibility sig) where
+  selectCompatiblePullback :
+    {A B C : baseCategory.Facet} →
+    (first : BinaryRelationSpan baseCategory A B) →
+    (second : BinaryRelationSpan baseCategory B C) →
+    roleDiscipline.compatible first.targetRole second.sourceRole →
+    PullbackCone baseCategory first.targetLeg second.sourceLeg
+
+/-- Compose two role-compatible binary relation occurrences at the structural
+span layer. Promoting the pullback apex to a new semantic relation occurrence
+would require additional typing, formation, and provenance evidence. -/
+def composeBinaryRelationSpans
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {roleDiscipline : RoleCompatibility sig}
+    (interface :
+      BinarySpanCompositionInterface baseCategory roleDiscipline)
+    {A B C : baseCategory.Facet}
+    (first : BinaryRelationSpan baseCategory A B)
+    (second : BinaryRelationSpan baseCategory B C)
+    (rolesCompatible :
+      roleDiscipline.compatible first.targetRole second.sourceRole) :
+    StructuralSpan baseCategory A C :=
+  StructuralSpan.composeGivenPullback
+    first.toStructuralSpan
+    second.toStructuralSpan
+    (interface.selectCompatiblePullback first second rolesCompatible)
+
+/-- A role-typed arbitrary-arity structural multispan. The index type makes
+the boundary explicit and preserves each leg's participant type. -/
+structure TypedMultispan
+    {sig : StaticSignature}
+    (baseCategory : FacetCategory sig)
+    (Port : Type u) where
+  apex : baseCategory.Facet
+  participant : Port → baseCategory.Facet
+  role : Port → sig.Role
+  leg : (port : Port) → baseCategory.Hom apex (participant port)
+
+/-- A declared gluing pattern between two multispans. Exposed ports are
+exactly those not consumed by a joint, and every joint carries both
+participant equality and semantic-role compatibility evidence. -/
+structure MultispanGluing
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {roleDiscipline : RoleCompatibility sig}
+    {LeftPort RightPort : Type u}
+    (left : TypedMultispan baseCategory LeftPort)
+    (right : TypedMultispan baseCategory RightPort) where
+  Joint : Type u
+  leftPort : Joint → LeftPort
+  rightPort : Joint → RightPort
+  participantAgreement :
+    ∀ joint,
+      left.participant (leftPort joint) =
+        right.participant (rightPort joint)
+  roleAgreement :
+    ∀ joint,
+      roleDiscipline.compatible
+        (left.role (leftPort joint))
+        (right.role (rightPort joint))
+  leftExposed : LeftPort → Prop
+  rightExposed : RightPort → Prop
+  leftExposureComplete :
+    ∀ port,
+      leftExposed port ↔ ∀ joint, leftPort joint ≠ port
+  rightExposureComplete :
+    ∀ port,
+      rightExposed port ↔ ∀ joint, rightPort joint ≠ port
+
+namespace MultispanGluing
+
+/-- The boundary of a composite is the disjoint sum of declared unconsumed
+ports. -/
+def OutputPort
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {roleDiscipline : RoleCompatibility sig}
+    {LeftPort RightPort : Type u}
+    {left : TypedMultispan baseCategory LeftPort}
+    {right : TypedMultispan baseCategory RightPort}
+    (gluing :
+      MultispanGluing
+        (roleDiscipline := roleDiscipline)
+        left
+        right) : Type u :=
+  Sum
+    { port : LeftPort // gluing.leftExposed port }
+    { port : RightPort // gluing.rightExposed port }
+
+def outputParticipant
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {roleDiscipline : RoleCompatibility sig}
+    {LeftPort RightPort : Type u}
+    {left : TypedMultispan baseCategory LeftPort}
+    {right : TypedMultispan baseCategory RightPort}
+    (gluing :
+      MultispanGluing
+        (roleDiscipline := roleDiscipline)
+        left
+        right) :
+    gluing.OutputPort → baseCategory.Facet
+  | .inl port => left.participant port.1
+  | .inr port => right.participant port.1
+
+def outputRole
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {roleDiscipline : RoleCompatibility sig}
+    {LeftPort RightPort : Type u}
+    {left : TypedMultispan baseCategory LeftPort}
+    {right : TypedMultispan baseCategory RightPort}
+    (gluing :
+      MultispanGluing
+        (roleDiscipline := roleDiscipline)
+        left
+        right) :
+    gluing.OutputPort → sig.Role
+  | .inl port => left.role port.1
+  | .inr port => right.role port.1
+
+end MultispanGluing
+
+/-- Transport only the codomain of a structural morphism along an object
+equality. -/
+def castHomCodomain
+    {sig : StaticSignature}
+    (baseCategory : FacetCategory sig)
+    {A B C : baseCategory.Facet}
+    (sameCodomain : B = C)
+    (arrow : baseCategory.Hom A B) :
+    baseCategory.Hom A C :=
+  sameCodomain ▸ arrow
+
+/-- Evidence that one gluing pattern has a typed multispan composite.
+Existence of this evidence is not asserted. -/
+structure MultispanComposite
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {roleDiscipline : RoleCompatibility sig}
+    {LeftPort RightPort : Type u}
+    {left : TypedMultispan baseCategory LeftPort}
+    {right : TypedMultispan baseCategory RightPort}
+    (gluing :
+      MultispanGluing
+        (roleDiscipline := roleDiscipline)
+        left
+        right) where
+  apex : baseCategory.Facet
+  leftProjection : baseCategory.Hom apex left.apex
+  rightProjection : baseCategory.Hom apex right.apex
+  joinedLegsCommute :
+    ∀ joint,
+      castHomCodomain
+        baseCategory
+        (gluing.participantAgreement joint)
+        (baseCategory.comp
+          leftProjection
+          (left.leg (gluing.leftPort joint))) =
+        baseCategory.comp
+          rightProjection
+          (right.leg (gluing.rightPort joint))
+  lift :
+    {Q : baseCategory.Facet} →
+    (toLeft : baseCategory.Hom Q left.apex) →
+    (toRight : baseCategory.Hom Q right.apex) →
+    (∀ joint,
+      castHomCodomain
+        baseCategory
+        (gluing.participantAgreement joint)
+        (baseCategory.comp
+          toLeft
+          (left.leg (gluing.leftPort joint))) =
+        baseCategory.comp
+          toRight
+          (right.leg (gluing.rightPort joint))) →
+    baseCategory.Hom Q apex
+  liftLeft :
+    ∀ {Q : baseCategory.Facet}
+      (toLeft : baseCategory.Hom Q left.apex)
+      (toRight : baseCategory.Hom Q right.apex)
+      (commutes :
+        ∀ joint,
+          castHomCodomain
+            baseCategory
+            (gluing.participantAgreement joint)
+            (baseCategory.comp
+              toLeft
+              (left.leg (gluing.leftPort joint))) =
+            baseCategory.comp
+              toRight
+              (right.leg (gluing.rightPort joint))),
+      baseCategory.comp
+        (lift toLeft toRight commutes)
+        leftProjection =
+        toLeft
+  liftRight :
+    ∀ {Q : baseCategory.Facet}
+      (toLeft : baseCategory.Hom Q left.apex)
+      (toRight : baseCategory.Hom Q right.apex)
+      (commutes :
+        ∀ joint,
+          castHomCodomain
+            baseCategory
+            (gluing.participantAgreement joint)
+            (baseCategory.comp
+              toLeft
+              (left.leg (gluing.leftPort joint))) =
+            baseCategory.comp
+              toRight
+              (right.leg (gluing.rightPort joint))),
+      baseCategory.comp
+        (lift toLeft toRight commutes)
+        rightProjection =
+        toRight
+  liftUnique :
+    ∀ {Q : baseCategory.Facet}
+      (toLeft : baseCategory.Hom Q left.apex)
+      (toRight : baseCategory.Hom Q right.apex)
+      (commutes :
+        ∀ joint,
+          castHomCodomain
+            baseCategory
+            (gluing.participantAgreement joint)
+            (baseCategory.comp
+              toLeft
+              (left.leg (gluing.leftPort joint))) =
+            baseCategory.comp
+              toRight
+              (right.leg (gluing.rightPort joint)))
+      (candidate : baseCategory.Hom Q apex),
+      baseCategory.comp candidate leftProjection = toLeft →
+      baseCategory.comp candidate rightProjection = toRight →
+      candidate = lift toLeft toRight commutes
+
+/-- The typed multispan exposed by composite evidence. -/
+def MultispanComposite.result
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {roleDiscipline : RoleCompatibility sig}
+    {LeftPort RightPort : Type u}
+    {left : TypedMultispan baseCategory LeftPort}
+    {right : TypedMultispan baseCategory RightPort}
+    {gluing :
+      MultispanGluing
+        (roleDiscipline := roleDiscipline)
+        left
+        right}
+    (composite :
+      MultispanComposite
+        (roleDiscipline := roleDiscipline)
+        gluing) :
+    TypedMultispan baseCategory gluing.OutputPort where
+  apex := composite.apex
+  participant := gluing.outputParticipant
+  role := gluing.outputRole
+  leg
+    | .inl port =>
+        baseCategory.comp
+          composite.leftProjection
+          (left.leg port.1)
+    | .inr port =>
+        baseCategory.comp
+          composite.rightProjection
+          (right.leg port.1)
+
+/-- An implementation interface for all declared multispan gluings. Merely
+defining this structure does not assert that it is inhabited for a given base
+category or role discipline. -/
+structure TypedMultispanCompositionInterface
+    {sig : StaticSignature}
+    (baseCategory : FacetCategory sig)
+    (roleDiscipline : RoleCompatibility sig) where
+  compose :
+    {LeftPort RightPort : Type u} →
+    {left : TypedMultispan baseCategory LeftPort} →
+    {right : TypedMultispan baseCategory RightPort} →
+    (gluing :
+      MultispanGluing
+        (roleDiscipline := roleDiscipline)
+        left
+        right) →
+    MultispanComposite
+      (roleDiscipline := roleDiscipline)
+      gluing
 
 /-- Four-valued evidence-bearing validation result. -/
 inductive ValidationResult where
@@ -571,6 +1040,16 @@ inductive ProvenanceLawId where
   | P4EmptyIdentity
   deriving Repr, DecidableEq
 
+/-- Categorical construction obligations that must not be inferred merely
+from the existence of the interfaces above. -/
+inductive CategoricalObligationId where
+  | C1BinaryPullbackSelection
+  | C2SpanTrianglePentagonCoherence
+  | C3MultispanCompositionExistence
+  | C4MultispanAssociativity
+  | C5MultispanTypePreservation
+  deriving Repr, DecidableEq
+
 /-- The specification's current proof-status register. -/
 def metatheoryStatus : MetatheoryId → MetatheoryStatus
   | .M1HistoricalMonotonicity => .provedTheorem
@@ -590,5 +1069,18 @@ def provenanceLawStatus : ProvenanceLawId → MetatheoryStatus
   | .P2Commutativity => .proofObligation
   | .P3Idempotency => .proofObligation
   | .P4EmptyIdentity => .proofObligation
+
+/-- The new categorical declarations expose witness types but provide no
+global inhabitants or derived laws. Each construction remains an obligation
+for a selected protocol profile. M10 separately remains conditional on a
+`SpanComparisonPackage` plus C2's triangle and pentagon proofs; M7 confluence
+remains a conjecture. -/
+def categoricalObligationStatus :
+  CategoricalObligationId → MetatheoryStatus
+  | .C1BinaryPullbackSelection => .proofObligation
+  | .C2SpanTrianglePentagonCoherence => .proofObligation
+  | .C3MultispanCompositionExistence => .proofObligation
+  | .C4MultispanAssociativity => .proofObligation
+  | .C5MultispanTypePreservation => .proofObligation
 
 end Caeluviim.RRKC.Cycle2
