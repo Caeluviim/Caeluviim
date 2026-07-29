@@ -12,6 +12,8 @@ This module formalizes the first structural layer of the Cycle 2 repair:
 * runtime history is append-only; and
 * historical monotonicity (M1) is proved;
 * binary spans compose only when the required pullback data are supplied; and
+* span 2-cells form a strict vertical category and pullback-induced horizontal
+  composition satisfies identity and interchange; while
 * typed multispan composition is represented by an uninhabited-by-default
   interface rather than asserted to exist.
 -/
@@ -129,6 +131,65 @@ structure PullbackCone
       baseCategory.comp candidate snd = q₂ →
       candidate = lift q₁ q₂ h
 
+/-- Two arrows into a pullback apex are equal when both pullback projections
+agree. This is derived from, rather than added to, the universal property. -/
+theorem PullbackCone.hom_ext
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A X Y : baseCategory.Facet}
+    {left : baseCategory.Hom X A}
+    {right : baseCategory.Hom Y A}
+    (pullback : PullbackCone baseCategory left right)
+    {Q : baseCategory.Facet}
+    (first second : baseCategory.Hom Q pullback.apex)
+    (firstProjection :
+      baseCategory.comp first pullback.fst =
+        baseCategory.comp second pullback.fst)
+    (secondProjection :
+      baseCategory.comp first pullback.snd =
+        baseCategory.comp second pullback.snd) :
+    first = second := by
+  let q₁ := baseCategory.comp first pullback.fst
+  let q₂ := baseCategory.comp first pullback.snd
+  have compatible :
+      baseCategory.comp q₁ left =
+        baseCategory.comp q₂ right := by
+    calc
+      baseCategory.comp q₁ left =
+          baseCategory.comp
+            first
+            (baseCategory.comp pullback.fst left) :=
+        baseCategory.comp_assoc first pullback.fst left
+      _ = baseCategory.comp
+            first
+            (baseCategory.comp pullback.snd right) := by
+        rw [pullback.commutes]
+      _ = baseCategory.comp q₂ right := by
+        exact
+          (baseCategory.comp_assoc
+            first
+            pullback.snd
+            right).symm
+  have firstIsLift :
+      first = pullback.lift q₁ q₂ compatible :=
+    pullback.lift_unique
+      q₁
+      q₂
+      compatible
+      first
+      rfl
+      rfl
+  have secondIsLift :
+      second = pullback.lift q₁ q₂ compatible :=
+    pullback.lift_unique
+      q₁
+      q₂
+      compatible
+      second
+      firstProjection.symm
+      secondProjection.symm
+  exact firstIsLift.trans secondIsLift.symm
+
 /-- A structural span in the facet category. Unlike `BinaryRelationSpan`, this
 type does not assert that its apex is itself a semantic relation occurrence.
 Pullback composition naturally produces this structural layer. -/
@@ -231,6 +292,541 @@ structure SpanIsomorphism
   inverseTargetCommutes :
     baseCategory.comp inv first.targetLeg = second.targetLeg
 
+/-- A 2-cell between spans with the same endpoints is an apex morphism that
+preserves both legs. -/
+structure SpanTwoCell
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B : baseCategory.Facet}
+    (first second : StructuralSpan baseCategory A B) where
+  arrow : baseCategory.Hom first.apex second.apex
+  sourceCommutes :
+    baseCategory.comp arrow second.sourceLeg = first.sourceLeg
+  targetCommutes :
+    baseCategory.comp arrow second.targetLeg = first.targetLeg
+
+namespace SpanTwoCell
+
+/-- Two span 2-cells are equal when their apex arrows are equal. -/
+@[ext]
+theorem ext
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B : baseCategory.Facet}
+    {first second : StructuralSpan baseCategory A B}
+    (left right : SpanTwoCell first second)
+    (arrowEquality : left.arrow = right.arrow) :
+    left = right := by
+  cases left
+  cases right
+  cases arrowEquality
+  rfl
+
+/-- Identity 2-cell on a structural span. -/
+def identity
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B : baseCategory.Facet}
+    (span : StructuralSpan baseCategory A B) :
+    SpanTwoCell span span where
+  arrow := baseCategory.id span.apex
+  sourceCommutes := baseCategory.id_comp span.sourceLeg
+  targetCommutes := baseCategory.id_comp span.targetLeg
+
+/-- Vertical composition of leg-preserving 2-cells. -/
+def vertical
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B : baseCategory.Facet}
+    {first second third : StructuralSpan baseCategory A B}
+    (upper : SpanTwoCell first second)
+    (lower : SpanTwoCell second third) :
+    SpanTwoCell first third where
+  arrow := baseCategory.comp upper.arrow lower.arrow
+  sourceCommutes := by
+    calc
+      baseCategory.comp
+          (baseCategory.comp upper.arrow lower.arrow)
+          third.sourceLeg =
+        baseCategory.comp
+          upper.arrow
+          (baseCategory.comp lower.arrow third.sourceLeg) :=
+            baseCategory.comp_assoc
+              upper.arrow
+              lower.arrow
+              third.sourceLeg
+      _ = baseCategory.comp upper.arrow second.sourceLeg := by
+        rw [lower.sourceCommutes]
+      _ = first.sourceLeg := upper.sourceCommutes
+  targetCommutes := by
+    calc
+      baseCategory.comp
+          (baseCategory.comp upper.arrow lower.arrow)
+          third.targetLeg =
+        baseCategory.comp
+          upper.arrow
+          (baseCategory.comp lower.arrow third.targetLeg) :=
+            baseCategory.comp_assoc
+              upper.arrow
+              lower.arrow
+              third.targetLeg
+      _ = baseCategory.comp upper.arrow second.targetLeg := by
+        rw [lower.targetCommutes]
+      _ = first.targetLeg := upper.targetCommutes
+
+/-- Left identity for vertical 2-cell composition follows from the base
+category identity law. -/
+theorem identity_vertical
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B : baseCategory.Facet}
+    {first second : StructuralSpan baseCategory A B}
+    (cell : SpanTwoCell first second) :
+    vertical (identity first) cell = cell := by
+  apply ext
+  exact baseCategory.id_comp cell.arrow
+
+/-- Right identity for vertical 2-cell composition follows from the base
+category identity law. -/
+theorem vertical_identity
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B : baseCategory.Facet}
+    {first second : StructuralSpan baseCategory A B}
+    (cell : SpanTwoCell first second) :
+    vertical cell (identity second) = cell := by
+  apply ext
+  exact baseCategory.comp_id cell.arrow
+
+/-- Vertical 2-cell composition is strictly associative because structural
+morphism composition is associative. -/
+theorem vertical_assoc
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B : baseCategory.Facet}
+    {first second third fourth : StructuralSpan baseCategory A B}
+    (alpha : SpanTwoCell first second)
+    (beta : SpanTwoCell second third)
+    (gamma : SpanTwoCell third fourth) :
+    vertical (vertical alpha beta) gamma =
+      vertical alpha (vertical beta gamma) := by
+  apply ext
+  exact baseCategory.comp_assoc alpha.arrow beta.arrow gamma.arrow
+
+end SpanTwoCell
+
+/-- The forward half of a span isomorphism is a span 2-cell. -/
+def SpanIsomorphism.homCell
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B : baseCategory.Facet}
+    {first second : StructuralSpan baseCategory A B}
+    (iso : SpanIsomorphism first second) :
+    SpanTwoCell first second where
+  arrow := iso.hom
+  sourceCommutes := iso.sourceCommutes
+  targetCommutes := iso.targetCommutes
+
+/-- The inverse half of a span isomorphism is a span 2-cell. -/
+def SpanIsomorphism.invCell
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B : baseCategory.Facet}
+    {first second : StructuralSpan baseCategory A B}
+    (iso : SpanIsomorphism first second) :
+    SpanTwoCell second first where
+  arrow := iso.inv
+  sourceCommutes := iso.inverseSourceCommutes
+  targetCommutes := iso.inverseTargetCommutes
+
+/-- The forward and inverse cells of a span isomorphism cancel vertically. -/
+theorem SpanIsomorphism.hom_vertical_inv
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B : baseCategory.Facet}
+    {first second : StructuralSpan baseCategory A B}
+    (iso : SpanIsomorphism first second) :
+    SpanTwoCell.vertical iso.homCell iso.invCell =
+      SpanTwoCell.identity first := by
+  apply SpanTwoCell.ext
+  exact iso.homInv
+
+/-- The inverse and forward cells of a span isomorphism cancel vertically. -/
+theorem SpanIsomorphism.inv_vertical_hom
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {A B : baseCategory.Facet}
+    {first second : StructuralSpan baseCategory A B}
+    (iso : SpanIsomorphism first second) :
+    SpanTwoCell.vertical iso.invCell iso.homCell =
+      SpanTwoCell.identity second := by
+  apply SpanTwoCell.ext
+  exact iso.invHom
+
+/-- Pullback-induced horizontal composition of span 2-cells. The mediating
+arrow is obtained from the universal property of the selected target
+pullback. -/
+def SpanTwoCell.horizontal
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    (selected : SelectedPullbacks baseCategory)
+    {A B C : baseCategory.Facet}
+    {first first' : StructuralSpan baseCategory A B}
+    {second second' : StructuralSpan baseCategory B C}
+    (alpha : SpanTwoCell first first')
+    (beta : SpanTwoCell second second') :
+    SpanTwoCell
+      (StructuralSpan.compose selected first second)
+      (StructuralSpan.compose selected first' second') := by
+  let sourcePullback :=
+    selected.select first.targetLeg second.sourceLeg
+  let targetPullback :=
+    selected.select first'.targetLeg second'.sourceLeg
+  let toFirst :=
+    baseCategory.comp sourcePullback.fst alpha.arrow
+  let toSecond :=
+    baseCategory.comp sourcePullback.snd beta.arrow
+  have compatible :
+      baseCategory.comp toFirst first'.targetLeg =
+        baseCategory.comp toSecond second'.sourceLeg := by
+    calc
+      baseCategory.comp toFirst first'.targetLeg =
+          baseCategory.comp
+            sourcePullback.fst
+            (baseCategory.comp alpha.arrow first'.targetLeg) :=
+        baseCategory.comp_assoc
+          sourcePullback.fst
+          alpha.arrow
+          first'.targetLeg
+      _ = baseCategory.comp sourcePullback.fst first.targetLeg := by
+        rw [alpha.targetCommutes]
+      _ = baseCategory.comp sourcePullback.snd second.sourceLeg :=
+        sourcePullback.commutes
+      _ = baseCategory.comp
+            sourcePullback.snd
+            (baseCategory.comp beta.arrow second'.sourceLeg) := by
+        rw [beta.sourceCommutes]
+      _ = baseCategory.comp toSecond second'.sourceLeg := by
+        exact
+          (baseCategory.comp_assoc
+            sourcePullback.snd
+            beta.arrow
+            second'.sourceLeg).symm
+  let induced :=
+    targetPullback.lift toFirst toSecond compatible
+  refine
+    { arrow := induced
+      sourceCommutes := ?_
+      targetCommutes := ?_ }
+  · change
+      baseCategory.comp
+          induced
+          (baseCategory.comp targetPullback.fst first'.sourceLeg) =
+        baseCategory.comp sourcePullback.fst first.sourceLeg
+    calc
+      baseCategory.comp
+          induced
+          (baseCategory.comp targetPullback.fst first'.sourceLeg) =
+          baseCategory.comp
+            (baseCategory.comp induced targetPullback.fst)
+            first'.sourceLeg := by
+        exact
+          (baseCategory.comp_assoc
+            induced
+            targetPullback.fst
+            first'.sourceLeg).symm
+      _ = baseCategory.comp toFirst first'.sourceLeg := by
+        rw [targetPullback.lift_fst]
+      _ = baseCategory.comp
+            sourcePullback.fst
+            (baseCategory.comp alpha.arrow first'.sourceLeg) :=
+        baseCategory.comp_assoc
+          sourcePullback.fst
+          alpha.arrow
+          first'.sourceLeg
+      _ = baseCategory.comp sourcePullback.fst first.sourceLeg := by
+        rw [alpha.sourceCommutes]
+  · change
+      baseCategory.comp
+          induced
+          (baseCategory.comp targetPullback.snd second'.targetLeg) =
+        baseCategory.comp sourcePullback.snd second.targetLeg
+    calc
+      baseCategory.comp
+          induced
+          (baseCategory.comp targetPullback.snd second'.targetLeg) =
+          baseCategory.comp
+            (baseCategory.comp induced targetPullback.snd)
+            second'.targetLeg := by
+        exact
+          (baseCategory.comp_assoc
+            induced
+            targetPullback.snd
+            second'.targetLeg).symm
+      _ = baseCategory.comp toSecond second'.targetLeg := by
+        rw [targetPullback.lift_snd]
+      _ = baseCategory.comp
+            sourcePullback.snd
+            (baseCategory.comp beta.arrow second'.targetLeg) :=
+        baseCategory.comp_assoc
+          sourcePullback.snd
+          beta.arrow
+          second'.targetLeg
+      _ = baseCategory.comp sourcePullback.snd second.targetLeg := by
+        rw [beta.targetCommutes]
+
+/-- The horizontal composite factors through the first target-pullback
+projection exactly as prescribed by the source pullback and `alpha`. -/
+theorem SpanTwoCell.horizontal_first_projection
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    (selected : SelectedPullbacks baseCategory)
+    {A B C : baseCategory.Facet}
+    {first first' : StructuralSpan baseCategory A B}
+    {second second' : StructuralSpan baseCategory B C}
+    (alpha : SpanTwoCell first first')
+    (beta : SpanTwoCell second second') :
+    baseCategory.comp
+        (SpanTwoCell.horizontal selected alpha beta).arrow
+        (selected.select first'.targetLeg second'.sourceLeg).fst =
+      baseCategory.comp
+        (selected.select first.targetLeg second.sourceLeg).fst
+        alpha.arrow := by
+  apply
+    (selected.select first'.targetLeg second'.sourceLeg).lift_fst
+
+/-- The horizontal composite factors through the second target-pullback
+projection exactly as prescribed by the source pullback and `beta`. -/
+theorem SpanTwoCell.horizontal_second_projection
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    (selected : SelectedPullbacks baseCategory)
+    {A B C : baseCategory.Facet}
+    {first first' : StructuralSpan baseCategory A B}
+    {second second' : StructuralSpan baseCategory B C}
+    (alpha : SpanTwoCell first first')
+    (beta : SpanTwoCell second second') :
+    baseCategory.comp
+        (SpanTwoCell.horizontal selected alpha beta).arrow
+        (selected.select first'.targetLeg second'.sourceLeg).snd =
+      baseCategory.comp
+        (selected.select first.targetLeg second.sourceLeg).snd
+        beta.arrow := by
+  apply
+    (selected.select first'.targetLeg second'.sourceLeg).lift_snd
+
+/-- Horizontal composition preserves identity 2-cells. The proof uses
+pullback uniqueness and the two projection equations above. -/
+theorem SpanTwoCell.horizontal_identity
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    (selected : SelectedPullbacks baseCategory)
+    {A B C : baseCategory.Facet}
+    (first : StructuralSpan baseCategory A B)
+    (second : StructuralSpan baseCategory B C) :
+    SpanTwoCell.horizontal
+        selected
+        (SpanTwoCell.identity first)
+        (SpanTwoCell.identity second) =
+      SpanTwoCell.identity
+        (StructuralSpan.compose selected first second) := by
+  apply SpanTwoCell.ext
+  let pullback :=
+    selected.select first.targetLeg second.sourceLeg
+  apply pullback.hom_ext
+  · calc
+      baseCategory.comp
+          (SpanTwoCell.horizontal
+            selected
+            (SpanTwoCell.identity first)
+            (SpanTwoCell.identity second)).arrow
+          pullback.fst =
+          baseCategory.comp
+            pullback.fst
+            (baseCategory.id first.apex) :=
+        SpanTwoCell.horizontal_first_projection
+          selected
+          (SpanTwoCell.identity first)
+          (SpanTwoCell.identity second)
+      _ = pullback.fst :=
+        baseCategory.comp_id pullback.fst
+      _ = baseCategory.comp
+            (baseCategory.id pullback.apex)
+            pullback.fst := by
+        exact (baseCategory.id_comp pullback.fst).symm
+  · calc
+      baseCategory.comp
+          (SpanTwoCell.horizontal
+            selected
+            (SpanTwoCell.identity first)
+            (SpanTwoCell.identity second)).arrow
+          pullback.snd =
+          baseCategory.comp
+            pullback.snd
+            (baseCategory.id second.apex) :=
+        SpanTwoCell.horizontal_second_projection
+          selected
+          (SpanTwoCell.identity first)
+          (SpanTwoCell.identity second)
+      _ = pullback.snd :=
+        baseCategory.comp_id pullback.snd
+      _ = baseCategory.comp
+            (baseCategory.id pullback.apex)
+            pullback.snd := by
+        exact (baseCategory.id_comp pullback.snd).symm
+
+/-- Horizontal composition preserves vertical composition (the interchange
+law). This too follows from pullback uniqueness; it is not an added coherence
+axiom. -/
+theorem SpanTwoCell.horizontal_vertical
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    (selected : SelectedPullbacks baseCategory)
+    {A B C : baseCategory.Facet}
+    {first₀ first₁ first₂ : StructuralSpan baseCategory A B}
+    {second₀ second₁ second₂ : StructuralSpan baseCategory B C}
+    (alpha₁ : SpanTwoCell first₀ first₁)
+    (alpha₂ : SpanTwoCell first₁ first₂)
+    (beta₁ : SpanTwoCell second₀ second₁)
+    (beta₂ : SpanTwoCell second₁ second₂) :
+    SpanTwoCell.horizontal
+        selected
+        (SpanTwoCell.vertical alpha₁ alpha₂)
+        (SpanTwoCell.vertical beta₁ beta₂) =
+      SpanTwoCell.vertical
+        (SpanTwoCell.horizontal selected alpha₁ beta₁)
+        (SpanTwoCell.horizontal selected alpha₂ beta₂) := by
+  apply SpanTwoCell.ext
+  let sourcePullback :=
+    selected.select first₀.targetLeg second₀.sourceLeg
+  let middlePullback :=
+    selected.select first₁.targetLeg second₁.sourceLeg
+  let targetPullback :=
+    selected.select first₂.targetLeg second₂.sourceLeg
+  apply targetPullback.hom_ext
+  · calc
+      baseCategory.comp
+          (SpanTwoCell.horizontal
+            selected
+            (SpanTwoCell.vertical alpha₁ alpha₂)
+            (SpanTwoCell.vertical beta₁ beta₂)).arrow
+          targetPullback.fst =
+          baseCategory.comp
+            sourcePullback.fst
+            (baseCategory.comp alpha₁.arrow alpha₂.arrow) :=
+        SpanTwoCell.horizontal_first_projection
+          selected
+          (SpanTwoCell.vertical alpha₁ alpha₂)
+          (SpanTwoCell.vertical beta₁ beta₂)
+      _ = baseCategory.comp
+            (baseCategory.comp sourcePullback.fst alpha₁.arrow)
+            alpha₂.arrow := by
+        exact
+          (baseCategory.comp_assoc
+            sourcePullback.fst
+            alpha₁.arrow
+            alpha₂.arrow).symm
+      _ = baseCategory.comp
+            (baseCategory.comp
+              (SpanTwoCell.horizontal selected alpha₁ beta₁).arrow
+              middlePullback.fst)
+            alpha₂.arrow := by
+        rw [
+          SpanTwoCell.horizontal_first_projection
+            selected
+            alpha₁
+            beta₁
+        ]
+      _ = baseCategory.comp
+            (SpanTwoCell.horizontal selected alpha₁ beta₁).arrow
+            (baseCategory.comp middlePullback.fst alpha₂.arrow) :=
+        baseCategory.comp_assoc
+          (SpanTwoCell.horizontal selected alpha₁ beta₁).arrow
+          middlePullback.fst
+          alpha₂.arrow
+      _ = baseCategory.comp
+            (SpanTwoCell.horizontal selected alpha₁ beta₁).arrow
+            (baseCategory.comp
+              (SpanTwoCell.horizontal selected alpha₂ beta₂).arrow
+              targetPullback.fst) := by
+        rw [
+          SpanTwoCell.horizontal_first_projection
+            selected
+            alpha₂
+            beta₂
+        ]
+      _ = baseCategory.comp
+            (baseCategory.comp
+              (SpanTwoCell.horizontal selected alpha₁ beta₁).arrow
+              (SpanTwoCell.horizontal selected alpha₂ beta₂).arrow)
+            targetPullback.fst := by
+        exact
+          (baseCategory.comp_assoc
+            (SpanTwoCell.horizontal selected alpha₁ beta₁).arrow
+            (SpanTwoCell.horizontal selected alpha₂ beta₂).arrow
+            targetPullback.fst).symm
+  · calc
+      baseCategory.comp
+          (SpanTwoCell.horizontal
+            selected
+            (SpanTwoCell.vertical alpha₁ alpha₂)
+            (SpanTwoCell.vertical beta₁ beta₂)).arrow
+          targetPullback.snd =
+          baseCategory.comp
+            sourcePullback.snd
+            (baseCategory.comp beta₁.arrow beta₂.arrow) :=
+        SpanTwoCell.horizontal_second_projection
+          selected
+          (SpanTwoCell.vertical alpha₁ alpha₂)
+          (SpanTwoCell.vertical beta₁ beta₂)
+      _ = baseCategory.comp
+            (baseCategory.comp sourcePullback.snd beta₁.arrow)
+            beta₂.arrow := by
+        exact
+          (baseCategory.comp_assoc
+            sourcePullback.snd
+            beta₁.arrow
+            beta₂.arrow).symm
+      _ = baseCategory.comp
+            (baseCategory.comp
+              (SpanTwoCell.horizontal selected alpha₁ beta₁).arrow
+              middlePullback.snd)
+            beta₂.arrow := by
+        rw [
+          SpanTwoCell.horizontal_second_projection
+            selected
+            alpha₁
+            beta₁
+        ]
+      _ = baseCategory.comp
+            (SpanTwoCell.horizontal selected alpha₁ beta₁).arrow
+            (baseCategory.comp middlePullback.snd beta₂.arrow) :=
+        baseCategory.comp_assoc
+          (SpanTwoCell.horizontal selected alpha₁ beta₁).arrow
+          middlePullback.snd
+          beta₂.arrow
+      _ = baseCategory.comp
+            (SpanTwoCell.horizontal selected alpha₁ beta₁).arrow
+            (baseCategory.comp
+              (SpanTwoCell.horizontal selected alpha₂ beta₂).arrow
+              targetPullback.snd) := by
+        rw [
+          SpanTwoCell.horizontal_second_projection
+            selected
+            alpha₂
+            beta₂
+        ]
+      _ = baseCategory.comp
+            (baseCategory.comp
+              (SpanTwoCell.horizontal selected alpha₁ beta₁).arrow
+              (SpanTwoCell.horizontal selected alpha₂ beta₂).arrow)
+            targetPullback.snd := by
+        exact
+          (baseCategory.comp_assoc
+            (SpanTwoCell.horizontal selected alpha₁ beta₁).arrow
+            (SpanTwoCell.horizontal selected alpha₂ beta₂).arrow
+            targetPullback.snd).symm
+
 /-- Chosen left-unitor data, stated as a span isomorphism rather than literal
 equality. -/
 def SpanLeftUnitorData
@@ -291,6 +887,76 @@ structure SpanComparisonData
   rightUnitor : SpanRightUnitorData selected
   associator : SpanAssociatorData selected
 
+/-- The bicategorical triangle equation as an equality of two explicitly
+typed composite span 2-cells. -/
+def SpanTriangleEquation
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {selected : SelectedPullbacks baseCategory}
+    (comparisons : SpanComparisonData selected) : Prop :=
+  ∀ {A B C : baseCategory.Facet}
+    (first : StructuralSpan baseCategory A B)
+    (second : StructuralSpan baseCategory B C),
+    SpanTwoCell.vertical
+        (comparisons.associator
+          first
+          (StructuralSpan.identity B)
+          second).homCell
+        (SpanTwoCell.horizontal
+          selected
+          (SpanTwoCell.identity first)
+          (comparisons.leftUnitor second).homCell) =
+      SpanTwoCell.horizontal
+        selected
+        (comparisons.rightUnitor first).homCell
+        (SpanTwoCell.identity second)
+
+/-- Mac Lane's pentagon equation for four composable structural spans,
+expressed using the selected pullback composition and chosen associators. -/
+def SpanPentagonEquation
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {selected : SelectedPullbacks baseCategory}
+    (comparisons : SpanComparisonData selected) : Prop :=
+  ∀ {A B C D E : baseCategory.Facet}
+    (first : StructuralSpan baseCategory A B)
+    (second : StructuralSpan baseCategory B C)
+    (third : StructuralSpan baseCategory C D)
+    (fourth : StructuralSpan baseCategory D E),
+    SpanTwoCell.vertical
+        (comparisons.associator
+          (StructuralSpan.compose selected first second)
+          third
+          fourth).homCell
+        (comparisons.associator
+          first
+          second
+          (StructuralSpan.compose selected third fourth)).homCell =
+      SpanTwoCell.vertical
+        (SpanTwoCell.horizontal
+          selected
+          (comparisons.associator first second third).homCell
+          (SpanTwoCell.identity fourth))
+        (SpanTwoCell.vertical
+          (comparisons.associator
+            first
+            (StructuralSpan.compose selected second third)
+            fourth).homCell
+          (SpanTwoCell.horizontal
+            selected
+            (SpanTwoCell.identity first)
+            (comparisons.associator second third fourth).homCell))
+
+/-- A witness that the chosen comparison data satisfy the two coherence
+equations mechanized in Cycle 2. No global witness is declared. -/
+structure SpanCoherenceProof
+    {sig : StaticSignature}
+    {baseCategory : FacetCategory sig}
+    {selected : SelectedPullbacks baseCategory}
+    (comparisons : SpanComparisonData selected) : Prop where
+  triangle : SpanTriangleEquation comparisons
+  pentagon : SpanPentagonEquation comparisons
+
 /-- Selected pullbacks plus comparison data. M10 additionally depends on the
 separate triangle-and-pentagon coherence obligation C2; this package alone is
 not advertised as a bicategory proof. No value is declared globally. -/
@@ -299,6 +965,24 @@ structure SpanComparisonPackage
     (baseCategory : FacetCategory sig) where
   selected : SelectedPullbacks baseCategory
   comparisons : SpanComparisonData selected
+
+/-- Exact evidence needed to discharge the triangle-and-pentagon portion of
+C2 for one selected pullback profile. Defining the package does not construct
+an inhabitant. -/
+structure SpanCoherencePackage
+    {sig : StaticSignature}
+    (baseCategory : FacetCategory sig) where
+  selected : SelectedPullbacks baseCategory
+  comparisons : SpanComparisonData selected
+  coherence : SpanCoherenceProof comparisons
+
+/-- The exact antecedent recorded for M10. It is a proposition about the
+existence of selected pullbacks, chosen comparisons, and proofs of both
+mechanized coherence equations; it is not asserted globally. -/
+def M10SpanCompositionCoherenceCondition
+    {sig : StaticSignature}
+    (baseCategory : FacetCategory sig) : Prop :=
+  Nonempty (SpanCoherencePackage baseCategory)
 
 /-- Semantic-role compatibility is protocol data, not equality smuggled
 through typography. -/
@@ -1050,6 +1734,18 @@ inductive CategoricalObligationId where
   | C5MultispanTypePreservation
   deriving Repr, DecidableEq
 
+/-- Fine-grained status for the span 2-cell laws introduced by the coherence
+layer. -/
+inductive SpanLawId where
+  | S1VerticalIdentity
+  | S2VerticalAssociativity
+  | S3HorizontalProjection
+  | S4HorizontalIdentity
+  | S5Interchange
+  | S6Triangle
+  | S7Pentagon
+  deriving Repr, DecidableEq
+
 /-- The specification's current proof-status register. -/
 def metatheoryStatus : MetatheoryId → MetatheoryStatus
   | .M1HistoricalMonotonicity => .provedTheorem
@@ -1073,8 +1769,7 @@ def provenanceLawStatus : ProvenanceLawId → MetatheoryStatus
 /-- The new categorical declarations expose witness types but provide no
 global inhabitants or derived laws. Each construction remains an obligation
 for a selected protocol profile. M10 separately remains conditional on a
-`SpanComparisonPackage` plus C2's triangle and pentagon proofs; M7 confluence
-remains a conjecture. -/
+`SpanCoherencePackage`; M7 confluence remains a conjecture. -/
 def categoricalObligationStatus :
   CategoricalObligationId → MetatheoryStatus
   | .C1BinaryPullbackSelection => .proofObligation
@@ -1082,5 +1777,16 @@ def categoricalObligationStatus :
   | .C3MultispanCompositionExistence => .proofObligation
   | .C4MultispanAssociativity => .proofObligation
   | .C5MultispanTypePreservation => .proofObligation
+
+/-- The strict 2-cell laws derivable from category and pullback uniqueness are
+proved. The two chosen-comparison coherence equations remain obligations. -/
+def spanLawStatus : SpanLawId → MetatheoryStatus
+  | .S1VerticalIdentity => .provedTheorem
+  | .S2VerticalAssociativity => .provedTheorem
+  | .S3HorizontalProjection => .provedTheorem
+  | .S4HorizontalIdentity => .provedTheorem
+  | .S5Interchange => .provedTheorem
+  | .S6Triangle => .proofObligation
+  | .S7Pentagon => .proofObligation
 
 end Caeluviim.RRKC.Cycle2

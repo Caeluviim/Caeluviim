@@ -139,10 +139,10 @@ P1–P4 plus transition-by-transition provenance coverage. In particular, P3
 cannot be used until identifier normalization is shown to recognize stable
 identity correctly.
 
-M10 is labeled **Conditional theorem**. Its condition requires a
-`SpanComparisonPackage`—selected pullbacks together with explicit left-unitor,
-right-unitor, and associator span isomorphisms—and discharge of C2's triangle
-and pentagon equations. No such package or coherence proof is globally
+M10 is labeled **Conditional theorem**. Its exact condition is a
+`SpanCoherencePackage`: selected pullbacks, explicit left-unitor,
+right-unitor, and associator span isomorphisms, and a `SpanCoherenceProof`
+containing the triangle and pentagon equations. No such package is globally
 asserted.
 
 ### Binary span composition boundary
@@ -216,6 +216,117 @@ These comparisons are not called a completed coherence proof. Pentagon and
 triangle coherence remain explicit proof obligation C2 and are not silently
 included in the comparison package. M10 may be used only after C1, the
 comparison data, and C2 have been discharged for the selected profile.
+
+### Span 2-cells and proved strict laws
+
+A leg-preserving 2-cell is:
+
+```text
+SpanTwoCell(first, second) := {
+  arrow : first.apex -> second.apex,
+  arrow ; second.sourceLeg = first.sourceLeg,
+  arrow ; second.targetLeg = first.targetLeg
+}
+```
+
+Identity is the base-category identity on the apex. Vertical composition is
+base-category path composition. Lean proves:
+
+```text
+identity ; alpha = alpha
+alpha ; identity = alpha
+(alpha ; beta) ; gamma = alpha ; (beta ; gamma)
+```
+
+The forward and inverse cells extracted from `SpanIsomorphism` also cancel in
+both vertical orders.
+
+For:
+
+```text
+alpha : first  => first'
+beta  : second => second'
+```
+
+the horizontal composite is the unique morphism from the source pullback apex
+to the target pullback apex whose projections are:
+
+```text
+sourcePullback.fst ; alpha
+sourcePullback.snd ; beta
+```
+
+The compatibility equation follows from:
+
+- the source pullback square;
+- `alpha` preserving the shared target leg; and
+- `beta` preserving the shared source leg.
+
+Lean proves both projection equations, horizontal preservation of identity,
+and the interchange law:
+
+```text
+(alpha1 ; alpha2) * (beta1 ; beta2)
+  =
+(alpha1 * beta1) ; (alpha2 * beta2)
+```
+
+These results use only the `FacetCategory` laws, the selected pullback
+universal property, and pullback uniqueness.
+
+### Explicit triangle and pentagon obligations
+
+For composable spans `first` and `second`, `SpanTriangleEquation` compares:
+
+```text
+associator(first, identity, second)
+  ; (identity(first) * leftUnitor(second))
+```
+
+with:
+
+```text
+rightUnitor(first) * identity(second)
+```
+
+For four composable spans, `SpanPentagonEquation` compares the standard
+two-associator route:
+
+```text
+associator(first * second, third, fourth)
+  ; associator(first, second, third * fourth)
+```
+
+with the standard three-step route:
+
+```text
+(associator(first, second, third) * identity(fourth))
+  ; associator(first, second * third, fourth)
+  ; (identity(first) * associator(second, third, fourth))
+```
+
+Both sides are Lean-checked 2-cells with identical source and target spans.
+`SpanCoherenceProof` requires equality of these paths.
+`SpanCoherencePackage` combines the selected pullbacks, chosen comparisons,
+and those proofs. Neither structure is globally inhabited.
+`M10SpanCompositionCoherenceCondition(baseCategory)` is exactly the
+proposition that such a package is nonempty for that base category.
+
+The fine-grained register is:
+
+| Identifier | Statement | Status |
+| --- | --- | --- |
+| S1 | Vertical left and right identity | Proved theorem |
+| S2 | Vertical associativity | Proved theorem |
+| S3 | Horizontal pullback-projection equations | Proved theorem |
+| S4 | Horizontal preservation of identity | Proved theorem |
+| S5 | Interchange | Proved theorem |
+| S6 | Triangle equation for the chosen comparisons | Proof obligation |
+| S7 | Pentagon equation for the chosen comparisons | Proof obligation |
+
+C2 therefore remains a **Proof obligation**. M10 remains a **Conditional
+theorem** whose antecedent includes a `SpanCoherencePackage`; adding typed
+equations does not itself discharge either equation.
 
 ## 5. Ledger projection wiring
 
@@ -400,8 +511,12 @@ The following Cycle 2 closure claims are narrowed:
 - M10 uses the permitted label **Conditional theorem**.
 - Binary relation composition requires role compatibility and selected
   pullback evidence and returns a structural span.
-- Identity and associativity are stated up to leg-preserving span
-  isomorphism, not literal equality.
+- Structural-span horizontal identity and associativity are stated up to
+  leg-preserving span isomorphism, not literal equality.
+- Span 2-cell vertical laws, horizontal projection laws, horizontal identity,
+  and interchange are proved from existing assumptions.
+- Triangle and pentagon are now explicit typed equations, but S6–S7 and C2
+  remain proof obligations because no global coherence witness is supplied.
 - Typed multispan composition has a witness interface while C1–C5 retain
   pullback selection, coherence, existence, and law claims as proof
   obligations.

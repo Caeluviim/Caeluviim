@@ -19,6 +19,12 @@ The formalized surface is deliberately narrow:
 | Binary span composition | `composeBinaryRelationSpans` | Definition from supplied pullback evidence |
 | Structural identity span | `StructuralSpan.identity` | Definition |
 | Span equivalence and comparisons | `SpanIsomorphism`, `SpanComparisonData` | Evidence types; triangle/pentagon are C2 |
+| Leg-preserving span 2-cell | `SpanTwoCell` | Definition |
+| 2-cell identity and vertical composition | `SpanTwoCell.identity`, `SpanTwoCell.vertical` | Definition; identity/associativity proved |
+| Pullback-induced horizontal composition | `SpanTwoCell.horizontal` | Definition; projections, identity, and interchange proved |
+| Triangle and pentagon equations | `SpanTriangleEquation`, `SpanPentagonEquation` | Typed propositions; S6–S7 obligations |
+| Coherence proof/package | `SpanCoherenceProof`, `SpanCoherencePackage` | Evidence types; no global inhabitant |
+| M10 antecedent | `M10SpanCompositionCoherenceCondition` | Nonemptiness of a coherence package |
 | Typed arbitrary-arity multispan | `TypedMultispan` | Definition |
 | Typed multispan gluing | `MultispanGluing` | Definition |
 | Multispan composite witness | `MultispanComposite` | Evidence type; existence not asserted |
@@ -44,13 +50,14 @@ The formalized surface is deliberately narrow:
 | Finite trusted reflection top | `ReflectionBoundary` | Definition |
 | Append-only transition | `Transition.append` | Definition |
 | Historical monotonicity M1 | `historical_monotonicity` | Proved theorem |
-| M1–M10, P1–P4, and C1–C5 status registers | `metatheoryStatus`, `provenanceLawStatus`, `categoricalObligationStatus` | Definition |
+| M1–M10, P1–P4, C1–C5, and S1–S7 status registers | `metatheoryStatus`, `provenanceLawStatus`, `categoricalObligationStatus`, `spanLawStatus` | Definition |
 
 No declaration asserts type preservation, provenance preservation, relative
 reflection, termination, fixed-point existence, confluence, functoriality,
-pullback availability, multispan-composite existence, or multispan
-associativity. Replay agreement takes two distinct executor manifestations and
-is not stated as equality of an expression with itself.
+pullback availability, multispan-composite existence, multispan
+associativity, or triangle/pentagon coherence for arbitrary chosen comparison
+data. Replay agreement takes two distinct executor manifestations and is not
+stated as equality of an expression with itself.
 
 ## Validation
 
@@ -86,8 +93,24 @@ associativity are represented up to `SpanIsomorphism`. A
 `SpanComparisonPackage` contains selected pullbacks and chosen unitor and
 associator isomorphisms. Those comparison data are not mislabeled as a full
 coherence proof: C2 separately requires the triangle and pentagon equations.
-M10 remains conditional on the package and C2. No package is asserted to
-exist, and no strictification is assumed.
+The equations are now mechanized as `SpanTriangleEquation` and
+`SpanPentagonEquation`. A `SpanCoherencePackage` contains their proofs, and
+M10 is conditional on that stronger package. No package is asserted to exist,
+and no strictification is assumed.
+
+`SpanTwoCell` supplies the leg-preserving 2-cell language needed to state
+these equations. Identity and vertical composition are inherited from
+`FacetCategory`. Horizontal composition is induced by the target pullback's
+universal property. Lean proves:
+
+- vertical left/right identity and associativity;
+- cancellation of the two cells extracted from a `SpanIsomorphism`;
+- both horizontal pullback-projection equations;
+- horizontal preservation of identity; and
+- interchange.
+
+Accordingly S1–S5 are proved theorems. S6 triangle and S7 pentagon remain proof
+obligations, so C2 is not promoted.
 
 Typed multispan gluing declares:
 
@@ -106,8 +129,9 @@ pullback selection, span triangle/pentagon coherence, multispan existence,
 multispan associativity, and multispan type preservation at proof-obligation
 status. M7 confluence remains a conjecture.
 
-The next proof work is to construct these interfaces for a selected bounded
-facet-category profile and then prove the registered laws for that profile.
+The next proof work is to construct comparison data for a selected bounded
+facet-category profile and prove S6–S7, rather than merely supplying an
+arbitrary `SpanCoherenceProof` as trusted input.
 
 The normative symbol-and-wiring corrections driving this module are recorded
 in [`../docs/rrkc-cycle2-symbol-wiring-repair.md`](../docs/rrkc-cycle2-symbol-wiring-repair.md).
