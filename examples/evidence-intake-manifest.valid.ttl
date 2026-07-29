@@ -3,6 +3,8 @@
 
 <urn:caeluviim:intake:manifest:allocation-bulletin-2026q3>
   a intake:IntakeManifest ;
+  intake:acquisitionRecord
+    <urn:caeluviim:acquisition:manifest:allocation-register-lifecycle> ;
   intake:hasSourceArtifact
     <urn:caeluviim:source:allocation-bulletin-2026q3> ;
   intake:hasSourceSnapshot
@@ -26,6 +28,9 @@
     <urn:caeluviim:assertion-request:rule-replaced>,
     <urn:caeluviim:assertion-request:compound-coverage> .
 
+<urn:caeluviim:acquisition:manifest:allocation-register-lifecycle>
+  a intake:AcquisitionRecord .
+
 <urn:caeluviim:source:allocation-bulletin-2026q3>
   a intake:SourceArtifact ;
   intake:sourceClass "official_record" ;
@@ -35,6 +40,8 @@
 
 <urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929>
   a intake:SourceSnapshot ;
+  intake:fixedByAcquisition
+    <urn:caeluviim:snapshot-fixation:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929> ;
   intake:snapshotOf
     <urn:caeluviim:source:allocation-bulletin-2026q3> ;
   intake:contentPath

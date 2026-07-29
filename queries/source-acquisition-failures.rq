@@ -1,0 +1,15 @@
+PREFIX acq: <https://caeluviim.org/ontology/source-acquisition#>
+
+SELECT ?attempt ?outcome ?fact ?code
+WHERE {
+  GRAPH ?graph {
+    ?attempt a acq:IneligibleAttempt ;
+      acq:retrievalOutcome ?outcome .
+    OPTIONAL {
+      ?fact a acq:AcquisitionFailureFact ;
+        acq:failureSubject ?attempt ;
+        acq:failureCode ?code .
+    }
+  }
+}
+ORDER BY ?attempt ?code

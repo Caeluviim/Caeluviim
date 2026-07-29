@@ -1,7 +1,7 @@
 {
   "$schema": "https://caeluviim.org/schema/evidence-intake-assessment.schema.json",
-  "assessment_digest": "3416fb3fa342bca906d75e8edee5452c2eb95f96fe9e419378a66d0c96099a6f",
-  "assessment_id": "urn:caeluviim:assessment:evidence-intake:3416fb3fa342bca906d75e8edee5452c2eb95f96fe9e419378a66d0c96099a6f",
+  "assessment_digest": "5d47f1b576954176560ff4aa910f2830caab01dbec7b9202b255306d766e3203",
+  "assessment_id": "urn:caeluviim:assessment:evidence-intake:5d47f1b576954176560ff4aa910f2830caab01dbec7b9202b255306d766e3203",
   "claim_results": [
     {
       "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
@@ -128,7 +128,7 @@
     "quarantined_claims_excluded_from_release_payload": true
   },
   "manifest_conforms": true,
-  "manifest_digest": "3db3f47f66100f7a47b12499b2185fe6adbc8267225b78f732738914e974d3b1",
+  "manifest_digest": "afcefee41a9eeddd295d44d6668b6711563ceaae263f2275a0b1b453e2d8021d",
   "manifest_ref": "urn:caeluviim:intake:manifest:allocation-bulletin-2026q3",
   "pipeline_result": "released_with_quarantine",
   "pipeline_version": "0.1.0",

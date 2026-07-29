@@ -1,0 +1,74 @@
+{
+  "$schema": "https://caeluviim.org/schema/source-acquisition-assessment.schema.json",
+  "assessment_digest": "bce8157accda898b3071ee19a7b1ef26556f5cfe9d07568c8266bb2209668dd0",
+  "assessment_id": "urn:caeluviim:assessment:source-acquisition:bce8157accda898b3071ee19a7b1ef26556f5cfe9d07568c8266bb2209668dd0",
+  "attempt_results": [
+    {
+      "attempt_ref": "urn:caeluviim:retrieval-attempt:allocation-bulletin-2026q3",
+      "failure_codes": [],
+      "intake_eligible": true,
+      "outcome": "successful"
+    },
+    {
+      "attempt_ref": "urn:caeluviim:retrieval-attempt:allocation-register:v1",
+      "failure_codes": [],
+      "intake_eligible": true,
+      "outcome": "successful"
+    },
+    {
+      "attempt_ref": "urn:caeluviim:retrieval-attempt:allocation-register:v2",
+      "failure_codes": [],
+      "intake_eligible": true,
+      "outcome": "successful"
+    },
+    {
+      "attempt_ref": "urn:caeluviim:retrieval-attempt:restricted-audit",
+      "failure_codes": [
+        "RETRIEVAL_NOT_SUCCESSFUL"
+      ],
+      "intake_eligible": false,
+      "outcome": "blocked"
+    }
+  ],
+  "authority_boundary_preserved": true,
+  "eligible_snapshot_refs": [
+    "urn:caeluviim:snapshot:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb",
+    "urn:caeluviim:snapshot:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972",
+    "urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929"
+  ],
+  "failure_facts": [
+    {
+      "code": "RETRIEVAL_NOT_SUCCESSFUL",
+      "fact_id": "urn:caeluviim:acquisition-failure-fact:39ff0f1a6d2c45d9202072c7ccbfb8cabaf80be9f40607001f74bd93a0f05ec0",
+      "message": "Retrieval failure is an acquisition fact, not evidentiary absence.",
+      "subject_ref": "urn:caeluviim:retrieval-attempt:restricted-audit"
+    }
+  ],
+  "ineligible_attempt_refs": [
+    "urn:caeluviim:retrieval-attempt:restricted-audit"
+  ],
+  "manifest_digest": "0178fbdc6f5e9fa083c57f5de6e7919deded893a4c502e27fe15d744b04623d5",
+  "manifest_ref": "urn:caeluviim:acquisition:manifest:allocation-register-lifecycle",
+  "pipeline_result": "eligible_with_failures",
+  "pipeline_version": "0.1.0",
+  "version_results": [
+    {
+      "failure_codes": [],
+      "intake_eligible": true,
+      "snapshot_ref": "urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
+      "version_ref": "urn:caeluviim:source-version:allocation-bulletin-2026q3:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929"
+    },
+    {
+      "failure_codes": [],
+      "intake_eligible": true,
+      "snapshot_ref": "urn:caeluviim:snapshot:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb",
+      "version_ref": "urn:caeluviim:source-version:allocation-register:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb"
+    },
+    {
+      "failure_codes": [],
+      "intake_eligible": true,
+      "snapshot_ref": "urn:caeluviim:snapshot:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972",
+      "version_ref": "urn:caeluviim:source-version:allocation-register:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972"
+    }
+  ]
+}

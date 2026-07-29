@@ -4,7 +4,7 @@
 
 **Status:** Implemented as a proposal; not ratified
 
-**Position:** Strictly upstream of SICRP record generation
+**Position:** Downstream of Source Acquisition and strictly upstream of SICRP record generation
 
 **Depends on:** SICRP v0.1.0 and the SICRP deterministic runtime v0.1.0
 
@@ -16,10 +16,19 @@ decide whether structural insolvency exists, whether collective resolution has
 occurred, whether an EMGN novelty witness is valid, or whether any module is
 ratified.
 
+Every intake manifest must reference an immutable Source Acquisition manifest
+and deterministic acquisition assessment. Every intake snapshot must name the
+upstream `SnapshotFixation` that made it eligible. The runtime verifies those
+artifact digests, their content-addressed linkage, the acquisition authority
+boundary, and the snapshot's presence in the acquisition assessment before
+claim-level support evaluation begins. A live URL alone is not an admissible
+source capture.
+
 The pipeline is:
 
 ```text
 raw source
+  -> source acquisition and fixation
   -> source capture
   -> claim extraction
   -> support mapping

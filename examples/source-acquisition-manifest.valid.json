@@ -1,0 +1,341 @@
+{
+  "$schema": "https://caeluviim.org/schema/source-acquisition-manifest.schema.json",
+  "manifest_id": "urn:caeluviim:acquisition:manifest:allocation-register-lifecycle",
+  "pipeline_version": "0.1.0",
+  "created_at": "2026-07-29T19:00:00Z",
+  "created_by_ref": "urn:caeluviim:agent:source-acquisition-proposer",
+  "authority_boundary": {
+    "source_authority_assessed": false,
+    "claim_support_assessed": false,
+    "truth_assessed": false
+  },
+  "source_requests": [
+    {
+      "request_id": "urn:caeluviim:source-request:allocation-register:v1",
+      "requested_uri": "https://records.example.invalid/allocation-register",
+      "discovery_method": "Published records index entry",
+      "requested_at": "2026-06-15T12:00:00Z",
+      "requesting_agent_ref": "urn:caeluviim:agent:source-acquisition-proposer"
+    },
+    {
+      "request_id": "urn:caeluviim:source-request:allocation-register:v2",
+      "requested_uri": "https://records.example.invalid/allocation-register",
+      "discovery_method": "Scheduled mutable-source recheck",
+      "requested_at": "2026-07-15T12:00:00Z",
+      "requesting_agent_ref": "urn:caeluviim:agent:source-acquisition-proposer"
+    },
+    {
+      "request_id": "urn:caeluviim:source-request:restricted-audit",
+      "requested_uri": "https://records.example.invalid/restricted-audit",
+      "discovery_method": "Reference in public allocation register",
+      "requested_at": "2026-07-15T12:05:00Z",
+      "requesting_agent_ref": "urn:caeluviim:agent:source-acquisition-proposer"
+    },
+    {
+      "request_id": "urn:caeluviim:source-request:allocation-bulletin-2026q3",
+      "requested_uri": "https://example.invalid/records/allocation-bulletin-2026q3",
+      "discovery_method": "Official bulletin index",
+      "requested_at": "2026-07-29T16:54:00Z",
+      "requesting_agent_ref": "urn:caeluviim:agent:source-acquisition-proposer"
+    }
+  ],
+  "retrieval_attempts": [
+    {
+      "attempt_id": "urn:caeluviim:retrieval-attempt:allocation-register:v1",
+      "request_ref": "urn:caeluviim:source-request:allocation-register:v1",
+      "requested_uri": "https://records.example.invalid/allocation-register",
+      "started_at": "2026-06-15T12:00:01Z",
+      "completed_at": "2026-06-15T12:00:03Z",
+      "transport": "https",
+      "outcome": "successful",
+      "redirect_chain": [
+        {
+          "sequence": 0,
+          "uri": "https://records.example.invalid/allocation-register",
+          "status_code": 302,
+          "location_uri": "https://cdn.example.invalid/records/allocation-register.txt"
+        },
+        {
+          "sequence": 1,
+          "uri": "https://cdn.example.invalid/records/allocation-register.txt",
+          "status_code": 200
+        }
+      ],
+      "final_uri": "https://cdn.example.invalid/records/allocation-register.txt",
+      "representation_ref": "urn:caeluviim:retrieved-representation:allocation-register:v1"
+    },
+    {
+      "attempt_id": "urn:caeluviim:retrieval-attempt:allocation-register:v2",
+      "request_ref": "urn:caeluviim:source-request:allocation-register:v2",
+      "requested_uri": "https://records.example.invalid/allocation-register",
+      "started_at": "2026-07-15T12:00:01Z",
+      "completed_at": "2026-07-15T12:00:03Z",
+      "transport": "https",
+      "outcome": "successful",
+      "redirect_chain": [
+        {
+          "sequence": 0,
+          "uri": "https://records.example.invalid/allocation-register",
+          "status_code": 302,
+          "location_uri": "https://cdn.example.invalid/records/allocation-register.txt"
+        },
+        {
+          "sequence": 1,
+          "uri": "https://cdn.example.invalid/records/allocation-register.txt",
+          "status_code": 200
+        }
+      ],
+      "final_uri": "https://cdn.example.invalid/records/allocation-register.txt",
+      "representation_ref": "urn:caeluviim:retrieved-representation:allocation-register:v2"
+    },
+    {
+      "attempt_id": "urn:caeluviim:retrieval-attempt:restricted-audit",
+      "request_ref": "urn:caeluviim:source-request:restricted-audit",
+      "requested_uri": "https://records.example.invalid/restricted-audit",
+      "started_at": "2026-07-15T12:05:01Z",
+      "completed_at": "2026-07-15T12:05:02Z",
+      "transport": "https",
+      "outcome": "blocked",
+      "redirect_chain": [
+        {
+          "sequence": 0,
+          "uri": "https://records.example.invalid/restricted-audit",
+          "status_code": 403
+        }
+      ],
+      "failure_ref": "urn:caeluviim:acquisition-failure:restricted-audit:blocked"
+    },
+    {
+      "attempt_id": "urn:caeluviim:retrieval-attempt:allocation-bulletin-2026q3",
+      "request_ref": "urn:caeluviim:source-request:allocation-bulletin-2026q3",
+      "requested_uri": "https://example.invalid/records/allocation-bulletin-2026q3",
+      "started_at": "2026-07-29T16:54:01Z",
+      "completed_at": "2026-07-29T16:54:03Z",
+      "transport": "https",
+      "outcome": "successful",
+      "redirect_chain": [
+        {
+          "sequence": 0,
+          "uri": "https://example.invalid/records/allocation-bulletin-2026q3",
+          "status_code": 200
+        }
+      ],
+      "final_uri": "https://example.invalid/records/allocation-bulletin-2026q3",
+      "representation_ref": "urn:caeluviim:retrieved-representation:allocation-bulletin-2026q3"
+    }
+  ],
+  "retrieved_representations": [
+    {
+      "representation_id": "urn:caeluviim:retrieved-representation:allocation-register:v1",
+      "attempt_ref": "urn:caeluviim:retrieval-attempt:allocation-register:v1",
+      "final_uri": "https://cdn.example.invalid/records/allocation-register.txt",
+      "canonical_identity_ref": "urn:caeluviim:canonical-source:allocation-register",
+      "retrieved_at": "2026-06-15T12:00:03Z",
+      "status_code": 200,
+      "media_type": "text/plain; charset=utf-8",
+      "response_headers": [
+        {
+          "name": "content-type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "name": "etag",
+          "value": "\"allocation-register-v1\""
+        },
+        {
+          "name": "last-modified",
+          "value": "Mon, 01 Jun 2026 09:00:00 GMT"
+        }
+      ],
+      "content_path": "examples/source-acquisition/representations/allocation-register-v1.txt",
+      "byte_length": 144,
+      "sha256": "6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972"
+    },
+    {
+      "representation_id": "urn:caeluviim:retrieved-representation:allocation-register:v2",
+      "attempt_ref": "urn:caeluviim:retrieval-attempt:allocation-register:v2",
+      "final_uri": "https://cdn.example.invalid/records/allocation-register.txt",
+      "canonical_identity_ref": "urn:caeluviim:canonical-source:allocation-register",
+      "retrieved_at": "2026-07-15T12:00:03Z",
+      "status_code": 200,
+      "media_type": "text/plain; charset=utf-8",
+      "response_headers": [
+        {
+          "name": "content-type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "name": "etag",
+          "value": "\"allocation-register-v2\""
+        },
+        {
+          "name": "last-modified",
+          "value": "Wed, 01 Jul 2026 09:00:00 GMT"
+        }
+      ],
+      "content_path": "examples/source-acquisition/representations/allocation-register-v2.txt",
+      "byte_length": 149,
+      "sha256": "36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb"
+    },
+    {
+      "representation_id": "urn:caeluviim:retrieved-representation:allocation-bulletin-2026q3",
+      "attempt_ref": "urn:caeluviim:retrieval-attempt:allocation-bulletin-2026q3",
+      "final_uri": "https://example.invalid/records/allocation-bulletin-2026q3",
+      "canonical_identity_ref": "urn:caeluviim:canonical-source:allocation-bulletin-2026q3",
+      "retrieved_at": "2026-07-29T16:54:03Z",
+      "status_code": 200,
+      "media_type": "text/plain; charset=utf-8",
+      "response_headers": [
+        {
+          "name": "content-type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "name": "etag",
+          "value": "\"allocation-bulletin-2026q3\""
+        }
+      ],
+      "content_path": "examples/evidence-intake/source/allocation-bulletin-2026q3.txt",
+      "byte_length": 350,
+      "sha256": "7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929"
+    }
+  ],
+  "canonical_source_identities": [
+    {
+      "identity_id": "urn:caeluviim:canonical-source:allocation-register",
+      "canonical_uri": "https://records.example.invalid/allocation-register",
+      "identification_method": "Stable publisher record identity after redirect resolution"
+    },
+    {
+      "identity_id": "urn:caeluviim:canonical-source:allocation-bulletin-2026q3",
+      "canonical_uri": "https://example.invalid/records/allocation-bulletin-2026q3",
+      "identification_method": "Final URI matched official bulletin identifier"
+    }
+  ],
+  "source_versions": [
+    {
+      "version_id": "urn:caeluviim:source-version:allocation-register:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972",
+      "canonical_identity_ref": "urn:caeluviim:canonical-source:allocation-register",
+      "representation_ref": "urn:caeluviim:retrieved-representation:allocation-register:v1",
+      "snapshot_ref": "urn:caeluviim:snapshot:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972",
+      "observed_at": "2026-06-15T12:00:03Z",
+      "sha256": "6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972"
+    },
+    {
+      "version_id": "urn:caeluviim:source-version:allocation-register:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb",
+      "canonical_identity_ref": "urn:caeluviim:canonical-source:allocation-register",
+      "representation_ref": "urn:caeluviim:retrieved-representation:allocation-register:v2",
+      "snapshot_ref": "urn:caeluviim:snapshot:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb",
+      "observed_at": "2026-07-15T12:00:03Z",
+      "sha256": "36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb"
+    },
+    {
+      "version_id": "urn:caeluviim:source-version:allocation-bulletin-2026q3:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
+      "canonical_identity_ref": "urn:caeluviim:canonical-source:allocation-bulletin-2026q3",
+      "representation_ref": "urn:caeluviim:retrieved-representation:allocation-bulletin-2026q3",
+      "snapshot_ref": "urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
+      "observed_at": "2026-07-29T16:54:03Z",
+      "sha256": "7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929"
+    }
+  ],
+  "snapshot_fixations": [
+    {
+      "fixation_id": "urn:caeluviim:snapshot-fixation:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972",
+      "snapshot_id": "urn:caeluviim:snapshot:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972",
+      "representation_ref": "urn:caeluviim:retrieved-representation:allocation-register:v1",
+      "content_path": "examples/source-acquisition/representations/allocation-register-v1.txt",
+      "fixed_at": "2026-06-15T12:00:04Z",
+      "hash_algorithm": "sha256",
+      "byte_length": 144,
+      "sha256": "6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972",
+      "immutable": true
+    },
+    {
+      "fixation_id": "urn:caeluviim:snapshot-fixation:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb",
+      "snapshot_id": "urn:caeluviim:snapshot:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb",
+      "representation_ref": "urn:caeluviim:retrieved-representation:allocation-register:v2",
+      "content_path": "examples/source-acquisition/representations/allocation-register-v2.txt",
+      "fixed_at": "2026-07-15T12:00:04Z",
+      "hash_algorithm": "sha256",
+      "byte_length": 149,
+      "sha256": "36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb",
+      "immutable": true
+    },
+    {
+      "fixation_id": "urn:caeluviim:snapshot-fixation:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
+      "snapshot_id": "urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
+      "representation_ref": "urn:caeluviim:retrieved-representation:allocation-bulletin-2026q3",
+      "content_path": "examples/evidence-intake/source/allocation-bulletin-2026q3.txt",
+      "fixed_at": "2026-07-29T16:54:04Z",
+      "hash_algorithm": "sha256",
+      "byte_length": 350,
+      "sha256": "7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
+      "immutable": true
+    }
+  ],
+  "acquisition_failures": [
+    {
+      "failure_id": "urn:caeluviim:acquisition-failure:restricted-audit:blocked",
+      "attempt_ref": "urn:caeluviim:retrieval-attempt:restricted-audit",
+      "category": "access_blocked",
+      "observed_at": "2026-07-15T12:05:02Z",
+      "detail": "Server returned HTTP 403; no representation was captured.",
+      "evidentiary_absence_inferred": false
+    }
+  ],
+  "change_events": [
+    {
+      "change_id": "urn:caeluviim:change-event:allocation-register:v1-to-v2",
+      "canonical_identity_ref": "urn:caeluviim:canonical-source:allocation-register",
+      "previous_version_ref": "urn:caeluviim:source-version:allocation-register:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972",
+      "next_version_ref": "urn:caeluviim:source-version:allocation-register:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb",
+      "detected_at": "2026-07-15T12:00:05Z",
+      "comparison_method": "sha256_digest_comparison",
+      "previous_sha256": "6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972",
+      "next_sha256": "36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb",
+      "bytes_changed": true
+    }
+  ],
+  "supersession_relations": [
+    {
+      "relation_id": "urn:caeluviim:supersession:allocation-register:v1-to-v2",
+      "superseded_version_ref": "urn:caeluviim:source-version:allocation-register:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972",
+      "superseding_version_ref": "urn:caeluviim:source-version:allocation-register:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb",
+      "reason": "content_changed"
+    }
+  ],
+  "source_availability_observations": [
+    {
+      "observation_id": "urn:caeluviim:availability:allocation-register:v1",
+      "request_ref": "urn:caeluviim:source-request:allocation-register:v1",
+      "attempt_ref": "urn:caeluviim:retrieval-attempt:allocation-register:v1",
+      "status": "available",
+      "observed_at": "2026-06-15T12:00:03Z",
+      "evidentiary_absence_inferred": false
+    },
+    {
+      "observation_id": "urn:caeluviim:availability:allocation-register:v2",
+      "request_ref": "urn:caeluviim:source-request:allocation-register:v2",
+      "attempt_ref": "urn:caeluviim:retrieval-attempt:allocation-register:v2",
+      "status": "available",
+      "observed_at": "2026-07-15T12:00:03Z",
+      "evidentiary_absence_inferred": false
+    },
+    {
+      "observation_id": "urn:caeluviim:availability:restricted-audit",
+      "request_ref": "urn:caeluviim:source-request:restricted-audit",
+      "attempt_ref": "urn:caeluviim:retrieval-attempt:restricted-audit",
+      "status": "blocked",
+      "observed_at": "2026-07-15T12:05:02Z",
+      "evidentiary_absence_inferred": false
+    },
+    {
+      "observation_id": "urn:caeluviim:availability:allocation-bulletin-2026q3",
+      "request_ref": "urn:caeluviim:source-request:allocation-bulletin-2026q3",
+      "attempt_ref": "urn:caeluviim:retrieval-attempt:allocation-bulletin-2026q3",
+      "status": "available",
+      "observed_at": "2026-07-29T16:54:03Z",
+      "evidentiary_absence_inferred": false
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schema/source-acquisition-assessment.schema.json",
+  "title": "Caeluviim Source Acquisition Deterministic Assessment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "assessment_id",
+    "assessment_digest",
+    "manifest_ref",
+    "manifest_digest",
+    "pipeline_version",
+    "pipeline_result",
+    "authority_boundary_preserved",
+    "eligible_snapshot_refs",
+    "ineligible_attempt_refs",
+    "version_results",
+    "attempt_results",
+    "failure_facts"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://caeluviim.org/schema/source-acquisition-assessment.schema.json"
+    },
+    "assessment_id": {
+      "$ref": "#/$defs/uri"
+    },
+    "assessment_digest": {
+      "$ref": "#/$defs/sha256"
+    },
+    "manifest_ref": {
+      "$ref": "#/$defs/uri"
+    },
+    "manifest_digest": {
+      "$ref": "#/$defs/sha256"
+    },
+    "pipeline_version": {
+      "const": "0.1.0"
+    },
+    "pipeline_result": {
+      "enum": [
+        "eligible",
+        "eligible_with_failures",
+        "ineligible"
+      ]
+    },
+    "authority_boundary_preserved": {
+      "const": true
+    },
+    "eligible_snapshot_refs": {
+      "$ref": "#/$defs/uriArray"
+    },
+    "ineligible_attempt_refs": {
+      "$ref": "#/$defs/uriArray"
+    },
+    "version_results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/versionResult"
+      }
+    },
+    "attempt_results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/attemptResult"
+      }
+    },
+    "failure_facts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/failureFact"
+      }
+    }
+  },
+  "$defs": {
+    "uri": {
+      "type": "string",
+      "format": "uri",
+      "minLength": 1
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "uriArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/uri"
+      }
+    },
+    "stringArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "versionResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version_ref",
+        "snapshot_ref",
+        "intake_eligible",
+        "failure_codes"
+      ],
+      "properties": {
+        "version_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "snapshot_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "intake_eligible": {
+          "type": "boolean"
+        },
+        "failure_codes": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "attemptResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempt_ref",
+        "outcome",
+        "intake_eligible",
+        "failure_codes"
+      ],
+      "properties": {
+        "attempt_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "outcome": {
+          "enum": [
+            "successful",
+            "failed",
+            "blocked"
+          ]
+        },
+        "intake_eligible": {
+          "type": "boolean"
+        },
+        "failure_codes": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "failureFact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_id",
+        "subject_ref",
+        "code",
+        "message"
+      ],
+      "properties": {
+        "fact_id": {
+          "$ref": "#/$defs/uri"
+        },
+        "subject_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]+$"
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
