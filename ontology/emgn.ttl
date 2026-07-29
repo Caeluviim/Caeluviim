@@ -1,0 +1,84 @@
+@prefix emgn: <https://caeluviim.org/ontology/emgn#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<https://caeluviim.org/ontology/emgn> a owl:Ontology ;
+  owl:versionInfo "0.1.0" ;
+  rdfs:label "Error-Mediated Generative Non-Closure Ontology" .
+
+emgn:UniversalSystem a owl:Class .
+emgn:AgenticNode a owl:Class ; rdfs:subClassOf prov:Agent .
+emgn:ModelSnapshot a owl:Class ; rdfs:subClassOf prov:Entity .
+emgn:InteractionEvent a owl:Class ; rdfs:subClassOf prov:Activity .
+emgn:DiscrepancyEvent a owl:Class ; rdfs:subClassOf prov:Entity .
+emgn:ErrorResidue a owl:Class ; rdfs:subClassOf prov:Entity .
+emgn:RemediationEvent a owl:Class ; rdfs:subClassOf prov:Activity .
+emgn:TransitionRegime a owl:Class ; rdfs:subClassOf prov:Entity .
+emgn:ReachabilitySnapshot a owl:Class ; rdfs:subClassOf prov:Entity .
+emgn:NovelFutureClaim a owl:Class ; rdfs:subClassOf prov:Entity .
+emgn:NovelFutureWitness a owl:Class ; rdfs:subClassOf prov:Entity .
+emgn:GovernanceDecision a owl:Class ; rdfs:subClassOf prov:Entity .
+
+emgn:causallyBounded a owl:DatatypeProperty ;
+  rdfs:domain emgn:UniversalSystem ; rdfs:range xsd:boolean .
+emgn:transitionSemantics a owl:DatatypeProperty ;
+  rdfs:domain emgn:UniversalSystem ; rdfs:range xsd:string .
+emgn:finiteLocalization a owl:DatatypeProperty ;
+  rdfs:domain emgn:AgenticNode ; rdfs:range xsd:boolean .
+emgn:participatedIn a owl:ObjectProperty ;
+  rdfs:domain emgn:AgenticNode ; rdfs:range emgn:InteractionEvent .
+emgn:hasParticipant a owl:ObjectProperty ;
+  owl:inverseOf emgn:participatedIn ;
+  rdfs:domain emgn:InteractionEvent ; rdfs:range emgn:AgenticNode .
+emgn:hasDiscrepancy a owl:ObjectProperty ;
+  rdfs:domain emgn:InteractionEvent ; rdfs:range emgn:DiscrepancyEvent .
+emgn:experiencedBy a owl:ObjectProperty ;
+  rdfs:domain emgn:DiscrepancyEvent ; rdfs:range emgn:AgenticNode .
+emgn:comparisonMethod a owl:DatatypeProperty ;
+  rdfs:domain emgn:DiscrepancyEvent ; rdfs:range xsd:string .
+emgn:magnitude a owl:DatatypeProperty ;
+  rdfs:domain emgn:DiscrepancyEvent ; rdfs:range xsd:decimal .
+emgn:retainedAs a owl:ObjectProperty ;
+  rdfs:domain emgn:DiscrepancyEvent ; rdfs:range emgn:ErrorResidue .
+emgn:sourceDiscrepancy a owl:ObjectProperty ;
+  owl:inverseOf emgn:retainedAs ;
+  rdfs:domain emgn:ErrorResidue ; rdfs:range emgn:DiscrepancyEvent .
+emgn:retentionMode a owl:DatatypeProperty ;
+  rdfs:domain emgn:ErrorResidue ; rdfs:range xsd:string .
+emgn:transformedBy a owl:ObjectProperty ;
+  rdfs:domain emgn:ErrorResidue ; rdfs:range emgn:RemediationEvent .
+emgn:usesResidue a owl:ObjectProperty ;
+  owl:inverseOf emgn:transformedBy ;
+  rdfs:domain emgn:RemediationEvent ; rdfs:range emgn:ErrorResidue .
+emgn:remediationMode a owl:DatatypeProperty ;
+  rdfs:domain emgn:RemediationEvent ; rdfs:range xsd:string .
+emgn:beforeRegime a owl:ObjectProperty ;
+  rdfs:domain emgn:NovelFutureClaim ; rdfs:range emgn:TransitionRegime .
+emgn:afterRegime a owl:ObjectProperty ;
+  rdfs:domain emgn:NovelFutureClaim ; rdfs:range emgn:TransitionRegime .
+emgn:modifiedByResidue a owl:ObjectProperty ;
+  rdfs:domain emgn:TransitionRegime ; rdfs:range emgn:ErrorResidue .
+emgn:beforeReachability a owl:ObjectProperty ;
+  rdfs:domain emgn:NovelFutureClaim ; rdfs:range emgn:ReachabilitySnapshot .
+emgn:afterReachability a owl:ObjectProperty ;
+  rdfs:domain emgn:NovelFutureClaim ; rdfs:range emgn:ReachabilitySnapshot .
+emgn:hasWitness a owl:ObjectProperty ;
+  rdfs:domain emgn:NovelFutureClaim ; rdfs:range emgn:NovelFutureWitness .
+emgn:witnessesState a owl:ObjectProperty ;
+  rdfs:domain emgn:NovelFutureWitness ; rdfs:range prov:Entity .
+emgn:notInPriorEmbeddedReachability a owl:DatatypeProperty ;
+  rdfs:domain emgn:NovelFutureWitness ; rdfs:range xsd:boolean .
+emgn:claimStatus a owl:DatatypeProperty ;
+  rdfs:domain emgn:NovelFutureClaim ; rdfs:range xsd:string .
+emgn:governedBy a owl:ObjectProperty ;
+  rdfs:domain emgn:NovelFutureClaim ; rdfs:range emgn:GovernanceDecision .
+emgn:proposer a owl:ObjectProperty ;
+  rdfs:domain emgn:GovernanceDecision ; rdfs:range prov:Agent .
+emgn:validator a owl:ObjectProperty ;
+  rdfs:domain emgn:GovernanceDecision ; rdfs:range prov:Agent .
+emgn:governanceStatus a owl:DatatypeProperty ;
+  rdfs:domain emgn:GovernanceDecision ; rdfs:range xsd:string .
+emgn:contentHash a owl:DatatypeProperty ; rdfs:range xsd:string .

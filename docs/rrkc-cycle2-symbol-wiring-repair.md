@@ -140,10 +140,12 @@ cannot be used until identifier normalization is shown to recognize stable
 identity correctly.
 
 M10 is labeled **Conditional theorem**. Its exact condition is a
-`SpanCoherencePackage`: selected pullbacks, explicit left-unitor,
-right-unitor, and associator span isomorphisms, and a `SpanCoherenceProof`
-containing the triangle and pentagon equations. No such package is globally
-asserted.
+`SpanCoherencePackage`: selected pullbacks, left-unitor, right-unitor, and
+associator span isomorphisms, and a `SpanCoherenceProof` containing the
+triangle and pentagon equations. `selectedPullbacks_imply_M10Condition`
+constructs this package from any supplied `SelectedPullbacks` value. No
+selected-pullback profile, and therefore no such package, is globally
+asserted for every facet category.
 
 ### Binary span composition boundary
 
@@ -206,16 +208,28 @@ A <-id- A -id-> A
 
 is the structural identity definition. Pullback composition is not claimed to
 be literally unital or associative. `SpanIsomorphism` preserves both endpoint
-legs, and `SpanComparisonData` supplies:
+legs, and `SpanComparisonData` records:
 
 - a left unitor up to span isomorphism;
 - a right unitor up to span isomorphism; and
 - an associator up to span isomorphism.
 
-These comparisons are not called a completed coherence proof. Pentagon and
-triangle coherence remain explicit proof obligation C2 and are not silently
-included in the comparison package. M10 may be used only after C1, the
-comparison data, and C2 have been discharged for the selected profile.
+The canonical comparisons are not accepted as additional trusted input.
+`canonicalLeftUnitor`, `canonicalRightUnitor`, and `canonicalAssociator`
+construct them from selected pullback lifts. Their inverse laws follow from
+pullback extensionality. Lean also proves their left-unitor, right-unitor, and
+associator naturality.
+
+`canonicalSpanTriangle` and `canonicalSpanPentagon` derive both C2 equations
+from the same universal properties. The pentagon proof flattens both paths
+to four constituent projections and applies nested pullback uniqueness.
+`canonicalSpanCoherenceProof` is therefore an output, not an assumed witness.
+No coherence, strictification, or additional choice axiom is added.
+
+C2 is a **Conditional theorem** under a supplied `SelectedPullbacks` profile.
+C1 remains the separate proof obligation that the required pullbacks can be
+selected for the chosen facet-category profile. M10 may be used only under
+that same existence boundary.
 
 ### Span 2-cells and proved strict laws
 
@@ -274,7 +288,7 @@ and the interchange law:
 These results use only the `FacetCategory` laws, the selected pullback
 universal property, and pullback uniqueness.
 
-### Explicit triangle and pentagon obligations
+### Constructive triangle and pentagon coherence
 
 For composable spans `first` and `second`, `SpanTriangleEquation` compares:
 
@@ -308,7 +322,8 @@ with the standard three-step route:
 Both sides are Lean-checked 2-cells with identical source and target spans.
 `SpanCoherenceProof` requires equality of these paths.
 `SpanCoherencePackage` combines the selected pullbacks, chosen comparisons,
-and those proofs. Neither structure is globally inhabited.
+and those proofs. `canonicalSpanCoherencePackage` constructs one from any
+supplied selected-pullback profile; no such profile is globally asserted.
 `M10SpanCompositionCoherenceCondition(baseCategory)` is exactly the
 proposition that such a package is nonempty for that base category.
 
@@ -321,12 +336,16 @@ The fine-grained register is:
 | S3 | Horizontal pullback-projection equations | Proved theorem |
 | S4 | Horizontal preservation of identity | Proved theorem |
 | S5 | Interchange | Proved theorem |
-| S6 | Triangle equation for the chosen comparisons | Proof obligation |
-| S7 | Pentagon equation for the chosen comparisons | Proof obligation |
+| S6 | Triangle equation for the canonical comparisons | Proved theorem |
+| S7 | Pentagon equation for the canonical comparisons | Proved theorem |
+| S8 | Canonical left-unitor naturality | Proved theorem |
+| S9 | Canonical right-unitor naturality | Proved theorem |
+| S10 | Canonical associator naturality | Proved theorem |
 
-C2 therefore remains a **Proof obligation**. M10 remains a **Conditional
-theorem** whose antecedent includes a `SpanCoherencePackage`; adding typed
-equations does not itself discharge either equation.
+C2 is therefore a **Conditional theorem**: `SelectedPullbacks` is sufficient
+to derive its canonical comparisons and both coherence equations. M10
+remains a **Conditional theorem** because neither selected-pullback existence
+nor the resulting package is asserted globally.
 
 ## 5. Ledger projection wiring
 
@@ -488,14 +507,14 @@ The categorical obligation register is:
 | Identifier | Statement | Status |
 | --- | --- | --- |
 | C1 | Required binary pullbacks can be selected for the chosen profile | Proof obligation |
-| C2 | Span comparison data satisfy triangle and pentagon coherence | Proof obligation |
+| C2 | Canonical span comparisons satisfy triangle and pentagon coherence under selected pullbacks | Conditional theorem |
 | C3 | Typed composites exist for the chosen multispan gluings | Proof obligation |
 | C4 | Multispan composition is associative under a declared comparison | Proof obligation |
 | C5 | Multispan composition preserves the declared typing judgments | Proof obligation |
 
-No existence, associativity, type-preservation, or confluence conclusion
-follows from the interface declarations alone. M7 confluence remains an open
-conjecture.
+No selected-pullback existence, multispan existence, multispan
+associativity, type-preservation, or confluence conclusion follows from the
+interface declarations alone. M7 confluence remains an open conjecture.
 
 ## 10. Corrected closure impact
 
@@ -515,11 +534,13 @@ The following Cycle 2 closure claims are narrowed:
   leg-preserving span isomorphism, not literal equality.
 - Span 2-cell vertical laws, horizontal projection laws, horizontal identity,
   and interchange are proved from existing assumptions.
-- Triangle and pentagon are now explicit typed equations, but S6–S7 and C2
-  remain proof obligations because no global coherence witness is supplied.
-- Typed multispan composition has a witness interface while C1–C5 retain
-  pullback selection, coherence, existence, and law claims as proof
-  obligations.
+- Canonical unitors and associator, all three naturality laws, triangle, and
+  pentagon are constructed and proved from selected pullback universal
+  properties; S6–S10 are proved theorems.
+- C2 is conditional on `SelectedPullbacks`; no extra coherence or choice
+  assumption is required, while C1 remains a pullback-selection obligation.
+- Typed multispan composition has a witness interface while C3–C5 retain
+  existence and law claims as proof obligations.
 - The reflection tower used by an executable deployment ends at a declared
   trusted kernel.
 

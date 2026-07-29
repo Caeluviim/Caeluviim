@@ -1,4 +1,4 @@
-# Caeluviim Core
+# Caeluviim
 
 Caeluviim Core is the headless, local-first civic knowledge layer. It stores
 exact source material in a content-addressed object store, records every
@@ -7,6 +7,18 @@ review, and rebuilds RDF and Neo4j projections from accepted history.
 
 The existing `web/` project is preserved as a compatibility oracle and future
 interface. It is not the authoritative store.
+
+## Implemented formal modules
+
+| Module | Status | Primary specification | Machine constraints |
+| --- | --- | --- | --- |
+| Error-Mediated Generative Non-Closure v0.1.0 | Implemented, proposed—not ratified | [`docs/architecture/error-mediated-generative-nonclosure.md`](docs/architecture/error-mediated-generative-nonclosure.md) | JSON Schema, OWL/RDF vocabulary, SHACL shapes, executable tests |
+| RRKC Cycle 2 structural repair | Proposed; mechanically checked boundary | [`docs/rrkc-cycle2-symbol-wiring-repair.md`](docs/rrkc-cycle2-symbol-wiring-repair.md) | Lean 4 definitions, invariants, and conditional span-coherence theorems |
+
+The EMGN implementation represents relational discrepancy, causally retained
+residue, remediation, transition-regime modification, and witnessed new
+reachability. Its governance record does not self-ratify: ratification still
+requires two independent validators who are not the proposer.
 
 ## Runtime contract
 

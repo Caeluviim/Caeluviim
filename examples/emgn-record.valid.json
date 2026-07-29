@@ -1,0 +1,87 @@
+{
+  "record_id": "urn:caeluviim:record:emgn:example-001",
+  "module_version": "0.1.0",
+  "universal_context": {
+    "system_id": "urn:caeluviim:system:example",
+    "causally_bounded": true,
+    "transition_semantics": "set_valued"
+  },
+  "agents": [
+    {
+      "agent_id": "urn:caeluviim:agent:a",
+      "state_ref": "urn:caeluviim:state:a:t0",
+      "model_ref": "urn:caeluviim:model:a:t0",
+      "finite_localization": true
+    },
+    {
+      "agent_id": "urn:caeluviim:agent:b",
+      "state_ref": "urn:caeluviim:state:b:t0",
+      "model_ref": "urn:caeluviim:model:b:t0",
+      "finite_localization": true
+    }
+  ],
+  "interaction": {
+    "interaction_id": "urn:caeluviim:interaction:001",
+    "participant_refs": ["urn:caeluviim:agent:a", "urn:caeluviim:agent:b"],
+    "occurred_at": "2026-07-29T14:18:00Z",
+    "relation_type": "reciprocal-model-challenge"
+  },
+  "discrepancies": [
+    {
+      "discrepancy_id": "urn:caeluviim:discrepancy:001",
+      "agent_ref": "urn:caeluviim:agent:a",
+      "predicted_ref": "urn:caeluviim:prediction:001",
+      "observed_ref": "urn:caeluviim:observation:001",
+      "comparison_method": "semantic-constraint-difference",
+      "magnitude": 0.42
+    }
+  ],
+  "residues": [
+    {
+      "residue_id": "urn:caeluviim:residue:001",
+      "source_discrepancy_ref": "urn:caeluviim:discrepancy:001",
+      "carrier_ref": "urn:caeluviim:artifact:revised-rule",
+      "retention_mode": "constraint",
+      "state_change_ref": "urn:caeluviim:state-change:001"
+    }
+  ],
+  "remediations": [
+    {
+      "remediation_id": "urn:caeluviim:remediation:001",
+      "residue_refs": ["urn:caeluviim:residue:001"],
+      "mode": "reinterpret",
+      "output_ref": "urn:caeluviim:artifact:transition-rule-v2"
+    }
+  ],
+  "transition_change": {
+    "before_regime_ref": "urn:caeluviim:regime:v1",
+    "after_regime_ref": "urn:caeluviim:regime:v2",
+    "regime_changed": true,
+    "modified_by_residue_refs": ["urn:caeluviim:residue:001"]
+  },
+  "reachability_change": {
+    "before_snapshot_ref": "urn:caeluviim:reachability:v1",
+    "after_snapshot_ref": "urn:caeluviim:reachability:v2",
+    "embedding_ref": "urn:caeluviim:embedding:v1-to-v2",
+    "new_state_refs": ["urn:caeluviim:state:new-001"]
+  },
+  "novelty_claim": {
+    "claim_id": "urn:caeluviim:claim:novel-future-001",
+    "status": "validated",
+    "criterion": "later_reachable_state_not_in_prior_embedded_reachability",
+    "witness_refs": ["urn:caeluviim:witness:001"]
+  },
+  "provenance": {
+    "generated_by": "urn:caeluviim:agent:proposer",
+    "generated_at": "2026-07-29T14:18:00Z",
+    "content_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "previous_hash": null,
+    "source_refs": ["urn:caeluviim:source:formal-core-v0.1.0"]
+  },
+  "governance": {
+    "proposer_id": "urn:caeluviim:agent:proposer",
+    "validators": ["urn:caeluviim:agent:validator-1", "urn:caeluviim:agent:validator-2"],
+    "status": "ratified",
+    "proposer_is_validator": false
+  }
+}

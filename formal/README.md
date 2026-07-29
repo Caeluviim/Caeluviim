@@ -18,12 +18,14 @@ The formalized surface is deliberately narrow:
 | Role-compatible binary pullbacks | `BinarySpanCompositionInterface` | Minimal interface; C1 proof obligation |
 | Binary span composition | `composeBinaryRelationSpans` | Definition from supplied pullback evidence |
 | Structural identity span | `StructuralSpan.identity` | Definition |
-| Span equivalence and comparisons | `SpanIsomorphism`, `SpanComparisonData` | Evidence types; triangle/pentagon are C2 |
+| Canonical unitors and associator | `canonicalLeftUnitor`, `canonicalRightUnitor`, `canonicalAssociator` | Constructed from selected pullbacks |
+| Span equivalence and comparisons | `SpanIsomorphism`, `SpanComparisonData` | Evidence types; canonical data constructed |
 | Leg-preserving span 2-cell | `SpanTwoCell` | Definition |
 | 2-cell identity and vertical composition | `SpanTwoCell.identity`, `SpanTwoCell.vertical` | Definition; identity/associativity proved |
 | Pullback-induced horizontal composition | `SpanTwoCell.horizontal` | Definition; projections, identity, and interchange proved |
-| Triangle and pentagon equations | `SpanTriangleEquation`, `SpanPentagonEquation` | Typed propositions; S6–S7 obligations |
-| Coherence proof/package | `SpanCoherenceProof`, `SpanCoherencePackage` | Evidence types; no global inhabitant |
+| Comparison naturality | `canonicalLeftUnitor_naturality`, `canonicalRightUnitor_naturality`, `canonicalAssociator_naturality` | S8–S10 proved theorems |
+| Triangle and pentagon equations | `canonicalSpanTriangle`, `canonicalSpanPentagon` | S6–S7 proved theorems |
+| Coherence proof/package | `canonicalSpanCoherenceProof`, `canonicalSpanCoherencePackage` | Derived from supplied selected pullbacks |
 | M10 antecedent | `M10SpanCompositionCoherenceCondition` | Nonemptiness of a coherence package |
 | Typed arbitrary-arity multispan | `TypedMultispan` | Definition |
 | Typed multispan gluing | `MultispanGluing` | Definition |
@@ -50,14 +52,16 @@ The formalized surface is deliberately narrow:
 | Finite trusted reflection top | `ReflectionBoundary` | Definition |
 | Append-only transition | `Transition.append` | Definition |
 | Historical monotonicity M1 | `historical_monotonicity` | Proved theorem |
-| M1–M10, P1–P4, C1–C5, and S1–S7 status registers | `metatheoryStatus`, `provenanceLawStatus`, `categoricalObligationStatus`, `spanLawStatus` | Definition |
+| M1–M10, P1–P4, C1–C5, and S1–S10 status registers | `metatheoryStatus`, `provenanceLawStatus`, `categoricalObligationStatus`, `spanLawStatus` | Definition |
 
 No declaration asserts type preservation, provenance preservation, relative
 reflection, termination, fixed-point existence, confluence, functoriality,
 pullback availability, multispan-composite existence, multispan
-associativity, or triangle/pentagon coherence for arbitrary chosen comparison
-data. Replay agreement takes two distinct executor manifestations and is not
-stated as equality of an expression with itself.
+associativity, or triangle/pentagon coherence for arbitrary noncanonical
+comparison data. The canonical comparisons are coherent whenever a
+`SelectedPullbacks` value is supplied. Replay agreement takes two distinct
+executor manifestations and is not stated as equality of an expression with
+itself.
 
 ## Validation
 
@@ -89,14 +93,21 @@ the pullback apex to a `RelationOccurrence`; that requires separate relation
 typing, formation, and provenance evidence.
 
 The diagonal `StructuralSpan.identity` is defined, while unitality and
-associativity are represented up to `SpanIsomorphism`. A
-`SpanComparisonPackage` contains selected pullbacks and chosen unitor and
-associator isomorphisms. Those comparison data are not mislabeled as a full
-coherence proof: C2 separately requires the triangle and pentagon equations.
-The equations are now mechanized as `SpanTriangleEquation` and
-`SpanPentagonEquation`. A `SpanCoherencePackage` contains their proofs, and
-M10 is conditional on that stronger package. No package is asserted to exist,
-and no strictification is assumed.
+associativity are represented up to `SpanIsomorphism`. From every supplied
+`SelectedPullbacks` value, `Cycle2Coherence.lean` constructs canonical left
+and right unitors and a canonical associator using pullback lifts. Their
+inverse laws follow from pullback extensionality. No strictification is
+assumed.
+
+The same module proves all three naturality laws, the triangle equation, and
+Mac Lane's pentagon equation. The pentagon proof compares the four flattened
+constituent projections of both paths and applies nested pullback uniqueness.
+It does not accept a `SpanCoherenceProof` argument. Instead,
+`canonicalSpanCoherenceProof` and `canonicalSpanCoherencePackage` are outputs
+derived from the selected pullbacks. Thus `SelectedPullbacks` is sufficient
+for C2; no additional choice or coherence axiom is required. C1 still asks
+whether such a selection exists for the protocol profile, so C2 and M10
+remain conditional rather than unconditional global theorems.
 
 `SpanTwoCell` supplies the leg-preserving 2-cell language needed to state
 these equations. Identity and vertical composition are inherited from
@@ -107,10 +118,15 @@ universal property. Lean proves:
 - cancellation of the two cells extracted from a `SpanIsomorphism`;
 - both horizontal pullback-projection equations;
 - horizontal preservation of identity; and
-- interchange.
+- interchange;
+- canonical left-unitor, right-unitor, and associator naturality;
+- the canonical triangle equation; and
+- the canonical pentagon equation.
 
-Accordingly S1–S5 are proved theorems. S6 triangle and S7 pentagon remain proof
-obligations, so C2 is not promoted.
+Accordingly S1–S10 are proved theorems. C2 is a conditional theorem whose
+antecedent is a supplied `SelectedPullbacks` profile. M10 remains a
+conditional theorem, and `selectedPullbacks_imply_M10Condition` supplies its
+constructive bridge.
 
 Typed multispan gluing declares:
 
@@ -123,15 +139,15 @@ Typed multispan gluing declares:
 `MultispanComposite` is the witness type for one such gluing, and
 `TypedMultispanCompositionInterface` is the implementation interface for all
 declared gluings. The witness contains the simultaneous joint equations,
-universal mediating map, both factorization equations, and uniqueness; exposed
-result legs are derived from the two apex projections. C1–C5 keep binary
-pullback selection, span triangle/pentagon coherence, multispan existence,
-multispan associativity, and multispan type preservation at proof-obligation
-status. M7 confluence remains a conjecture.
+universal mediating map, both factorization equations, and uniqueness;
+exposed result legs are derived from the two apex projections. C1 and C3–C5
+remain proof obligations. C2 is conditional on selected pullbacks. M7
+confluence remains a conjecture.
 
-The next proof work is to construct comparison data for a selected bounded
-facet-category profile and prove S6–S7, rather than merely supplying an
-arbitrary `SpanCoherenceProof` as trusted input.
+The next categorical proof work is to construct the required selected
+pullbacks for a bounded facet-category profile (C1), or advance typed
+multispan composition (C3–C5). Supplying an arbitrary
+`SpanCoherenceProof` as trusted input is no longer part of that path.
 
 The normative symbol-and-wiring corrections driving this module are recorded
 in [`../docs/rrkc-cycle2-symbol-wiring-repair.md`](../docs/rrkc-cycle2-symbol-wiring-repair.md).

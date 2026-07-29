@@ -957,18 +957,21 @@ structure SpanCoherenceProof
   triangle : SpanTriangleEquation comparisons
   pentagon : SpanPentagonEquation comparisons
 
-/-- Selected pullbacks plus comparison data. M10 additionally depends on the
-separate triangle-and-pentagon coherence obligation C2; this package alone is
-not advertised as a bicategory proof. No value is declared globally. -/
+/-- Selected pullbacks plus comparison data. This package alone is not
+advertised as a bicategory proof because the comparisons could be arbitrary.
+The downstream constructive-coherence module derives canonical comparisons
+and their C2 proof from the selected pullbacks. No value is declared
+globally. -/
 structure SpanComparisonPackage
     {sig : StaticSignature}
     (baseCategory : FacetCategory sig) where
   selected : SelectedPullbacks baseCategory
   comparisons : SpanComparisonData selected
 
-/-- Exact evidence needed to discharge the triangle-and-pentagon portion of
-C2 for one selected pullback profile. Defining the package does not construct
-an inhabitant. -/
+/-- Exact evidence for the triangle-and-pentagon portion of C2 for one
+selected-pullback profile. Defining the type alone does not construct an
+inhabitant; `canonicalSpanCoherencePackage` does so from supplied selected
+pullbacks in the downstream constructive-coherence module. -/
 structure SpanCoherencePackage
     {sig : StaticSignature}
     (baseCategory : FacetCategory sig) where
@@ -977,8 +980,10 @@ structure SpanCoherencePackage
   coherence : SpanCoherenceProof comparisons
 
 /-- The exact antecedent recorded for M10. It is a proposition about the
-existence of selected pullbacks, chosen comparisons, and proofs of both
-mechanized coherence equations; it is not asserted globally. -/
+existence of selected pullbacks, comparison data, and proofs of both
+mechanized coherence equations. The constructive-coherence module proves
+that selected-pullback existence implies this condition; neither existence
+claim is asserted globally. -/
 def M10SpanCompositionCoherenceCondition
     {sig : StaticSignature}
     (baseCategory : FacetCategory sig) : Prop :=
@@ -1744,6 +1749,9 @@ inductive SpanLawId where
   | S5Interchange
   | S6Triangle
   | S7Pentagon
+  | S8LeftUnitorNaturality
+  | S9RightUnitorNaturality
+  | S10AssociatorNaturality
   deriving Repr, DecidableEq
 
 /-- The specification's current proof-status register. -/
@@ -1766,27 +1774,32 @@ def provenanceLawStatus : ProvenanceLawId → MetatheoryStatus
   | .P3Idempotency => .proofObligation
   | .P4EmptyIdentity => .proofObligation
 
-/-- The new categorical declarations expose witness types but provide no
-global inhabitants or derived laws. Each construction remains an obligation
-for a selected protocol profile. M10 separately remains conditional on a
+/-- C1 remains an existence obligation for a selected protocol profile.
+Given any `SelectedPullbacks`, the downstream constructive-coherence module
+derives canonical comparison data and proves C2, so C2 is conditional on that
+selection rather than an open proof obligation. M10 remains conditional on a
 `SpanCoherencePackage`; M7 confluence remains a conjecture. -/
 def categoricalObligationStatus :
   CategoricalObligationId → MetatheoryStatus
   | .C1BinaryPullbackSelection => .proofObligation
-  | .C2SpanTrianglePentagonCoherence => .proofObligation
+  | .C2SpanTrianglePentagonCoherence => .conditionalTheorem
   | .C3MultispanCompositionExistence => .proofObligation
   | .C4MultispanAssociativity => .proofObligation
   | .C5MultispanTypePreservation => .proofObligation
 
-/-- The strict 2-cell laws derivable from category and pullback uniqueness are
-proved. The two chosen-comparison coherence equations remain obligations. -/
+/-- The strict 2-cell laws, canonical comparison naturality, and canonical
+triangle and pentagon equations are derived from category laws and selected
+pullback uniqueness. -/
 def spanLawStatus : SpanLawId → MetatheoryStatus
   | .S1VerticalIdentity => .provedTheorem
   | .S2VerticalAssociativity => .provedTheorem
   | .S3HorizontalProjection => .provedTheorem
   | .S4HorizontalIdentity => .provedTheorem
   | .S5Interchange => .provedTheorem
-  | .S6Triangle => .proofObligation
-  | .S7Pentagon => .proofObligation
+  | .S6Triangle => .provedTheorem
+  | .S7Pentagon => .provedTheorem
+  | .S8LeftUnitorNaturality => .provedTheorem
+  | .S9RightUnitorNaturality => .provedTheorem
+  | .S10AssociatorNaturality => .provedTheorem
 
 end Caeluviim.RRKC.Cycle2
