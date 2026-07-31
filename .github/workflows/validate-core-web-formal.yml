@@ -36,7 +36,7 @@ jobs:
   python-core:
     name: Python core
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -44,9 +44,16 @@ jobs:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: pyproject.toml
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.13.0"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
       - name: Install core and development dependencies
         run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
-      - name: Run Python tests
+      - name: Install TypeScript oracle dependencies
+        run: npm ci --prefix web
+      - name: Run Python and cross-runtime compatibility tests
         run: python -m pytest
       - name: Validate Compose configuration
         env:
