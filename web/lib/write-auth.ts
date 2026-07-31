@@ -24,10 +24,14 @@ function configuredWriteToken(): string | null {
   return processToken || null;
 }
 
-function insecureLocalWritesAllowed(): boolean {
+function insecureLocalWritesAllowed(request: Request): boolean {
   const workerValue = runtimeEnvironment()[INSECURE_LOCAL_BINDING]?.trim();
   const processValue = process.env.CAELUVIIM_ALLOW_INSECURE_LOCAL_WRITES?.trim();
-  return (workerValue || processValue || "").toLocaleLowerCase() === "true";
+  const enabled = (workerValue || processValue || "").toLocaleLowerCase() === "true";
+  if (!enabled) return false;
+
+  const hostname = new URL(request.url).hostname.toLocaleLowerCase();
+  return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname === "[::1]";
 }
 
 function responseHeaders(headers: HeadersInit): Headers {
@@ -40,8 +44,8 @@ function responseHeaders(headers: HeadersInit): Headers {
  * Authorize an unsigned persistent-write surface.
  *
  * Writes fail closed unless a bearer secret is configured or the explicit
- * local-development override is enabled. Signed DAP submissions retain their
- * separate cryptographic authorization path and do not use this helper.
+ * loopback-only development override is enabled. Signed DAP submissions retain
+ * their separate cryptographic authorization path and do not use this helper.
  */
 export function requireWriteAuthorization(
   request: Request,
@@ -50,7 +54,7 @@ export function requireWriteAuthorization(
   const token = configuredWriteToken();
 
   if (!token) {
-    if (insecureLocalWritesAllowed()) return null;
+    if (insecureLocalWritesAllowed(request)) return null;
     return Response.json(
       {
         error:
