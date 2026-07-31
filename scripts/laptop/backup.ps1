@@ -17,11 +17,15 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "Neo4j could not be stopped for the offline backup." }
     $Stopped = $true
 
-    docker compose --profile admin run --rm neo4j-admin database dump neo4j --to-path="/backups/$Stamp" --overwrite-destination=true
+    # The dump is read-only against /data. Root avoids host bind-mount UID/GID mismatches.
+    docker compose --profile admin run --rm --user root neo4j-admin database dump neo4j --to-path="/backups/$Stamp" --overwrite-destination=true
     if ($LASTEXITCODE -ne 0) { throw "The neo4j database dump failed." }
 
-    docker compose --profile admin run --rm neo4j-admin database dump system --to-path="/backups/$Stamp" --overwrite-destination=true
+    docker compose --profile admin run --rm --user root neo4j-admin database dump system --to-path="/backups/$Stamp" --overwrite-destination=true
     if ($LASTEXITCODE -ne 0) { throw "The system database dump failed." }
+
+    docker run --rm --mount "type=bind,source=$HostBackup,target=/backup" alpine:3.22 chmod -R a+rX /backup
+    if ($LASTEXITCODE -ne 0) { throw "Backup permission normalization failed." }
 
     $Checksums = Get-ChildItem $HostBackup -Filter "*.dump" | Sort-Object Name | ForEach-Object {
         $Hash = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
