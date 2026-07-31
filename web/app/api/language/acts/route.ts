@@ -8,6 +8,7 @@ import {
   queryLanguageForce,
   saveLanguageAct,
 } from "../../../../lib/store";
+import { requireWriteAuthorization } from "../../../../lib/write-auth";
 
 const cors = {
   "access-control-allow-origin": "*",
@@ -53,6 +54,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const authorizationFailure = requireWriteAuthorization(request, cors);
+  if (authorizationFailure) return authorizationFailure;
+
   const contentLength = Number(request.headers.get("content-length") ?? 0);
   if (contentLength > 1_000_000) {
     return Response.json({ error: "Language act exceeds the 1 MB limit." }, { status: 413, headers: cors });
