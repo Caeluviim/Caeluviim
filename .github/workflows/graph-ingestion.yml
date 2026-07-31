@@ -36,9 +36,11 @@ jobs:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: requirements-dev.txt
+      - run: docker compose config --quiet
+      - run: docker build -f Dockerfile.operator -t caeluviim-operator:test .
       - run: python -m pip install -r requirements-dev.txt
       - run: python -m unittest discover -s tests -v
       - run: python -m caeluviim_graph.cli bootstrap
-      - run: python -m caeluviim_graph.cli ingest examples/ingest-manifest.valid.json
-      - run: python -m caeluviim_graph.cli ingest ingest/manifests/emgn-module.v0.1.0.json
+      - run: python -m caeluviim_graph.cli sync
+      - run: python -m caeluviim_graph.cli sync
       - run: python -m caeluviim_graph.cli stats
