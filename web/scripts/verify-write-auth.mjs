@@ -25,6 +25,13 @@ for (const path of protectedRoutes) {
   );
 }
 
+const mcpRoute = await source("app/mcp/route.ts");
+assert.match(
+  mcpRoute,
+  /access-control-allow-headers[\s\S]*Authorization/i,
+  "Authenticated browser MCP clients require Authorization in the CORS preflight contract.",
+);
+
 const helper = await source("lib/write-auth.ts");
 assert.match(helper, /CAELUVIIM_WRITE_BEARER_TOKEN/);
 assert.match(helper, /CAELUVIIM_ALLOW_INSECURE_LOCAL_WRITES/);
