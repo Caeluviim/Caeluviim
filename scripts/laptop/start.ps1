@@ -16,8 +16,14 @@ try {
     $EnvPath = Join-Path $Root ".env"
     if (-not (Test-Path $EnvPath)) {
         $Bytes = New-Object byte[] 24
-        [System.Security.Cryptography.RandomNumberGenerator]::Fill($Bytes)
-        $Password = [Convert]::ToHexString($Bytes).ToLowerInvariant()
+        $Rng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
+        try {
+            $Rng.GetBytes($Bytes)
+        }
+        finally {
+            $Rng.Dispose()
+        }
+        $Password = -join ($Bytes | ForEach-Object { $_.ToString("x2") })
         $Content = @"
 NEO4J_URI=neo4j://localhost:7687
 NEO4J_USER=neo4j
