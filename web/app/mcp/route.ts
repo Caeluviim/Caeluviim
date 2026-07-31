@@ -1,5 +1,6 @@
 import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
 import { createCaeluviimMcpServer } from "../../lib/mcp";
+import { requireWriteAuthorization } from "../../lib/write-auth";
 
 const corsHeaders = {
   "access-control-allow-origin": "*",
@@ -10,6 +11,9 @@ const corsHeaders = {
 };
 
 async function handle(request: Request) {
+  const authorizationFailure = requireWriteAuthorization(request, corsHeaders);
+  if (authorizationFailure) return authorizationFailure;
+
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
     enableJsonResponse: true,
