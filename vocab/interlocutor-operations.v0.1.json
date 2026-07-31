@@ -1,0 +1,29 @@
+{
+  "vocabulary_id": "urn:caeluviim:vocabulary:interlocutor-operations:0.1",
+  "version": "0.1",
+  "status": "provisional_seed",
+  "coverage_status": "incomplete",
+  "construction_rule": "Seeded from the available Interlocutor Operations headings and scopes. Missing row content is not inferred as canonical.",
+  "entries": [
+    {"id": "INT.SEMIOTIC.SIGNIFICATION", "label": "Signification", "parent": "INT.SEMIOTIC", "provenance_status": "supplied_outline"},
+    {"id": "INT.SEMIOTIC.REFERENCE", "label": "Reference and naming", "parent": "INT.SEMIOTIC", "provenance_status": "supplied_outline"},
+    {"id": "INT.SEMANTIC.PREDICATION", "label": "Predication and proposition formation", "parent": "INT.SEMANTIC", "provenance_status": "supplied_outline"},
+    {"id": "INT.PRAGMATIC.DEIXIS", "label": "Indexical and deictic anchoring", "parent": "INT.PRAGMATIC", "provenance_status": "supplied_outline"},
+    {"id": "INT.COGNITIVE.FRAMING", "label": "Framing and conceptual structuring", "parent": "INT.COGNITIVE", "provenance_status": "supplied_outline"},
+    {"id": "INT.STRUCTURAL.COMPOSITION", "label": "Syntactic and morphological composition", "parent": "INT.STRUCTURAL", "provenance_status": "supplied_outline"},
+    {"id": "INT.PRAGMATIC.SPEECH_ACT", "label": "Speech act performance", "parent": "INT.PRAGMATIC", "provenance_status": "supplied_outline"},
+    {"id": "INT.INTERACTION.REPAIR", "label": "Turn coordination and repair", "parent": "INT.INTERACTION", "provenance_status": "supplied_outline"},
+    {"id": "INT.RHETORICAL.PERSUASION", "label": "Rhetorical and persuasive operation", "parent": "INT.RHETORICAL", "provenance_status": "supplied_outline"},
+    {"id": "INT.METALINGUISTIC.REFLECTION", "label": "Language operating on language", "parent": "INT.METALINGUISTIC", "provenance_status": "supplied_outline"},
+    {"id": "INT.COGNITIVE.CATEGORIZATION", "label": "Conceptualization and categorization", "parent": "INT.COGNITIVE", "provenance_status": "supplied_outline"},
+    {"id": "INT.INFORMATION.CONTEXT", "label": "Context and information management", "parent": "INT.INFORMATION", "provenance_status": "supplied_outline"},
+    {"id": "INT.INSTITUTIONAL.CONSTITUTION", "label": "Institutional and constitutive language", "parent": "INT.INSTITUTIONAL", "provenance_status": "supplied_outline"},
+    {"id": "INT.ACQUISITION.LEARNING", "label": "Language learning and development", "parent": "INT.ACQUISITION", "provenance_status": "supplied_outline"}
+  ],
+  "known_gaps": [
+    "Row-level definitions and sources were not present in the available text export.",
+    "Required features, exclusion criteria, aliases, and evidence levels require later sourced revisions.",
+    "Tables 1 through 19 require row-level reconstruction."
+  ]
+}
+

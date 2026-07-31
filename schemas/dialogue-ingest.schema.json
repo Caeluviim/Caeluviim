@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.local/schemas/dialogue-ingest.schema.json",
+  "title": "Caeluviim manual dialogue ingestion request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["conversation_id", "turns", "scope", "consent_basis"],
+  "properties": {
+    "conversation_id": {"type": "string", "minLength": 1},
+    "title": {"type": ["string", "null"]},
+    "scope": {
+      "enum": ["private", "group", "district", "commons", "official_public"]
+    },
+    "owner_id": {"type": ["string", "null"]},
+    "consent_basis": {"type": "string", "minLength": 1},
+    "official_capacity": {"type": "boolean", "default": false},
+    "source_system": {"type": "string", "default": "manual"},
+    "acquired_at": {"type": "string"},
+    "metadata": {"type": "object"},
+    "selected_turn_ids": {
+      "type": ["array", "null"],
+      "items": {"type": "string"}
+    },
+    "turns": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["turn_id", "participant_id", "role", "content"],
+        "properties": {
+          "turn_id": {"type": "string", "minLength": 1},
+          "participant_id": {"type": "string", "minLength": 1},
+          "role": {
+            "enum": ["user", "assistant", "system", "tool", "observer", "other"]
+          },
+          "content": {"type": "string"},
+          "language": {"type": "string", "default": "und"},
+          "script": {"type": ["string", "null"]},
+          "occurred_at": {"type": ["string", "null"]},
+          "metadata": {"type": "object"}
+        }
+      }
+    }
+  }
+}

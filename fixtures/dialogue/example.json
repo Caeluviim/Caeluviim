@@ -1,0 +1,23 @@
+{
+  "conversation_id": "conversation:example:001",
+  "title": "Manual ingestion example",
+  "consent_basis": "The member explicitly selected this fixture for local ingestion.",
+  "source_system": "fixture",
+  "turns": [
+    {
+      "turn_id": "turn:example:001",
+      "participant_id": "member:founder",
+      "role": "user",
+      "content": "Preserve the exact source and keep interpretations contestable.",
+      "language": "en"
+    },
+    {
+      "turn_id": "turn:example:002",
+      "participant_id": "person:lux",
+      "role": "assistant",
+      "content": "I will stage derived interpretations in quarantine.",
+      "language": "en"
+    }
+  ]
+}
+

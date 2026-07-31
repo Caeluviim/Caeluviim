@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "caeluviim-core"
+version = "0.1.0"
+description = "Local-first, operation-sourced civic knowledge graph core"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+dependencies = [
+  "cryptography>=3.4",
+  "jsonschema>=4.20",
+  "mcp>=1.9,<2",
+  "neo4j>=5.20",
+  "pydantic>=2.8,<3",
+  "pyshacl>=0.28",
+  "rdflib>=7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2",
+  "ruff>=0.9",
+]
+
+[project.scripts]
+caeluviim = "caeluviim.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/caeluviim"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

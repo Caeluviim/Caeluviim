@@ -1,0 +1,10 @@
+{
+  "name": "Caeluviim Graph/Table Protocol",
+  "short_name": "Caeluviim",
+  "description": "A phone-ready source-bound knowledge graph and grounded response protocol.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090c0b",
+  "theme_color": "#0b0e0d",
+  "orientation": "any"
+}

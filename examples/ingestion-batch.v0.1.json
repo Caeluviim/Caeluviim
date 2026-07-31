@@ -1,0 +1,45 @@
+{
+  "batch_id": "batch:caeluviim-activation-fixture:0.1",
+  "title": "Caeluviim graph activation fixture",
+  "scope": "official_public",
+  "consent_basis": "Explicit deterministic repository fixture.",
+  "official_capacity": false,
+  "started_at": "2026-07-31T12:00:00Z",
+  "sources": [
+    {
+      "source_id": "source:activation-fixture:1",
+      "title": "Initial mapped source",
+      "participant_id": "member:founder",
+      "content": "Caeluviim represents source content and explicit semantic mappings as provenance-linked graph records.",
+      "language": "en",
+      "metadata": {
+        "fixture": true
+      }
+    }
+  ],
+  "mappings": [
+    {
+      "mapping_id": "mapping:activation-fixture:1",
+      "source_id": "source:activation-fixture:1",
+      "candidate_type": "proposition",
+      "label": "Source-to-mapping provenance",
+      "content": "The graph mapping is derived from the complete cited source artifact and remains linked to its source span.",
+      "alternative_hypotheses": [
+        "A narrower source span may be preferable for a production mapping."
+      ],
+      "confidence": "0.90",
+      "review": {
+        "decision": "accept",
+        "reviewer_id": "member:founder",
+        "reason": "Accepted only as a deterministic repository fixture."
+      },
+      "metadata": {
+        "fixture": true
+      }
+    }
+  ],
+  "metadata": {
+    "fixture": true,
+    "purpose": "exercise end-to-end source ingestion, mapping review, activation, projection, and replay"
+  }
+}

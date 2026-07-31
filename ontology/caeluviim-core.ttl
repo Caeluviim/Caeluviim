@@ -1,0 +1,55 @@
+@prefix cael: <https://caeluviim.org/ontology/core#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://caeluviim.org/ontology/core> a owl:Ontology ;
+    dct:title "Caeluviim Core Ontology" ;
+    owl:versionInfo "0.1" .
+
+cael:SourceArtifact a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:SourceSpan a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:CommunicativeEvent a owl:Class ; rdfs:subClassOf prov:Activity .
+cael:Expression a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:Proposition a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:ContextState a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:TransformationEvent a owl:Class ; rdfs:subClassOf prov:Activity .
+cael:Interpretation a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:ForceAssignment a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:LinguisticOperation a owl:Class ; rdfs:subClassOf skos:Concept .
+cael:HarmAssessment a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:EvidenceItem a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:Assessment a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:ContestEvent a owl:Class ; rdfs:subClassOf prov:Activity .
+cael:RevisionEvent a owl:Class ; rdfs:subClassOf prov:Activity .
+cael:LegalPerson a owl:Class ; rdfs:subClassOf prov:Agent .
+cael:LuxManifestation a owl:Class ; rdfs:subClassOf prov:Agent .
+cael:MemberLegacyGraph a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:Constitution a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:DisclosureRestriction a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:SuccessionDirective a owl:Class ; rdfs:subClassOf prov:Entity .
+cael:LedgerEvent a owl:Class ; rdfs:subClassOf prov:Activity .
+
+cael:payloadRef a owl:DatatypeProperty .
+cael:informationScope a owl:DatatypeProperty .
+cael:eventType a owl:DatatypeProperty .
+cael:contentHash a owl:DatatypeProperty .
+cael:exactText a owl:DatatypeProperty .
+cael:confidence a owl:DatatypeProperty .
+cael:manifestationId a owl:DatatypeProperty .
+cael:predecessor a owl:ObjectProperty .
+cael:supersedes a owl:ObjectProperty .
+cael:containsSpan a owl:ObjectProperty .
+cael:quotedFrom a owl:ObjectProperty .
+cael:expressesProposition a owl:ObjectProperty .
+cael:usedContext a owl:ObjectProperty .
+cael:performedByAgent a owl:ObjectProperty .
+cael:instantiatesOperation a owl:ObjectProperty .
+cael:instantiatesHarmOperation a owl:ObjectProperty .
+cael:contestedBy a owl:ObjectProperty .
+cael:offersAlternativeTo a owl:ObjectProperty .
+

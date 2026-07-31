@@ -1,0 +1,61 @@
+@prefix cael: <https://caeluviim.org/ontology/core#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cael:LedgerEventShape a sh:NodeShape ;
+    sh:targetClass cael:LedgerEvent ;
+    sh:property [
+        sh:path cael:eventType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path cael:payloadRef ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path cael:informationScope ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "private" "group" "district" "commons" "official_public" )
+    ] ;
+    sh:property [
+        sh:path prov:wasAssociatedWith ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path prov:generatedAtTime ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] .
+
+cael:InterpretationShape a sh:NodeShape ;
+    sh:targetClass cael:Interpretation ;
+    sh:property [
+        sh:path prov:wasDerivedFrom ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path prov:wasAttributedTo ;
+        sh:minCount 1
+    ] .
+
+cael:HarmAssessmentShape a sh:NodeShape ;
+    sh:targetClass cael:HarmAssessment ;
+    sh:property [
+        sh:path prov:wasDerivedFrom ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path cael:confidence ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0.0 ;
+        sh:maxInclusive 1.0
+    ] .
+

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schema/response-event-1.0.json",
+  "title": "Caeluviim Response Event",
+  "type": "object",
+  "required": [
+    "eventId",
+    "eventType",
+    "responseId",
+    "protocolVersion",
+    "contentHash",
+    "consentScope",
+    "partitionKey",
+    "ingestionStatus",
+    "createdAt",
+    "response"
+  ],
+  "properties": {
+    "eventId": { "type": "string", "pattern": "^urn:caeluviim:event:sha256:[a-f0-9]{64}$" },
+    "eventType": { "const": "caeluviim.response.created" },
+    "responseId": { "type": "string", "minLength": 1 },
+    "protocolVersion": { "const": "1.0.0" },
+    "contentHash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "consentScope": { "enum": ["collective", "group", "private"] },
+    "partitionKey": { "type": "string", "pattern": "^[a-z_]+/[0-9]{4}-[0-9]{2}$" },
+    "ingestionStatus": { "enum": ["projected"] },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "response": { "$ref": "#/$defs/response" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "categoryKey": {
+      "enum": [
+        "response_control",
+        "provenance",
+        "legal",
+        "standing",
+        "commons",
+        "social_contract",
+        "ai_protocol",
+        "linguistic",
+        "emoji_rider",
+        "risk_limits",
+        "verification"
+      ]
+    },
+    "response": {
+      "type": "object",
+      "required": ["id", "schemaVersion", "prompt", "createdAt", "columns", "row", "csv", "graph", "sourceCount"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "schemaVersion": { "const": "1.0.0" },
+        "prompt": { "type": "string", "minLength": 1, "maxLength": 10000 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "columns": {
+          "type": "array",
+          "minItems": 11,
+          "maxItems": 11,
+          "items": {
+            "type": "object",
+            "required": ["key", "label", "group", "description", "keywords"],
+            "properties": {
+              "key": { "$ref": "#/$defs/categoryKey" },
+              "label": { "type": "string" },
+              "group": { "type": "string" },
+              "description": { "type": "string" },
+              "keywords": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "row": {
+          "type": "object",
+          "required": [
+            "response_control",
+            "provenance",
+            "legal",
+            "standing",
+            "commons",
+            "social_contract",
+            "ai_protocol",
+            "linguistic",
+            "emoji_rider",
+            "risk_limits",
+            "verification"
+          ],
+          "properties": {
+            "response_control": { "type": "string" },
+            "provenance": { "type": "string" },
+            "legal": { "type": "string" },
+            "standing": { "type": "string" },
+            "commons": { "type": "string" },
+            "social_contract": { "type": "string" },
+            "ai_protocol": { "type": "string" },
+            "linguistic": { "type": "string" },
+            "emoji_rider": { "type": "string" },
+            "risk_limits": { "type": "string" },
+            "verification": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        "csv": { "type": "string" },
+        "graph": {
+          "type": "object",
+          "required": ["nodes", "edges"],
+          "properties": {
+            "nodes": { "type": "array", "items": { "type": "object" } },
+            "edges": { "type": "array", "items": { "type": "object" } }
+          }
+        },
+        "sourceCount": { "type": "integer", "minimum": 0 },
+        "persisted": { "type": "boolean" },
+        "event": { "type": "object" }
+      }
+    }
+  }
+}

@@ -1,0 +1,624 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/spec/dap/0.2/schemas/ruleset.schema.json",
+  "title": "DAP v0.2 District Ruleset",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "language_version",
+    "ruleset_id",
+    "district_id",
+    "ruleset_version",
+    "predecessor_ruleset_id",
+    "effective_from_checkpoint",
+    "numeric_scale",
+    "defaults",
+    "capabilities",
+    "decision_rules",
+    "operation_rules",
+    "reason_catalog"
+  ],
+  "properties": {
+    "protocol_version": { "const": "dap/0.2" },
+    "language_version": { "const": "dap-rules/0.2" },
+    "ruleset_id": { "$ref": "#/$defs/rulesetId" },
+    "district_id": { "$ref": "#/$defs/districtId" },
+    "ruleset_version": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "predecessor_ruleset_id": {
+      "oneOf": [{ "$ref": "#/$defs/rulesetId" }, { "type": "null" }]
+    },
+    "effective_from_checkpoint": {
+      "oneOf": [{ "$ref": "#/$defs/identifier" }, { "type": "null" }]
+    },
+    "numeric_scale": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000000000
+    },
+    "defaults": { "$ref": "#/$defs/defaults" },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/capability" }
+    },
+    "decision_rules": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/decisionRule" }
+    },
+    "operation_rules": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/operationRule" }
+    },
+    "reason_catalog": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/reason" }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 512,
+      "pattern": "^[A-Za-z][A-Za-z0-9._-]*:[^\\s]+$"
+    },
+    "districtId": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 256,
+      "pattern": "^district:[A-Za-z0-9._:-]+$"
+    },
+    "rulesetId": {
+      "type": "string",
+      "pattern": "^ruleset:z[1-9A-HJ-NP-Za-km-z]{43,50}$"
+    },
+    "operationType": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^(?:[A-Z][A-Z0-9_]*|district:[A-Za-z0-9._:-]+/[A-Za-z][A-Za-z0-9._-]*)$"
+    },
+    "capabilityId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+    },
+    "reasonCode": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[A-Z][A-Z0-9_]*$"
+    },
+    "jsonPointer": {
+      "type": "string",
+      "pattern": "^/(?:operation|pre_state|history|checkpoint|derived|candidate)(?:/.*)?$",
+      "maxLength": 1024
+    },
+    "actorClass": {
+      "enum": [
+        "human_direct",
+        "human_assisted",
+        "autonomous_agent",
+        "institutional_agent",
+        "service_actor",
+        "witness",
+        "archive"
+      ]
+    },
+    "membershipStatus": {
+      "enum": ["active", "probationary", "suspended", "removed", "external", "service-only"]
+    },
+    "disposition": {
+      "enum": [
+        "ACCEPTED_EFFECTIVE",
+        "ACCEPTED_PENDING",
+        "ACCEPTED_CONTESTED",
+        "REJECTED",
+        "QUARANTINED",
+        "SUPERSEDED",
+        "DUPLICATE"
+      ]
+    },
+    "scalar": {
+      "type": ["null", "boolean", "integer", "string"]
+    },
+    "scalarArray": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/scalar" }
+    },
+    "pathExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path"],
+      "properties": { "path": { "$ref": "#/$defs/jsonPointer" } }
+    },
+    "expression": {
+      "oneOf": [
+        { "$ref": "#/$defs/scalar" },
+        { "$ref": "#/$defs/scalarArray" },
+        { "$ref": "#/$defs/pathExpression" },
+        { "$ref": "#/$defs/allExpression" },
+        { "$ref": "#/$defs/anyExpression" },
+        { "$ref": "#/$defs/notExpression" },
+        { "$ref": "#/$defs/binaryExpression" },
+        { "$ref": "#/$defs/existsExpression" },
+        { "$ref": "#/$defs/countExpression" },
+        { "$ref": "#/$defs/distinctCountExpression" }
+      ]
+    },
+    "expressionArray": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/expression" }
+    },
+    "allExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["all"],
+      "properties": { "all": { "$ref": "#/$defs/expressionArray" } }
+    },
+    "anyExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["any"],
+      "properties": { "any": { "$ref": "#/$defs/expressionArray" } }
+    },
+    "notExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["not"],
+      "properties": { "not": { "$ref": "#/$defs/expression" } }
+    },
+    "binaryExpression": {
+      "oneOf": [
+        { "$ref": "#/$defs/eqExpression" },
+        { "$ref": "#/$defs/neqExpression" },
+        { "$ref": "#/$defs/ltExpression" },
+        { "$ref": "#/$defs/lteExpression" },
+        { "$ref": "#/$defs/gtExpression" },
+        { "$ref": "#/$defs/gteExpression" },
+        { "$ref": "#/$defs/inExpression" },
+        { "$ref": "#/$defs/containsAllExpression" },
+        { "$ref": "#/$defs/subsetExpression" },
+        { "$ref": "#/$defs/scopeContainsExpression" },
+        { "$ref": "#/$defs/addExpression" },
+        { "$ref": "#/$defs/subExpression" },
+        { "$ref": "#/$defs/mulExpression" },
+        { "$ref": "#/$defs/minExpression" },
+        { "$ref": "#/$defs/maxExpression" }
+      ]
+    },
+    "pair": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        { "$ref": "#/$defs/expression" },
+        { "$ref": "#/$defs/expression" }
+      ],
+      "items": false
+    },
+    "eqExpression": { "$ref": "#/$defs/eqObject" },
+    "eqObject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eq"],
+      "properties": { "eq": { "$ref": "#/$defs/pair" } }
+    },
+    "neqExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["neq"],
+      "properties": { "neq": { "$ref": "#/$defs/pair" } }
+    },
+    "ltExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lt"],
+      "properties": { "lt": { "$ref": "#/$defs/pair" } }
+    },
+    "lteExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lte"],
+      "properties": { "lte": { "$ref": "#/$defs/pair" } }
+    },
+    "gtExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gt"],
+      "properties": { "gt": { "$ref": "#/$defs/pair" } }
+    },
+    "gteExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gte"],
+      "properties": { "gte": { "$ref": "#/$defs/pair" } }
+    },
+    "inExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["in"],
+      "properties": { "in": { "$ref": "#/$defs/pair" } }
+    },
+    "containsAllExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contains_all"],
+      "properties": { "contains_all": { "$ref": "#/$defs/pair" } }
+    },
+    "subsetExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subset"],
+      "properties": { "subset": { "$ref": "#/$defs/pair" } }
+    },
+    "scopeContainsExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope_contains"],
+      "properties": { "scope_contains": { "$ref": "#/$defs/pair" } }
+    },
+    "addExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["add"],
+      "properties": { "add": { "$ref": "#/$defs/pair" } }
+    },
+    "subExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sub"],
+      "properties": { "sub": { "$ref": "#/$defs/pair" } }
+    },
+    "mulExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mul"],
+      "properties": { "mul": { "$ref": "#/$defs/pair" } }
+    },
+    "minExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min"],
+      "properties": { "min": { "$ref": "#/$defs/pair" } }
+    },
+    "maxExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max"],
+      "properties": { "max": { "$ref": "#/$defs/pair" } }
+    },
+    "existsExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exists"],
+      "properties": { "exists": { "$ref": "#/$defs/pathExpression" } }
+    },
+    "countExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count"],
+      "properties": { "count": { "$ref": "#/$defs/expression" } }
+    },
+    "distinctCountExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["distinct_count"],
+      "properties": {
+        "distinct_count": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            { "$ref": "#/$defs/expression" },
+            { "type": "string", "minLength": 1, "maxLength": 128 }
+          ],
+          "items": false
+        }
+      }
+    },
+    "defaults": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unknown_fact",
+        "missing_dependency",
+        "unregistered_operation",
+        "conflict_policy",
+        "authority_aggregation",
+        "wildcard_scope"
+      ],
+      "properties": {
+        "unknown_fact": { "enum": ["reject", "pending", "quarantine"] },
+        "missing_dependency": { "enum": ["reject", "pending", "quarantine"] },
+        "unregistered_operation": { "const": "reject" },
+        "conflict_policy": {
+          "enum": ["reject_later", "accept_both", "supersede", "merge", "require_resolution", "select_by_rule"]
+        },
+        "authority_aggregation": {
+          "enum": ["non_aggregating", "maximum", "sum_capped", "independent_threshold", "issuer_diversity"]
+        },
+        "wildcard_scope": { "type": "boolean" }
+      }
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capability_id", "implies"],
+      "properties": {
+        "capability_id": { "$ref": "#/$defs/capabilityId" },
+        "implies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/capabilityId" }
+        }
+      }
+    },
+    "ratio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator"],
+      "properties": {
+        "numerator": { "type": "integer", "minimum": 0, "maximum": 1000000000 },
+        "denominator": { "type": "integer", "minimum": 1, "maximum": 1000000000 }
+      }
+    },
+    "decisionRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_rule_id",
+        "electorate",
+        "snapshot",
+        "ballot",
+        "weighting",
+        "quorum",
+        "approval",
+        "tie_policy",
+        "duplicate_vote_policy"
+      ],
+      "properties": {
+        "decision_rule_id": { "$ref": "#/$defs/identifier" },
+        "electorate": { "$ref": "#/$defs/expression" },
+        "snapshot": {
+          "enum": ["proposal_submission_checkpoint", "review_begin_checkpoint", "explicit_checkpoint", "live_checkpoint"]
+        },
+        "ballot": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 64 }
+        },
+        "weighting": { "enum": ["one_member_one_vote", "authority_weighted"] },
+        "quorum": { "$ref": "#/$defs/ratio" },
+        "approval": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["ratio", "base"],
+          "properties": {
+            "ratio": { "$ref": "#/$defs/ratio" },
+            "base": { "enum": ["eligible", "participating", "non_abstaining"] }
+          }
+        },
+        "tie_policy": { "enum": ["reject", "pending", "authorized_tie_break"] },
+        "duplicate_vote_policy": { "enum": ["reject_later", "supersede_earlier"] }
+      }
+    },
+    "authorityPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "minimum_weight",
+        "aggregation",
+        "minimum_root_issuers",
+        "scope_mode",
+        "jurisdiction_mode",
+        "domain_mode",
+        "maximum_delegation_depth",
+        "conflict_of_interest_guard"
+      ],
+      "properties": {
+        "required": { "type": "boolean" },
+        "minimum_weight": { "type": "integer", "minimum": 0, "maximum": 1000000000 },
+        "aggregation": {
+          "enum": ["non_aggregating", "maximum", "sum_capped", "independent_threshold", "issuer_diversity"]
+        },
+        "minimum_root_issuers": { "type": "integer", "minimum": 1, "maximum": 1024 },
+        "scope_mode": { "enum": ["contain_target", "exact_target", "district_wide"] },
+        "jurisdiction_mode": { "enum": ["contain_target", "exact_target", "not_applicable"] },
+        "domain_mode": { "enum": ["contain_target", "exact_target", "not_applicable"] },
+        "maximum_delegation_depth": { "type": "integer", "minimum": 0, "maximum": 64 },
+        "conflict_of_interest_guard": { "$ref": "#/$defs/expression" }
+      }
+    },
+    "evidencePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_count", "required_record_types", "require_registered", "require_immutable", "require_provenance"],
+      "properties": {
+        "minimum_count": { "type": "integer", "minimum": 0, "maximum": 256 },
+        "required_record_types": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 128 }
+        },
+        "require_registered": { "type": "boolean" },
+        "require_immutable": { "type": "boolean" },
+        "require_provenance": { "type": "boolean" }
+      }
+    },
+    "dependencyPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_status", "missing_dependency", "parents_establish_order"],
+      "properties": {
+        "required_status": { "enum": ["accepted", "effective", "typed"] },
+        "missing_dependency": { "enum": ["reject", "pending", "quarantine"] },
+        "parents_establish_order": { "type": "boolean" }
+      }
+    },
+    "guard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["guard_id", "assert", "on_false", "on_unknown", "reason_code", "pending_condition"],
+      "properties": {
+        "guard_id": { "$ref": "#/$defs/identifier" },
+        "assert": { "$ref": "#/$defs/expression" },
+        "on_false": { "enum": ["reject", "pending", "contested", "supersede"] },
+        "on_unknown": { "enum": ["reject", "pending", "quarantine"] },
+        "reason_code": { "$ref": "#/$defs/reasonCode" },
+        "pending_condition": { "type": ["string", "null"], "maxLength": 128 }
+      }
+    },
+    "transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resource_type", "from", "pending_state", "contested_state", "effective_state", "terminal"],
+      "properties": {
+        "resource_type": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "from": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 128 }
+        },
+        "pending_state": { "type": ["string", "null"], "maxLength": 128 },
+        "contested_state": { "type": ["string", "null"], "maxLength": 128 },
+        "effective_state": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "terminal": { "type": "boolean" }
+      }
+    },
+    "conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conflict_class", "key", "policy", "selector", "merge_reducer_id"],
+      "properties": {
+        "conflict_class": { "$ref": "#/$defs/identifier" },
+        "key": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/jsonPointer" }
+        },
+        "policy": {
+          "enum": ["reject_later", "accept_both", "supersede", "merge", "require_resolution", "select_by_rule"]
+        },
+        "selector": { "type": ["string", "null"], "maxLength": 128 },
+        "merge_reducer_id": {
+          "oneOf": [{ "$ref": "#/$defs/identifier" }, { "type": "null" }]
+        }
+      }
+    },
+    "veto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "veto_operation_type",
+        "allowed_veto_classes",
+        "required_capability",
+        "evidence_policy",
+        "attachable_target_states",
+        "effect",
+        "review_period_seconds",
+        "resolution_operation_type",
+        "resolution_decision_rule_id"
+      ],
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "veto_operation_type": { "$ref": "#/$defs/operationType" },
+        "allowed_veto_classes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 128 }
+        },
+        "required_capability": { "$ref": "#/$defs/capabilityId" },
+        "evidence_policy": { "$ref": "#/$defs/evidencePolicy" },
+        "attachable_target_states": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 128 }
+        },
+        "effect": { "enum": ["contest_only", "suspend_effect", "block_activation", "require_resolution"] },
+        "review_period_seconds": { "type": "integer", "minimum": 1, "maximum": 315576000 },
+        "resolution_operation_type": { "$ref": "#/$defs/operationType" },
+        "resolution_decision_rule_id": { "$ref": "#/$defs/identifier" }
+      }
+    },
+    "operationRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation_type",
+        "required_capability",
+        "allowed_actor_classes",
+        "allowed_membership_statuses",
+        "authority",
+        "evidence",
+        "dependencies",
+        "guards",
+        "transition",
+        "effect_gates",
+        "conflict",
+        "veto"
+      ],
+      "properties": {
+        "operation_type": { "$ref": "#/$defs/operationType" },
+        "required_capability": { "$ref": "#/$defs/capabilityId" },
+        "allowed_actor_classes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/actorClass" }
+        },
+        "allowed_membership_statuses": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/membershipStatus" }
+        },
+        "authority": { "$ref": "#/$defs/authorityPolicy" },
+        "evidence": { "$ref": "#/$defs/evidencePolicy" },
+        "dependencies": { "$ref": "#/$defs/dependencyPolicy" },
+        "guards": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/guard" }
+        },
+        "transition": { "$ref": "#/$defs/transition" },
+        "effect_gates": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/guard" }
+        },
+        "conflict": { "$ref": "#/$defs/conflict" },
+        "veto": {
+          "oneOf": [{ "$ref": "#/$defs/veto" }, { "type": "null" }]
+        }
+      }
+    },
+    "reason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "default_disposition", "description"],
+      "properties": {
+        "code": { "$ref": "#/$defs/reasonCode" },
+        "default_disposition": { "$ref": "#/$defs/disposition" },
+        "description": { "type": "string", "minLength": 1, "maxLength": 512 }
+      }
+    }
+  }
+}

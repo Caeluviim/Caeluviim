@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.local/schemas/civic-event.schema.json",
+  "title": "Caeluviim signed civic event",
+  "type": "object",
+  "required": [
+    "event_version", "event_type", "event_id", "actor_id", "signing_key_id",
+    "public_key", "scope", "payload_ref", "signature", "recorded_at"
+  ],
+  "properties": {
+    "event_version": {"const": "caeluviim-event/0.1"},
+    "event_type": {"type": "string", "minLength": 1},
+    "event_id": {"type": "string", "pattern": "^urn:caeluviim:event:sha256:"},
+    "actor_id": {"type": "string", "minLength": 1},
+    "signing_key_id": {"type": "string", "minLength": 1},
+    "public_key": {"type": "string", "minLength": 1},
+    "scope": {
+      "enum": ["private", "group", "district", "commons", "official_public"]
+    },
+    "owner_token": {"type": ["string", "null"]},
+    "payload_ref": {"type": "string", "pattern": "^urn:caeluviim:object:sha256:"},
+    "evidence_ids": {"type": "array", "items": {"type": "string"}},
+    "parent_ids": {"type": "array", "items": {"type": "string"}},
+    "predecessor_id": {"type": ["string", "null"]},
+    "supersedes_ids": {"type": "array", "items": {"type": "string"}},
+    "idempotency_key": {"type": "string"},
+    "metadata": {"type": "object"},
+    "signature": {
+      "type": "object",
+      "required": ["algorithm", "value"],
+      "properties": {
+        "algorithm": {"const": "Ed25519"},
+        "value": {"type": "string", "minLength": 1}
+      }
+    },
+    "recorded_at": {"type": "string"}
+  }
+}

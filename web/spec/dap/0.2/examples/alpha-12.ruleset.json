@@ -1,0 +1,356 @@
+{
+  "protocol_version": "dap/0.2",
+  "language_version": "dap-rules/0.2",
+  "ruleset_id": "ruleset:z4CX5QC3sNngsi6U7wR9443ARuHMXppSraZirPVxD8B2y",
+  "district_id": "district:alpha",
+  "ruleset_version": 12,
+  "predecessor_ruleset_id": "ruleset:z2222222222222222222222222222222222222222222",
+  "effective_from_checkpoint": "checkpoint:119",
+  "numeric_scale": 1000000,
+  "defaults": {
+    "unknown_fact": "quarantine",
+    "missing_dependency": "pending",
+    "unregistered_operation": "reject",
+    "conflict_policy": "require_resolution",
+    "authority_aggregation": "non_aggregating",
+    "wildcard_scope": false
+  },
+  "capabilities": [
+    {
+      "capability_id": "proposal.submit",
+      "implies": []
+    },
+    {
+      "capability_id": "veto.attach.safety",
+      "implies": []
+    },
+    {
+      "capability_id": "veto.resolve.safety",
+      "implies": []
+    }
+  ],
+  "decision_rules": [
+    {
+      "decision_rule_id": "rule:simple-majority",
+      "electorate": {
+        "eq": [
+          { "path": "/candidate/member/membership_status" },
+          "active"
+        ]
+      },
+      "snapshot": "proposal_submission_checkpoint",
+      "ballot": ["abstain", "approve", "reject"],
+      "weighting": "one_member_one_vote",
+      "quorum": {
+        "numerator": 1,
+        "denominator": 2
+      },
+      "approval": {
+        "ratio": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "base": "non_abstaining"
+      },
+      "tie_policy": "reject",
+      "duplicate_vote_policy": "reject_later"
+    },
+    {
+      "decision_rule_id": "rule:veto-resolution",
+      "electorate": {
+        "eq": [
+          { "path": "/candidate/member/membership_status" },
+          "active"
+        ]
+      },
+      "snapshot": "review_begin_checkpoint",
+      "ballot": ["abstain", "affirm_veto", "resolve_veto"],
+      "weighting": "one_member_one_vote",
+      "quorum": {
+        "numerator": 2,
+        "denominator": 3
+      },
+      "approval": {
+        "ratio": {
+          "numerator": 2,
+          "denominator": 3
+        },
+        "base": "non_abstaining"
+      },
+      "tie_policy": "pending",
+      "duplicate_vote_policy": "supersede_earlier"
+    }
+  ],
+  "operation_rules": [
+    {
+      "operation_type": "PROPOSAL_SUBMIT",
+      "required_capability": "proposal.submit",
+      "allowed_actor_classes": [
+        "autonomous_agent",
+        "human_assisted",
+        "human_direct",
+        "institutional_agent"
+      ],
+      "allowed_membership_statuses": ["active"],
+      "authority": {
+        "required": true,
+        "minimum_weight": 1,
+        "aggregation": "non_aggregating",
+        "minimum_root_issuers": 1,
+        "scope_mode": "contain_target",
+        "jurisdiction_mode": "not_applicable",
+        "domain_mode": "contain_target",
+        "maximum_delegation_depth": 4,
+        "conflict_of_interest_guard": null
+      },
+      "evidence": {
+        "minimum_count": 0,
+        "required_record_types": [],
+        "require_registered": true,
+        "require_immutable": true,
+        "require_provenance": true
+      },
+      "dependencies": {
+        "required_status": "effective",
+        "missing_dependency": "pending",
+        "parents_establish_order": true
+      },
+      "guards": [
+        {
+          "guard_id": "guard:proposal-version-current",
+          "assert": {
+            "eq": [
+              { "path": "/operation/payload/proposal_version" },
+              { "path": "/pre_state/target/current_version" }
+            ]
+          },
+          "on_false": "reject",
+          "on_unknown": "quarantine",
+          "reason_code": "ERR_PROPOSAL_VERSION",
+          "pending_condition": null
+        }
+      ],
+      "transition": {
+        "resource_type": "proposal",
+        "from": ["amended", "draft"],
+        "pending_state": "submitted_pending",
+        "contested_state": "submitted_contested",
+        "effective_state": "submitted",
+        "terminal": false
+      },
+      "effect_gates": [
+        {
+          "guard_id": "guard:review-period-complete",
+          "assert": {
+            "gte": [
+              { "path": "/checkpoint/district_time" },
+              { "path": "/derived/review_ends_at" }
+            ]
+          },
+          "on_false": "pending",
+          "on_unknown": "quarantine",
+          "reason_code": "REVIEW_PERIOD_NOT_COMPLETE",
+          "pending_condition": "REVIEW_PERIOD_NOT_COMPLETE"
+        },
+        {
+          "guard_id": "guard:simple-majority-passed",
+          "assert": {
+            "eq": [
+              { "path": "/derived/decisions/simple_majority/passed" },
+              true
+            ]
+          },
+          "on_false": "pending",
+          "on_unknown": "pending",
+          "reason_code": "QUORUM_OR_APPROVAL_NOT_REACHED",
+          "pending_condition": "QUORUM_OR_APPROVAL_NOT_REACHED"
+        }
+      ],
+      "conflict": {
+        "conflict_class": "conflict:proposal-version-submission",
+        "key": [
+          "/operation/payload/proposal_version",
+          "/operation/target/resource_id"
+        ],
+        "policy": "reject_later",
+        "selector": null,
+        "merge_reducer_id": null
+      },
+      "veto": {
+        "enabled": true,
+        "veto_operation_type": "VETO_ATTACH",
+        "allowed_veto_classes": ["safety"],
+        "required_capability": "veto.attach.safety",
+        "evidence_policy": {
+          "minimum_count": 1,
+          "required_record_types": ["Evidence"],
+          "require_registered": true,
+          "require_immutable": true,
+          "require_provenance": true
+        },
+        "attachable_target_states": ["accepted", "submitted", "submitted_pending"],
+        "effect": "block_activation",
+        "review_period_seconds": 604800,
+        "resolution_operation_type": "VETO_RESOLVE",
+        "resolution_decision_rule_id": "rule:veto-resolution"
+      }
+    },
+    {
+      "operation_type": "VETO_ATTACH",
+      "required_capability": "veto.attach.safety",
+      "allowed_actor_classes": ["human_assisted", "human_direct", "institutional_agent"],
+      "allowed_membership_statuses": ["active"],
+      "authority": {
+        "required": true,
+        "minimum_weight": 1,
+        "aggregation": "non_aggregating",
+        "minimum_root_issuers": 1,
+        "scope_mode": "contain_target",
+        "jurisdiction_mode": "not_applicable",
+        "domain_mode": "contain_target",
+        "maximum_delegation_depth": 2,
+        "conflict_of_interest_guard": {
+          "eq": [
+            { "path": "/derived/author_has_target_conflict" },
+            false
+          ]
+        }
+      },
+      "evidence": {
+        "minimum_count": 1,
+        "required_record_types": ["Evidence"],
+        "require_registered": true,
+        "require_immutable": true,
+        "require_provenance": true
+      },
+      "dependencies": {
+        "required_status": "accepted",
+        "missing_dependency": "quarantine",
+        "parents_establish_order": true
+      },
+      "guards": [
+        {
+          "guard_id": "guard:safety-veto-class",
+          "assert": {
+            "eq": [
+              { "path": "/operation/payload/veto_class" },
+              "safety"
+            ]
+          },
+          "on_false": "reject",
+          "on_unknown": "reject",
+          "reason_code": "ERR_VETO_CLASS",
+          "pending_condition": null
+        }
+      ],
+      "transition": {
+        "resource_type": "proposal",
+        "from": ["accepted", "submitted", "submitted_pending"],
+        "pending_state": null,
+        "contested_state": "submitted_contested",
+        "effective_state": "submitted_contested",
+        "terminal": false
+      },
+      "effect_gates": [],
+      "conflict": {
+        "conflict_class": "conflict:safety-veto",
+        "key": [
+          "/operation/payload/veto_class",
+          "/operation/target/resource_id"
+        ],
+        "policy": "require_resolution",
+        "selector": null,
+        "merge_reducer_id": null
+      },
+      "veto": null
+    },
+    {
+      "operation_type": "VETO_RESOLVE",
+      "required_capability": "veto.resolve.safety",
+      "allowed_actor_classes": ["human_assisted", "human_direct", "institutional_agent"],
+      "allowed_membership_statuses": ["active"],
+      "authority": {
+        "required": true,
+        "minimum_weight": 1,
+        "aggregation": "issuer_diversity",
+        "minimum_root_issuers": 2,
+        "scope_mode": "contain_target",
+        "jurisdiction_mode": "not_applicable",
+        "domain_mode": "contain_target",
+        "maximum_delegation_depth": 2,
+        "conflict_of_interest_guard": null
+      },
+      "evidence": {
+        "minimum_count": 1,
+        "required_record_types": ["Evidence"],
+        "require_registered": true,
+        "require_immutable": true,
+        "require_provenance": true
+      },
+      "dependencies": {
+        "required_status": "effective",
+        "missing_dependency": "quarantine",
+        "parents_establish_order": true
+      },
+      "guards": [
+        {
+          "guard_id": "guard:veto-resolution-passed",
+          "assert": {
+            "eq": [
+              { "path": "/derived/decisions/veto_resolution/passed" },
+              true
+            ]
+          },
+          "on_false": "pending",
+          "on_unknown": "pending",
+          "reason_code": "VETO_RESOLUTION_NOT_REACHED",
+          "pending_condition": "VETO_RESOLUTION_NOT_REACHED"
+        }
+      ],
+      "transition": {
+        "resource_type": "proposal",
+        "from": ["submitted_contested"],
+        "pending_state": "submitted_contested",
+        "contested_state": "submitted_contested",
+        "effective_state": "submitted",
+        "terminal": false
+      },
+      "effect_gates": [],
+      "conflict": {
+        "conflict_class": "conflict:veto-resolution",
+        "key": ["/operation/target/resource_id"],
+        "policy": "reject_later",
+        "selector": null,
+        "merge_reducer_id": null
+      },
+      "veto": null
+    }
+  ],
+  "reason_catalog": [
+    {
+      "code": "ERR_PROPOSAL_VERSION",
+      "default_disposition": "REJECTED",
+      "description": "The submitted proposal version is not the current derived version."
+    },
+    {
+      "code": "ERR_VETO_CLASS",
+      "default_disposition": "REJECTED",
+      "description": "The veto class is not permitted by the target operation rule."
+    },
+    {
+      "code": "QUORUM_OR_APPROVAL_NOT_REACHED",
+      "default_disposition": "ACCEPTED_PENDING",
+      "description": "The bound decision rule has not yet satisfied quorum and approval."
+    },
+    {
+      "code": "REVIEW_PERIOD_NOT_COMPLETE",
+      "default_disposition": "ACCEPTED_PENDING",
+      "description": "Finalized district time has not reached the end of the review period."
+    },
+    {
+      "code": "VETO_RESOLUTION_NOT_REACHED",
+      "default_disposition": "ACCEPTED_PENDING",
+      "description": "The veto resolution decision rule has not yet passed."
+    }
+  ]
+}
