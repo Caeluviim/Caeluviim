@@ -12,10 +12,19 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SCHEMA = ROOT / "schemas" / "ingest-manifest.schema.json"
 DEFAULT_MIGRATIONS = ROOT / "graph" / "migrations"
 DEFAULT_SEED = ROOT / "examples" / "ingest-manifest.valid.json"
+DEFAULT_MANIFESTS = ROOT / "ingest" / "manifests"
 
 
 def _print(value: Any) -> None:
     print(json.dumps(value, indent=2, sort_keys=True, default=str))
+
+
+def _validated_manifests(directory: Path, schema_path: Path) -> list[dict[str, Any]]:
+    schema = load_schema(schema_path)
+    manifests: list[dict[str, Any]] = []
+    for path in sorted(directory.glob("*.json")):
+        manifests.append(validate_manifest(load_manifest(path), schema))
+    return manifests
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -40,6 +49,14 @@ def build_parser() -> argparse.ArgumentParser:
     bootstrap.add_argument("--manifest", type=Path, default=DEFAULT_SEED)
     bootstrap.add_argument("--schema", type=Path, default=DEFAULT_SCHEMA)
     bootstrap.add_argument("--directory", type=Path, default=DEFAULT_MIGRATIONS)
+
+    sync = subparsers.add_parser(
+        "sync",
+        help="Verify, migrate, and ingest every production manifest in deterministic order",
+    )
+    sync.add_argument("--manifests", type=Path, default=DEFAULT_MANIFESTS)
+    sync.add_argument("--schema", type=Path, default=DEFAULT_SCHEMA)
+    sync.add_argument("--migrations", type=Path, default=DEFAULT_MIGRATIONS)
 
     subparsers.add_parser("stats", help="Return graph entity and ingestion counts")
     return parser
@@ -66,6 +83,17 @@ def main(argv: list[str] | None = None) -> int:
                 "health": runtime.health(),
                 "migrations": runtime.migrate(args.directory),
                 "ingestion": runtime.ingest(manifest),
+                "stats": runtime.stats(),
+            }
+        )
+    elif args.command == "sync":
+        manifests = _validated_manifests(args.manifests, args.schema)
+        _print(
+            {
+                "health": runtime.health(),
+                "migrations": runtime.migrate(args.migrations),
+                "ingestions": [runtime.ingest(manifest) for manifest in manifests],
+                "manifest_count": len(manifests),
                 "stats": runtime.stats(),
             }
         )
