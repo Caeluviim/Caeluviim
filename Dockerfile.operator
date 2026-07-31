@@ -1,0 +1,18 @@
+FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+COPY requirements-dev.txt ./
+RUN python -m pip install --no-cache-dir -r requirements-dev.txt
+
+COPY caeluviim_graph ./caeluviim_graph
+COPY schemas ./schemas
+COPY graph ./graph
+COPY examples ./examples
+COPY ingest ./ingest
+
+ENTRYPOINT ["python", "-m", "caeluviim_graph.cli"]
+CMD ["health"]
