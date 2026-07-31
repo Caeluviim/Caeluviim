@@ -13,7 +13,9 @@
   "nodes": [
     {
       "id": "urn:caeluviim:claim:extended-provenance-preserves-incorporation-arc",
-      "labels": ["Claim"],
+      "labels": [
+        "Claim"
+      ],
       "properties": {
         "title": "Material inclusion requires both source provenance and incorporation provenance",
         "status": "proposed",
@@ -22,7 +24,9 @@
     },
     {
       "id": "urn:caeluviim:rule:role-specific-facilitation-credit",
-      "labels": ["Rule"],
+      "labels": [
+        "Rule"
+      ],
       "properties": {
         "title": "Material facilitators receive role-specific provenance credit without displacement of authorship",
         "status": "proposed",
@@ -31,7 +35,9 @@
     },
     {
       "id": "urn:caeluviim:rule:actual-history-non-substitutable",
-      "labels": ["Rule"],
+      "labels": [
+        "Rule"
+      ],
       "properties": {
         "title": "Actual documented participation is not erased by hypothetical substitutability",
         "status": "proposed"
@@ -39,7 +45,9 @@
     },
     {
       "id": "urn:caeluviim:schema:extended-provenance-record",
-      "labels": ["Schema"],
+      "labels": [
+        "Schema"
+      ],
       "properties": {
         "title": "ExtendedProvenanceRecord",
         "status": "proposed",
@@ -58,8 +66,35 @@
       }
     },
     {
+      "id": "urn:caeluviim:source:otoole-untitled-sidewalk-poem",
+      "labels": [
+        "Source"
+      ],
+      "properties": {
+        "title": "Untitled sidewalk poem",
+        "author": "Eileen O’Toole",
+        "source_type": "poem",
+        "status": "externally attributed",
+        "public_context": "Saint Paul Sidewalk Poetry"
+      }
+    },
+    {
+      "id": "urn:caeluviim:module:stewardship-smallest-things",
+      "labels": [
+        "Claim"
+      ],
+      "properties": {
+        "title": "Stewardship of the Smallest Things",
+        "module_id": "CAELUVIIM-NORM-STEWARD-SMALLEST-001",
+        "status": "proposed",
+        "source_uri": "https://github.com/Caeluviim/Caeluviim/blob/main/docs/architecture/stewardship-of-the-smallest-things.md"
+      }
+    },
+    {
       "id": "urn:caeluviim:agent:eileen-otoole",
-      "labels": ["Agent"],
+      "labels": [
+        "Agent"
+      ],
       "properties": {
         "title": "Eileen O’Toole",
         "role": "Originator",
@@ -68,34 +103,58 @@
     },
     {
       "id": "urn:caeluviim:institution:saint-paul-sidewalk-poetry",
-      "labels": ["Institution"],
+      "labels": [
+        "Institution"
+      ],
       "properties": {
         "title": "Saint Paul Sidewalk Poetry",
-        "roles": ["Publisher", "Materializer"],
+        "roles": [
+          "Publisher",
+          "Materializer"
+        ],
         "status": "externally verified at program level"
       }
     },
     {
       "id": "urn:caeluviim:agent:yurei",
-      "labels": ["Agent", "Authority"],
+      "labels": [
+        "Agent",
+        "Authority"
+      ],
       "properties": {
         "title": "😈Yūrei🌈",
-        "roles": ["Encounterer", "Discoverer", "Transmitter", "Recognizer", "Authorizer"],
+        "roles": [
+          "Encounterer",
+          "Discoverer",
+          "Transmitter",
+          "Recognizer",
+          "Authorizer"
+        ],
         "status": "user-attested and architect-authorized"
       }
     },
     {
       "id": "urn:caeluviim:agent:assistant-lux",
-      "labels": ["Agent"],
+      "labels": [
+        "Agent"
+      ],
       "properties": {
         "title": "Lux / ChatGPT",
-        "roles": ["Retriever", "Verifier", "Interpreter", "Synthesizer", "Integrator"],
+        "roles": [
+          "Retriever",
+          "Verifier",
+          "Interpreter",
+          "Synthesizer",
+          "Integrator"
+        ],
         "status": "conversation and repository recorded"
       }
     },
     {
       "id": "urn:caeluviim:event:sidewalk-poem-encounter",
-      "labels": ["Event"],
+      "labels": [
+        "Event"
+      ],
       "properties": {
         "title": "Sidewalk poem encountered while walking the block",
         "event_type": "EncounterEvent",
@@ -105,7 +164,9 @@
     },
     {
       "id": "urn:caeluviim:event:poem-source-retrieval",
-      "labels": ["Event"],
+      "labels": [
+        "Event"
+      ],
       "properties": {
         "title": "Source identification, lineation restoration, and wording verification",
         "event_type": "RetrievalEvent and VerificationEvent",
@@ -114,7 +175,10 @@
     },
     {
       "id": "urn:caeluviim:event:normative-consolidation-authorization",
-      "labels": ["Event", "Decision"],
+      "labels": [
+        "Event",
+        "Decision"
+      ],
       "properties": {
         "title": "Architect directed normative consolidation and full provenance preservation",
         "event_type": "AuthorizationEvent",
@@ -124,7 +188,9 @@
     },
     {
       "id": "urn:caeluviim:event:extended-provenance-integration",
-      "labels": ["Event"],
+      "labels": [
+        "Event"
+      ],
       "properties": {
         "title": "Extended provenance doctrine integrated into repository",
         "event_type": "IntegrationEvent",
@@ -133,7 +199,9 @@
     },
     {
       "id": "urn:caeluviim:validation:extended-provenance-doctrine-review",
-      "labels": ["ValidationResult"],
+      "labels": [
+        "ValidationResult"
+      ],
       "properties": {
         "title": "Extended provenance doctrine structural review",
         "status": "pending runtime and semantic validation",
@@ -148,77 +216,106 @@
       "type": "SUPPORTS",
       "from": "urn:caeluviim:rule:role-specific-facilitation-credit",
       "to": "urn:caeluviim:claim:extended-provenance-preserves-incorporation-arc",
-      "properties": {"status": "proposed"}
+      "properties": {
+        "status": "proposed"
+      }
     },
     {
       "id": "urn:caeluviim:relation:non-substitutability-governs-credit-rule",
       "type": "GOVERNED_BY",
       "from": "urn:caeluviim:rule:role-specific-facilitation-credit",
       "to": "urn:caeluviim:rule:actual-history-non-substitutable",
-      "properties": {"status": "proposed"}
+      "properties": {
+        "status": "proposed"
+      }
     },
     {
       "id": "urn:caeluviim:relation:extended-schema-implements-provenance-claim",
       "type": "IMPLEMENTS",
       "from": "urn:caeluviim:schema:extended-provenance-record",
       "to": "urn:caeluviim:claim:extended-provenance-preserves-incorporation-arc",
-      "properties": {"status": "proposed"}
+      "properties": {
+        "status": "proposed"
+      }
     },
     {
       "id": "urn:caeluviim:relation:eileen-originated-source",
       "type": "ORIGINATED",
       "from": "urn:caeluviim:agent:eileen-otoole",
       "to": "urn:caeluviim:source:otoole-untitled-sidewalk-poem",
-      "properties": {"status": "externally attributed"}
+      "properties": {
+        "status": "externally attributed"
+      }
     },
     {
       "id": "urn:caeluviim:relation:program-materialized-source",
       "type": "MATERIALIZED",
       "from": "urn:caeluviim:institution:saint-paul-sidewalk-poetry",
       "to": "urn:caeluviim:source:otoole-untitled-sidewalk-poem",
-      "properties": {"medium": "sidewalk concrete", "status": "externally verified at program level"}
+      "properties": {
+        "medium": "sidewalk concrete",
+        "status": "externally verified at program level"
+      }
     },
     {
       "id": "urn:caeluviim:relation:yurei-participated-in-encounter",
       "type": "PARTICIPATED_IN",
       "from": "urn:caeluviim:agent:yurei",
       "to": "urn:caeluviim:event:sidewalk-poem-encounter",
-      "properties": {"role": "Encounterer", "status": "user-attested"}
+      "properties": {
+        "role": "Encounterer",
+        "status": "user-attested"
+      }
     },
     {
       "id": "urn:caeluviim:relation:assistant-participated-in-retrieval",
       "type": "PARTICIPATED_IN",
       "from": "urn:caeluviim:agent:assistant-lux",
       "to": "urn:caeluviim:event:poem-source-retrieval",
-      "properties": {"roles": ["Retriever", "Verifier"], "status": "conversation-recorded"}
+      "properties": {
+        "roles": [
+          "Retriever",
+          "Verifier"
+        ],
+        "status": "conversation-recorded"
+      }
     },
     {
       "id": "urn:caeluviim:relation:yurei-authorized-consolidation",
       "type": "AUTHORIZED",
       "from": "urn:caeluviim:agent:yurei",
       "to": "urn:caeluviim:event:normative-consolidation-authorization",
-      "properties": {"status": "effective"}
+      "properties": {
+        "status": "effective"
+      }
     },
     {
       "id": "urn:caeluviim:relation:assistant-integrated-doctrine",
       "type": "PARTICIPATED_IN",
       "from": "urn:caeluviim:agent:assistant-lux",
       "to": "urn:caeluviim:event:extended-provenance-integration",
-      "properties": {"role": "Integrator", "status": "repository-recorded"}
+      "properties": {
+        "role": "Integrator",
+        "status": "repository-recorded"
+      }
     },
     {
       "id": "urn:caeluviim:relation:doctrine-extends-stewardship-module",
       "type": "EXTENDS",
       "from": "urn:caeluviim:claim:extended-provenance-preserves-incorporation-arc",
       "to": "urn:caeluviim:module:stewardship-smallest-things",
-      "properties": {"scope": "full incorporation provenance"}
+      "properties": {
+        "scope": "full incorporation provenance"
+      }
     },
     {
       "id": "urn:caeluviim:relation:validation-targets-extended-provenance",
       "type": "TARGETS",
       "from": "urn:caeluviim:validation:extended-provenance-doctrine-review",
       "to": "urn:caeluviim:schema:extended-provenance-record",
-      "properties": {"status": "pending"}
+      "properties": {
+        "status": "pending"
+      }
     }
   ]
 }
