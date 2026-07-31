@@ -6,7 +6,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
-from .manifest import safe_label_clause, safe_relationship_type, sha256_record
+from .manifest import (
+    safe_label_clause,
+    safe_relationship_type,
+    sha256_record,
+)
 
 
 class GraphConflictError(RuntimeError):
@@ -72,47 +76,39 @@ class GraphRuntime:
     def migrate(self, directory: str | Path) -> list[dict[str, Any]]:
         applied: list[dict[str, Any]] = []
         with _driver(self.config) as driver:
-            with driver.session(database=self.config.database) as session:
-                for migration_file in iter_migration_files(directory):
-                    migration_id = migration_file.name
-                    migration_hash = sha256_record(migration_file.read_text(encoding="utf-8"))
-                    result = session.execute_write(
-                        self._apply_migration,
-                        migration_id,
-                        migration_hash,
-                        read_cypher_statements(migration_file),
-                    )
-                    applied.append(result)
-        return applied
-
-    @staticmethod
-    def _apply_migration(tx, migration_id: str, migration_hash: str, statements: list[str]):
-        record = tx.run(
-            "MATCH (m:Migration {id: $id}) RETURN m.migration_hash AS migration_hash",
-            id=migration_id,
-        ).single()
-        if record:
-            if record["migration_hash"] != migration_hash:
-                raise GraphConflictError(
-                    f"Migration {migration_id} already exists with a different hash"
+            for migration_file in iter_migration_files(directory):
+                migration_id = migration_file.name
+                migration_hash = sha256_record(migration_file.read_text(encoding="utf-8"))
+                records, _, _ = driver.execute_query(
+                    "MATCH (m:Migration {id: $id}) RETURN m.migration_hash AS migration_hash",
+                    id=migration_id,
+                    database_=self.config.database,
                 )
-            return {"migration_id": migration_id, "status": "already_applied"}
+                if records:
+                    if records[0]["migration_hash"] != migration_hash:
+                        raise GraphConflictError(
+                            f"Migration {migration_id} already exists with a different hash"
+                        )
+                    applied.append({"migration_id": migration_id, "status": "already_applied"})
+                    continue
 
-        for statement in statements:
-            tx.run(statement).consume()
+                for statement in read_cypher_statements(migration_file):
+                    driver.execute_query(statement, database_=self.config.database)
 
-        tx.run(
-            """
-            CREATE (m:Migration {
-                id: $id,
-                migration_hash: $migration_hash,
-                applied_at: datetime()
-            })
-            """,
-            id=migration_id,
-            migration_hash=migration_hash,
-        ).consume()
-        return {"migration_id": migration_id, "status": "applied"}
+                driver.execute_query(
+                    """
+                    CREATE (m:Migration {
+                        id: $id,
+                        migration_hash: $migration_hash,
+                        applied_at: datetime()
+                    })
+                    """,
+                    id=migration_id,
+                    migration_hash=migration_hash,
+                    database_=self.config.database,
+                )
+                applied.append({"migration_id": migration_id, "status": "applied"})
+        return applied
 
     def ingest(self, manifest: Mapping[str, Any]) -> dict[str, Any]:
         with _driver(self.config) as driver:
@@ -245,11 +241,11 @@ class GraphRuntime:
                 )
             return
 
-        label_clause = (
-            ":".join(["Entity", *labels])
-            if allow_internal_label
-            else safe_label_clause(labels)
-        )
+        if allow_internal_label:
+            label_clause = ":".join(["Entity", *labels])
+        else:
+            label_clause = safe_label_clause(labels)
+
         query = f"""
         CREATE (n:{label_clause} {{id: $id}})
         SET n += $properties,
@@ -347,10 +343,18 @@ class GraphRuntime:
         with _driver(self.config) as driver:
             records, _, _ = driver.execute_query(
                 """
-                CALL { MATCH (n:Entity) RETURN count(n) AS entities }
-                CALL { MATCH (i:IngestEvent) RETURN count(i) AS ingests }
-                CALL { MATCH (r:RelationAssertion) RETURN count(r) AS assertions }
-                CALL { MATCH ()-[r]->() RETURN count(r) AS relationships }
+                CALL {
+                    MATCH (n:Entity) RETURN count(n) AS entities
+                }
+                CALL {
+                    MATCH (i:IngestEvent) RETURN count(i) AS ingests
+                }
+                CALL {
+                    MATCH (r:RelationAssertion) RETURN count(r) AS assertions
+                }
+                CALL {
+                    MATCH ()-[r]->() RETURN count(r) AS relationships
+                }
                 RETURN entities, ingests, assertions, relationships
                 """,
                 database_=self.config.database,
