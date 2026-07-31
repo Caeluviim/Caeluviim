@@ -42,7 +42,9 @@ The local launcher and automated integration suite explicitly set:
 CAELUVIIM_ALLOW_INSECURE_LOCAL_WRITES=true
 ```
 
-That override is intended only for a loopback development runtime. Direct `npm run dev` sessions must either configure the bearer token or explicitly set the local override. Never set the override in a shared, preview, staging, or production deployment.
+The runtime accepts that override only when the request hostname is `localhost`, `127.0.0.1`, or the IPv6 loopback address. LAN, preview, staging, and public hostnames still fail closed without the bearer secret even if the override variable is mistakenly set.
+
+Direct `npm run dev` sessions must either configure the bearer token or explicitly set the local override. Never set the override in a shared, preview, staging, or production deployment.
 
 Set `CAELUVIIM_WRITE_BEARER_TOKEN` locally instead when testing the production authorization boundary.
 
