@@ -1,0 +1,61 @@
+{
+  "manifest_version": "0.1.0",
+  "ingest_id": "urn:caeluviim:ingest:bootstrap-001",
+  "source": {
+    "source_id": "urn:caeluviim:source:bootstrap-001",
+    "source_type": "schema",
+    "title": "Caeluviim graph bootstrap seed",
+    "uri": "https://github.com/Caeluviim/Caeluviim",
+    "content_hash": "sha256:6bdc9a9073d8f0f722feea7bb04d1469926d9093506c1bca708ed8c6789c134c",
+    "captured_at": "2026-07-31T16:37:00Z",
+    "authority": "Caeluviim architecture working session"
+  },
+  "nodes": [
+    {
+      "id": "urn:caeluviim:claim:notion-control-plane",
+      "labels": ["Claim"],
+      "properties": {
+        "title": "Notion is the meta-operations control plane",
+        "status": "ratified",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "id": "urn:caeluviim:institution:neo4j",
+      "labels": ["Institution"],
+      "properties": {
+        "title": "Neo4j operational graph",
+        "role": "authoritative operational graph and analytical projection"
+      }
+    },
+    {
+      "id": "urn:caeluviim:decision:system-boundaries-2026-07-31",
+      "labels": ["Decision", "Authority"],
+      "properties": {
+        "title": "System-of-record boundaries",
+        "status": "ratified",
+        "effective_date": "2026-07-31"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "urn:caeluviim:relation:decision-governs-control-plane",
+      "type": "GOVERNED_BY",
+      "from": "urn:caeluviim:claim:notion-control-plane",
+      "to": "urn:caeluviim:decision:system-boundaries-2026-07-31",
+      "properties": {
+        "status": "ratified"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:control-plane-projects-to-neo4j",
+      "type": "PROJECTS_TO",
+      "from": "urn:caeluviim:claim:notion-control-plane",
+      "to": "urn:caeluviim:institution:neo4j",
+      "properties": {
+        "mode": "governed operational projection"
+      }
+    }
+  ]
+}

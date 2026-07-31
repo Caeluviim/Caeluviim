@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schemas/ingest-manifest.schema.json",
+  "title": "Caeluviim ingestion manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["manifest_version", "ingest_id", "source", "nodes", "relationships"],
+  "properties": {
+    "manifest_version": {"const": "0.1.0"},
+    "ingest_id": {"type": "string", "format": "uri", "minLength": 8},
+    "source": {"$ref": "#/$defs/source"},
+    "nodes": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/node"}
+    },
+    "relationships": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/relationship"}
+    }
+  },
+  "$defs": {
+    "hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "propertyValue": {
+      "oneOf": [
+        {"type": "string"},
+        {"type": "number"},
+        {"type": "boolean"},
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {"type": "string"},
+              {"type": "number"},
+              {"type": "boolean"}
+            ]
+          }
+        }
+      ]
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": {"$ref": "#/$defs/propertyValue"}
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "source_type", "title", "content_hash", "captured_at"],
+      "properties": {
+        "source_id": {"type": "string", "format": "uri", "minLength": 8},
+        "source_type": {
+          "enum": [
+            "document",
+            "conversation",
+            "legal_authority",
+            "dataset",
+            "code",
+            "schema",
+            "research",
+            "image",
+            "external_url",
+            "whiteboard_proposal"
+          ]
+        },
+        "title": {"type": "string", "minLength": 1},
+        "uri": {"type": "string", "format": "uri"},
+        "content_hash": {"$ref": "#/$defs/hash"},
+        "captured_at": {"type": "string", "format": "date-time"},
+        "authority": {"type": "string", "minLength": 1}
+      }
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "labels", "properties"],
+      "properties": {
+        "id": {"type": "string", "format": "uri", "minLength": 8},
+        "labels": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "Claim",
+              "Evidence",
+              "Assessment",
+              "Prediction",
+              "Agent",
+              "Institution",
+              "VetoEvent",
+              "Authority",
+              "Provenance",
+              "Project",
+              "Task",
+              "Decision",
+              "Artifact",
+              "LanguageAnchor",
+              "Rule",
+              "Schema",
+              "Dataset",
+              "Projection",
+              "ValidationResult"
+            ]
+          }
+        },
+        "properties": {"$ref": "#/$defs/properties"}
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "from", "to", "properties"],
+      "properties": {
+        "id": {"type": "string", "format": "uri", "minLength": 8},
+        "type": {
+          "enum": [
+            "SUPPORTS",
+            "EXTENDS",
+            "CONFLICTS_WITH",
+            "EVIDENCED_BY",
+            "ASSESSES",
+            "PREDICTS",
+            "ISSUED_BY",
+            "GOVERNED_BY",
+            "HAS_PROVENANCE",
+            "DERIVED_FROM",
+            "REVISES",
+            "SUPERSEDES",
+            "VALIDATED_BY",
+            "CONTESTED_BY",
+            "TARGETS",
+            "PARTICIPATES_IN",
+            "PART_OF",
+            "DEPENDS_ON",
+            "ASSIGNED_TO",
+            "IMPLEMENTS",
+            "PROJECTS_TO",
+            "HAS_ANCHOR",
+            "ANALOG_OF"
+          ]
+        },
+        "from": {"type": "string", "format": "uri", "minLength": 8},
+        "to": {"type": "string", "format": "uri", "minLength": 8},
+        "properties": {"$ref": "#/$defs/properties"}
+      }
+    }
+  }
+}
