@@ -1,0 +1,52 @@
+{
+  "policy_version": "1.0.0",
+  "default_branch": "main",
+  "direct_default_branch_writes_allowed": false,
+  "require_explicit_branch_on_every_mutation": true,
+  "require_task_branch_before_write": true,
+  "require_pull_request": true,
+  "mutation_as_probe_allowed": false,
+  "placeholder_payloads_allowed": false,
+  "forbidden_placeholder_values": [
+    "noop",
+    "# noop",
+    "test",
+    "placeholder"
+  ],
+  "require_prewrite_fetch_for_update_or_delete": true,
+  "require_postwrite_fetch_verification": true,
+  "require_changed_file_review": true,
+  "protected_paths": [
+    "README.md",
+    "AGENTS.md",
+    ".github/**",
+    "config/repository-write-policy.json",
+    "schemas/**",
+    "graph/migrations/**",
+    "caeluviim_graph/**",
+    "scripts/laptop/**",
+    "docker-compose.yml",
+    "requirements*.txt"
+  ],
+  "protected_path_requirements": {
+    "dedicated_pull_request": true,
+    "acknowledgment_marker": "Protected-Path-Change: acknowledged",
+    "rollback_plan_marker": "Rollback-Plan:"
+  },
+  "failure_reporting": {
+    "bare_failure_reports_allowed": false,
+    "required_resolved_fields": [
+      "cause",
+      "correction_applied",
+      "artifact_or_commit",
+      "verification_result"
+    ],
+    "required_unresolved_fields": [
+      "cause",
+      "reason_unresolved",
+      "required_corrective_action",
+      "responsible_layer",
+      "verification_procedure"
+    ]
+  }
+}
