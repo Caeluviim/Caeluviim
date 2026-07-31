@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from .batch_ingest import IngestionBatch, ingest_batch
 from .mcp_server import run_mcp
 from .native_graph import NativeNeo4j
 from .models import (
@@ -73,6 +74,16 @@ def build_parser() -> argparse.ArgumentParser:
     dialogue.add_argument("--owner")
     dialogue.add_argument("--official", action="store_true")
     dialogue.add_argument("--consent-basis")
+    batch = ingest_commands.add_parser("batch")
+    batch.add_argument("--input", required=True)
+    batch.add_argument(
+        "--project-native",
+        action="store_true",
+        help=(
+            "Start the repository-managed Neo4j runtime, replace the batch scope "
+            "partition, and validate the live projection."
+        ),
+    )
 
     stage = commands.add_parser("stage-candidates")
     stage.add_argument("--input", required=True)
@@ -141,14 +152,46 @@ def main(argv: list[str] | None = None) -> int:
         result = validate_core(core)
         _json(result)
         return 0 if result["conforms"] else 1
-    elif args.command == "ingest" and args.ingest_command == "dialogue":
-        payload = _read_json(args.input)
-        payload["scope"] = args.scope
-        payload["owner_id"] = args.owner
-        payload["official_capacity"] = args.official
-        if args.consent_basis:
-            payload["consent_basis"] = args.consent_basis
-        _json(core.ingest_dialogue(DialogueIngestRequest.model_validate(payload)))
+    elif args.command == "ingest":
+        if args.ingest_command == "dialogue":
+            payload = _read_json(args.input)
+            payload["scope"] = args.scope
+            payload["owner_id"] = args.owner
+            payload["official_capacity"] = args.official
+            if args.consent_basis:
+                payload["consent_basis"] = args.consent_basis
+            _json(core.ingest_dialogue(DialogueIngestRequest.model_validate(payload)))
+        else:
+            batch = IngestionBatch.model_validate(_read_json(args.input))
+            result = ingest_batch(core, batch)
+            exit_code = 0 if result["projection"]["shacl_conforms"] else 1
+            if args.project_native:
+                native = NativeNeo4j()
+                status = native.start()
+                user, password = native.credentials()
+                projector = GraphProjector(core)
+                projection_owner = batch.owner_id if not batch.scope.is_public else None
+                projected = projector.project_neo4j(
+                    uri="bolt://127.0.0.1:7687",
+                    user=user,
+                    password=password,
+                    owner_id=projection_owner,
+                )
+                validation = projector.validate_neo4j(
+                    uri="bolt://127.0.0.1:7687",
+                    user=user,
+                    password=password,
+                    owner_id=projection_owner,
+                )
+                result["native_graph"] = {
+                    "status": status,
+                    "projection": projected.__dict__,
+                    "validation": validation,
+                }
+                if not validation["conforms"]:
+                    exit_code = 1
+            _json(result)
+            return exit_code
     elif args.command == "stage-candidates":
         _json(core.stage_candidates(CandidateBatch.model_validate(_read_json(args.input))))
     elif args.command == "quarantine":
