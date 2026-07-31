@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from caeluviim.governance import GovernanceService
+from caeluviim.governance import GovernanceError, GovernanceService
 from caeluviim.ledger import LedgerIntegrityError
 from caeluviim.models import (
     AnalysisCandidate,
@@ -106,6 +106,15 @@ class CaeluviimCoreTests(unittest.TestCase):
         self.assertTrue(report["shacl"]["conforms"])
         self.assertTrue(report["vocabularies"]["conforms"])
         self.assertGreaterEqual(report["ledger"]["accepted_event_count"], 5)
+
+    def test_manifestation_delegation_is_founder_authorized(self) -> None:
+        event = next(
+            event
+            for event in self.core.ledger.events(accepted_only=True)
+            if event["event_type"] == "LUX_MANIFESTATION_DELEGATE"
+        )
+        self.assertEqual(event["actor_id"], GovernanceService.FOUNDER_ID)
+        self.assertEqual(event["metadata"]["delegated_by"], GovernanceService.FOUNDER_ID)
 
     def test_idempotency_key_cannot_change_meaning(self) -> None:
         existing = self.core.ledger.events()[0]
@@ -217,7 +226,26 @@ class CaeluviimCoreTests(unittest.TestCase):
             )
         )
         self.assertEqual(event["event"]["event_type"], "DISCLOSURE_RESTRICTION_CREATE")
+        self.assertEqual(
+            event["event"]["metadata"]["authority_id"], GovernanceService.FOUNDER_ID
+        )
         self.core.ledger.verify()
+
+    def test_disclosure_restriction_rejects_unbound_authority(self) -> None:
+        with self.assertRaises(GovernanceError):
+            self.core.governance.record_restriction(
+                DisclosureRestriction(
+                    restriction_id="restriction:unbound-authority",
+                    record_ids=["urn:caeluviim:object:sha256:" + "0" * 64],
+                    basis="personal_privacy",
+                    authority_id="member:not-the-founder",
+                    scope="The specified record only.",
+                    redaction_rule="Withhold exact text while preserving a public restriction record.",
+                    begins_at="2026-01-01T00:00:00Z",
+                    review_or_expires_at="2027-01-01T00:00:00Z",
+                    contest_path="Submit a signed contest event to the civic ledger.",
+                )
+            )
 
     def test_tampering_breaks_append_only_log_verification(self) -> None:
         log_path = self.state_dir / "ledger" / "submissions.jsonl"
