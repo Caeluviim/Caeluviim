@@ -10,7 +10,11 @@ const args = currentNodeMajor >= 22
 
 const child = spawn(command, args, {
   cwd: process.cwd(),
-  env: process.env,
+  env: {
+    ...process.env,
+    CAELUVIIM_ALLOW_INSECURE_LOCAL_WRITES:
+      process.env.CAELUVIIM_ALLOW_INSECURE_LOCAL_WRITES ?? "true",
+  },
   stdio: "inherit",
 });
 
