@@ -1,0 +1,317 @@
+{
+  "manifest_version": "0.1.0",
+  "ingest_id": "urn:caeluviim:ingest:protected-class-formation-2026-07-31",
+  "source": {
+    "source_id": "urn:caeluviim:source:protected-class-formation-2026-07-31",
+    "source_type": "document",
+    "title": "Legal Formation of Protected Classes",
+    "uri": "https://github.com/Caeluviim/Caeluviim/blob/main/docs/legal/protected-class-formation.md",
+    "content_hash": "sha256:22c7e26e8b6e20a7016614d25d2b5598cb22681f208499de2636a74437536244",
+    "captured_at": "2026-07-31T21:54:00Z",
+    "authority": "Caeluviim legal ontology working session"
+  },
+  "nodes": [
+    {
+      "id": "urn:caeluviim:claim:protected-status-is-relational",
+      "labels": [
+        "Claim"
+      ],
+      "properties": {
+        "title": "Protected status is a governed legal relation, not an intrinsic boolean property",
+        "status": "proposed",
+        "version": "0.1.0",
+        "jurisdiction": "United States"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:protected-class-authority-domain-specific",
+      "labels": [
+        "Claim"
+      ],
+      "properties": {
+        "title": "Protected-class coverage is authority-bound and domain-specific",
+        "status": "proposed",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "id": "urn:caeluviim:rule:protected-class-four-routes",
+      "labels": [
+        "Rule"
+      ],
+      "properties": {
+        "title": "Four principal routes of legal protection",
+        "routes": [
+          "constitutional amendment",
+          "legislation",
+          "judicial interpretation",
+          "administrative implementation"
+        ],
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:rule:protected-class-no-universal-inference",
+      "labels": [
+        "Rule"
+      ],
+      "properties": {
+        "title": "No universal protected status may be inferred from a single legal domain",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:schema:protected-classification-assertion",
+      "labels": [
+        "Schema"
+      ],
+      "properties": {
+        "title": "ProtectedClassificationAssertion",
+        "status": "proposed",
+        "required_fields": [
+          "characteristic",
+          "jurisdiction",
+          "legal_authority",
+          "authority_type",
+          "effective_dates",
+          "regulated_domain",
+          "covered_actor",
+          "prohibited_conduct",
+          "exceptions",
+          "enforcement_authority",
+          "cause_of_action",
+          "remedies",
+          "judicial_standard",
+          "provenance",
+          "validation_status"
+        ]
+      }
+    },
+    {
+      "id": "urn:caeluviim:authority:us-constitution-amendment-14",
+      "labels": [
+        "Authority"
+      ],
+      "properties": {
+        "title": "United States Constitution, Fourteenth Amendment",
+        "authority_type": "constitutional provision",
+        "role": "equal protection and congressional enforcement",
+        "status": "controlling"
+      }
+    },
+    {
+      "id": "urn:caeluviim:authority:civil-rights-act-1964-title-vii",
+      "labels": [
+        "Authority"
+      ],
+      "properties": {
+        "title": "Civil Rights Act of 1964, Title VII",
+        "authority_type": "federal statute",
+        "domain": "employment",
+        "status": "controlling"
+      }
+    },
+    {
+      "id": "urn:caeluviim:authority:fair-housing-act",
+      "labels": [
+        "Authority"
+      ],
+      "properties": {
+        "title": "Fair Housing Act",
+        "authority_type": "federal statute",
+        "domain": "housing",
+        "status": "controlling"
+      }
+    },
+    {
+      "id": "urn:caeluviim:authority:adea",
+      "labels": [
+        "Authority"
+      ],
+      "properties": {
+        "title": "Age Discrimination in Employment Act",
+        "authority_type": "federal statute",
+        "domain": "employment",
+        "status": "controlling"
+      }
+    },
+    {
+      "id": "urn:caeluviim:authority:ada",
+      "labels": [
+        "Authority"
+      ],
+      "properties": {
+        "title": "Americans with Disabilities Act",
+        "authority_type": "federal statute",
+        "domains": [
+          "employment",
+          "public services",
+          "public accommodations"
+        ],
+        "status": "controlling"
+      }
+    },
+    {
+      "id": "urn:caeluviim:authority:bostock-v-clayton-county",
+      "labels": [
+        "Authority"
+      ],
+      "properties": {
+        "title": "Bostock v. Clayton County",
+        "authority_type": "judicial decision",
+        "citation": "590 U.S. 644 (2020)",
+        "holding_scope": "Title VII employment discrimination because of sex",
+        "status": "controlling"
+      }
+    },
+    {
+      "id": "urn:caeluviim:authority:us-v-skrmetti",
+      "labels": [
+        "Authority"
+      ],
+      "properties": {
+        "title": "United States v. Skrmetti",
+        "authority_type": "judicial decision",
+        "citation": "605 U.S. ___ (2025)",
+        "holding_scope": "equal-protection review of challenged Tennessee law",
+        "status": "controlling"
+      }
+    },
+    {
+      "id": "urn:caeluviim:decision:encode-protection-as-relation",
+      "labels": [
+        "Decision",
+        "Authority"
+      ],
+      "properties": {
+        "title": "Encode legal protection as a qualified relation rather than a boolean group property",
+        "status": "proposed",
+        "effective_date": "2026-07-31"
+      }
+    },
+    {
+      "id": "urn:caeluviim:validation:protected-class-formation-structural-review",
+      "labels": [
+        "ValidationResult"
+      ],
+      "properties": {
+        "title": "Protected-class formation structural review",
+        "status": "pending independent validation",
+        "schema_check": "prepared against ingest-manifest 0.1.0",
+        "semantic_ratification": "not ratified"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "urn:caeluviim:relation:protected-status-derived-from-formation-source",
+      "type": "DERIVED_FROM",
+      "from": "urn:caeluviim:claim:protected-status-is-relational",
+      "to": "urn:caeluviim:authority:us-constitution-amendment-14",
+      "properties": {
+        "status": "proposed",
+        "scope": "constitutional architecture"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:domain-specific-extends-relational-status",
+      "type": "EXTENDS",
+      "from": "urn:caeluviim:claim:protected-class-authority-domain-specific",
+      "to": "urn:caeluviim:claim:protected-status-is-relational",
+      "properties": {
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:four-routes-governs-relational-status",
+      "type": "GOVERNED_BY",
+      "from": "urn:caeluviim:claim:protected-status-is-relational",
+      "to": "urn:caeluviim:rule:protected-class-four-routes",
+      "properties": {
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:no-universal-inference-governs-domain-claim",
+      "type": "GOVERNED_BY",
+      "from": "urn:caeluviim:claim:protected-class-authority-domain-specific",
+      "to": "urn:caeluviim:rule:protected-class-no-universal-inference",
+      "properties": {
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:decision-implements-protected-class-schema",
+      "type": "IMPLEMENTS",
+      "from": "urn:caeluviim:decision:encode-protection-as-relation",
+      "to": "urn:caeluviim:schema:protected-classification-assertion",
+      "properties": {
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:schema-supported-by-title-vii",
+      "type": "SUPPORTS",
+      "from": "urn:caeluviim:authority:civil-rights-act-1964-title-vii",
+      "to": "urn:caeluviim:schema:protected-classification-assertion",
+      "properties": {
+        "domain": "employment"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:schema-supported-by-fair-housing-act",
+      "type": "SUPPORTS",
+      "from": "urn:caeluviim:authority:fair-housing-act",
+      "to": "urn:caeluviim:schema:protected-classification-assertion",
+      "properties": {
+        "domain": "housing"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:schema-supported-by-adea",
+      "type": "SUPPORTS",
+      "from": "urn:caeluviim:authority:adea",
+      "to": "urn:caeluviim:schema:protected-classification-assertion",
+      "properties": {
+        "domain": "employment",
+        "characteristic": "age"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:schema-supported-by-ada",
+      "type": "SUPPORTS",
+      "from": "urn:caeluviim:authority:ada",
+      "to": "urn:caeluviim:schema:protected-classification-assertion",
+      "properties": {
+        "characteristic": "disability"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:bostock-extends-title-vii",
+      "type": "EXTENDS",
+      "from": "urn:caeluviim:authority:bostock-v-clayton-county",
+      "to": "urn:caeluviim:authority:civil-rights-act-1964-title-vii",
+      "properties": {
+        "interpretive_scope": "because of sex"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:domain-claim-evidenced-by-skrmetti",
+      "type": "EVIDENCED_BY",
+      "from": "urn:caeluviim:claim:protected-class-authority-domain-specific",
+      "to": "urn:caeluviim:authority:us-v-skrmetti",
+      "properties": {
+        "scope": "statutory interpretation does not automatically determine constitutional scrutiny"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:validation-targets-protected-schema",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:validation:protected-class-formation-structural-review",
+      "to": "urn:caeluviim:schema:protected-classification-assertion",
+      "properties": {
+        "status": "pending"
+      }
+    }
+  ]
+}
