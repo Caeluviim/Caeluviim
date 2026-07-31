@@ -1,0 +1,30 @@
+[
+  {
+    "path": "docs/architecture/error-mediated-generative-nonclosure.md",
+    "git_blob_sha": "ae9239e7613225d53164fd91ecfe06287e802ea5"
+  },
+  {
+    "path": "schemas/emgn-record.schema.json",
+    "git_blob_sha": "dbe8f23487171534d91ab940460c45526770f91f"
+  },
+  {
+    "path": "ontology/emgn.ttl",
+    "git_blob_sha": "0b2a81b94e41aee8fd45cb4221c138c884715aa2"
+  },
+  {
+    "path": "shapes/emgn.shacl.ttl",
+    "git_blob_sha": "32c926e91949c2e5a922febf77f47d3e65c00cf4"
+  },
+  {
+    "path": "examples/emgn-record.valid.json",
+    "git_blob_sha": "39858434db43b40f4c40511288147b69f62c64f3"
+  },
+  {
+    "path": "examples/emgn-record.valid.ttl",
+    "git_blob_sha": "4f52c823eea0755138cfda97dc81b4dad3014b18"
+  },
+  {
+    "path": "tests/test_emgn.py",
+    "git_blob_sha": "c8f0690ce94960d65462df06098cb45c85ddf814"
+  }
+]
