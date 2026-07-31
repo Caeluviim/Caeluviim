@@ -1,12 +1,16 @@
 from __future__ import annotations
 
+import io
+import json
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 
 from pydantic import ValidationError
 
 from caeluviim.batch_ingest import IngestionBatch, ingest_batch
+from caeluviim.cli import main
 from caeluviim.projection import GraphProjector
 from caeluviim.service import CaeluviimCore
 
@@ -97,6 +101,28 @@ class IngestionBatchTests(unittest.TestCase):
         self.assertEqual(result["accepted_mapping_count"], 0)
         self.assertEqual(result["quarantined_mapping_count"], 1)
         self.assertEqual(len(self.core.list_quarantined()), 1)
+
+    def test_cli_executes_repository_fixture(self) -> None:
+        data_dir = Path(self.temporary.name) / "cli-state"
+        output = io.StringIO()
+        with redirect_stdout(output):
+            exit_code = main(
+                [
+                    "--data-dir",
+                    str(data_dir),
+                    "--project-root",
+                    str(PROJECT_ROOT),
+                    "ingest",
+                    "batch",
+                    "--input",
+                    str(PROJECT_ROOT / "examples" / "ingestion-batch.v0.1.json"),
+                ]
+            )
+        result = json.loads(output.getvalue())
+        self.assertEqual(exit_code, 0)
+        self.assertTrue(result["projection"]["shacl_conforms"])
+        self.assertEqual(result["accepted_mapping_count"], 1)
+        self.assertTrue(result["activation_event_id"].startswith("urn:caeluviim:event:"))
 
 
 if __name__ == "__main__":
