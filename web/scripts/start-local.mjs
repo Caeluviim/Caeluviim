@@ -76,6 +76,8 @@ const child = spawn(command, args, {
     DAP_VALIDATOR_KEY_ID: validator.signingKeyId,
     DAP_VALIDATOR_PUBLIC_KEY: validator.publicKey,
     DAP_VALIDATOR_PRIVATE_KEY_PKCS8: validator.privateKey,
+    CAELUVIIM_ALLOW_INSECURE_LOCAL_WRITES:
+      process.env.CAELUVIIM_ALLOW_INSECURE_LOCAL_WRITES ?? "true",
   },
   stdio: "inherit",
 });
