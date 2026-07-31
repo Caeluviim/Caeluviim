@@ -1,8 +1,8 @@
 # Web runtime security boundary
 
-## Required production secret
+## Required deployment secret
 
-Every production deployment must define `CAELUVIIM_WRITE_BEARER_TOKEN` as a secret runtime binding. Generate a high-entropy value, for example:
+Every non-local deployment must define `CAELUVIIM_WRITE_BEARER_TOKEN` as a secret runtime binding. Generate a high-entropy value, for example:
 
 ```sh
 openssl rand -hex 32
@@ -10,7 +10,7 @@ openssl rand -hex 32
 
 Do not commit the value, expose it in browser JavaScript, place it in a public build variable, or include it in logs.
 
-Production fails closed when the secret is absent. Unsigned persistent writes return `503`; requests with a missing or incorrect credential return `401`.
+Unsigned persistent writes fail closed when the secret is absent. Requests then return `503`; requests with a missing or incorrect credential return `401`.
 
 Authorized server-to-server requests use:
 
@@ -34,9 +34,17 @@ Read-only HTTP endpoints remain public unless a deployment adds a stricter acces
 
 `POST /api/districts` and `POST /api/districts/operations` retain their separate signed-envelope authorization path. Their acceptance depends on protocol, identifier, signature, replay, membership, authority, scope, ruleset, transition, and conflict validation. The bearer credential must not be treated as a substitute for those checks.
 
-## Local development
+## Local development and tests
 
-When `NODE_ENV` is not `production` and no bearer secret is configured, unsigned writes remain enabled for localhost development and the integration suite. Set `CAELUVIIM_WRITE_BEARER_TOKEN` locally to exercise the production authorization boundary.
+The local launcher and automated integration suite explicitly set:
+
+```sh
+CAELUVIIM_ALLOW_INSECURE_LOCAL_WRITES=true
+```
+
+That override is intended only for a loopback development runtime. Direct `npm run dev` sessions must either configure the bearer token or explicitly set the local override. Never set the override in a shared, preview, staging, or production deployment.
+
+Set `CAELUVIIM_WRITE_BEARER_TOKEN` locally instead when testing the production authorization boundary.
 
 ## Rotation
 
