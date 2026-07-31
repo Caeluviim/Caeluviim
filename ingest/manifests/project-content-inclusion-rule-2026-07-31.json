@@ -1,0 +1,154 @@
+{
+  "manifest_version": "0.1.0",
+  "ingest_id": "urn:caeluviim:ingest:project-content-inclusion-rule-2026-07-31",
+  "source": {
+    "source_id": "urn:caeluviim:source:project-content-inclusion-rule-2026-07-31",
+    "source_type": "document",
+    "title": "Project Content Inclusion and Consolidation Rule",
+    "uri": "https://github.com/Caeluviim/Caeluviim/blob/main/docs/operations/project-content-inclusion-rule.md",
+    "content_hash": "sha256:0d2907f9bdeb86b7d859fd7f7f41e761f82a19c0531911b50e1efd8b2d8655cb",
+    "captured_at": "2026-07-31T22:17:00Z",
+    "authority": "Caeluviim architect directive"
+  },
+  "nodes": [
+    {
+      "id": "urn:caeluviim:rule:project-content-inclusion",
+      "labels": [
+        "Rule"
+      ],
+      "properties": {
+        "title": "Project content inclusion rule",
+        "rule_id": "CAELUVIIM-OPS-CONTENT-INCLUSION-001",
+        "version": "1.0.0",
+        "status": "effective",
+        "determination": "Formal inclusion is reserved for durable attributable status-labeled content that changes constrains evidences validates or operationalizes Caeluviim"
+      }
+    },
+    {
+      "id": "urn:caeluviim:rule:architect-confirmation-on-ambiguity",
+      "labels": [
+        "Rule"
+      ],
+      "properties": {
+        "title": "Architect confirmation required before ambiguous inclusion",
+        "status": "effective",
+        "trigger": [
+          "uncertain project relevance",
+          "uncertain durable status",
+          "uncertain destination",
+          "uncertain canonical status",
+          "uncertain architect intent",
+          "uncertain sensitivity necessity"
+        ],
+        "required_action": "Stop formal writes and ask one focused classification question"
+      }
+    },
+    {
+      "id": "urn:caeluviim:rule:transient-content-exclusion",
+      "labels": [
+        "Rule"
+      ],
+      "properties": {
+        "title": "Transient content exclusion rule",
+        "status": "effective",
+        "excluded_examples": [
+          "personal scheduling",
+          "temporary usage limits",
+          "reset times",
+          "generic commentary",
+          "operational narration",
+          "conversation-only context"
+        ]
+      }
+    },
+    {
+      "id": "urn:caeluviim:rule:content-classification-correction",
+      "labels": [
+        "Rule"
+      ],
+      "properties": {
+        "title": "Misclassified content correction procedure",
+        "status": "effective",
+        "required_actions": [
+          "stop downstream consolidation",
+          "mark non-canonical",
+          "close revert supersede or remove",
+          "verify no active dependency remains",
+          "report correction and validation"
+        ]
+      }
+    },
+    {
+      "id": "urn:caeluviim:decision:architect-directive-content-inclusion-2026-07-31",
+      "labels": [
+        "Decision",
+        "Authority"
+      ],
+      "properties": {
+        "title": "Adopt project content inclusion and ambiguity governance rule",
+        "status": "ratified",
+        "effective_date": "2026-07-31",
+        "authority": "architect directive"
+      }
+    },
+    {
+      "id": "urn:caeluviim:validation:content-inclusion-rule-structural-review",
+      "labels": [
+        "ValidationResult"
+      ],
+      "properties": {
+        "title": "Project content inclusion rule structural review",
+        "status": "pending runtime validation",
+        "schema_check": "prepared against ingest-manifest 0.1.0",
+        "semantic_status": "effective by architect directive"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "urn:caeluviim:relation:architect-decision-implements-content-rule",
+      "type": "IMPLEMENTS",
+      "from": "urn:caeluviim:decision:architect-directive-content-inclusion-2026-07-31",
+      "to": "urn:caeluviim:rule:project-content-inclusion",
+      "properties": {
+        "status": "effective"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:ambiguity-rule-part-of-content-rule",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:rule:architect-confirmation-on-ambiguity",
+      "to": "urn:caeluviim:rule:project-content-inclusion",
+      "properties": {
+        "status": "effective"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:exclusion-rule-part-of-content-rule",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:rule:transient-content-exclusion",
+      "to": "urn:caeluviim:rule:project-content-inclusion",
+      "properties": {
+        "status": "effective"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:correction-rule-part-of-content-rule",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:rule:content-classification-correction",
+      "to": "urn:caeluviim:rule:project-content-inclusion",
+      "properties": {
+        "status": "effective"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:validation-targets-content-rule",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:validation:content-inclusion-rule-structural-review",
+      "to": "urn:caeluviim:rule:project-content-inclusion",
+      "properties": {
+        "status": "pending"
+      }
+    }
+  ]
+}
