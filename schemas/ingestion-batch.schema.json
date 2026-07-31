@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schemas/ingestion-batch.schema.json",
+  "title": "Caeluviim Ingestion Batch",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "batch_id",
+    "scope",
+    "consent_basis",
+    "started_at",
+    "sources"
+  ],
+  "properties": {
+    "batch_id": {"type": "string", "minLength": 1, "maxLength": 512},
+    "title": {"type": ["string", "null"], "maxLength": 500},
+    "scope": {
+      "enum": ["private", "group", "district", "commons", "official_public"]
+    },
+    "owner_id": {"type": ["string", "null"], "maxLength": 512},
+    "consent_basis": {"type": "string", "minLength": 1, "maxLength": 1000},
+    "official_capacity": {"type": "boolean", "default": false},
+    "started_at": {"type": "string", "format": "date-time"},
+    "metadata": {"type": "object"},
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/source"}
+    },
+    "mappings": {
+      "type": "array",
+      "default": [],
+      "items": {"$ref": "#/$defs/mapping"}
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "scope": {"enum": ["private", "group", "district"]}
+        }
+      },
+      "then": {
+        "required": ["owner_id"],
+        "properties": {"owner_id": {"type": "string", "minLength": 1}}
+      }
+    },
+    {
+      "if": {"properties": {"official_capacity": {"const": true}}},
+      "then": {"properties": {"scope": {"const": "official_public"}}}
+    }
+  ],
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "participant_id", "content"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1, "maxLength": 512},
+        "title": {"type": ["string", "null"], "maxLength": 500},
+        "participant_id": {"type": "string", "minLength": 1, "maxLength": 512},
+        "content": {"type": "string", "minLength": 1, "maxLength": 1000000},
+        "language": {"type": "string", "minLength": 2, "maxLength": 80},
+        "script": {"type": ["string", "null"], "maxLength": 80},
+        "occurred_at": {"type": ["string", "null"], "format": "date-time"},
+        "metadata": {"type": "object"}
+      }
+    },
+    "mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mapping_id",
+        "source_id",
+        "candidate_type",
+        "label",
+        "content",
+        "alternative_hypotheses",
+        "confidence"
+      ],
+      "properties": {
+        "mapping_id": {"type": "string", "minLength": 1, "maxLength": 512},
+        "source_id": {"type": "string", "minLength": 1, "maxLength": 512},
+        "candidate_type": {
+          "enum": [
+            "interpretation",
+            "force_assignment",
+            "linguistic_operation",
+            "harm_assessment",
+            "proposition",
+            "context_state",
+            "evidence_assessment",
+            "personhood_profile",
+            "other"
+          ]
+        },
+        "label": {"type": "string", "minLength": 1, "maxLength": 500},
+        "content": {"type": "string", "minLength": 1, "maxLength": 100000},
+        "alternative_hypotheses": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "confidence": {
+          "oneOf": [
+            {"type": "number", "minimum": 0, "maximum": 1},
+            {"type": "string", "pattern": "^(0(\\.[0-9]+)?|1(\\.0+)?)$"}
+          ]
+        },
+        "agent_id": {"type": "string", "minLength": 1, "maxLength": 512},
+        "manifestation_id": {"type": "string", "minLength": 1, "maxLength": 512},
+        "model_id": {"type": "string", "minLength": 1, "maxLength": 512},
+        "prompt_version": {"type": "string", "minLength": 1, "maxLength": 512},
+        "rule_version": {"type": "string", "minLength": 1, "maxLength": 512},
+        "ontology_version": {"type": "string", "minLength": 1, "maxLength": 512},
+        "reproducibility": {
+          "enum": [
+            "deterministic",
+            "seeded",
+            "approximately_reproducible",
+            "non_reproducible"
+          ]
+        },
+        "construction_rule": {"type": "string", "minLength": 1, "maxLength": 5000},
+        "metadata": {"type": "object"},
+        "review": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "#/$defs/review"}
+          ]
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "reviewer_id", "reason"],
+      "properties": {
+        "decision": {"enum": ["accept", "reject", "contest"]},
+        "reviewer_id": {"type": "string", "minLength": 1, "maxLength": 512},
+        "reason": {"type": "string", "minLength": 1, "maxLength": 10000},
+        "evidence_ids": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "supersedes_ids": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}
