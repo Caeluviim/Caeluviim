@@ -216,7 +216,7 @@
       "properties": {
         "title": "Southside institutional service apparatus source record v0.1",
         "path": "sources/matters/sshr/mat-sshr-2026-07-31-001.md",
-        "content_hash": "sha256:6528ecbfa31ded1ef981658fa842477292976c17b3cc67948ad9ee83d6469d1b",
+        "source_sha256": "sha256:6528ecbfa31ded1ef981658fa842477292976c17b3cc67948ad9ee83d6469d1b",
         "status": "captured"
       }
     }
