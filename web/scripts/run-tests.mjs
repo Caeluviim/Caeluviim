@@ -14,6 +14,8 @@ const child = spawn(command, args, {
     ...process.env,
     CAELUVIIM_ALLOW_INSECURE_LOCAL_WRITES:
       process.env.CAELUVIIM_ALLOW_INSECURE_LOCAL_WRITES ?? "true",
+    CAELUVIIM_TEST_BASE_URL:
+      process.env.CAELUVIIM_TEST_BASE_URL ?? "http://localhost:3210",
   },
   stdio: "inherit",
 });
