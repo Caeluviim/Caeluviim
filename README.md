@@ -10,30 +10,41 @@ Caeluviim is a provenance-tracked formal architecture for representing claims, a
 
 ## Working graph runtime
 
-The repository now contains a runnable Neo4j ingestion path:
+The repository contains a persistent laptop-host Neo4j ingestion system:
 
 - Neo4j Community 2026.06 through Docker Compose
+- persistent named volumes for graph state
+- localhost-only HTTP and Bolt bindings by default
 - idempotent Cypher migrations
 - a JSON Schema ingestion contract
 - transactional, append-only ingestion with content-conflict detection
 - provenance links for every entity and reified relationship assertion
-- a conforming bootstrap manifest
-- CI that starts Neo4j, applies migrations, ingests the seed twice, and verifies idempotency
+- a containerized operator that requires no host Python installation
+- offline backup and restore commands for both `neo4j` and `system`
+- CI that starts Neo4j, validates the laptop configuration, synchronizes the corpus twice, and verifies idempotency
 
-```bash
-cp .env.example .env
-# Change the password before any shared deployment.
-docker compose up -d neo4j
-python -m pip install -r requirements-dev.txt
-python -m caeluviim_graph.cli bootstrap
+### Windows PowerShell
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/laptop/start.ps1
 ```
 
-See [`docs/operations/graph-ingestion.md`](docs/operations/graph-ingestion.md) for the operating contract and ingestion lifecycle.
+### macOS or Linux
+
+```bash
+bash scripts/laptop/start.sh
+```
+
+The startup command creates a protected local `.env` when absent, starts Neo4j, applies migrations, and ingests every production manifest.
+
+See [`docs/operations/laptop-host.md`](docs/operations/laptop-host.md) for start, status, backup, restore, and shutdown procedures. See [`docs/operations/graph-ingestion.md`](docs/operations/graph-ingestion.md) for the ingestion contract and lifecycle.
 
 ## Repository structure
 
 - `caeluviim_graph/` — graph runtime, validation, migrations, and CLI orchestration
 - `graph/migrations/` — ordered Neo4j schema migrations
+- `ingest/manifests/` — production corpus manifests
+- `scripts/laptop/` — laptop-host lifecycle, backup, and restore commands
 - `docs/architecture/` — normative architecture specifications
 - `docs/operations/` — executable operating procedures
 - `schemas/` — JSON Schema validation contracts
