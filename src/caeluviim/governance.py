@@ -179,7 +179,7 @@ class GovernanceService:
         )
         result = self.ledger.submit(
             event_type="LUX_MANIFESTATION_DELEGATE",
-            signer=self.lux_root_signer(),
+            signer=self.founder_signer(),
             scope=InformationScope.OFFICIAL_PUBLIC,
             payload_ref=stored["object_id"],
             idempotency_key=f"manifestation:{manifestation.manifestation_id}:{key_id}",
@@ -190,6 +190,7 @@ class GovernanceService:
                 "manifestation_id": manifestation.manifestation_id,
                 "key_id": key_id,
                 "capabilities": manifestation.capabilities,
+                "delegated_by": self.FOUNDER_ID,
             },
         )
         return {"operation": result, "signer": runtime_signer}
@@ -227,6 +228,8 @@ class GovernanceService:
             return self.register_manifestation(manifestation)["signer"]
 
     def ensure_member(self, member_id: str) -> SigningIdentity:
+        if not member_id.strip():
+            raise GovernanceError("member_id must not be empty")
         key_id = f"key:{member_id}:local"
         signer = self.key_vault.ensure(member_id, key_id)
         payload = {
@@ -259,6 +262,10 @@ class GovernanceService:
     def record_restriction(
         self, restriction: DisclosureRestriction
     ) -> dict[str, Any]:
+        if restriction.authority_id != self.FOUNDER_ID:
+            raise GovernanceError(
+                "prototype disclosure restrictions require the founder authority"
+            )
         begins = datetime.fromisoformat(restriction.begins_at.replace("Z", "+00:00"))
         review = datetime.fromisoformat(
             restriction.review_or_expires_at.replace("Z", "+00:00")
@@ -280,6 +287,7 @@ class GovernanceService:
             evidence_ids=restriction.record_ids,
             metadata={
                 "basis": restriction.basis,
+                "authority_id": restriction.authority_id,
                 "review_or_expires_at": restriction.review_or_expires_at,
                 "public_restriction_record": True,
             },
