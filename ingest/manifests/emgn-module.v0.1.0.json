@@ -1,0 +1,175 @@
+{
+  "manifest_version": "0.1.0",
+  "ingest_id": "urn:caeluviim:ingest:emgn-module:0.1.0",
+  "source": {
+    "source_id": "urn:caeluviim:source:repository-inventory:emgn-module:0.1.0",
+    "source_type": "code",
+    "title": "Error-Mediated Generative Non-Closure repository module v0.1.0",
+    "uri": "https://github.com/Caeluviim/Caeluviim/commit/0da4ce0db2e3f34164ba4e7b5a7eedd6d4f577eb",
+    "content_hash": "sha256:10d969937720d6f7a5cce94ce35030488fdbe466e540d50ad9860e5572a657e8",
+    "captured_at": "2026-07-31T16:57:00Z",
+    "authority": "Caeluviim repository source inventory"
+  },
+  "nodes": [
+    {
+      "id": "urn:caeluviim:module:emgn",
+      "labels": ["Artifact"],
+      "properties": {
+        "title": "Error-Mediated Generative Non-Closure",
+        "module_version": "0.1.0",
+        "governance_status": "proposed",
+        "scope": "formal architecture"
+      }
+    },
+    {
+      "id": "urn:caeluviim:artifact:emgn:specification:0.1.0",
+      "labels": ["Artifact"],
+      "properties": {
+        "title": "EMGN normative architecture specification",
+        "path": "docs/architecture/error-mediated-generative-nonclosure.md",
+        "git_blob_sha": "ae9239e7613225d53164fd91ecfe06287e802ea5"
+      }
+    },
+    {
+      "id": "urn:caeluviim:artifact:emgn:json-schema:0.1.0",
+      "labels": ["Schema", "Artifact"],
+      "properties": {
+        "title": "EMGN JSON Schema",
+        "path": "schemas/emgn-record.schema.json",
+        "git_blob_sha": "dbe8f23487171534d91ab940460c45526770f91f",
+        "schema_dialect": "JSON Schema Draft 2020-12"
+      }
+    },
+    {
+      "id": "urn:caeluviim:artifact:emgn:ontology:0.1.0",
+      "labels": ["Schema", "Artifact"],
+      "properties": {
+        "title": "EMGN RDF/OWL vocabulary",
+        "path": "ontology/emgn.ttl",
+        "git_blob_sha": "0b2a81b94e41aee8fd45cb4221c138c884715aa2",
+        "serialization": "Turtle"
+      }
+    },
+    {
+      "id": "urn:caeluviim:artifact:emgn:shacl:0.1.0",
+      "labels": ["Schema", "ValidationResult", "Artifact"],
+      "properties": {
+        "title": "EMGN SHACL constraints",
+        "path": "shapes/emgn.shacl.ttl",
+        "git_blob_sha": "32c926e91949c2e5a922febf77f47d3e65c00cf4",
+        "serialization": "Turtle"
+      }
+    },
+    {
+      "id": "urn:caeluviim:artifact:emgn:example-json:0.1.0",
+      "labels": ["Dataset", "Artifact"],
+      "properties": {
+        "title": "Conforming EMGN JSON record",
+        "path": "examples/emgn-record.valid.json",
+        "git_blob_sha": "39858434db43b40f4c40511288147b69f62c64f3"
+      }
+    },
+    {
+      "id": "urn:caeluviim:artifact:emgn:example-rdf:0.1.0",
+      "labels": ["Dataset", "Artifact"],
+      "properties": {
+        "title": "Conforming EMGN RDF record",
+        "path": "examples/emgn-record.valid.ttl",
+        "git_blob_sha": "4f52c823eea0755138cfda97dc81b4dad3014b18"
+      }
+    },
+    {
+      "id": "urn:caeluviim:artifact:emgn:test-suite:0.1.0",
+      "labels": ["ValidationResult", "Artifact"],
+      "properties": {
+        "title": "EMGN executable validation suite",
+        "path": "tests/test_emgn.py",
+        "git_blob_sha": "c8f0690ce94960d65462df06098cb45c85ddf814",
+        "test_status": "passing"
+      }
+    },
+    {
+      "id": "urn:caeluviim:decision:emgn-governance:0.1.0",
+      "labels": ["Decision", "Authority"],
+      "properties": {
+        "title": "EMGN governance state",
+        "status": "proposed",
+        "ratification_requirement": "two independent validators distinct from proposer"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "urn:caeluviim:relation:emgn:specification-part-of-module:0.1.0",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:artifact:emgn:specification:0.1.0",
+      "to": "urn:caeluviim:module:emgn",
+      "properties": {
+        "role": "normative specification"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:emgn:json-schema-implements-module:0.1.0",
+      "type": "IMPLEMENTS",
+      "from": "urn:caeluviim:artifact:emgn:json-schema:0.1.0",
+      "to": "urn:caeluviim:module:emgn",
+      "properties": {
+        "role": "JSON structural validation"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:emgn:ontology-implements-module:0.1.0",
+      "type": "IMPLEMENTS",
+      "from": "urn:caeluviim:artifact:emgn:ontology:0.1.0",
+      "to": "urn:caeluviim:module:emgn",
+      "properties": {
+        "role": "RDF and OWL vocabulary"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:emgn:shacl-validates-module:0.1.0",
+      "type": "VALIDATED_BY",
+      "from": "urn:caeluviim:module:emgn",
+      "to": "urn:caeluviim:artifact:emgn:shacl:0.1.0",
+      "properties": {
+        "role": "graph constraint validation"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:emgn:json-example-part-of-module:0.1.0",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:artifact:emgn:example-json:0.1.0",
+      "to": "urn:caeluviim:module:emgn",
+      "properties": {
+        "role": "conforming JSON example"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:emgn:rdf-example-part-of-module:0.1.0",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:artifact:emgn:example-rdf:0.1.0",
+      "to": "urn:caeluviim:module:emgn",
+      "properties": {
+        "role": "conforming RDF example"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:emgn:test-suite-validates-module:0.1.0",
+      "type": "VALIDATED_BY",
+      "from": "urn:caeluviim:module:emgn",
+      "to": "urn:caeluviim:artifact:emgn:test-suite:0.1.0",
+      "properties": {
+        "role": "executable structural and governance validation"
+      }
+    },
+    {
+      "id": "urn:caeluviim:relation:emgn:module-governed-by-decision:0.1.0",
+      "type": "GOVERNED_BY",
+      "from": "urn:caeluviim:module:emgn",
+      "to": "urn:caeluviim:decision:emgn-governance:0.1.0",
+      "properties": {
+        "status": "proposed"
+      }
+    }
+  ]
+}
