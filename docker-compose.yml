@@ -1,16 +1,18 @@
+name: caeluviim
+
 services:
   neo4j:
     image: neo4j:2026.06.0
     container_name: caeluviim-neo4j
     restart: unless-stopped
     ports:
-      - "7474:7474"
-      - "7687:7687"
+      - "127.0.0.1:${NEO4J_HTTP_PORT:-7474}:7474"
+      - "127.0.0.1:${NEO4J_BOLT_PORT:-7687}:7687"
     environment:
       NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD:-caeluviim-local}"
-      NEO4J_server_memory_heap_initial__size: "512m"
-      NEO4J_server_memory_heap_max__size: "1G"
-      NEO4J_server_memory_pagecache_size: "512m"
+      NEO4J_server_memory_heap_initial__size: "${NEO4J_HEAP_INITIAL:-512m}"
+      NEO4J_server_memory_heap_max__size: "${NEO4J_HEAP_MAX:-1G}"
+      NEO4J_server_memory_pagecache_size: "${NEO4J_PAGECACHE:-512m}"
     volumes:
       - caeluviim_neo4j_data:/data
       - caeluviim_neo4j_logs:/logs
@@ -27,8 +29,36 @@ services:
       retries: 20
       start_period: 30s
 
+  operator:
+    build:
+      context: .
+      dockerfile: Dockerfile.operator
+    profiles: ["operator"]
+    environment:
+      NEO4J_URI: neo4j://neo4j:7687
+      NEO4J_USER: neo4j
+      NEO4J_PASSWORD: "${NEO4J_PASSWORD:-caeluviim-local}"
+      NEO4J_DATABASE: "${NEO4J_DATABASE:-neo4j}"
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    command: ["health"]
+
+  neo4j-admin:
+    image: neo4j/neo4j-admin:2026.06.0
+    profiles: ["admin"]
+    user: neo4j
+    entrypoint: ["neo4j-admin"]
+    volumes:
+      - caeluviim_neo4j_data:/data
+      - ./backups:/backups
+
 volumes:
   caeluviim_neo4j_data:
+    name: caeluviim_neo4j_data
   caeluviim_neo4j_logs:
+    name: caeluviim_neo4j_logs
   caeluviim_neo4j_import:
+    name: caeluviim_neo4j_import
   caeluviim_neo4j_plugins:
+    name: caeluviim_neo4j_plugins
