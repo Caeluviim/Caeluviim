@@ -1,0 +1,35 @@
+services:
+  neo4j:
+    image: neo4j:2026.06.0
+    container_name: caeluviim-neo4j
+    restart: unless-stopped
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD:-caeluviim-local}"
+      NEO4J_PASSWORD: "${NEO4J_PASSWORD:-caeluviim-local}"
+      NEO4J_server_memory_heap_initial__size: "512m"
+      NEO4J_server_memory_heap_max__size: "1G"
+      NEO4J_server_memory_pagecache_size: "512m"
+    volumes:
+      - caeluviim_neo4j_data:/data
+      - caeluviim_neo4j_logs:/logs
+      - caeluviim_neo4j_import:/import
+      - caeluviim_neo4j_plugins:/plugins
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "cypher-shell -u neo4j -p \"$${NEO4J_PASSWORD}\" 'RETURN 1' >/dev/null 2>&1 || exit 1"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+volumes:
+  caeluviim_neo4j_data:
+  caeluviim_neo4j_logs:
+  caeluviim_neo4j_import:
+  caeluviim_neo4j_plugins:
