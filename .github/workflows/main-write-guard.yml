@@ -1,0 +1,86 @@
+name: Main write guard
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: main-write-guard
+  cancel-in-progress: false
+
+jobs:
+  verify-main-write:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Permit guard restoration commits
+        id: restoration
+        env:
+          HEAD_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          if [[ "$HEAD_MESSAGE" == "[main-write-guard]"* ]]; then
+            echo "permitted=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "permitted=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Determine whether the push came from a merged pull request
+        if: steps.restoration.outputs.permitted != 'true'
+        id: merged_pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          AFTER_SHA: ${{ github.event.after }}
+        run: |
+          count="$({
+            gh api \
+              -H "Accept: application/vnd.github+json" \
+              "repos/${REPOSITORY}/commits/${AFTER_SHA}/pulls" \
+              --jq '[.[] | select(.merged_at != null and .base.ref == "main")] | length'
+          })"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Stop when the push was produced by a merged pull request
+        if: steps.restoration.outputs.permitted == 'true' || steps.merged_pr.outputs.count != '0'
+        run: echo "Permitted main update."
+
+      - name: Restore the exact pre-push main tree
+        if: steps.restoration.outputs.permitted != 'true' && steps.merged_pr.outputs.count == '0'
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.event.after }}
+        run: |
+          if [[ "$BEFORE_SHA" == "0000000000000000000000000000000000000000" ]]; then
+            echo "Cannot restore a newly created default branch automatically." >&2
+            exit 1
+          fi
+
+          git init .
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          git fetch --no-tags origin "$BEFORE_SHA" "$AFTER_SHA"
+          git checkout -B main "$AFTER_SHA"
+          git config user.name "caeluviim-main-write-guard"
+          git config user.email "caeluviim-main-write-guard@users.noreply.github.com"
+
+          # Replace the complete index and working tree with the exact tree that
+          # existed before the unauthorized push. This handles additions,
+          # modifications, deletions, renames, and multi-commit push ranges.
+          git read-tree -u --reset "$BEFORE_SHA"
+
+          if git diff --cached --quiet; then
+            echo "No tree difference remains to restore."
+            exit 0
+          fi
+
+          git commit -m "[main-write-guard] Restore main after unauthorized direct push ${AFTER_SHA}"
+          git push origin HEAD:main
+
+      - name: Fail the original unauthorized push run after restoration
+        if: steps.restoration.outputs.permitted != 'true' && steps.merged_pr.outputs.count == '0'
+        run: |
+          echo "Unauthorized direct push was restored automatically. Use a task branch and pull request." >&2
+          exit 1
