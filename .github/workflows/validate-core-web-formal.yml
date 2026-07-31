@@ -49,6 +49,8 @@ jobs:
       - name: Run Python tests
         run: python -m pytest
       - name: Validate Compose configuration
+        env:
+          NEO4J_PASSWORD: ci-validation-only
         run: docker compose config --quiet
 
   web-runtime:
