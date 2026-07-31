@@ -1,3 +1,14 @@
+# Caeluviim local graph host
+.env
+backups/*
+!backups/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
 # Gradle files
 .gradle/
 build/
