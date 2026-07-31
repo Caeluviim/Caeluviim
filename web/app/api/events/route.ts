@@ -4,6 +4,7 @@ import {
   type ConsentScope,
 } from "../../../lib/protocol";
 import { listResponseEvents, saveResponseEvent } from "../../../lib/store";
+import { requireWriteAuthorization } from "../../../lib/write-auth";
 
 const cors = {
   "access-control-allow-origin": "*",
@@ -23,6 +24,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const authorizationFailure = requireWriteAuthorization(request, cors);
+  if (authorizationFailure) return authorizationFailure;
+
   try {
     const payload = (await request.json()) as {
       response?: unknown;
