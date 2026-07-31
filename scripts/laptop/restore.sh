@@ -32,6 +32,26 @@ if [[ -f "$selected/SHA256SUMS.txt" ]]; then
   fi
 fi
 
+wait_for_neo4j() {
+  local status=""
+  for _ in $(seq 1 90); do
+    status="$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' caeluviim-neo4j 2>/dev/null || true)"
+    if [[ "$status" == "healthy" ]]; then
+      return 0
+    fi
+    if [[ "$status" == "unhealthy" || "$status" == "exited" || "$status" == "dead" ]]; then
+      docker logs --tail 100 caeluviim-neo4j >&2 || true
+      echo "Neo4j entered terminal state: $status" >&2
+      return 1
+    fi
+    sleep 2
+  done
+
+  docker logs --tail 100 caeluviim-neo4j >&2 || true
+  echo "Neo4j did not become healthy within 180 seconds." >&2
+  return 1
+}
+
 stopped=0
 restart_graph() {
   if [[ "$stopped" -eq 1 ]]; then
@@ -49,4 +69,8 @@ docker compose --profile admin run --rm neo4j-admin \
 docker compose --profile admin run --rm neo4j-admin \
   database load --from-path="/backups/$backup_name" system --overwrite-destination=true
 
-echo "Restore complete from $selected"
+docker compose up -d neo4j
+stopped=0
+wait_for_neo4j
+
+echo "Restore complete and Neo4j healthy from $selected"
