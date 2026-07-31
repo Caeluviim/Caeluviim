@@ -7,6 +7,23 @@ $ErrorActionPreference = "Stop"
 $Root = (Resolve-Path (Join-Path $PSScriptRoot "../..")).Path
 Push-Location $Root
 
+function Wait-Neo4jHealthy {
+    for ($Attempt = 0; $Attempt -lt 90; $Attempt++) {
+        $State = docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' caeluviim-neo4j 2>$null
+        if ($State -eq "healthy") {
+            return
+        }
+        if ($State -in @("unhealthy", "exited", "dead")) {
+            docker logs --tail 100 caeluviim-neo4j | Out-Host
+            throw "Neo4j entered terminal state: $State"
+        }
+        Start-Sleep -Seconds 2
+    }
+
+    docker logs --tail 100 caeluviim-neo4j | Out-Host
+    throw "Neo4j did not become healthy within 180 seconds."
+}
+
 $Stopped = $false
 try {
     $BackupRoot = (Resolve-Path (Join-Path $Root "backups")).Path
@@ -45,7 +62,12 @@ try {
     docker compose --profile admin run --rm neo4j-admin database load --from-path="/backups/$BackupName" system --overwrite-destination=true
     if ($LASTEXITCODE -ne 0) { throw "The system database restore failed." }
 
-    Write-Host "Restore complete from $Selected"
+    docker compose up -d neo4j | Out-Host
+    if ($LASTEXITCODE -ne 0) { throw "Neo4j could not restart after restore." }
+    $Stopped = $false
+    Wait-Neo4jHealthy
+
+    Write-Host "Restore complete and Neo4j healthy from $Selected"
 }
 finally {
     if ($Stopped) {
