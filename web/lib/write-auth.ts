@@ -1,21 +1,33 @@
 import { env } from "cloudflare:workers";
 
 const WRITE_TOKEN_BINDING = "CAELUVIIM_WRITE_BEARER_TOKEN";
+const INSECURE_LOCAL_BINDING = "CAELUVIIM_ALLOW_INSECURE_LOCAL_WRITES";
 
 type WriteAuthEnvironment = {
   CAELUVIIM_WRITE_BEARER_TOKEN?: string;
+  CAELUVIIM_ALLOW_INSECURE_LOCAL_WRITES?: string;
 };
 
-function configuredWriteToken(): string | null {
+function runtimeEnvironment(): WriteAuthEnvironment {
   try {
-    const workerToken = (env as unknown as WriteAuthEnvironment)[WRITE_TOKEN_BINDING]?.trim();
-    if (workerToken) return workerToken;
+    return env as unknown as WriteAuthEnvironment;
   } catch {
-    // The Cloudflare binding is unavailable outside the worker runtime.
+    return {};
   }
+}
+
+function configuredWriteToken(): string | null {
+  const workerToken = runtimeEnvironment()[WRITE_TOKEN_BINDING]?.trim();
+  if (workerToken) return workerToken;
 
   const processToken = process.env.CAELUVIIM_WRITE_BEARER_TOKEN?.trim();
   return processToken || null;
+}
+
+function insecureLocalWritesAllowed(): boolean {
+  const workerValue = runtimeEnvironment()[INSECURE_LOCAL_BINDING]?.trim();
+  const processValue = process.env.CAELUVIIM_ALLOW_INSECURE_LOCAL_WRITES?.trim();
+  return (workerValue || processValue || "").toLocaleLowerCase() === "true";
 }
 
 function responseHeaders(headers: HeadersInit): Headers {
@@ -27,20 +39,18 @@ function responseHeaders(headers: HeadersInit): Headers {
 /**
  * Authorize an unsigned persistent-write surface.
  *
- * Local development remains usable when no token is configured. Production
- * fails closed: a missing secret disables unsigned writes, and a configured
- * secret requires an exact Bearer credential. Signed DAP submissions retain
- * their separate cryptographic authorization path and do not use this helper.
+ * Writes fail closed unless a bearer secret is configured or the explicit
+ * local-development override is enabled. Signed DAP submissions retain their
+ * separate cryptographic authorization path and do not use this helper.
  */
 export function requireWriteAuthorization(
   request: Request,
   headers: HeadersInit = {},
 ): Response | null {
   const token = configuredWriteToken();
-  const production = process.env.NODE_ENV === "production";
 
   if (!token) {
-    if (!production) return null;
+    if (insecureLocalWritesAllowed()) return null;
     return Response.json(
       {
         error:
