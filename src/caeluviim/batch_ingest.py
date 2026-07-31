@@ -113,6 +113,55 @@ def _triple_count(projector: GraphProjector, *, owner_id: str | None) -> int:
     return sum(1 for _ in projector.build_dataset(owner_id=owner_id).quads())
 
 
+def _submit_or_replay_review(
+    core: CaeluviimCore,
+    *,
+    batch: IngestionBatch,
+    mapping: BatchMapping,
+    candidate_event_id: str,
+) -> dict[str, Any]:
+    if mapping.review is None:
+        raise ValueError("review replay requested without a review declaration")
+
+    expected = CandidateReview(
+        candidate_event_id=candidate_event_id,
+        decision=mapping.review.decision,
+        reviewer_id=mapping.review.reviewer_id,
+        reason=mapping.review.reason,
+        evidence_ids=mapping.review.evidence_ids,
+        supersedes_ids=mapping.review.supersedes_ids,
+        reviewed_at=batch.started_at,
+    )
+    existing = next(
+        (
+            event
+            for event in core.ledger.events(accepted_only=True)
+            if event["event_type"] == "CANDIDATE_REVIEW"
+            and candidate_event_id in event["parent_ids"]
+        ),
+        None,
+    )
+    if existing is None:
+        return core.review_candidate(expected, owner_id=batch.owner_id)
+
+    payload = core.store.get_json(existing["payload_ref"], owner_id=batch.owner_id)
+    expected_payload = expected.model_dump(mode="json")
+    mismatches = {
+        key: {"expected": value, "actual": payload.get(key)}
+        for key, value in expected_payload.items()
+        if payload.get(key) != value
+    }
+    if mismatches:
+        raise ValueError(
+            "candidate already has a different completed review: " + str(mismatches)
+        )
+    return {
+        "event": existing,
+        "accepted": True,
+        "idempotent_replay": True,
+    }
+
+
 def ingest_batch(core: CaeluviimCore, batch: IngestionBatch) -> dict[str, Any]:
     """Ingest source artifacts and explicit mappings as one replayable activation batch.
 
@@ -202,17 +251,11 @@ def ingest_batch(core: CaeluviimCore, batch: IngestionBatch) -> dict[str, Any]:
 
         reviewed: dict[str, Any] | None = None
         if mapping.review:
-            reviewed = core.review_candidate(
-                CandidateReview(
-                    candidate_event_id=stage_event["event_id"],
-                    decision=mapping.review.decision,
-                    reviewer_id=mapping.review.reviewer_id,
-                    reason=mapping.review.reason,
-                    evidence_ids=mapping.review.evidence_ids,
-                    supersedes_ids=mapping.review.supersedes_ids,
-                    reviewed_at=batch.started_at,
-                ),
-                owner_id=batch.owner_id,
+            reviewed = _submit_or_replay_review(
+                core,
+                batch=batch,
+                mapping=mapping,
+                candidate_event_id=stage_event["event_id"],
             )
             review_event_ids.append(reviewed["event"]["event_id"])
 
@@ -228,7 +271,9 @@ def ingest_batch(core: CaeluviimCore, batch: IngestionBatch) -> dict[str, Any]:
         )
 
     accepted_mappings = sum(
-        1 for mapping in batch.mappings if mapping.review and mapping.review.decision == ReviewDecision.ACCEPT
+        1
+        for mapping in batch.mappings
+        if mapping.review and mapping.review.decision == ReviewDecision.ACCEPT
     )
     receipt = {
         "record_type": "IngestionActivationReceipt",
