@@ -1,0 +1,380 @@
+{
+  "manifest_version": "0.1.0",
+  "ingest_id": "urn:caeluviim:ingest:mat-sshr-2026-07-31-001",
+  "source": {
+    "source_id": "urn:caeluviim:source:mat-sshr-2026-07-31-001",
+    "source_type": "conversation",
+    "title": "Southside institutional service apparatus — source record",
+    "uri": "https://github.com/Caeluviim/Caeluviim/blob/main/sources/matters/sshr/mat-sshr-2026-07-31-001.md",
+    "content_hash": "sha256:6528ecbfa31ded1ef981658fa842477292976c17b3cc67948ad9ee83d6469d1b",
+    "captured_at": "2026-07-31T20:11:00Z",
+    "authority": "First-person account and analytical articulation supplied in conversation; not independently verified"
+  },
+  "nodes": [
+    {
+      "id": "urn:caeluviim:project:mat-sshr-2026-07-31-001",
+      "labels": ["Project"],
+      "properties": {
+        "title": "Southside institutional service apparatus matter",
+        "status": "active",
+        "verification_state": "pending",
+        "governance_state": "unratified",
+        "matter_id": "MAT-SSHR-2026-07-31-001"
+      }
+    },
+    {
+      "id": "urn:caeluviim:institution:southside-harm-reduction-services",
+      "labels": ["Institution"],
+      "properties": {
+        "title": "Southside Harm Reduction Services",
+        "identity_state": "named_in_source",
+        "verification_state": "pending"
+      }
+    },
+    {
+      "id": "urn:caeluviim:institution:hennepin-county",
+      "labels": ["Institution", "Authority"],
+      "properties": {
+        "title": "Hennepin County",
+        "identity_state": "named_in_source",
+        "verification_state": "pending"
+      }
+    },
+    {
+      "id": "urn:caeluviim:agent:sshr-unidentified-organizational-agent",
+      "labels": ["Agent"],
+      "properties": {
+        "title": "Unidentified organizational agent",
+        "role": "reported service-table representative",
+        "identity_state": "unidentified",
+        "verification_state": "pending"
+      }
+    },
+    {
+      "id": "urn:caeluviim:agent:hennepin-county-unidentified-nurse",
+      "labels": ["Agent"],
+      "properties": {
+        "title": "Unidentified Hennepin County-employed nurse",
+        "credential_state": "unknown",
+        "identity_state": "unidentified",
+        "verification_state": "pending"
+      }
+    },
+    {
+      "id": "urn:caeluviim:evidence:mat-sshr-obs-001",
+      "labels": ["Evidence"],
+      "properties": {
+        "title": "Reported supply distribution as visible access point",
+        "evidence_type": "first_person_observation",
+        "status": "reported",
+        "independent_verification": false,
+        "observation_id": "OBS-001"
+      }
+    },
+    {
+      "id": "urn:caeluviim:evidence:mat-sshr-obs-002",
+      "labels": ["Evidence"],
+      "properties": {
+        "title": "Reported medical encounters described as going upstairs",
+        "evidence_type": "first_person_observation",
+        "status": "reported",
+        "independent_verification": false,
+        "observation_id": "OBS-002"
+      }
+    },
+    {
+      "id": "urn:caeluviim:evidence:mat-sshr-obs-003",
+      "labels": ["Evidence"],
+      "properties": {
+        "title": "Reported categorical compliance assurance by organizational agent",
+        "evidence_type": "first_person_recollection",
+        "status": "reported",
+        "independent_verification": false,
+        "observation_id": "OBS-003"
+      }
+    },
+    {
+      "id": "urn:caeluviim:evidence:mat-sshr-obs-004",
+      "labels": ["Evidence"],
+      "properties": {
+        "title": "Reported or inferred separate-source financing explanation",
+        "evidence_type": "mixed_observation_and_inference",
+        "status": "reported_inference",
+        "independent_verification": false,
+        "observation_id": "OBS-004"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:mat-sshr-contact-generation-function",
+      "labels": ["Claim"],
+      "properties": {
+        "title": "Paraphernalia distribution may function as the principal contact-generation and population-retention mechanism",
+        "status": "contested_hypothesis",
+        "validation_state": "pending",
+        "claim_id": "CLM-001"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:mat-sshr-operational-cross-subsidy",
+      "labels": ["Claim"],
+      "properties": {
+        "title": "Source-segregated purchase accounting may not establish operational separation",
+        "status": "legal_accounting_hypothesis",
+        "validation_state": "pending",
+        "claim_id": "CLM-002"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:mat-sshr-pathology-funded-service-conversion",
+      "labels": ["Claim"],
+      "properties": {
+        "title": "Structural deprivation and dependency may be converted into recurring third-party-funded service eligibility",
+        "status": "system_level_analytical_claim",
+        "validation_state": "pending",
+        "claim_id": "CLM-003"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:mat-sshr-narrowed-harm-definition",
+      "labels": ["Claim"],
+      "properties": {
+        "title": "Program success may rely on a narrowed definition of reduced harm",
+        "status": "analytical_claim",
+        "validation_state": "pending",
+        "claim_id": "CLM-004"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:mat-sshr-spatial-euphemism-opacity",
+      "labels": ["Claim"],
+      "properties": {
+        "title": "Going upstairs may function as a spatial euphemism producing operational opacity",
+        "status": "interpretive_hypothesis",
+        "validation_state": "pending",
+        "claim_id": "CLM-005"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:mat-sshr-unsupported-compliance-representation",
+      "labels": ["Claim"],
+      "properties": {
+        "title": "The reported categorical legal assurance may be an unsupported institutional compliance representation",
+        "status": "legal_institutional_assessment",
+        "validation_state": "pending",
+        "claim_id": "CLM-006"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:mat-sshr-public-framing-reverses-causation",
+      "labels": ["Claim"],
+      "properties": {
+        "title": "Public-facing service framing may reverse the actual operational direction of causation",
+        "status": "contested_institutional_hypothesis",
+        "validation_state": "pending",
+        "claim_id": "CLM-007"
+      }
+    },
+    {
+      "id": "urn:caeluviim:task:mat-sshr-funding-cost-allocation-audit",
+      "labels": ["Task"],
+      "properties": {
+        "title": "Audit funding sources and full cost allocation",
+        "status": "not_started",
+        "acceptance_condition": "Obtain awards, ledgers, cost allocation, invoices, payroll allocation, and grant reporting sufficient to test CLM-002"
+      }
+    },
+    {
+      "id": "urn:caeluviim:task:mat-sshr-clinical-authority-audit",
+      "labels": ["Task"],
+      "properties": {
+        "title": "Identify clinical authority and nursing scope",
+        "status": "not_started",
+        "acceptance_condition": "Identify practitioner, credential, acts, protocols, orders, delegation, supervision, escalation, and records"
+      }
+    },
+    {
+      "id": "urn:caeluviim:task:mat-sshr-service-flow-analysis",
+      "labels": ["Task"],
+      "properties": {
+        "title": "Reconstruct participant contact and service-conversion flow",
+        "status": "not_started",
+        "acceptance_condition": "Compare supply contacts, clinical encounters, offered referrals, completed referrals, repeated contacts, and durable outcomes"
+      }
+    },
+    {
+      "id": "urn:caeluviim:task:mat-sshr-representation-preservation",
+      "labels": ["Task"],
+      "properties": {
+        "title": "Preserve organizational legal-assurance evidence",
+        "status": "not_started",
+        "acceptance_condition": "Identify speaker, role, employer, exact wording, witnesses, date, location, and institutional authorization"
+      }
+    },
+    {
+      "id": "urn:caeluviim:artifact:mat-sshr-source-record-v0-1",
+      "labels": ["Artifact", "Provenance"],
+      "properties": {
+        "title": "Southside institutional service apparatus source record v0.1",
+        "path": "sources/matters/sshr/mat-sshr-2026-07-31-001.md",
+        "content_hash": "sha256:6528ecbfa31ded1ef981658fa842477292976c17b3cc67948ad9ee83d6469d1b",
+        "status": "captured"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-agent-part-of-sshr",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:agent:sshr-unidentified-organizational-agent",
+      "to": "urn:caeluviim:institution:southside-harm-reduction-services",
+      "properties": {"status": "reported", "verification_state": "pending"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-nurse-part-of-hennepin",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:agent:hennepin-county-unidentified-nurse",
+      "to": "urn:caeluviim:institution:hennepin-county",
+      "properties": {"status": "reported", "verification_state": "pending"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-nurse-participates-at-sshr",
+      "type": "PARTICIPATES_IN",
+      "from": "urn:caeluviim:agent:hennepin-county-unidentified-nurse",
+      "to": "urn:caeluviim:institution:southside-harm-reduction-services",
+      "properties": {"status": "reported", "verification_state": "pending"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-claim-001-evidenced-by-obs-001",
+      "type": "EVIDENCED_BY",
+      "from": "urn:caeluviim:claim:mat-sshr-contact-generation-function",
+      "to": "urn:caeluviim:evidence:mat-sshr-obs-001",
+      "properties": {"strength": "insufficient", "status": "reported_observation_only"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-claim-002-evidenced-by-obs-004",
+      "type": "EVIDENCED_BY",
+      "from": "urn:caeluviim:claim:mat-sshr-operational-cross-subsidy",
+      "to": "urn:caeluviim:evidence:mat-sshr-obs-004",
+      "properties": {"strength": "insufficient", "status": "mixed_observation_and_inference"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-claim-005-evidenced-by-obs-002",
+      "type": "EVIDENCED_BY",
+      "from": "urn:caeluviim:claim:mat-sshr-spatial-euphemism-opacity",
+      "to": "urn:caeluviim:evidence:mat-sshr-obs-002",
+      "properties": {"strength": "insufficient", "status": "reported_phrase"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-claim-006-evidenced-by-obs-003",
+      "type": "EVIDENCED_BY",
+      "from": "urn:caeluviim:claim:mat-sshr-unsupported-compliance-representation",
+      "to": "urn:caeluviim:evidence:mat-sshr-obs-003",
+      "properties": {"strength": "insufficient", "status": "reported_recollection"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-claim-007-derived-from-claim-001",
+      "type": "DERIVED_FROM",
+      "from": "urn:caeluviim:claim:mat-sshr-public-framing-reverses-causation",
+      "to": "urn:caeluviim:claim:mat-sshr-contact-generation-function",
+      "properties": {"status": "analytical_derivation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-claim-003-extends-claim-001",
+      "type": "EXTENDS",
+      "from": "urn:caeluviim:claim:mat-sshr-pathology-funded-service-conversion",
+      "to": "urn:caeluviim:claim:mat-sshr-contact-generation-function",
+      "properties": {"status": "analytical_extension"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-claim-004-extends-claim-003",
+      "type": "EXTENDS",
+      "from": "urn:caeluviim:claim:mat-sshr-narrowed-harm-definition",
+      "to": "urn:caeluviim:claim:mat-sshr-pathology-funded-service-conversion",
+      "properties": {"status": "analytical_extension"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-claim-001-targets-sshr",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:claim:mat-sshr-contact-generation-function",
+      "to": "urn:caeluviim:institution:southside-harm-reduction-services",
+      "properties": {"status": "pending_validation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-claim-002-targets-sshr",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:claim:mat-sshr-operational-cross-subsidy",
+      "to": "urn:caeluviim:institution:southside-harm-reduction-services",
+      "properties": {"status": "pending_validation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-claim-006-targets-agent",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:claim:mat-sshr-unsupported-compliance-representation",
+      "to": "urn:caeluviim:agent:sshr-unidentified-organizational-agent",
+      "properties": {"status": "pending_validation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-task-funding-part-of-project",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:task:mat-sshr-funding-cost-allocation-audit",
+      "to": "urn:caeluviim:project:mat-sshr-2026-07-31-001",
+      "properties": {"priority": "high"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-task-clinical-part-of-project",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:task:mat-sshr-clinical-authority-audit",
+      "to": "urn:caeluviim:project:mat-sshr-2026-07-31-001",
+      "properties": {"priority": "high"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-task-flow-part-of-project",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:task:mat-sshr-service-flow-analysis",
+      "to": "urn:caeluviim:project:mat-sshr-2026-07-31-001",
+      "properties": {"priority": "high"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-task-representation-part-of-project",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:task:mat-sshr-representation-preservation",
+      "to": "urn:caeluviim:project:mat-sshr-2026-07-31-001",
+      "properties": {"priority": "high"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-task-funding-targets-claim-002",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:task:mat-sshr-funding-cost-allocation-audit",
+      "to": "urn:caeluviim:claim:mat-sshr-operational-cross-subsidy",
+      "properties": {"purpose": "validation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-task-clinical-targets-claim-006",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:task:mat-sshr-clinical-authority-audit",
+      "to": "urn:caeluviim:claim:mat-sshr-unsupported-compliance-representation",
+      "properties": {"purpose": "validation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-task-flow-targets-claim-001",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:task:mat-sshr-service-flow-analysis",
+      "to": "urn:caeluviim:claim:mat-sshr-contact-generation-function",
+      "properties": {"purpose": "validation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-task-representation-targets-obs-003",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:task:mat-sshr-representation-preservation",
+      "to": "urn:caeluviim:evidence:mat-sshr-obs-003",
+      "properties": {"purpose": "corroboration"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-artifact-part-of-project",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:artifact:mat-sshr-source-record-v0-1",
+      "to": "urn:caeluviim:project:mat-sshr-2026-07-31-001",
+      "properties": {"status": "captured"}
+    }
+  ]
+}
