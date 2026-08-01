@@ -101,7 +101,9 @@
               "Schema",
               "Dataset",
               "Projection",
-              "ValidationResult"
+              "ValidationResult",
+              "Source",
+              "Event"
             ]
           }
         },
@@ -138,7 +140,11 @@
             "IMPLEMENTS",
             "PROJECTS_TO",
             "HAS_ANCHOR",
-            "ANALOG_OF"
+            "ANALOG_OF",
+            "ORIGINATED",
+            "MATERIALIZED",
+            "PARTICIPATED_IN",
+            "AUTHORIZED"
           ]
         },
         "from": {"type": "string", "format": "uri", "minLength": 8},
