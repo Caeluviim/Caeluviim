@@ -1,0 +1,4 @@
+Allocation Register
+Version: 2
+Effective: 2026-07-01
+Priority Rule v2 permits every district household to request up to four service hours per week.

@@ -1,0 +1,326 @@
+@prefix acq: <https://caeluviim.org/ontology/source-acquisition#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:caeluviim:acquisition:manifest:allocation-register-lifecycle>
+    a acq:AcquisitionManifest ;
+    acq:createdAt "2026-07-29T19:00:00Z"^^xsd:dateTime ;
+    acq:createdBy <urn:caeluviim:agent:source-acquisition-proposer> ;
+    acq:sourceAuthorityAssessed false ;
+    acq:claimSupportAssessed false ;
+    acq:truthAssessed false ;
+    acq:hasSourceRequest
+        <urn:caeluviim:source-request:allocation-register:v1>,
+        <urn:caeluviim:source-request:allocation-register:v2>,
+        <urn:caeluviim:source-request:restricted-audit>,
+        <urn:caeluviim:source-request:allocation-bulletin-2026q3> ;
+    acq:hasRetrievalAttempt
+        <urn:caeluviim:retrieval-attempt:allocation-register:v1>,
+        <urn:caeluviim:retrieval-attempt:allocation-register:v2>,
+        <urn:caeluviim:retrieval-attempt:restricted-audit>,
+        <urn:caeluviim:retrieval-attempt:allocation-bulletin-2026q3> ;
+    acq:hasRetrievedRepresentation
+        <urn:caeluviim:retrieved-representation:allocation-register:v1>,
+        <urn:caeluviim:retrieved-representation:allocation-register:v2>,
+        <urn:caeluviim:retrieved-representation:allocation-bulletin-2026q3> ;
+    acq:hasCanonicalSourceIdentity
+        <urn:caeluviim:canonical-source:allocation-register>,
+        <urn:caeluviim:canonical-source:allocation-bulletin-2026q3> ;
+    acq:hasSourceVersion
+        <urn:caeluviim:source-version:allocation-register:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972>,
+        <urn:caeluviim:source-version:allocation-register:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb>,
+        <urn:caeluviim:source-version:allocation-bulletin-2026q3:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929> ;
+    acq:hasSnapshotFixation
+        <urn:caeluviim:snapshot-fixation:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972>,
+        <urn:caeluviim:snapshot-fixation:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb>,
+        <urn:caeluviim:snapshot-fixation:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929> ;
+    acq:hasAcquisitionFailure
+        <urn:caeluviim:acquisition-failure:restricted-audit:blocked> ;
+    acq:hasChangeEvent
+        <urn:caeluviim:change-event:allocation-register:v1-to-v2> ;
+    acq:hasSupersessionRelation
+        <urn:caeluviim:supersession:allocation-register:v1-to-v2> ;
+    acq:hasAvailabilityObservation
+        <urn:caeluviim:availability:allocation-register:v1>,
+        <urn:caeluviim:availability:allocation-register:v2>,
+        <urn:caeluviim:availability:restricted-audit>,
+        <urn:caeluviim:availability:allocation-bulletin-2026q3> .
+
+<urn:caeluviim:source-request:allocation-register:v1>
+    a acq:SourceRequest ;
+    acq:requestedURI "https://records.example.invalid/allocation-register"^^xsd:anyURI ;
+    acq:discoveryMethod "Published records index entry" ;
+    acq:requestedAt "2026-06-15T12:00:00Z"^^xsd:dateTime ;
+    acq:requestingAgent <urn:caeluviim:agent:source-acquisition-proposer> .
+
+<urn:caeluviim:source-request:allocation-register:v2>
+    a acq:SourceRequest ;
+    acq:requestedURI "https://records.example.invalid/allocation-register"^^xsd:anyURI ;
+    acq:discoveryMethod "Scheduled mutable-source recheck" ;
+    acq:requestedAt "2026-07-15T12:00:00Z"^^xsd:dateTime ;
+    acq:requestingAgent <urn:caeluviim:agent:source-acquisition-proposer> .
+
+<urn:caeluviim:source-request:restricted-audit>
+    a acq:SourceRequest ;
+    acq:requestedURI "https://records.example.invalid/restricted-audit"^^xsd:anyURI ;
+    acq:discoveryMethod "Reference in public allocation register" ;
+    acq:requestedAt "2026-07-15T12:05:00Z"^^xsd:dateTime ;
+    acq:requestingAgent <urn:caeluviim:agent:source-acquisition-proposer> .
+
+<urn:caeluviim:source-request:allocation-bulletin-2026q3>
+    a acq:SourceRequest ;
+    acq:requestedURI "https://example.invalid/records/allocation-bulletin-2026q3"^^xsd:anyURI ;
+    acq:discoveryMethod "Official bulletin index" ;
+    acq:requestedAt "2026-07-29T16:54:00Z"^^xsd:dateTime ;
+    acq:requestingAgent <urn:caeluviim:agent:source-acquisition-proposer> .
+
+<urn:caeluviim:retrieval-attempt:allocation-register:v1>
+    a acq:RetrievalAttempt ;
+    acq:request <urn:caeluviim:source-request:allocation-register:v1> ;
+    acq:requestedURI "https://records.example.invalid/allocation-register"^^xsd:anyURI ;
+    acq:startedAt "2026-06-15T12:00:01Z"^^xsd:dateTime ;
+    acq:completedAt "2026-06-15T12:00:03Z"^^xsd:dateTime ;
+    acq:transport "https" ;
+    acq:retrievalOutcome "successful" ;
+    acq:finalURI "https://cdn.example.invalid/records/allocation-register.txt"^^xsd:anyURI ;
+    acq:representation <urn:caeluviim:retrieved-representation:allocation-register:v1> ;
+    acq:redirectHop
+        <urn:caeluviim:redirect-hop:allocation-register:v1:0>,
+        <urn:caeluviim:redirect-hop:allocation-register:v1:1> .
+
+<urn:caeluviim:redirect-hop:allocation-register:v1:0>
+    a acq:RedirectHop ;
+    acq:hopSequence 0 ;
+    acq:requestedURI "https://records.example.invalid/allocation-register"^^xsd:anyURI ;
+    acq:statusCode 302 ;
+    acq:locationURI "https://cdn.example.invalid/records/allocation-register.txt"^^xsd:anyURI .
+
+<urn:caeluviim:redirect-hop:allocation-register:v1:1>
+    a acq:RedirectHop ;
+    acq:hopSequence 1 ;
+    acq:requestedURI "https://cdn.example.invalid/records/allocation-register.txt"^^xsd:anyURI ;
+    acq:statusCode 200 .
+
+<urn:caeluviim:retrieval-attempt:allocation-register:v2>
+    a acq:RetrievalAttempt ;
+    acq:request <urn:caeluviim:source-request:allocation-register:v2> ;
+    acq:requestedURI "https://records.example.invalid/allocation-register"^^xsd:anyURI ;
+    acq:startedAt "2026-07-15T12:00:01Z"^^xsd:dateTime ;
+    acq:completedAt "2026-07-15T12:00:03Z"^^xsd:dateTime ;
+    acq:transport "https" ;
+    acq:retrievalOutcome "successful" ;
+    acq:finalURI "https://cdn.example.invalid/records/allocation-register.txt"^^xsd:anyURI ;
+    acq:representation <urn:caeluviim:retrieved-representation:allocation-register:v2> ;
+    acq:redirectHop
+        <urn:caeluviim:redirect-hop:allocation-register:v2:0>,
+        <urn:caeluviim:redirect-hop:allocation-register:v2:1> .
+
+<urn:caeluviim:redirect-hop:allocation-register:v2:0>
+    a acq:RedirectHop ;
+    acq:hopSequence 0 ;
+    acq:requestedURI "https://records.example.invalid/allocation-register"^^xsd:anyURI ;
+    acq:statusCode 302 ;
+    acq:locationURI "https://cdn.example.invalid/records/allocation-register.txt"^^xsd:anyURI .
+
+<urn:caeluviim:redirect-hop:allocation-register:v2:1>
+    a acq:RedirectHop ;
+    acq:hopSequence 1 ;
+    acq:requestedURI "https://cdn.example.invalid/records/allocation-register.txt"^^xsd:anyURI ;
+    acq:statusCode 200 .
+
+<urn:caeluviim:retrieval-attempt:restricted-audit>
+    a acq:RetrievalAttempt ;
+    acq:request <urn:caeluviim:source-request:restricted-audit> ;
+    acq:requestedURI "https://records.example.invalid/restricted-audit"^^xsd:anyURI ;
+    acq:startedAt "2026-07-15T12:05:01Z"^^xsd:dateTime ;
+    acq:completedAt "2026-07-15T12:05:02Z"^^xsd:dateTime ;
+    acq:transport "https" ;
+    acq:retrievalOutcome "blocked" ;
+    acq:failure <urn:caeluviim:acquisition-failure:restricted-audit:blocked> ;
+    acq:redirectHop <urn:caeluviim:redirect-hop:restricted-audit:0> .
+
+<urn:caeluviim:redirect-hop:restricted-audit:0>
+    a acq:RedirectHop ;
+    acq:hopSequence 0 ;
+    acq:requestedURI "https://records.example.invalid/restricted-audit"^^xsd:anyURI ;
+    acq:statusCode 403 .
+
+<urn:caeluviim:retrieval-attempt:allocation-bulletin-2026q3>
+    a acq:RetrievalAttempt ;
+    acq:request <urn:caeluviim:source-request:allocation-bulletin-2026q3> ;
+    acq:requestedURI "https://example.invalid/records/allocation-bulletin-2026q3"^^xsd:anyURI ;
+    acq:startedAt "2026-07-29T16:54:01Z"^^xsd:dateTime ;
+    acq:completedAt "2026-07-29T16:54:03Z"^^xsd:dateTime ;
+    acq:transport "https" ;
+    acq:retrievalOutcome "successful" ;
+    acq:finalURI "https://example.invalid/records/allocation-bulletin-2026q3"^^xsd:anyURI ;
+    acq:representation <urn:caeluviim:retrieved-representation:allocation-bulletin-2026q3> ;
+    acq:redirectHop <urn:caeluviim:redirect-hop:allocation-bulletin-2026q3:0> .
+
+<urn:caeluviim:redirect-hop:allocation-bulletin-2026q3:0>
+    a acq:RedirectHop ;
+    acq:hopSequence 0 ;
+    acq:requestedURI "https://example.invalid/records/allocation-bulletin-2026q3"^^xsd:anyURI ;
+    acq:statusCode 200 .
+
+<urn:caeluviim:retrieved-representation:allocation-register:v1>
+    a acq:RetrievedRepresentation ;
+    acq:attempt <urn:caeluviim:retrieval-attempt:allocation-register:v1> ;
+    acq:finalURI "https://cdn.example.invalid/records/allocation-register.txt"^^xsd:anyURI ;
+    acq:canonicalIdentity <urn:caeluviim:canonical-source:allocation-register> ;
+    acq:retrievedAt "2026-06-15T12:00:03Z"^^xsd:dateTime ;
+    acq:statusCode 200 ;
+    acq:mediaType "text/plain; charset=utf-8" ;
+    acq:responseHeader "content-type: text/plain; charset=utf-8", "etag: \"allocation-register-v1\"", "last-modified: Mon, 01 Jun 2026 09:00:00 GMT" ;
+    acq:contentPath "examples/source-acquisition/representations/allocation-register-v1.txt" ;
+    acq:byteLength 144 ;
+    acq:sha256 "6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972" .
+
+<urn:caeluviim:retrieved-representation:allocation-register:v2>
+    a acq:RetrievedRepresentation ;
+    acq:attempt <urn:caeluviim:retrieval-attempt:allocation-register:v2> ;
+    acq:finalURI "https://cdn.example.invalid/records/allocation-register.txt"^^xsd:anyURI ;
+    acq:canonicalIdentity <urn:caeluviim:canonical-source:allocation-register> ;
+    acq:retrievedAt "2026-07-15T12:00:03Z"^^xsd:dateTime ;
+    acq:statusCode 200 ;
+    acq:mediaType "text/plain; charset=utf-8" ;
+    acq:responseHeader "content-type: text/plain; charset=utf-8", "etag: \"allocation-register-v2\"", "last-modified: Wed, 01 Jul 2026 09:00:00 GMT" ;
+    acq:contentPath "examples/source-acquisition/representations/allocation-register-v2.txt" ;
+    acq:byteLength 149 ;
+    acq:sha256 "36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb" .
+
+<urn:caeluviim:retrieved-representation:allocation-bulletin-2026q3>
+    a acq:RetrievedRepresentation ;
+    acq:attempt <urn:caeluviim:retrieval-attempt:allocation-bulletin-2026q3> ;
+    acq:finalURI "https://example.invalid/records/allocation-bulletin-2026q3"^^xsd:anyURI ;
+    acq:canonicalIdentity <urn:caeluviim:canonical-source:allocation-bulletin-2026q3> ;
+    acq:retrievedAt "2026-07-29T16:54:03Z"^^xsd:dateTime ;
+    acq:statusCode 200 ;
+    acq:mediaType "text/plain; charset=utf-8" ;
+    acq:responseHeader "content-type: text/plain; charset=utf-8", "etag: \"allocation-bulletin-2026q3\"" ;
+    acq:contentPath "examples/evidence-intake/source/allocation-bulletin-2026q3.txt" ;
+    acq:byteLength 350 ;
+    acq:sha256 "7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929" .
+
+<urn:caeluviim:canonical-source:allocation-register>
+    a acq:CanonicalSourceIdentity ;
+    acq:canonicalURI "https://records.example.invalid/allocation-register"^^xsd:anyURI ;
+    acq:identificationMethod "Stable publisher record identity after redirect resolution" .
+
+<urn:caeluviim:canonical-source:allocation-bulletin-2026q3>
+    a acq:CanonicalSourceIdentity ;
+    acq:canonicalURI "https://example.invalid/records/allocation-bulletin-2026q3"^^xsd:anyURI ;
+    acq:identificationMethod "Final URI matched official bulletin identifier" .
+
+<urn:caeluviim:source-version:allocation-register:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972>
+    a acq:SourceVersion ;
+    acq:canonicalIdentity <urn:caeluviim:canonical-source:allocation-register> ;
+    acq:representation <urn:caeluviim:retrieved-representation:allocation-register:v1> ;
+    acq:fixedBy <urn:caeluviim:snapshot-fixation:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972> ;
+    acq:observedAt "2026-06-15T12:00:03Z"^^xsd:dateTime ;
+    acq:sha256 "6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972" .
+
+<urn:caeluviim:source-version:allocation-register:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb>
+    a acq:SourceVersion ;
+    acq:canonicalIdentity <urn:caeluviim:canonical-source:allocation-register> ;
+    acq:representation <urn:caeluviim:retrieved-representation:allocation-register:v2> ;
+    acq:fixedBy <urn:caeluviim:snapshot-fixation:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb> ;
+    acq:observedAt "2026-07-15T12:00:03Z"^^xsd:dateTime ;
+    acq:sha256 "36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb" .
+
+<urn:caeluviim:source-version:allocation-bulletin-2026q3:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929>
+    a acq:SourceVersion ;
+    acq:canonicalIdentity <urn:caeluviim:canonical-source:allocation-bulletin-2026q3> ;
+    acq:representation <urn:caeluviim:retrieved-representation:allocation-bulletin-2026q3> ;
+    acq:fixedBy <urn:caeluviim:snapshot-fixation:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929> ;
+    acq:observedAt "2026-07-29T16:54:03Z"^^xsd:dateTime ;
+    acq:sha256 "7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929" .
+
+<urn:caeluviim:snapshot-fixation:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972>
+    a acq:SnapshotFixation ;
+    acq:representation <urn:caeluviim:retrieved-representation:allocation-register:v1> ;
+    acq:snapshotID <urn:caeluviim:snapshot:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972> ;
+    acq:contentPath "examples/source-acquisition/representations/allocation-register-v1.txt" ;
+    acq:fixedAt "2026-06-15T12:00:04Z"^^xsd:dateTime ;
+    acq:hashAlgorithm "sha256" ;
+    acq:byteLength 144 ;
+    acq:sha256 "6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972" ;
+    acq:immutable true .
+
+<urn:caeluviim:snapshot-fixation:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb>
+    a acq:SnapshotFixation ;
+    acq:representation <urn:caeluviim:retrieved-representation:allocation-register:v2> ;
+    acq:snapshotID <urn:caeluviim:snapshot:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb> ;
+    acq:contentPath "examples/source-acquisition/representations/allocation-register-v2.txt" ;
+    acq:fixedAt "2026-07-15T12:00:04Z"^^xsd:dateTime ;
+    acq:hashAlgorithm "sha256" ;
+    acq:byteLength 149 ;
+    acq:sha256 "36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb" ;
+    acq:immutable true .
+
+<urn:caeluviim:snapshot-fixation:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929>
+    a acq:SnapshotFixation ;
+    acq:representation <urn:caeluviim:retrieved-representation:allocation-bulletin-2026q3> ;
+    acq:snapshotID <urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929> ;
+    acq:contentPath "examples/evidence-intake/source/allocation-bulletin-2026q3.txt" ;
+    acq:fixedAt "2026-07-29T16:54:04Z"^^xsd:dateTime ;
+    acq:hashAlgorithm "sha256" ;
+    acq:byteLength 350 ;
+    acq:sha256 "7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929" ;
+    acq:immutable true .
+
+<urn:caeluviim:acquisition-failure:restricted-audit:blocked>
+    a acq:AcquisitionFailure ;
+    acq:attempt <urn:caeluviim:retrieval-attempt:restricted-audit> ;
+    acq:failureCategory "access_blocked" ;
+    acq:observedAt "2026-07-15T12:05:02Z"^^xsd:dateTime ;
+    acq:failureDetail "Server returned HTTP 403; no representation was captured." ;
+    acq:evidentiaryAbsenceInferred false .
+
+<urn:caeluviim:change-event:allocation-register:v1-to-v2>
+    a acq:ChangeEvent ;
+    acq:canonicalIdentity <urn:caeluviim:canonical-source:allocation-register> ;
+    acq:previousVersion <urn:caeluviim:source-version:allocation-register:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972> ;
+    acq:nextVersion <urn:caeluviim:source-version:allocation-register:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb> ;
+    acq:detectedAt "2026-07-15T12:00:05Z"^^xsd:dateTime ;
+    acq:comparisonMethod "sha256_digest_comparison" ;
+    acq:previousSHA256 "6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972" ;
+    acq:nextSHA256 "36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb" ;
+    acq:bytesChanged true .
+
+<urn:caeluviim:supersession:allocation-register:v1-to-v2>
+    a acq:SupersessionRelation ;
+    acq:supersededVersion <urn:caeluviim:source-version:allocation-register:sha256:6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972> ;
+    acq:supersedingVersion <urn:caeluviim:source-version:allocation-register:sha256:36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb> ;
+    acq:supersessionReason "content_changed" .
+
+<urn:caeluviim:availability:allocation-register:v1>
+    a acq:SourceAvailabilityObservation ;
+    acq:request <urn:caeluviim:source-request:allocation-register:v1> ;
+    acq:attempt <urn:caeluviim:retrieval-attempt:allocation-register:v1> ;
+    acq:availabilityStatus "available" ;
+    acq:observedAt "2026-06-15T12:00:03Z"^^xsd:dateTime ;
+    acq:evidentiaryAbsenceInferred false .
+
+<urn:caeluviim:availability:allocation-register:v2>
+    a acq:SourceAvailabilityObservation ;
+    acq:request <urn:caeluviim:source-request:allocation-register:v2> ;
+    acq:attempt <urn:caeluviim:retrieval-attempt:allocation-register:v2> ;
+    acq:availabilityStatus "available" ;
+    acq:observedAt "2026-07-15T12:00:03Z"^^xsd:dateTime ;
+    acq:evidentiaryAbsenceInferred false .
+
+<urn:caeluviim:availability:restricted-audit>
+    a acq:SourceAvailabilityObservation ;
+    acq:request <urn:caeluviim:source-request:restricted-audit> ;
+    acq:attempt <urn:caeluviim:retrieval-attempt:restricted-audit> ;
+    acq:availabilityStatus "blocked" ;
+    acq:observedAt "2026-07-15T12:05:02Z"^^xsd:dateTime ;
+    acq:evidentiaryAbsenceInferred false .
+
+<urn:caeluviim:availability:allocation-bulletin-2026q3>
+    a acq:SourceAvailabilityObservation ;
+    acq:request <urn:caeluviim:source-request:allocation-bulletin-2026q3> ;
+    acq:attempt <urn:caeluviim:retrieval-attempt:allocation-bulletin-2026q3> ;
+    acq:availabilityStatus "available" ;
+    acq:observedAt "2026-07-29T16:54:03Z"^^xsd:dateTime ;
+    acq:evidentiaryAbsenceInferred false .

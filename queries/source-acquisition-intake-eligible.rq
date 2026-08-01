@@ -1,0 +1,13 @@
+PREFIX acq: <https://caeluviim.org/ontology/source-acquisition#>
+
+SELECT ?snapshot ?version ?fixation ?digest ?contentPath
+WHERE {
+  GRAPH ?graph {
+    ?snapshot a acq:IntakeEligibleSnapshot ;
+      acq:sourceVersion ?version ;
+      acq:fixedBy ?fixation ;
+      acq:sha256 ?digest ;
+      acq:contentPath ?contentPath .
+  }
+}
+ORDER BY ?snapshot

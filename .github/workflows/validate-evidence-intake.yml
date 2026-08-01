@@ -1,0 +1,79 @@
+name: Validate evidence intake
+
+on:
+  push:
+    paths:
+      - "README.md"
+      - "docs/architecture/source-bound-evidence-intake.md"
+      - "schemas/evidence-intake-*.schema.json"
+      - "ontology/evidence-intake.ttl"
+      - "shapes/evidence-intake*.ttl"
+      - "examples/evidence-intake*"
+      - "governance/evidence-intake-v0.1.0.status.json"
+      - "src/evidence_intake/**"
+      - "scripts/evidence_intake.py"
+      - "queries/evidence-intake-*.rq"
+      - "tests/test_evidence_intake.py"
+      - "requirements-dev.txt"
+      - ".github/workflows/validate-evidence-intake.yml"
+  pull_request:
+    paths:
+      - "README.md"
+      - "docs/architecture/source-bound-evidence-intake.md"
+      - "schemas/evidence-intake-*.schema.json"
+      - "ontology/evidence-intake.ttl"
+      - "shapes/evidence-intake*.ttl"
+      - "examples/evidence-intake*"
+      - "governance/evidence-intake-v0.1.0.status.json"
+      - "src/evidence_intake/**"
+      - "scripts/evidence_intake.py"
+      - "queries/evidence-intake-*.rq"
+      - "tests/test_evidence_intake.py"
+      - "requirements-dev.txt"
+      - ".github/workflows/validate-evidence-intake.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: src
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python -m unittest discover -s tests -v
+      - run: |
+          pyshacl -a -i rdfs \
+            -s shapes/evidence-intake.shacl.ttl \
+            -e ontology/evidence-intake.ttl \
+            examples/evidence-intake-manifest.valid.ttl
+      - run: |
+          python scripts/evidence_intake.py --project-root . validate \
+            --manifest examples/evidence-intake-manifest.valid.json \
+            --rdf examples/evidence-intake-manifest.valid.ttl
+      - run: |
+          python scripts/evidence_intake.py --project-root . evaluate \
+            --manifest examples/evidence-intake-manifest.valid.json
+      - run: |
+          python scripts/evidence_intake.py --project-root . release \
+            --manifest examples/evidence-intake-manifest.valid.json \
+            --output released.json
+          python -c 'import json; p=json.load(open("released.json")); assert len(p["released_claims"]) == 1; assert "compound-coverage" not in json.dumps(p)'
+      - run: |
+          intake_runtime_dir="$(mktemp -d)"
+          python scripts/evidence_intake.py --project-root . ingest \
+            --manifest examples/evidence-intake-manifest.valid.json \
+            --rdf examples/evidence-intake-manifest.valid.ttl \
+            --store "$intake_runtime_dir/evidence-intake.trig" \
+            --graph-base urn:caeluviim:graph:evidence-intake:ci \
+            --output "$intake_runtime_dir/ingestion.json"
+          python -c 'import json,sys; p=json.load(open(sys.argv[1])); assert p["graphs_disjoint"] is True; assert p["released_claim_count"] == 1; assert p["quarantined_claim_count"] == 1' "$intake_runtime_dir/ingestion.json"
+          python scripts/evidence_intake.py --project-root . query \
+            --store "$intake_runtime_dir/evidence-intake.trig" \
+            --sparql-file queries/evidence-intake-quarantine.rq
+          python scripts/evidence_intake.py --project-root . query \
+            --store "$intake_runtime_dir/evidence-intake.trig" \
+            --sparql-file queries/evidence-intake-released-assertions.rq

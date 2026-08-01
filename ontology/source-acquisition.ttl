@@ -1,0 +1,280 @@
+@prefix acq: <https://caeluviim.org/ontology/source-acquisition#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://caeluviim.org/ontology/source-acquisition>
+    a owl:Ontology ;
+    rdfs:label "Caeluviim Source Acquisition and Lifecycle Ontology" ;
+    rdfs:comment "Faithful retrieval, content-addressed fixation, version comparison, and intake eligibility. Acquisition does not establish authority, claim support, or truth." ;
+    owl:versionInfo "0.1.0" .
+
+acq:AcquisitionManifest a owl:Class ;
+    rdfs:label "Acquisition Manifest" .
+
+acq:SourceRequest a owl:Class ;
+    rdfs:label "Source Request" .
+
+acq:RetrievalAttempt a owl:Class ;
+    rdfs:label "Retrieval Attempt" .
+
+acq:RedirectHop a owl:Class ;
+    rdfs:label "Redirect Hop" .
+
+acq:RetrievedRepresentation a owl:Class ;
+    rdfs:label "Retrieved Representation" .
+
+acq:CanonicalSourceIdentity a owl:Class ;
+    rdfs:label "Canonical Source Identity" .
+
+acq:SourceVersion a owl:Class ;
+    rdfs:label "Source Version" .
+
+acq:SnapshotFixation a owl:Class ;
+    rdfs:label "Snapshot Fixation" .
+
+acq:AcquisitionFailure a owl:Class ;
+    rdfs:label "Acquisition Failure" .
+
+acq:ChangeEvent a owl:Class ;
+    rdfs:label "Change Event" .
+
+acq:SupersessionRelation a owl:Class ;
+    rdfs:label "Supersession Relation" .
+
+acq:SourceAvailabilityObservation a owl:Class ;
+    rdfs:label "Source Availability Observation" .
+
+acq:AcquisitionAssessment a owl:Class ;
+    rdfs:label "Acquisition Assessment" .
+
+acq:AcquisitionFailureFact a owl:Class ;
+    rdfs:label "Acquisition Failure Fact" .
+
+acq:IntakeEligibleSnapshot a owl:Class ;
+    rdfs:label "Intake-Eligible Snapshot" .
+
+acq:IneligibleAttempt a owl:Class ;
+    rdfs:label "Ineligible Attempt" .
+
+acq:AcquisitionGraphSet a owl:Class ;
+    rdfs:label "Acquisition Graph Set" .
+
+acq:manifest a owl:ObjectProperty ;
+    rdfs:domain acq:AcquisitionGraphSet ;
+    rdfs:range acq:AcquisitionManifest .
+
+acq:hasSourceRequest a owl:ObjectProperty ;
+    rdfs:domain acq:AcquisitionManifest ;
+    rdfs:range acq:SourceRequest .
+
+acq:hasRetrievalAttempt a owl:ObjectProperty ;
+    rdfs:domain acq:AcquisitionManifest ;
+    rdfs:range acq:RetrievalAttempt .
+
+acq:hasRetrievedRepresentation a owl:ObjectProperty ;
+    rdfs:domain acq:AcquisitionManifest ;
+    rdfs:range acq:RetrievedRepresentation .
+
+acq:hasCanonicalSourceIdentity a owl:ObjectProperty ;
+    rdfs:domain acq:AcquisitionManifest ;
+    rdfs:range acq:CanonicalSourceIdentity .
+
+acq:hasSourceVersion a owl:ObjectProperty ;
+    rdfs:domain acq:AcquisitionManifest ;
+    rdfs:range acq:SourceVersion .
+
+acq:hasSnapshotFixation a owl:ObjectProperty ;
+    rdfs:domain acq:AcquisitionManifest ;
+    rdfs:range acq:SnapshotFixation .
+
+acq:hasAcquisitionFailure a owl:ObjectProperty ;
+    rdfs:domain acq:AcquisitionManifest ;
+    rdfs:range acq:AcquisitionFailure .
+
+acq:hasChangeEvent a owl:ObjectProperty ;
+    rdfs:domain acq:AcquisitionManifest ;
+    rdfs:range acq:ChangeEvent .
+
+acq:hasSupersessionRelation a owl:ObjectProperty ;
+    rdfs:domain acq:AcquisitionManifest ;
+    rdfs:range acq:SupersessionRelation .
+
+acq:hasAvailabilityObservation a owl:ObjectProperty ;
+    rdfs:domain acq:AcquisitionManifest ;
+    rdfs:range acq:SourceAvailabilityObservation .
+
+acq:request a owl:ObjectProperty ;
+    rdfs:range acq:SourceRequest .
+
+acq:attempt a owl:ObjectProperty ;
+    rdfs:range acq:RetrievalAttempt .
+
+acq:representation a owl:ObjectProperty ;
+    rdfs:range acq:RetrievedRepresentation .
+
+acq:canonicalIdentity a owl:ObjectProperty ;
+    rdfs:range acq:CanonicalSourceIdentity .
+
+acq:sourceVersion a owl:ObjectProperty ;
+    rdfs:range acq:SourceVersion .
+
+acq:fixedBy a owl:ObjectProperty ;
+    rdfs:range acq:SnapshotFixation .
+
+acq:failure a owl:ObjectProperty ;
+    rdfs:range acq:AcquisitionFailure .
+
+acq:redirectHop a owl:ObjectProperty ;
+    rdfs:range acq:RedirectHop .
+
+acq:previousVersion a owl:ObjectProperty ;
+    rdfs:range acq:SourceVersion .
+
+acq:nextVersion a owl:ObjectProperty ;
+    rdfs:range acq:SourceVersion .
+
+acq:supersededVersion a owl:ObjectProperty ;
+    rdfs:range acq:SourceVersion .
+
+acq:supersedingVersion a owl:ObjectProperty ;
+    rdfs:range acq:SourceVersion .
+
+acq:assessment a owl:ObjectProperty ;
+    rdfs:range acq:AcquisitionAssessment .
+
+acq:failureSubject a owl:ObjectProperty .
+
+acq:requestedURI a owl:DatatypeProperty ;
+    rdfs:range xsd:anyURI .
+
+acq:finalURI a owl:DatatypeProperty ;
+    rdfs:range xsd:anyURI .
+
+acq:canonicalURI a owl:DatatypeProperty ;
+    rdfs:range xsd:anyURI .
+
+acq:locationURI a owl:DatatypeProperty ;
+    rdfs:range xsd:anyURI .
+
+acq:discoveryMethod a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:identificationMethod a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:requestingAgent a owl:ObjectProperty .
+
+acq:createdBy a owl:ObjectProperty .
+
+acq:createdAt a owl:DatatypeProperty ;
+    rdfs:range xsd:dateTime .
+
+acq:requestedAt a owl:DatatypeProperty ;
+    rdfs:range xsd:dateTime .
+
+acq:startedAt a owl:DatatypeProperty ;
+    rdfs:range xsd:dateTime .
+
+acq:completedAt a owl:DatatypeProperty ;
+    rdfs:range xsd:dateTime .
+
+acq:retrievedAt a owl:DatatypeProperty ;
+    rdfs:range xsd:dateTime .
+
+acq:fixedAt a owl:DatatypeProperty ;
+    rdfs:range xsd:dateTime .
+
+acq:observedAt a owl:DatatypeProperty ;
+    rdfs:range xsd:dateTime .
+
+acq:detectedAt a owl:DatatypeProperty ;
+    rdfs:range xsd:dateTime .
+
+acq:transport a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:retrievalOutcome a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:hopSequence a owl:DatatypeProperty ;
+    rdfs:range xsd:integer .
+
+acq:statusCode a owl:DatatypeProperty ;
+    rdfs:range xsd:integer .
+
+acq:mediaType a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:responseHeader a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:contentPath a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:byteLength a owl:DatatypeProperty ;
+    rdfs:range xsd:integer .
+
+acq:sha256 a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:snapshotID a owl:DatatypeProperty ;
+    rdfs:range xsd:anyURI .
+
+acq:hashAlgorithm a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:immutable a owl:DatatypeProperty ;
+    rdfs:range xsd:boolean .
+
+acq:failureCategory a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:failureDetail a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:availabilityStatus a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:evidentiaryAbsenceInferred a owl:DatatypeProperty ;
+    rdfs:range xsd:boolean .
+
+acq:comparisonMethod a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:previousSHA256 a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:nextSHA256 a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:bytesChanged a owl:DatatypeProperty ;
+    rdfs:range xsd:boolean .
+
+acq:supersessionReason a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:sourceAuthorityAssessed a owl:DatatypeProperty ;
+    rdfs:range xsd:boolean .
+
+acq:claimSupportAssessed a owl:DatatypeProperty ;
+    rdfs:range xsd:boolean .
+
+acq:truthAssessed a owl:DatatypeProperty ;
+    rdfs:range xsd:boolean .
+
+acq:manifestDigest a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:assessmentDigest a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:pipelineResult a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:failureCode a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+acq:failureMessage a owl:DatatypeProperty ;
+    rdfs:range xsd:string .

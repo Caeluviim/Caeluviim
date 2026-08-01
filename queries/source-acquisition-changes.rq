@@ -1,0 +1,13 @@
+PREFIX acq: <https://caeluviim.org/ontology/source-acquisition#>
+
+SELECT DISTINCT ?change ?previousVersion ?nextVersion ?previousDigest ?nextDigest
+WHERE {
+  GRAPH ?graph {
+    ?change a acq:ChangeEvent ;
+      acq:previousVersion ?previousVersion ;
+      acq:nextVersion ?nextVersion .
+    ?previousVersion acq:sha256 ?previousDigest .
+    ?nextVersion acq:sha256 ?nextDigest .
+  }
+}
+ORDER BY ?change

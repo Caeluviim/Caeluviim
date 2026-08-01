@@ -1,0 +1,4 @@
+Allocation Register
+Version: 1
+Effective: 2026-06-01
+Priority Rule v1 assigns service hours only after an individual eligibility determination.

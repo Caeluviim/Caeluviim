@@ -1,0 +1,631 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schema/source-acquisition-manifest.schema.json",
+  "title": "Caeluviim Source Acquisition Manifest",
+  "description": "Faithful retrieval, byte-exact fixation, and version-aware intake eligibility. Conformance does not establish source authority, claim support, or truth.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "manifest_id",
+    "pipeline_version",
+    "created_at",
+    "created_by_ref",
+    "authority_boundary",
+    "source_requests",
+    "retrieval_attempts",
+    "retrieved_representations",
+    "canonical_source_identities",
+    "source_versions",
+    "snapshot_fixations",
+    "acquisition_failures",
+    "change_events",
+    "supersession_relations",
+    "source_availability_observations"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://caeluviim.org/schema/source-acquisition-manifest.schema.json"
+    },
+    "manifest_id": {
+      "$ref": "#/$defs/uri"
+    },
+    "pipeline_version": {
+      "const": "0.1.0"
+    },
+    "created_at": {
+      "$ref": "#/$defs/dateTime"
+    },
+    "created_by_ref": {
+      "$ref": "#/$defs/uri"
+    },
+    "authority_boundary": {
+      "$ref": "#/$defs/authorityBoundary"
+    },
+    "source_requests": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/sourceRequest"
+      }
+    },
+    "retrieval_attempts": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/retrievalAttempt"
+      }
+    },
+    "retrieved_representations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/retrievedRepresentation"
+      }
+    },
+    "canonical_source_identities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/canonicalSourceIdentity"
+      }
+    },
+    "source_versions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/sourceVersion"
+      }
+    },
+    "snapshot_fixations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/snapshotFixation"
+      }
+    },
+    "acquisition_failures": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/acquisitionFailure"
+      }
+    },
+    "change_events": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/changeEvent"
+      }
+    },
+    "supersession_relations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/supersessionRelation"
+      }
+    },
+    "source_availability_observations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/sourceAvailabilityObservation"
+      }
+    }
+  },
+  "$defs": {
+    "uri": {
+      "type": "string",
+      "format": "uri",
+      "minLength": 1
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "contentPath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*\\.\\.)[A-Za-z0-9._/-]+$"
+    },
+    "authorityBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_authority_assessed",
+        "claim_support_assessed",
+        "truth_assessed"
+      ],
+      "properties": {
+        "source_authority_assessed": {
+          "const": false
+        },
+        "claim_support_assessed": {
+          "const": false
+        },
+        "truth_assessed": {
+          "const": false
+        }
+      }
+    },
+    "sourceRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request_id",
+        "requested_uri",
+        "discovery_method",
+        "requested_at",
+        "requesting_agent_ref"
+      ],
+      "properties": {
+        "request_id": {
+          "$ref": "#/$defs/uri"
+        },
+        "requested_uri": {
+          "$ref": "#/$defs/uri"
+        },
+        "discovery_method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requested_at": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "requesting_agent_ref": {
+          "$ref": "#/$defs/uri"
+        }
+      }
+    },
+    "redirectHop": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence",
+        "uri",
+        "status_code"
+      ],
+      "properties": {
+        "sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "uri": {
+          "$ref": "#/$defs/uri"
+        },
+        "status_code": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 599
+        },
+        "location_uri": {
+          "$ref": "#/$defs/uri"
+        }
+      }
+    },
+    "retrievalAttempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempt_id",
+        "request_ref",
+        "requested_uri",
+        "started_at",
+        "completed_at",
+        "transport",
+        "outcome",
+        "redirect_chain"
+      ],
+      "properties": {
+        "attempt_id": {
+          "$ref": "#/$defs/uri"
+        },
+        "request_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "requested_uri": {
+          "$ref": "#/$defs/uri"
+        },
+        "started_at": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "completed_at": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "transport": {
+          "enum": [
+            "https",
+            "http",
+            "file",
+            "other"
+          ]
+        },
+        "outcome": {
+          "enum": [
+            "successful",
+            "failed",
+            "blocked"
+          ]
+        },
+        "redirect_chain": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/redirectHop"
+          }
+        },
+        "final_uri": {
+          "$ref": "#/$defs/uri"
+        },
+        "representation_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "failure_ref": {
+          "$ref": "#/$defs/uri"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "successful"
+              }
+            },
+            "required": [
+              "outcome"
+            ]
+          },
+          "then": {
+            "required": [
+              "final_uri",
+              "representation_ref"
+            ],
+            "not": {
+              "required": [
+                "failure_ref"
+              ]
+            }
+          },
+          "else": {
+            "required": [
+              "failure_ref"
+            ],
+            "not": {
+              "required": [
+                "representation_ref"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "responseHeader": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "retrievedRepresentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "representation_id",
+        "attempt_ref",
+        "final_uri",
+        "canonical_identity_ref",
+        "retrieved_at",
+        "status_code",
+        "media_type",
+        "response_headers",
+        "content_path",
+        "byte_length",
+        "sha256"
+      ],
+      "properties": {
+        "representation_id": {
+          "$ref": "#/$defs/uri"
+        },
+        "attempt_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "final_uri": {
+          "$ref": "#/$defs/uri"
+        },
+        "canonical_identity_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "retrieved_at": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "status_code": {
+          "type": "integer",
+          "minimum": 200,
+          "maximum": 299
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "response_headers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/responseHeader"
+          }
+        },
+        "content_path": {
+          "$ref": "#/$defs/contentPath"
+        },
+        "byte_length": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "canonicalSourceIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity_id",
+        "canonical_uri",
+        "identification_method"
+      ],
+      "properties": {
+        "identity_id": {
+          "$ref": "#/$defs/uri"
+        },
+        "canonical_uri": {
+          "$ref": "#/$defs/uri"
+        },
+        "identification_method": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "sourceVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version_id",
+        "canonical_identity_ref",
+        "representation_ref",
+        "snapshot_ref",
+        "observed_at",
+        "sha256"
+      ],
+      "properties": {
+        "version_id": {
+          "$ref": "#/$defs/uri"
+        },
+        "canonical_identity_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "representation_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "snapshot_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "observed_at": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "snapshotFixation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixation_id",
+        "snapshot_id",
+        "representation_ref",
+        "content_path",
+        "fixed_at",
+        "hash_algorithm",
+        "byte_length",
+        "sha256",
+        "immutable"
+      ],
+      "properties": {
+        "fixation_id": {
+          "$ref": "#/$defs/uri"
+        },
+        "snapshot_id": {
+          "$ref": "#/$defs/uri"
+        },
+        "representation_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "content_path": {
+          "$ref": "#/$defs/contentPath"
+        },
+        "fixed_at": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "hash_algorithm": {
+          "const": "sha256"
+        },
+        "byte_length": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "immutable": {
+          "const": true
+        }
+      }
+    },
+    "acquisitionFailure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "failure_id",
+        "attempt_ref",
+        "category",
+        "observed_at",
+        "detail",
+        "evidentiary_absence_inferred"
+      ],
+      "properties": {
+        "failure_id": {
+          "$ref": "#/$defs/uri"
+        },
+        "attempt_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "category": {
+          "enum": [
+            "network_error",
+            "access_blocked",
+            "not_found",
+            "timeout",
+            "transport_error",
+            "other"
+          ]
+        },
+        "observed_at": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "detail": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidentiary_absence_inferred": {
+          "const": false
+        }
+      }
+    },
+    "changeEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "change_id",
+        "canonical_identity_ref",
+        "previous_version_ref",
+        "next_version_ref",
+        "detected_at",
+        "comparison_method",
+        "previous_sha256",
+        "next_sha256",
+        "bytes_changed"
+      ],
+      "properties": {
+        "change_id": {
+          "$ref": "#/$defs/uri"
+        },
+        "canonical_identity_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "previous_version_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "next_version_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "detected_at": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "comparison_method": {
+          "const": "sha256_digest_comparison"
+        },
+        "previous_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "next_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "bytes_changed": {
+          "const": true
+        }
+      }
+    },
+    "supersessionRelation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relation_id",
+        "superseded_version_ref",
+        "superseding_version_ref",
+        "reason"
+      ],
+      "properties": {
+        "relation_id": {
+          "$ref": "#/$defs/uri"
+        },
+        "superseded_version_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "superseding_version_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "reason": {
+          "const": "content_changed"
+        }
+      }
+    },
+    "sourceAvailabilityObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_id",
+        "request_ref",
+        "attempt_ref",
+        "status",
+        "observed_at",
+        "evidentiary_absence_inferred"
+      ],
+      "properties": {
+        "observation_id": {
+          "$ref": "#/$defs/uri"
+        },
+        "request_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "attempt_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "status": {
+          "enum": [
+            "available",
+            "unavailable",
+            "blocked",
+            "transport_error"
+          ]
+        },
+        "observed_at": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "evidentiary_absence_inferred": {
+          "const": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,324 @@
+{
+  "$schema": "https://caeluviim.org/schema/evidence-intake-manifest.schema.json",
+  "manifest_id": "urn:caeluviim:intake:manifest:allocation-bulletin-2026q3",
+  "pipeline_version": "0.1.0",
+  "created_at": "2026-07-29T17:00:00Z",
+  "created_by_ref": "urn:caeluviim:agent:evidence-intake-proposer",
+  "evaluation_as_of": "2026-07-29T17:30:00Z",
+  "acquisition_record": {
+    "acquisition_manifest_ref": "urn:caeluviim:acquisition:manifest:allocation-register-lifecycle",
+    "acquisition_manifest_path": "examples/source-acquisition-manifest.valid.json",
+    "acquisition_manifest_sha256": "c8cda01253dbc6ec6381c994ae158550538d442143393cbd09ee7dadcbb9edad",
+    "acquisition_assessment_ref": "urn:caeluviim:assessment:source-acquisition:bce8157accda898b3071ee19a7b1ef26556f5cfe9d07568c8266bb2209668dd0",
+    "acquisition_assessment_path": "examples/source-acquisition-assessment.json",
+    "acquisition_assessment_sha256": "e88832cc0bbcb38f88d755b901c0b27525af9b80f41fd893e0eea14e6a426de9"
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "urn:caeluviim:source:allocation-bulletin-2026q3",
+      "title": "Allocation Bulletin 2026-Q3",
+      "source_class": "official_record",
+      "origin_uri": "https://example.invalid/records/allocation-bulletin-2026q3",
+      "creator_ref": "urn:caeluviim:institution:allocation-board",
+      "published_at": "2026-07-02T09:00:00Z",
+      "generated_content": false
+    }
+  ],
+  "source_snapshots": [
+    {
+      "snapshot_id": "urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
+      "acquisition_fixation_ref": "urn:caeluviim:snapshot-fixation:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
+      "artifact_ref": "urn:caeluviim:source:allocation-bulletin-2026q3",
+      "captured_at": "2026-07-29T16:55:00Z",
+      "content_path": "examples/evidence-intake/source/allocation-bulletin-2026q3.txt",
+      "media_type": "text/plain; charset=utf-8",
+      "byte_length": 350,
+      "sha256": "7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
+      "immutable": true
+    }
+  ],
+  "source_locators": [
+    {
+      "locator_id": "urn:caeluviim:locator:allocation-rule-replacement",
+      "snapshot_ref": "urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
+      "locator_type": "utf8_byte_range",
+      "byte_start": 28,
+      "byte_end": 103,
+      "quoted_text": "On July 1, 2026, the board replaced Priority Rule v1 with Priority Rule v2.",
+      "quote_sha256": "b895d5cebe5b4a0bec51e8de8a55e3907e8cef75a108b223eac2fb2e15d4defc",
+      "snapshot_bound": true,
+      "exact": true,
+      "support_scope_claim_refs": [
+        "urn:caeluviim:claim:intake:rule-replaced"
+      ]
+    },
+    {
+      "locator_id": "urn:caeluviim:locator:four-hour-request",
+      "snapshot_ref": "urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
+      "locator_type": "utf8_byte_range",
+      "byte_start": 104,
+      "byte_end": 190,
+      "quoted_text": "Under Rule v2, every district household may request up to four service hours per week.",
+      "quote_sha256": "9749e9168c91864f9a59a14bc33ca841044e6ee19d477f7f457d15145e768507",
+      "snapshot_bound": true,
+      "exact": true,
+      "support_scope_claim_refs": [
+        "urn:caeluviim:claim:intake:compound-coverage"
+      ]
+    },
+    {
+      "locator_id": "urn:caeluviim:locator:remaining-unserved-households",
+      "snapshot_ref": "urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
+      "locator_type": "utf8_byte_range",
+      "byte_start": 272,
+      "byte_end": 349,
+      "quoted_text": "A later audit found that 18 pilot households still received no service hours.",
+      "quote_sha256": "3e2d09814692551ed4311279f405af49bce9a30bf778784c5cddafd231ef82ad",
+      "snapshot_bound": true,
+      "exact": true,
+      "support_scope_claim_refs": [
+        "urn:caeluviim:claim:intake:compound-coverage"
+      ]
+    }
+  ],
+  "material_claim_segments": [
+    {
+      "segment_id": "urn:caeluviim:claim-segment:rule-replaced",
+      "claim_ref": "urn:caeluviim:claim:intake:rule-replaced",
+      "text": "On July 1, 2026, the board replaced Priority Rule v1 with Priority Rule v2.",
+      "material": true
+    },
+    {
+      "segment_id": "urn:caeluviim:claim-segment:four-hour-request",
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "text": "Under Rule v2, every district household may request up to four service hours per week.",
+      "material": true
+    },
+    {
+      "segment_id": "urn:caeluviim:claim-segment:no-uncovered-households",
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "text": "Rule v2 eliminated all uncovered pilot households.",
+      "material": true
+    }
+  ],
+  "extracted_claims": [
+    {
+      "claim_id": "urn:caeluviim:claim:intake:rule-replaced",
+      "normalized_text": "On July 1, 2026, the board replaced Priority Rule v1 with Priority Rule v2.",
+      "claim_mode": "observation",
+      "claim_state": "released",
+      "material_segment_refs": [
+        "urn:caeluviim:claim-segment:rule-replaced"
+      ],
+      "claim_span_refs": [
+        "urn:caeluviim:claim-span:rule-replaced"
+      ],
+      "evidence_bundle_ref": "urn:caeluviim:evidence-bundle:rule-replaced",
+      "normalization_method": "Whitespace normalization only; wording preserved."
+    },
+    {
+      "claim_id": "urn:caeluviim:claim:intake:compound-coverage",
+      "normalized_text": "Rule v2 permits four service hours per week and eliminated all uncovered pilot households.",
+      "claim_mode": "observation",
+      "claim_state": "quarantined",
+      "material_segment_refs": [
+        "urn:caeluviim:claim-segment:four-hour-request",
+        "urn:caeluviim:claim-segment:no-uncovered-households"
+      ],
+      "claim_span_refs": [
+        "urn:caeluviim:claim-span:four-hour-request",
+        "urn:caeluviim:claim-span:remaining-unserved-households"
+      ],
+      "evidence_bundle_ref": "urn:caeluviim:evidence-bundle:compound-coverage",
+      "normalization_method": "Compound claim segmented into independently testable material assertions."
+    }
+  ],
+  "claim_spans": [
+    {
+      "span_id": "urn:caeluviim:claim-span:rule-replaced",
+      "claim_ref": "urn:caeluviim:claim:intake:rule-replaced",
+      "segment_ref": "urn:caeluviim:claim-segment:rule-replaced",
+      "locator_ref": "urn:caeluviim:locator:allocation-rule-replacement",
+      "extracted_text": "On July 1, 2026, the board replaced Priority Rule v1 with Priority Rule v2.",
+      "extracted_text_sha256": "b895d5cebe5b4a0bec51e8de8a55e3907e8cef75a108b223eac2fb2e15d4defc"
+    },
+    {
+      "span_id": "urn:caeluviim:claim-span:four-hour-request",
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "segment_ref": "urn:caeluviim:claim-segment:four-hour-request",
+      "locator_ref": "urn:caeluviim:locator:four-hour-request",
+      "extracted_text": "Under Rule v2, every district household may request up to four service hours per week.",
+      "extracted_text_sha256": "9749e9168c91864f9a59a14bc33ca841044e6ee19d477f7f457d15145e768507"
+    },
+    {
+      "span_id": "urn:caeluviim:claim-span:remaining-unserved-households",
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "segment_ref": "urn:caeluviim:claim-segment:no-uncovered-households",
+      "locator_ref": "urn:caeluviim:locator:remaining-unserved-households",
+      "extracted_text": "A later audit found that 18 pilot households still received no service hours.",
+      "extracted_text_sha256": "3e2d09814692551ed4311279f405af49bce9a30bf778784c5cddafd231ef82ad"
+    }
+  ],
+  "support_relations": [
+    {
+      "support_id": "urn:caeluviim:support:rule-replaced",
+      "claim_ref": "urn:caeluviim:claim:intake:rule-replaced",
+      "locator_ref": "urn:caeluviim:locator:allocation-rule-replacement",
+      "claim_span_refs": [
+        "urn:caeluviim:claim-span:rule-replaced"
+      ],
+      "supported_segment_refs": [
+        "urn:caeluviim:claim-segment:rule-replaced"
+      ],
+      "support_verdict": "supports",
+      "support_mode": "direct",
+      "scope_note": "Supports only the stated replacement and date."
+    },
+    {
+      "support_id": "urn:caeluviim:support:four-hour-request",
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "locator_ref": "urn:caeluviim:locator:four-hour-request",
+      "claim_span_refs": [
+        "urn:caeluviim:claim-span:four-hour-request"
+      ],
+      "supported_segment_refs": [
+        "urn:caeluviim:claim-segment:four-hour-request"
+      ],
+      "support_verdict": "supports",
+      "support_mode": "direct",
+      "scope_note": "Supports the request allowance, not elimination of uncovered households."
+    }
+  ],
+  "contradiction_relations": [
+    {
+      "contradiction_id": "urn:caeluviim:contradiction:uncovered-households-remain",
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "locator_ref": "urn:caeluviim:locator:remaining-unserved-households",
+      "contradicted_segment_refs": [
+        "urn:caeluviim:claim-segment:no-uncovered-households"
+      ],
+      "disclosed": true,
+      "resolution_status": "unresolved",
+      "scope_note": "Directly contradicts the assertion that all uncovered pilot households were eliminated."
+    }
+  ],
+  "source_authority_assessments": [
+    {
+      "assessment_id": "urn:caeluviim:authority-assessment:allocation-bulletin",
+      "artifact_ref": "urn:caeluviim:source:allocation-bulletin-2026q3",
+      "assessor_ref": "urn:caeluviim:agent:evidence-reviewer-1",
+      "assessed_at": "2026-07-29T17:05:00Z",
+      "authority_level": "official",
+      "authority_scope": "Authority assessment covers authorship and issuance, not truth of every statement.",
+      "not_a_support_relation": true
+    }
+  ],
+  "evidence_bundles": [
+    {
+      "bundle_id": "urn:caeluviim:evidence-bundle:rule-replaced",
+      "claim_ref": "urn:caeluviim:claim:intake:rule-replaced",
+      "support_relation_refs": [
+        "urn:caeluviim:support:rule-replaced"
+      ],
+      "contradiction_relation_refs": [],
+      "authority_assessment_refs": [
+        "urn:caeluviim:authority-assessment:allocation-bulletin"
+      ],
+      "contradiction_search_completed": true,
+      "contradiction_search_method": "Reviewed every statement in the immutable captured bulletin relevant to the replacement event.",
+      "declared_complete_support": true,
+      "content_digests_verified": true,
+      "scope_boundary": "Only the occurrence and date of the rule replacement."
+    },
+    {
+      "bundle_id": "urn:caeluviim:evidence-bundle:compound-coverage",
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "support_relation_refs": [
+        "urn:caeluviim:support:four-hour-request"
+      ],
+      "contradiction_relation_refs": [
+        "urn:caeluviim:contradiction:uncovered-households-remain"
+      ],
+      "authority_assessment_refs": [
+        "urn:caeluviim:authority-assessment:allocation-bulletin"
+      ],
+      "contradiction_search_completed": true,
+      "contradiction_search_method": "Reviewed the complete immutable bulletin for coverage and residual-service statements.",
+      "declared_complete_support": false,
+      "content_digests_verified": true,
+      "scope_boundary": "The request allowance is supported; universal coverage is not."
+    }
+  ],
+  "unsupported_claims": [
+    {
+      "unsupported_id": "urn:caeluviim:unsupported:no-uncovered-households",
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "unsupported_segment_refs": [
+        "urn:caeluviim:claim-segment:no-uncovered-households"
+      ],
+      "reason_code": "contradicted",
+      "recorded_at": "2026-07-29T17:15:00Z"
+    }
+  ],
+  "quarantine_records": [
+    {
+      "quarantine_id": "urn:caeluviim:quarantine:compound-coverage",
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "reason_codes": [
+        "PARTIAL_COMPOUND_SUPPORT",
+        "UNRESOLVED_CONTRADICTION"
+      ],
+      "decision_authority_ref": "urn:caeluviim:agent:evidence-release-authority-1",
+      "decided_at": "2026-07-29T17:20:00Z",
+      "active": true
+    }
+  ],
+  "release_decisions": [
+    {
+      "decision_id": "urn:caeluviim:release-decision:rule-replaced",
+      "claim_ref": "urn:caeluviim:claim:intake:rule-replaced",
+      "decision": "approved",
+      "release_authority_ref": "urn:caeluviim:agent:evidence-release-authority-1",
+      "decided_at": "2026-07-29T17:20:00Z",
+      "basis_support_relation_refs": [
+        "urn:caeluviim:support:rule-replaced"
+      ],
+      "disclosed_contradiction_refs": [],
+      "content_digests_verified": true,
+      "complete_support_declared": true
+    },
+    {
+      "decision_id": "urn:caeluviim:release-decision:compound-coverage",
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "decision": "denied",
+      "release_authority_ref": "urn:caeluviim:agent:evidence-release-authority-1",
+      "decided_at": "2026-07-29T17:20:00Z",
+      "basis_support_relation_refs": [
+        "urn:caeluviim:support:four-hour-request"
+      ],
+      "disclosed_contradiction_refs": [
+        "urn:caeluviim:contradiction:uncovered-households-remain"
+      ],
+      "content_digests_verified": true,
+      "complete_support_declared": false
+    }
+  ],
+  "sicrp_assertion_requests": [
+    {
+      "request_id": "urn:caeluviim:assertion-request:rule-replaced",
+      "claim_ref": "urn:caeluviim:claim:intake:rule-replaced",
+      "target_record_ref": "urn:caeluviim:record:sicrp:example-001",
+      "target_entity_ref": "urn:caeluviim:intervention:allocation-rule-redesign-001",
+      "target_field": "evidence_refs",
+      "assertion_text": "On July 1, 2026, the board replaced Priority Rule v1 with Priority Rule v2."
+    },
+    {
+      "request_id": "urn:caeluviim:assertion-request:compound-coverage",
+      "claim_ref": "urn:caeluviim:claim:intake:compound-coverage",
+      "target_record_ref": "urn:caeluviim:record:sicrp:example-001",
+      "target_entity_ref": "urn:caeluviim:claim:collective-resolution-001",
+      "target_field": "evidence_refs",
+      "assertion_text": "Rule v2 permits four service hours per week and eliminated all uncovered pilot households."
+    }
+  ]
+}

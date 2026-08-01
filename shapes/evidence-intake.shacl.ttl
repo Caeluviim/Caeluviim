@@ -1,0 +1,521 @@
+@prefix intake: <https://caeluviim.org/ontology/evidence-intake#> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+intake:IntakeManifestShape a sh:NodeShape ;
+  sh:targetClass intake:IntakeManifest ;
+  sh:property [
+    sh:path intake:acquisitionRecord ;
+    sh:class intake:AcquisitionRecord ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:hasSourceArtifact ;
+    sh:class intake:SourceArtifact ;
+    sh:minCount 1
+  ] ;
+  sh:property [
+    sh:path intake:hasSourceSnapshot ;
+    sh:class intake:SourceSnapshot ;
+    sh:minCount 1
+  ] ;
+  sh:property [
+    sh:path intake:hasSourceLocator ;
+    sh:class intake:SourceLocator ;
+    sh:minCount 1
+  ] ;
+  sh:property [
+    sh:path intake:hasExtractedClaim ;
+    sh:class intake:ExtractedClaim ;
+    sh:minCount 1
+  ] ;
+  sh:property [
+    sh:path intake:hasEvidenceBundle ;
+    sh:class intake:EvidenceBundle ;
+    sh:minCount 1
+  ] .
+
+intake:SourceArtifactShape a sh:NodeShape ;
+  sh:targetClass intake:SourceArtifact ;
+  sh:property [
+    sh:path intake:sourceClass ;
+    sh:in (
+      "external_primary"
+      "external_secondary"
+      "official_record"
+      "testimony"
+      "dataset"
+      "generated_output"
+    ) ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:generatedContent ;
+    sh:datatype xsd:boolean ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:sparql [
+    sh:message "Generated content must not be classified as an external source." ;
+    sh:select """
+      PREFIX intake: <https://caeluviim.org/ontology/evidence-intake#>
+      SELECT $this
+      WHERE {
+        $this intake:generatedContent true ;
+              intake:sourceClass ?sourceClass .
+        FILTER (?sourceClass != "generated_output")
+      }
+    """
+  ] .
+
+intake:SourceSnapshotShape a sh:NodeShape ;
+  sh:targetClass intake:SourceSnapshot ;
+  sh:property [
+    sh:path intake:fixedByAcquisition ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:snapshotOf ;
+    sh:class intake:SourceArtifact ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:contentPath ;
+    sh:datatype xsd:string ;
+    sh:minLength 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:contentDigest ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[a-f0-9]{64}$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:byteLength ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 0 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:immutableSnapshot ;
+    sh:hasValue true ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+intake:SourceLocatorShape a sh:NodeShape ;
+  sh:targetClass intake:SourceLocator ;
+  sh:property [
+    sh:path intake:locatesSnapshot ;
+    sh:class intake:SourceSnapshot ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:byteStart ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 0 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:byteEnd ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:quotedText ;
+    sh:datatype xsd:string ;
+    sh:minLength 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:quoteDigest ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[a-f0-9]{64}$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:snapshotBound ;
+    sh:hasValue true ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:exactLocator ;
+    sh:hasValue true ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:allowedClaim ;
+    sh:class intake:ExtractedClaim ;
+    sh:minCount 1
+  ] ;
+  sh:sparql [
+    sh:message "A byte-range locator must end after it starts." ;
+    sh:select """
+      PREFIX intake: <https://caeluviim.org/ontology/evidence-intake#>
+      SELECT $this
+      WHERE {
+        $this intake:byteStart ?start ;
+              intake:byteEnd ?end .
+        FILTER (?end <= ?start)
+      }
+    """
+  ] .
+
+intake:MaterialClaimSegmentShape a sh:NodeShape ;
+  sh:targetClass intake:MaterialClaimSegment ;
+  sh:property [
+    sh:path intake:segmentOf ;
+    sh:class intake:ExtractedClaim ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:segmentText ;
+    sh:datatype xsd:string ;
+    sh:minLength 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:materialSegment ;
+    sh:hasValue true ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+intake:ExtractedClaimShape a sh:NodeShape ;
+  sh:targetClass intake:ExtractedClaim ;
+  sh:property [
+    sh:path intake:normalizedClaimText ;
+    sh:datatype xsd:string ;
+    sh:minLength 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:claimMode ;
+    sh:in ("observation" "inference") ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:claimState ;
+    sh:in (
+      intake:captured
+      intake:supported
+      intake:partially_supported
+      intake:contradicted
+      intake:unverifiable
+      intake:quarantined
+      intake:released
+    ) ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:hasMaterialSegment ;
+    sh:class intake:MaterialClaimSegment ;
+    sh:minCount 1
+  ] ;
+  sh:property [
+    sh:path intake:hasClaimSpan ;
+    sh:class intake:ClaimSpan ;
+    sh:minCount 1
+  ] .
+
+intake:ClaimSpanShape a sh:NodeShape ;
+  sh:targetClass intake:ClaimSpan ;
+  sh:property [
+    sh:path intake:spanOf ;
+    sh:class intake:ExtractedClaim ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:spanForSegment ;
+    sh:class intake:MaterialClaimSegment ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:spanLocator ;
+    sh:class intake:SourceLocator ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:extractedText ;
+    sh:datatype xsd:string ;
+    sh:minLength 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+intake:SupportRelationShape a sh:NodeShape ;
+  sh:targetClass intake:SupportRelation ;
+  sh:property [
+    sh:path intake:supportsClaim ;
+    sh:class intake:ExtractedClaim ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:supportLocator ;
+    sh:class intake:SourceLocator ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:supportsSegment ;
+    sh:class intake:MaterialClaimSegment ;
+    sh:minCount 1
+  ] ;
+  sh:property [
+    sh:path intake:supportVerdict ;
+    sh:in ("supports" "partially_supports" "does_not_support") ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:supportMode ;
+    sh:in ("direct" "inferential") ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+intake:ContradictionRelationShape a sh:NodeShape ;
+  sh:targetClass intake:ContradictionRelation ;
+  sh:property [
+    sh:path intake:contradictsClaim ;
+    sh:class intake:ExtractedClaim ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:contradictionLocator ;
+    sh:class intake:SourceLocator ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:contradictsSegment ;
+    sh:class intake:MaterialClaimSegment ;
+    sh:minCount 1
+  ] ;
+  sh:property [
+    sh:path intake:contradictionDisclosed ;
+    sh:datatype xsd:boolean ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:contradictionResolutionStatus ;
+    sh:in ("unresolved" "resolved" "not_material") ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+intake:SourceAuthorityAssessmentShape a sh:NodeShape ;
+  sh:targetClass intake:SourceAuthorityAssessment ;
+  sh:property [
+    sh:path intake:assessesArtifact ;
+    sh:class intake:SourceArtifact ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:authorityIsNotSupport ;
+    sh:hasValue true ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+intake:EvidenceBundleShape a sh:NodeShape ;
+  sh:targetClass intake:EvidenceBundle ;
+  sh:property [
+    sh:path intake:bundleForClaim ;
+    sh:class intake:ExtractedClaim ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:contradictionSearchCompleted ;
+    sh:datatype xsd:boolean ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:declaredCompleteSupport ;
+    sh:datatype xsd:boolean ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:contentDigestsVerified ;
+    sh:datatype xsd:boolean ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+intake:QuarantineRecordShape a sh:NodeShape ;
+  sh:targetClass intake:QuarantineRecord ;
+  sh:property [
+    sh:path intake:quarantinesClaim ;
+    sh:class intake:ExtractedClaim ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:activeQuarantine ;
+    sh:hasValue true ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+intake:ReleaseDecisionShape a sh:NodeShape ;
+  sh:targetClass intake:ReleaseDecision ;
+  sh:property [
+    sh:path intake:decidesClaim ;
+    sh:class intake:ExtractedClaim ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:releaseAuthority ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:decision ;
+    sh:in ("approved" "denied") ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:contentDigestsVerified ;
+    sh:datatype xsd:boolean ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+intake:ReleasedClaimRuleShape a sh:NodeShape ;
+  sh:targetClass intake:ExtractedClaim ;
+  sh:sparql [
+    sh:message "A released claim requires explicit support, a complete checked bundle, an approved release decision, and no active quarantine." ;
+    sh:select """
+      PREFIX intake: <https://caeluviim.org/ontology/evidence-intake#>
+      SELECT $this
+      WHERE {
+        $this intake:claimState intake:released .
+        FILTER (
+          NOT EXISTS {
+            ?support a intake:SupportRelation ;
+                     intake:supportsClaim $this ;
+                     intake:supportVerdict "supports" .
+          }
+          ||
+          NOT EXISTS {
+            ?bundle a intake:EvidenceBundle ;
+                    intake:bundleForClaim $this ;
+                    intake:contradictionSearchCompleted true ;
+                    intake:declaredCompleteSupport true ;
+                    intake:contentDigestsVerified true .
+          }
+          ||
+          NOT EXISTS {
+            ?decision a intake:ReleaseDecision ;
+                      intake:decidesClaim $this ;
+                      intake:decision "approved" ;
+                      intake:contentDigestsVerified true ;
+                      intake:releaseAuthority ?authority .
+          }
+          ||
+          EXISTS {
+            ?quarantine a intake:QuarantineRecord ;
+                        intake:quarantinesClaim $this ;
+                        intake:activeQuarantine true .
+          }
+        )
+      }
+    """
+  ] .
+
+intake:SICRPAssertionRequestShape a sh:NodeShape ;
+  sh:targetClass intake:SICRPAssertionRequest ;
+  sh:property [
+    sh:path intake:requestsClaim ;
+    sh:class intake:ExtractedClaim ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:targetsSICRPRecord ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:targetsSICRPEntity ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:targetField ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[a-z][a-z0-9_]*$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:assertionText ;
+    sh:datatype xsd:string ;
+    sh:minLength 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+intake:EligibleSICRPAssertionShape a sh:NodeShape ;
+  sh:targetClass intake:EligibleSICRPAssertion ;
+  sh:property [
+    sh:path intake:eligibleClaim ;
+    sh:class intake:ExtractedClaim ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path intake:eligibleFromRequest ;
+    sh:class intake:SICRPAssertionRequest ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:sparql [
+    sh:message "An eligible SICRP assertion may reference only a released claim." ;
+    sh:select """
+      PREFIX intake: <https://caeluviim.org/ontology/evidence-intake#>
+      SELECT $this
+      WHERE {
+        $this intake:eligibleClaim ?claim .
+        FILTER NOT EXISTS { ?claim intake:claimState intake:released }
+      }
+    """
+  ] .
