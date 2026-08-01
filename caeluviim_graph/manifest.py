@@ -30,6 +30,8 @@ ALLOWED_LABELS = frozenset(
         "Dataset",
         "Projection",
         "ValidationResult",
+        "Source",
+        "Event",
     }
 )
 
@@ -58,6 +60,10 @@ ALLOWED_RELATIONSHIP_TYPES = frozenset(
         "PROJECTS_TO",
         "HAS_ANCHOR",
         "ANALOG_OF",
+        "ORIGINATED",
+        "MATERIALIZED",
+        "PARTICIPATED_IN",
+        "AUTHORIZED",
     }
 )
 
