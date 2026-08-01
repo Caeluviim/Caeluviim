@@ -6,6 +6,8 @@ from jsonschema import Draft202012Validator, FormatChecker
 from pyshacl import validate
 from rdflib import Graph, Namespace, RDF, OWL
 
+from caeluviim_graph.manifest import ALLOWED_LABELS, ALLOWED_RELATIONSHIP_TYPES
+
 ROOT = Path(__file__).resolve().parents[1]
 IO = Namespace("https://caeluviim.org/ontology/interlocutor-operations#")
 
@@ -139,6 +141,37 @@ class TestInterlocutorOperations(unittest.TestCase):
     def test_known_karttunen_correction_is_preserved(self):
         self.assertIn("Lauri Karttunen", self.crosswalk)
         self.assertIn("prov:wasRevisionOf", self.crosswalk)
+
+    def test_graph_runtime_accepts_interlocutor_vocabulary(self):
+        required_labels = {
+            "Utterance",
+            "SourceSpan",
+            "Quotation",
+            "Interpretation",
+            "Proposition",
+            "TruthAssessment",
+            "TransformationEvent",
+            "ForceAssignment",
+            "OperationOccurrence",
+            "CanonicalOperation",
+            "AdjacencyPair",
+        }
+        required_relationship_types = {
+            "HAS_SOURCE_SPAN",
+            "QUOTED_FROM",
+            "USED_CONTEXT",
+            "PRESUPPOSES",
+            "ENTAILS",
+            "IMPLICATES",
+            "EVOKES_FRAME",
+            "DEFINES_OPERATION",
+            "DETECTED_OPERATION",
+            "REPAIRS_TROUBLE_SOURCE",
+        }
+        self.assertTrue(required_labels.issubset(ALLOWED_LABELS))
+        self.assertTrue(
+            required_relationship_types.issubset(ALLOWED_RELATIONSHIP_TYPES)
+        )
 
 
 if __name__ == "__main__":
