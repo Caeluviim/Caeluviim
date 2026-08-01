@@ -7,6 +7,12 @@ Caeluviim is a provenance-tracked formal architecture for representing claims, a
 | Module | Status | Primary specification | Machine constraints |
 |---|---|---|---|
 | Error-Mediated Generative Non-Closure | Proposed v0.1.0 | [`docs/architecture/error-mediated-generative-nonclosure.md`](docs/architecture/error-mediated-generative-nonclosure.md) | JSON Schema, OWL/RDF vocabulary, SHACL shapes, executable tests |
+| Identity and Authority | Proposed v0.1.0 | [`docs/architecture/identity-authority-model.md`](docs/architecture/identity-authority-model.md) | JSON Schema and executable structural tests |
+| Contextual Trust | Proposed v0.1.0 | [`docs/architecture/trust-model.md`](docs/architecture/trust-model.md) | JSON Schema and executable structural tests |
+| Governance Runtime | Proposed v0.1.0 | [`docs/architecture/governance-runtime.md`](docs/architecture/governance-runtime.md) | Deterministic state-machine and invariant specification |
+| Protocol Invariants | Proposed v0.1.0 | [`docs/architecture/protocol-invariants.md`](docs/architecture/protocol-invariants.md) | Implementation-independent fail-closed guarantees |
+
+The living maturity map is maintained in [`docs/architecture/protocol-roadmap.md`](docs/architecture/protocol-roadmap.md).
 
 ## Working graph runtime
 
@@ -45,7 +51,7 @@ See [`docs/operations/laptop-host.md`](docs/operations/laptop-host.md) for start
 - `graph/migrations/` — ordered Neo4j schema migrations
 - `ingest/manifests/` — production corpus manifests
 - `scripts/laptop/` — laptop-host lifecycle, backup, and restore commands
-- `docs/architecture/` — normative architecture specifications
+- `docs/architecture/` — normative architecture specifications and roadmap
 - `docs/operations/` — executable operating procedures
 - `schemas/` — JSON Schema validation contracts
 - `ontology/` — RDF/OWL vocabulary
@@ -64,6 +70,6 @@ python -m caeluviim_graph.cli validate examples/ingest-manifest.valid.json
 
 ## Governance state
 
-The EMGN module is implemented but remains **proposed**, not ratified. Ratification requires two independent validators who are not the proposer, with provenance recorded in the module's governance record.
+The EMGN, identity-authority, contextual-trust, governance-runtime, and protocol-invariant modules remain **proposed**, not ratified. Ratification requires the applicable independent validators, with provenance recorded against each exact module content hash.
 
 The graph runtime is an operational implementation substrate. Loading a record does not ratify its semantic or governance claims; those states must be represented explicitly in the ingested material.
