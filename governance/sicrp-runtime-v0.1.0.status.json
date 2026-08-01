@@ -1,0 +1,74 @@
+{
+  "runtime_id": "urn:caeluviim:runtime:sicrp",
+  "runtime_version": "0.1.0",
+  "implementation_status": "implemented",
+  "governance_status": "proposed",
+  "proposer_id": "urn:caeluviim:agent:sicrp-runtime-proposer",
+  "independent_validators": [],
+  "required_independent_validator_count": 2,
+  "self_ratification_permitted": false,
+  "ratification_claimed": false,
+  "recorded_at": "2026-07-29T16:30:00Z",
+  "artifact_manifest": [
+    {
+      "path": "docs/architecture/sicrp-operational-evaluation.md",
+      "sha256": "6bf1ce30343917752c6278602565bdc6177348cdd1480c48485015971f5a30c3"
+    },
+    {
+      "path": "schemas/sicrp-assessment.schema.json",
+      "sha256": "23c4db908a67e6152717e38db4adc07452a85870506c48775a9c7014776650d3"
+    },
+    {
+      "path": "schemas/sicrp-runtime-status.schema.json",
+      "sha256": "dc1f6ccc24dfa0da90e08381572df6c8b269de5f13a1b9e1c36686fcde5d6f72"
+    },
+    {
+      "path": "ontology/sicrp-runtime.ttl",
+      "sha256": "1757b5b4b486a4e4bbb17ab881f4618964396dba0605fef468b7884e7814c21f"
+    },
+    {
+      "path": "shapes/sicrp-assessment.shacl.ttl",
+      "sha256": "dc6746237df220545a849fc8e3657418a7253b361c68b75b588ace71e6f5600d"
+    },
+    {
+      "path": "examples/sicrp-assessment.provisional.json",
+      "sha256": "79b7f0a88a763fd87436c8f4f88ec77d5a4b010feb5ea1a7a46ef35bcfaf51d3"
+    },
+    {
+      "path": "src/sicrp_runtime/__init__.py",
+      "sha256": "edd5ca23d65fbd51aa16b97e09c94282817dc9ec45f9480a90b79e3eb760e6e9"
+    },
+    {
+      "path": "src/sicrp_runtime/canonical.py",
+      "sha256": "9e1e2ba9ef3fa53f8e4a506627124196374b3a590666fdf20746f43356ccf451"
+    },
+    {
+      "path": "src/sicrp_runtime/evaluator.py",
+      "sha256": "f283ce0622c0648248ca71197bb38303dae2764bba60a3b11bd95691c9d7793a"
+    },
+    {
+      "path": "src/sicrp_runtime/store.py",
+      "sha256": "3073970e7e13a447c2b2b2ea6eed451fb1bd3bc490711d8bb03cbcef160d6bb1"
+    },
+    {
+      "path": "src/sicrp_runtime/cli.py",
+      "sha256": "8a9091e7826d663d94d6dcc2a25cbfd7a16b34c0ea8a4ffa5e4fa794f884a79f"
+    },
+    {
+      "path": "scripts/sicrp_runtime.py",
+      "sha256": "30fca5f65efe138c57faf7b1c8668b2b3bc2a53a783db0cf6c3d082e2b1334b3"
+    },
+    {
+      "path": "queries/sicrp-resolution-blockers.rq",
+      "sha256": "15ad27f1b28696e1e8b4b60ce089f6cc2eca2b9eede98700cdc6504aa2ac24d7"
+    },
+    {
+      "path": "tests/test_sicrp_runtime.py",
+      "sha256": "ec4ad5b58e7868236cefd318c02f700722aa1ca66b1907a25eb69a7a7c5adc59"
+    },
+    {
+      "path": ".github/workflows/validate-sicrp-runtime.yml",
+      "sha256": "a0e8aba1713f5d083fe569c3a1d4aca5f23499b35d33d977964fda0cb475a736"
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schema/sicrp-runtime-status.schema.json",
+  "title": "SICRP Runtime Implementation and Governance Status",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "runtime_id",
+    "runtime_version",
+    "implementation_status",
+    "governance_status",
+    "proposer_id",
+    "independent_validators",
+    "required_independent_validator_count",
+    "self_ratification_permitted",
+    "ratification_claimed",
+    "recorded_at",
+    "artifact_manifest"
+  ],
+  "properties": {
+    "runtime_id": {
+      "const": "urn:caeluviim:runtime:sicrp"
+    },
+    "runtime_version": {
+      "const": "0.1.0"
+    },
+    "implementation_status": {
+      "const": "implemented"
+    },
+    "governance_status": {
+      "enum": [
+        "proposed",
+        "under_validation",
+        "ratified",
+        "rejected"
+      ]
+    },
+    "proposer_id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "independent_validators": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "required_independent_validator_count": {
+      "const": 2
+    },
+    "self_ratification_permitted": {
+      "const": false
+    },
+    "ratification_claimed": {
+      "type": "boolean"
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "artifact_manifest": {
+      "type": "array",
+      "minItems": 12,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^(docs|schemas|ontology|shapes|examples|src|scripts|queries|tests|\\.github)/"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "governance_status": {
+            "const": "ratified"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "independent_validators": {
+            "minItems": 2
+          },
+          "ratification_claimed": {
+            "const": true
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "ratification_claimed": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "governance_status": {
+            "const": "ratified"
+          },
+          "independent_validators": {
+            "minItems": 2
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "governance_status": {
+            "enum": [
+              "proposed",
+              "under_validation"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ratification_claimed": {
+            "const": false
+          }
+        }
+      }
+    }
+  ]
+}

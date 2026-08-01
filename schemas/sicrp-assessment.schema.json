@@ -1,0 +1,394 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schema/sicrp-assessment.schema.json",
+  "title": "SICRP Deterministic Provisional Assessment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "assessment_id",
+    "evaluation_semantics",
+    "record_ref",
+    "as_of",
+    "input_digest",
+    "assessment_digest",
+    "deterministic",
+    "record_conforms",
+    "structural_insolvency",
+    "collective_resolution",
+    "emgn_alignment",
+    "governance",
+    "obligations",
+    "summary"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://caeluviim.org/schema/sicrp-assessment.schema.json"
+    },
+    "assessment_id": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^urn:caeluviim:assessment:sicrp-runtime:[a-f0-9]{64}$"
+    },
+    "evaluation_semantics": {
+      "const": "sicrp-runtime/0.1.0"
+    },
+    "record_ref": {
+      "type": "string",
+      "format": "uri"
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "input_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "assessment_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "deterministic": {
+      "const": true
+    },
+    "record_conforms": {
+      "type": "boolean"
+    },
+    "structural_insolvency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verdict",
+        "condition_refs"
+      ],
+      "properties": {
+        "verdict": {
+          "enum": [
+            "supported",
+            "not_supported"
+          ]
+        },
+        "condition_refs": {
+          "$ref": "#/$defs/uri_array"
+        }
+      }
+    },
+    "collective_resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verdict",
+        "claim_ref",
+        "passed_criteria",
+        "failed_criteria",
+        "blocking_obligation_codes",
+        "individual_improvement_sufficient",
+        "ratification_conferred"
+      ],
+      "properties": {
+        "verdict": {
+          "enum": [
+            "requirements_satisfied",
+            "not_established"
+          ]
+        },
+        "claim_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "passed_criteria": {
+          "$ref": "#/$defs/criteria_array"
+        },
+        "failed_criteria": {
+          "$ref": "#/$defs/criteria_array"
+        },
+        "blocking_obligation_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "individual_improvement_sufficient": {
+          "const": false
+        },
+        "ratification_conferred": {
+          "const": false
+        }
+      }
+    },
+    "emgn_alignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "discrepancy_refs",
+        "retained_residue_refs",
+        "remediation_refs",
+        "before_transition_regime_ref",
+        "after_transition_regime_ref",
+        "before_reachability_ref",
+        "after_reachability_ref",
+        "novelty_witness_refs",
+        "novelty_validated"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "supported",
+            "not_supported"
+          ]
+        },
+        "discrepancy_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "retained_residue_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "remediation_refs": {
+          "$ref": "#/$defs/uri_array"
+        },
+        "before_transition_regime_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "after_transition_regime_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "before_reachability_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "after_reachability_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "novelty_witness_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "novelty_validated": {
+          "const": false
+        }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_record_status",
+        "input_governance_status",
+        "assessment_status",
+        "proposer_ref",
+        "validator_refs",
+        "required_independent_validator_count",
+        "self_ratification_permitted",
+        "ratification_conferred"
+      ],
+      "properties": {
+        "input_record_status": {
+          "enum": [
+            "proposed",
+            "under_validation",
+            "ratified",
+            "rejected"
+          ]
+        },
+        "input_governance_status": {
+          "enum": [
+            "proposed",
+            "under_validation",
+            "ratified",
+            "rejected"
+          ]
+        },
+        "assessment_status": {
+          "const": "provisional"
+        },
+        "proposer_ref": {
+          "type": "string",
+          "format": "uri"
+        },
+        "validator_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required_independent_validator_count": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "self_ratification_permitted": {
+          "const": false
+        },
+        "ratification_conferred": {
+          "const": false
+        }
+      }
+    },
+    "obligations": {
+      "type": "array",
+      "minItems": 12,
+      "items": {
+        "$ref": "#/$defs/obligation"
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pass",
+        "fail",
+        "unknown",
+        "error",
+        "record_blocker_count",
+        "collective_resolution_blocker_count"
+      ],
+      "properties": {
+        "pass": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "fail": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unknown": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "error": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "record_blocker_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "collective_resolution_blocker_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "uri_array": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "criteria_array": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "mechanism_altered",
+          "affected_population_defined",
+          "resource_or_right_restored",
+          "distributional_effect_measured",
+          "residual_insolvency_disclosed",
+          "population_generalization_demonstrated",
+          "rights_exercisable",
+          "coverage_complete",
+          "non_regression_passed",
+          "independent_validation_recorded"
+        ]
+      }
+    },
+    "obligation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "obligation_id",
+        "dimension",
+        "status",
+        "code",
+        "message",
+        "blocking_for",
+        "subject_refs",
+        "evidence_refs"
+      ],
+      "properties": {
+        "obligation_id": {
+          "type": "string",
+          "pattern": "^O-[A-Z0-9-]+$"
+        },
+        "dimension": {
+          "enum": [
+            "syntax",
+            "reference_integrity",
+            "arithmetic",
+            "temporal_integrity",
+            "validator_independence",
+            "structural_insolvency",
+            "coverage",
+            "residual_insolvency",
+            "intervention_verification",
+            "collective_resolution",
+            "emgn_alignment"
+          ]
+        },
+        "status": {
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "error"
+          ]
+        },
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z0-9_]+$"
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "blocking_for": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "record_conformance",
+              "structural_insolvency",
+              "collective_resolution"
+            ]
+          }
+        },
+        "subject_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    }
+  }
+}
