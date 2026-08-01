@@ -1,0 +1,106 @@
+@prefix ex: <https://caeluviim.org/example/interlocutor/> .
+@prefix io: <https://caeluviim.org/ontology/interlocutor-operations#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:speaker a prov:Agent .
+ex:system a prov:Agent .
+ex:challenger a prov:Agent .
+
+ex:u1 a io:Utterance ;
+    io:content "The meeting starts at noon." ;
+    io:contentHash "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" ;
+    prov:wasAttributedTo ex:speaker .
+
+ex:s1 a io:SourceSpan ;
+    io:spanOf ex:u1 ;
+    io:startChar "0"^^xsd:nonNegativeInteger ;
+    io:endChar "27"^^xsd:positiveInteger ;
+    io:exactText "The meeting starts at noon." .
+
+ex:q1 a io:Quotation ;
+    io:quotedFrom ex:s1 ;
+    io:exactText "The meeting starts at noon." .
+
+ex:context1 a io:ContextSnapshot .
+ex:evidence1 a io:EvidenceSet .
+ex:standard1 a io:AssessmentStandard .
+ex:domain1 a io:JurisdictionOrDomain .
+ex:reason1 a prov:Entity .
+
+ex:p1 a io:Proposition ;
+    io:hasSourceSpan ex:s1 .
+
+ex:transform1 a io:TransformationEvent ;
+    prov:used ex:s1 ;
+    prov:generated ex:p1 ;
+    prov:wasAssociatedWith ex:system ;
+    io:ruleVersionId "urn:caeluviim:rule:proposition-extraction:0.1.0" ;
+    io:determinismClass "model_generated" .
+
+ex:i1 a io:Interpretation ;
+    io:hasSourceSpan ex:s1 ;
+    io:usedContext ex:context1 ;
+    io:confidence 0.82 ;
+    io:ruleVersionId "urn:caeluviim:rule:interpretation:0.1.0" ;
+    io:contestable true .
+
+ex:force1 a io:ForceAssignment ;
+    io:targetsEntity ex:u1 ;
+    io:assignedForceType io:Assertive ;
+    io:hasSourceSpan ex:s1 ;
+    io:usedContext ex:context1 ;
+    io:confidence 0.76 ;
+    io:ruleVersionId "urn:caeluviim:rule:force-assignment:0.1.0" ;
+    io:contestable true .
+
+ex:assessment1 a io:TruthAssessment ;
+    io:assessesProposition ex:p1 ;
+    io:usedContext ex:context1 ;
+    io:usedEvidenceSet ex:evidence1 ;
+    io:evaluatedUnderStandard ex:standard1 ;
+    io:evaluatedWithinDomain ex:domain1 ;
+    io:assessmentTime "2026-08-01T12:00:00Z"^^xsd:dateTime ;
+    io:assessmentStatus "supported" ;
+    io:confidence 1.0 ;
+    io:hasReason ex:reason1 ;
+    io:ruleVersionId "urn:caeluviim:rule:truth-assessment:0.1.0" .
+
+ex:contest1 a io:ContestationEvent ;
+    io:contests ex:force1 ;
+    prov:wasAssociatedWith ex:challenger .
+
+ex:opAssertion a io:CanonicalOperation ;
+    io:operationLabel "assertion" .
+
+ex:defOccurrence1 a io:OperationDefinitionOccurrence ;
+    io:definesOperation ex:opAssertion ;
+    io:sourceStatus "supplied" .
+
+ex:occurrence1 a io:OperationOccurrence ;
+    io:detectedOperation ex:opAssertion ;
+    io:targetsEntity ex:u1 ;
+    io:hasSourceSpan ex:s1 ;
+    io:confidence 0.76 ;
+    io:ruleVersionId "urn:caeluviim:rule:operation-detection:0.1.0" ;
+    io:contestable true .
+
+ex:sourceDomain a io:ConceptualDomain .
+ex:targetDomain a io:ConceptualDomain .
+ex:mapping1 a io:ConceptualMapping ;
+    io:hasSourceDomain ex:sourceDomain ;
+    io:hasTargetDomain ex:targetDomain .
+
+ex:turn1 a io:Turn ;
+    io:content "Question?" ;
+    io:contentHash "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" ;
+    prov:wasAttributedTo ex:speaker .
+
+ex:turn2 a io:Turn ;
+    io:content "Answer." ;
+    io:contentHash "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" ;
+    prov:wasAttributedTo ex:system .
+
+ex:pair1 a io:AdjacencyPair ;
+    io:hasFirstPairPart ex:turn1 ;
+    io:hasSecondPairPart ex:turn2 .

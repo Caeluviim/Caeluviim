@@ -1,0 +1,327 @@
+@prefix io: <https://caeluviim.org/ontology/interlocutor-operations#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+io:UtteranceShape a sh:NodeShape ;
+    sh:targetClass io:Utterance ;
+    sh:property [
+        sh:path io:content ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:contentHash ;
+        sh:datatype xsd:string ;
+        sh:pattern "^sha256:[0-9a-f]{64}$" ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path prov:wasAttributedTo ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1
+    ] .
+
+io:SourceSpanShape a sh:NodeShape ;
+    sh:targetClass io:SourceSpan ;
+    sh:property [
+        sh:path io:spanOf ;
+        sh:class io:Utterance ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:startChar ;
+        sh:datatype xsd:nonNegativeInteger ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:endChar ;
+        sh:datatype xsd:positiveInteger ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:exactText ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+io:QuotationShape a sh:NodeShape ;
+    sh:targetClass io:Quotation ;
+    sh:property [
+        sh:path io:quotedFrom ;
+        sh:class io:SourceSpan ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path io:exactText ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+io:TransformationEventShape a sh:NodeShape ;
+    sh:targetClass io:TransformationEvent ;
+    sh:property [
+        sh:path prov:used ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path prov:generated ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path prov:wasAssociatedWith ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path io:ruleVersionId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:determinismClass ;
+        sh:in ( "deterministic" "seeded_stochastic" "model_generated" "human_judgment" ) ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+io:InterpretationShape a sh:NodeShape ;
+    sh:targetClass io:Interpretation ;
+    sh:property [
+        sh:path io:hasSourceSpan ;
+        sh:class io:SourceSpan ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path io:usedContext ;
+        sh:class io:ContextSnapshot ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:confidence ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:ruleVersionId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:contestable ;
+        sh:hasValue true ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+io:ForceAssignmentShape a sh:NodeShape ;
+    sh:targetClass io:ForceAssignment ;
+    sh:property [
+        sh:path io:targetsEntity ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:assignedForceType ;
+        sh:class io:ForceType ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:hasSourceSpan ;
+        sh:class io:SourceSpan ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path io:usedContext ;
+        sh:class io:ContextSnapshot ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:confidence ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:contestable ;
+        sh:hasValue true ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+io:TruthAssessmentShape a sh:NodeShape ;
+    sh:targetClass io:TruthAssessment ;
+    sh:property [
+        sh:path io:assessesProposition ;
+        sh:class io:Proposition ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:usedContext ;
+        sh:class io:ContextSnapshot ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:usedEvidenceSet ;
+        sh:class io:EvidenceSet ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:evaluatedUnderStandard ;
+        sh:class io:AssessmentStandard ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:assessmentTime ;
+        sh:datatype xsd:dateTime ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:assessmentStatus ;
+        sh:in ( "supported" "unsupported" "contradicted" "unresolved" "indeterminate" "inapplicable" "disputed" ) ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:confidence ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:hasReason ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path io:ruleVersionId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+io:ContestationEventShape a sh:NodeShape ;
+    sh:targetClass io:ContestationEvent ;
+    sh:property [
+        sh:path io:contests ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path prov:wasAssociatedWith ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1
+    ] .
+
+io:OperationDefinitionOccurrenceShape a sh:NodeShape ;
+    sh:targetClass io:OperationDefinitionOccurrence ;
+    sh:property [
+        sh:path io:definesOperation ;
+        sh:class io:CanonicalOperation ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:sourceStatus ;
+        sh:in ( "supplied" "corrected" "verified" "synthesized" ) ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+io:OperationOccurrenceShape a sh:NodeShape ;
+    sh:targetClass io:OperationOccurrence ;
+    sh:property [
+        sh:path io:detectedOperation ;
+        sh:class io:CanonicalOperation ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:targetsEntity ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:hasSourceSpan ;
+        sh:class io:SourceSpan ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path io:confidence ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:ruleVersionId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:contestable ;
+        sh:hasValue true ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+io:ConceptualMappingShape a sh:NodeShape ;
+    sh:targetClass io:ConceptualMapping ;
+    sh:property [
+        sh:path io:hasSourceDomain ;
+        sh:class io:ConceptualDomain ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:hasTargetDomain ;
+        sh:class io:ConceptualDomain ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+io:AdjacencyPairShape a sh:NodeShape ;
+    sh:targetClass io:AdjacencyPair ;
+    sh:property [
+        sh:path io:hasFirstPairPart ;
+        sh:class io:Turn ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path io:hasSecondPairPart ;
+        sh:class io:Turn ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
