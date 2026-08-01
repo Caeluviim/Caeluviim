@@ -1,0 +1,20 @@
+{
+  "record_type": "truth_assessment",
+  "record_id": "urn:caeluviim:record:truth-assessment:1",
+  "created_at": "2026-08-01T12:00:00Z",
+  "provenance_id": "urn:caeluviim:provenance:truth-assessment:1",
+  "assessment_id": "urn:caeluviim:assessment:truth:1",
+  "proposition_id": "urn:caeluviim:proposition:1",
+  "context_id": "urn:caeluviim:context:1",
+  "evidence_set_id": "urn:caeluviim:evidence-set:1",
+  "standard_id": "urn:caeluviim:standard:ordinary-factual-support:1",
+  "jurisdiction_or_domain_id": "urn:caeluviim:domain:conversation:1",
+  "assessment_time": "2026-08-01T12:00:00Z",
+  "status": "supported",
+  "confidence": 1.0,
+  "reason_ids": [
+    "urn:caeluviim:reason:immutable-utterance-record:1"
+  ],
+  "alternative_assessment_ids": [],
+  "rule_version_id": "urn:caeluviim:rule:truth-assessment:0.1.0"
+}
