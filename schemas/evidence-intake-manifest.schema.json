@@ -12,6 +12,7 @@
     "created_at",
     "created_by_ref",
     "evaluation_as_of",
+    "acquisition_record",
     "source_artifacts",
     "source_snapshots",
     "source_locators",
@@ -45,6 +46,9 @@
     },
     "evaluation_as_of": {
       "$ref": "#/$defs/dateTime"
+    },
+    "acquisition_record": {
+      "$ref": "#/$defs/acquisitionRecord"
     },
     "source_artifacts": {
       "type": "array",
@@ -192,6 +196,40 @@
         "released"
       ]
     },
+    "acquisitionRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "acquisition_manifest_ref",
+        "acquisition_manifest_path",
+        "acquisition_manifest_sha256",
+        "acquisition_assessment_ref",
+        "acquisition_assessment_path",
+        "acquisition_assessment_sha256"
+      ],
+      "properties": {
+        "acquisition_manifest_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "acquisition_manifest_path": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*\\.\\.)[A-Za-z0-9._/-]+$"
+        },
+        "acquisition_manifest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "acquisition_assessment_ref": {
+          "$ref": "#/$defs/uri"
+        },
+        "acquisition_assessment_path": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*\\.\\.)[A-Za-z0-9._/-]+$"
+        },
+        "acquisition_assessment_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
     "sourceArtifact": {
       "type": "object",
       "additionalProperties": false,
@@ -240,6 +278,7 @@
       "additionalProperties": false,
       "required": [
         "snapshot_id",
+        "acquisition_fixation_ref",
         "artifact_ref",
         "captured_at",
         "content_path",
@@ -250,6 +289,9 @@
       ],
       "properties": {
         "snapshot_id": {
+          "$ref": "#/$defs/uri"
+        },
+        "acquisition_fixation_ref": {
           "$ref": "#/$defs/uri"
         },
         "artifact_ref": {

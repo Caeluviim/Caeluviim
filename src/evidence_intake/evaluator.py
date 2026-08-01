@@ -43,6 +43,13 @@ ENTITY_COLLECTIONS = {
 }
 
 UNVERIFIABLE_CODES = {
+    "ACQUISITION_RECORD_MISSING",
+    "ACQUISITION_RECORD_DIGEST_MISMATCH",
+    "ACQUISITION_ASSESSMENT_DIGEST_MISMATCH",
+    "ACQUISITION_REFERENCE_MISMATCH",
+    "ACQUISITION_FIXATION_MISMATCH",
+    "ACQUISITION_AUTHORITY_BOUNDARY_FAILED",
+    "SNAPSHOT_NOT_ACQUISITION_ELIGIBLE",
     "REFERENCE_INTEGRITY_FAILED",
     "SNAPSHOT_MISSING",
     "SNAPSHOT_PATH_INVALID",
@@ -345,6 +352,154 @@ def _reference_failures(
     return by_claim, not global_messages and not any(by_claim.values())
 
 
+def _acquisition_record_failures(
+    manifest: dict[str, Any],
+    *,
+    project_root: Path,
+) -> dict[str, list[tuple[str, list[str], str]]]:
+    failures: dict[
+        str, list[tuple[str, list[str], str]]
+    ] = defaultdict(list)
+    snapshots = manifest.get("source_snapshots", [])
+    record = manifest.get("acquisition_record")
+    snapshot_refs = [item["snapshot_id"] for item in snapshots]
+
+    def fail_all(code: str, message: str) -> None:
+        for snapshot_ref in snapshot_refs:
+            failures[snapshot_ref].append(
+                (code, [snapshot_ref], message)
+            )
+
+    if not record:
+        fail_all(
+            "ACQUISITION_RECORD_MISSING",
+            "Intake requires an immutable acquisition record.",
+        )
+        return failures
+
+    loaded: dict[str, dict[str, Any]] = {}
+    for label, path_field, digest_field, mismatch_code in (
+        (
+            "manifest",
+            "acquisition_manifest_path",
+            "acquisition_manifest_sha256",
+            "ACQUISITION_RECORD_DIGEST_MISMATCH",
+        ),
+        (
+            "assessment",
+            "acquisition_assessment_path",
+            "acquisition_assessment_sha256",
+            "ACQUISITION_ASSESSMENT_DIGEST_MISMATCH",
+        ),
+    ):
+        candidate = project_root / record[path_field]
+        try:
+            resolved = candidate.resolve(strict=True)
+            resolved.relative_to(project_root)
+            if candidate.is_symlink() or not resolved.is_file():
+                raise OSError("not a regular non-symlink file")
+            content = resolved.read_bytes()
+            if sha256_bytes(content) != record[digest_field]:
+                fail_all(
+                    mismatch_code,
+                    f"Immutable acquisition {label} digest does not verify.",
+                )
+            value = json.loads(content.decode("utf-8"))
+            if not isinstance(value, dict):
+                raise ValueError("record is not a JSON object")
+            loaded[label] = value
+        except (OSError, ValueError, UnicodeDecodeError, json.JSONDecodeError):
+            fail_all(
+                "ACQUISITION_RECORD_MISSING",
+                f"Immutable acquisition {label} is unavailable or invalid.",
+            )
+
+    acquisition = loaded.get("manifest")
+    assessment = loaded.get("assessment")
+    if acquisition is None or assessment is None:
+        return failures
+    if acquisition.get("manifest_id") != record["acquisition_manifest_ref"]:
+        fail_all(
+            "ACQUISITION_REFERENCE_MISMATCH",
+            "Acquisition manifest identifier does not match the intake reference.",
+        )
+    if assessment.get("assessment_id") != record[
+        "acquisition_assessment_ref"
+    ]:
+        fail_all(
+            "ACQUISITION_REFERENCE_MISMATCH",
+            "Acquisition assessment identifier does not match the intake reference.",
+        )
+    if assessment.get("manifest_ref") != acquisition.get("manifest_id"):
+        fail_all(
+            "ACQUISITION_REFERENCE_MISMATCH",
+            "Acquisition assessment does not bind the referenced manifest.",
+        )
+    if assessment.get("manifest_digest") != sha256_json(acquisition):
+        fail_all(
+            "ACQUISITION_REFERENCE_MISMATCH",
+            "Acquisition assessment manifest digest does not verify.",
+        )
+    assessment_source = copy.deepcopy(assessment)
+    assessment_source.pop("assessment_id", None)
+    recorded_assessment_digest = assessment_source.pop(
+        "assessment_digest", None
+    )
+    if (
+        recorded_assessment_digest != sha256_json(assessment_source)
+        or not str(assessment.get("assessment_id", "")).endswith(
+            ":" + str(recorded_assessment_digest)
+        )
+    ):
+        fail_all(
+            "ACQUISITION_REFERENCE_MISMATCH",
+            "Acquisition assessment content address does not verify.",
+        )
+    boundary = acquisition.get("authority_boundary", {})
+    if (
+        any(boundary.values())
+        or assessment.get("authority_boundary_preserved") is not True
+    ):
+        fail_all(
+            "ACQUISITION_AUTHORITY_BOUNDARY_FAILED",
+            "Acquisition must not assess source authority, claim support, or truth.",
+        )
+
+    fixations_by_id = {
+        item.get("fixation_id"): item
+        for item in acquisition.get("snapshot_fixations", [])
+    }
+    eligible = set(assessment.get("eligible_snapshot_refs", []))
+    for snapshot in snapshots:
+        snapshot_ref = snapshot["snapshot_id"]
+        fixation_ref = snapshot["acquisition_fixation_ref"]
+        fixation = fixations_by_id.get(fixation_ref)
+        if snapshot_ref not in eligible:
+            failures[snapshot_ref].append(
+                (
+                    "SNAPSHOT_NOT_ACQUISITION_ELIGIBLE",
+                    [snapshot_ref, fixation_ref],
+                    "The acquisition assessment did not mark this snapshot intake-eligible.",
+                )
+            )
+        if (
+            fixation is None
+            or fixation.get("snapshot_id") != snapshot_ref
+            or fixation.get("content_path") != snapshot["content_path"]
+            or fixation.get("sha256") != snapshot["sha256"]
+            or fixation.get("byte_length") != snapshot["byte_length"]
+            or fixation.get("immutable") is not True
+        ):
+            failures[snapshot_ref].append(
+                (
+                    "ACQUISITION_FIXATION_MISMATCH",
+                    [snapshot_ref, fixation_ref],
+                    "Intake snapshot does not exactly match its acquisition fixation.",
+                )
+            )
+    return failures
+
+
 def _snapshot_and_locator_failures(
     manifest: dict[str, Any],
     *,
@@ -366,6 +521,12 @@ def _snapshot_and_locator_failures(
         for item in manifest.get("source_snapshots", [])
     }
     root = project_root.resolve()
+    acquisition_failures = _acquisition_record_failures(
+        manifest,
+        project_root=root,
+    )
+    for snapshot_ref, items in acquisition_failures.items():
+        snapshot_failures[snapshot_ref].extend(items)
 
     for snapshot_ref, snapshot in snapshots.items():
         if not snapshot["immutable"]:

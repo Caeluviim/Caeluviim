@@ -20,6 +20,9 @@ intake:SourceArtifact a owl:Class ;
 intake:SourceSnapshot a owl:Class ;
   rdfs:subClassOf prov:Entity .
 
+intake:AcquisitionRecord a owl:Class ;
+  rdfs:subClassOf prov:Entity .
+
 intake:SourceLocator a owl:Class ;
   rdfs:subClassOf prov:Entity .
 
@@ -108,6 +111,10 @@ intake:hasSourceSnapshot a owl:ObjectProperty ;
   rdfs:domain intake:IntakeManifest ;
   rdfs:range intake:SourceSnapshot .
 
+intake:acquisitionRecord a owl:ObjectProperty ;
+  rdfs:domain intake:IntakeManifest ;
+  rdfs:range intake:AcquisitionRecord .
+
 intake:hasSourceLocator a owl:ObjectProperty ;
   rdfs:domain intake:IntakeManifest ;
   rdfs:range intake:SourceLocator .
@@ -137,6 +144,9 @@ intake:requestsSICRPAssertion a owl:ObjectProperty ;
 intake:snapshotOf a owl:ObjectProperty ;
   rdfs:domain intake:SourceSnapshot ;
   rdfs:range intake:SourceArtifact .
+
+intake:fixedByAcquisition a owl:ObjectProperty ;
+  rdfs:domain intake:SourceSnapshot .
 
 intake:locatesSnapshot a owl:ObjectProperty ;
   rdfs:domain intake:SourceLocator ;

@@ -6,6 +6,12 @@
 intake:IntakeManifestShape a sh:NodeShape ;
   sh:targetClass intake:IntakeManifest ;
   sh:property [
+    sh:path intake:acquisitionRecord ;
+    sh:class intake:AcquisitionRecord ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
     sh:path intake:hasSourceArtifact ;
     sh:class intake:SourceArtifact ;
     sh:minCount 1
@@ -67,6 +73,12 @@ intake:SourceArtifactShape a sh:NodeShape ;
 
 intake:SourceSnapshotShape a sh:NodeShape ;
   sh:targetClass intake:SourceSnapshot ;
+  sh:property [
+    sh:path intake:fixedByAcquisition ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
   sh:property [
     sh:path intake:snapshotOf ;
     sh:class intake:SourceArtifact ;

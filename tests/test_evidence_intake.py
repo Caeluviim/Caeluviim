@@ -139,6 +139,38 @@ class TestEvidenceIntake(unittest.TestCase):
         )
         self.assertTrue(result["conforms"], result["errors"])
 
+    def test_live_url_without_immutable_acquisition_record_is_rejected(self):
+        candidate = copy.deepcopy(self.manifest)
+        candidate.pop("acquisition_record")
+        result = validate_json_document(candidate, self.manifest_schema)
+        self.assertFalse(result["conforms"])
+
+    def test_tampered_acquisition_record_digest_quarantines_claim(self):
+        candidate = copy.deepcopy(self.manifest)
+        claim_ref = self.quarantine_recorded_claim(candidate)
+        candidate["acquisition_record"][
+            "acquisition_manifest_sha256"
+        ] = "0" * 64
+        result = self.claim_result(self.evaluate(candidate), claim_ref)
+        self.assertIn(
+            "ACQUISITION_RECORD_DIGEST_MISMATCH",
+            result["failure_codes"],
+        )
+        self.assertFalse(result["release_allowed"])
+
+    def test_snapshot_must_name_matching_acquisition_fixation(self):
+        candidate = copy.deepcopy(self.manifest)
+        claim_ref = self.quarantine_recorded_claim(candidate)
+        candidate["source_snapshots"][0][
+            "acquisition_fixation_ref"
+        ] = "urn:caeluviim:snapshot-fixation:missing"
+        result = self.claim_result(self.evaluate(candidate), claim_ref)
+        self.assertIn(
+            "ACQUISITION_FIXATION_MISMATCH",
+            result["failure_codes"],
+        )
+        self.assertFalse(result["release_allowed"])
+
     def test_ontology_contains_core_entities_and_all_claim_states(self):
         graph = Graph().parse(self.ontology_path, format="turtle")
         classes = [

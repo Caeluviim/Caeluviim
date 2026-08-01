@@ -5,6 +5,14 @@
   "created_at": "2026-07-29T17:00:00Z",
   "created_by_ref": "urn:caeluviim:agent:evidence-intake-proposer",
   "evaluation_as_of": "2026-07-29T17:30:00Z",
+  "acquisition_record": {
+    "acquisition_manifest_ref": "urn:caeluviim:acquisition:manifest:allocation-register-lifecycle",
+    "acquisition_manifest_path": "examples/source-acquisition-manifest.valid.json",
+    "acquisition_manifest_sha256": "c8cda01253dbc6ec6381c994ae158550538d442143393cbd09ee7dadcbb9edad",
+    "acquisition_assessment_ref": "urn:caeluviim:assessment:source-acquisition:bce8157accda898b3071ee19a7b1ef26556f5cfe9d07568c8266bb2209668dd0",
+    "acquisition_assessment_path": "examples/source-acquisition-assessment.json",
+    "acquisition_assessment_sha256": "e88832cc0bbcb38f88d755b901c0b27525af9b80f41fd893e0eea14e6a426de9"
+  },
   "source_artifacts": [
     {
       "artifact_id": "urn:caeluviim:source:allocation-bulletin-2026q3",
@@ -19,6 +27,7 @@
   "source_snapshots": [
     {
       "snapshot_id": "urn:caeluviim:snapshot:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
+      "acquisition_fixation_ref": "urn:caeluviim:snapshot-fixation:sha256:7e9e5d49c7c507fd2a74adb3c58ddaf6422e36fc5b3485d1cef3916c94c01929",
       "artifact_ref": "urn:caeluviim:source:allocation-bulletin-2026q3",
       "captured_at": "2026-07-29T16:55:00Z",
       "content_path": "examples/evidence-intake/source/allocation-bulletin-2026q3.txt",

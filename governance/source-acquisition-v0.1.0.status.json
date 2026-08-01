@@ -1,0 +1,142 @@
+{
+  "module_id": "urn:caeluviim:module:source-acquisition",
+  "module_version": "0.1.0",
+  "implementation_status": "implemented",
+  "governance_status": "proposed",
+  "proposer_id": "urn:caeluviim:agent:source-acquisition-proposer",
+  "independent_validators": [],
+  "required_independent_validator_count": 2,
+  "self_ratification_permitted": false,
+  "ratification_claimed": false,
+  "recorded_at": "2026-07-29T19:10:00Z",
+  "artifact_manifest": [
+    {
+      "path": "README.md",
+      "sha256": "542ad175e61d484b95c5b303b47fd4607562c4ee59bb487c6fe20e17e6238a6c"
+    },
+    {
+      "path": "docs/architecture/source-acquisition-lifecycle.md",
+      "sha256": "0effbed242f7a1fb09affab4afa352a69b653d0f69e67dbdc3fbf4317884acb7"
+    },
+    {
+      "path": "docs/architecture/source-bound-evidence-intake.md",
+      "sha256": "2dacaf5d5ea21fc9c4171828b81d01dd586e1b780f9744f993865b8a705b6143"
+    },
+    {
+      "path": "schemas/source-acquisition-manifest.schema.json",
+      "sha256": "a4fc06a4ba97a0d3cf14a7b670fe5e63e680cc67fd5633b083fa0e4c5d883a24"
+    },
+    {
+      "path": "schemas/source-acquisition-assessment.schema.json",
+      "sha256": "8d071a7f7f329a6fe416877055a2b07c5347e6552a28e0a535f60d1d9274368f"
+    },
+    {
+      "path": "schemas/source-acquisition-status.schema.json",
+      "sha256": "4952273ae080db70efe8be3242923f31a5d2fa05b53f530e326741a846a8c4b4"
+    },
+    {
+      "path": "ontology/source-acquisition.ttl",
+      "sha256": "7fb543c03682a5ab7d324cde804d4b4c0eac08703deb83066bf73bfc4afc936d"
+    },
+    {
+      "path": "shapes/source-acquisition.shacl.ttl",
+      "sha256": "93c24c63c17d524bc68fab878b66fb72c936d6b1fab97c6e7e37f9db22bcaa8d"
+    },
+    {
+      "path": "examples/source-acquisition/representations/allocation-register-v1.txt",
+      "sha256": "6fdc0c4f6134d468cca7239281898169d90f81c0403f316e52549317f3438972"
+    },
+    {
+      "path": "examples/source-acquisition/representations/allocation-register-v2.txt",
+      "sha256": "36fef786129e37f259e54301eaadd1f265f5ebe7f5848eb5a9121cfac1fd2afb"
+    },
+    {
+      "path": "examples/source-acquisition-manifest.valid.json",
+      "sha256": "c8cda01253dbc6ec6381c994ae158550538d442143393cbd09ee7dadcbb9edad"
+    },
+    {
+      "path": "examples/source-acquisition-manifest.valid.ttl",
+      "sha256": "1a92036fcbf1a23bd515bf212ac0e7f45da3ae4d0edd0bedd56fc5435f084702"
+    },
+    {
+      "path": "examples/source-acquisition-assessment.json",
+      "sha256": "e88832cc0bbcb38f88d755b901c0b27525af9b80f41fd893e0eea14e6a426de9"
+    },
+    {
+      "path": "src/source_acquisition/__init__.py",
+      "sha256": "93035403ddfc9be1b6bee3ed5364b0950076f5f9858e720a781fddbec82184b6"
+    },
+    {
+      "path": "src/source_acquisition/canonical.py",
+      "sha256": "7b21978559ea4093e593314e62896c2bb78528120da0f18bdbbfd21690eb7f1c"
+    },
+    {
+      "path": "src/source_acquisition/evaluator.py",
+      "sha256": "97bf0c9ccc9b47eb006e39657fedf651c0e8c2058f323f5da7b4993ec4d02629"
+    },
+    {
+      "path": "src/source_acquisition/store.py",
+      "sha256": "9cc5219b0572e9a14963480ec89f40fd93155f327b7da2db632217aa33fc9e74"
+    },
+    {
+      "path": "src/source_acquisition/cli.py",
+      "sha256": "85363b2c8bd4852bc5a889ee66f2ea7d2342b68467b8fcb3c89a1ab7c977ca20"
+    },
+    {
+      "path": "scripts/source_acquisition.py",
+      "sha256": "ce6e270eef82a78d72c15bf023e7d81df2442473507681720c3a2b91894ba9b9"
+    },
+    {
+      "path": "queries/source-acquisition-changes.rq",
+      "sha256": "61f5f10446df7c66d4e809b92cf8c472038ee229cf7481c44d66a523e99debd8"
+    },
+    {
+      "path": "queries/source-acquisition-failures.rq",
+      "sha256": "db041841a6e3e30e554c26be5cf02d85dcf03a53c6224b82d3bce44b0516ce2f"
+    },
+    {
+      "path": "queries/source-acquisition-intake-eligible.rq",
+      "sha256": "6ef6419b95ce9b20051d0d12e1d7ba31197aede415df50455df59e63c53ae148"
+    },
+    {
+      "path": "tests/test_source_acquisition.py",
+      "sha256": "2410374b9b7c5c081dabe56a6826c7b2d2b6ba8aaacf9ecb80d64126b2267fea"
+    },
+    {
+      "path": ".github/workflows/validate-source-acquisition.yml",
+      "sha256": "62be153df9e324839e03832935694033e6f39feee3297f796cfe1561e91ba971"
+    },
+    {
+      "path": "schemas/evidence-intake-manifest.schema.json",
+      "sha256": "98a4fc159816b945657f4fc820bc8691680419511a11247287bc5cadbf9e3b83"
+    },
+    {
+      "path": "ontology/evidence-intake.ttl",
+      "sha256": "ef6fab32426324c99fc661c7e19d16046f7bf1470c5a1dca68a730272855bfd1"
+    },
+    {
+      "path": "shapes/evidence-intake.shacl.ttl",
+      "sha256": "4f2d13ab94927aa8ad24ddde095d37ba46511e529cf6d6a914a8819ea9352f7e"
+    },
+    {
+      "path": "examples/evidence-intake-manifest.valid.json",
+      "sha256": "626cc38af19799f1b58d5a8b55dc4f2d56d81cac2b650b67182d5b88b812af0b"
+    },
+    {
+      "path": "examples/evidence-intake-manifest.valid.ttl",
+      "sha256": "d4d05b6769aef912a74b32b0abe2ea077975dfe6c8a3c831f6911c013466f2cc"
+    },
+    {
+      "path": "examples/evidence-intake-assessment.json",
+      "sha256": "c4002e2c72965843b6a78946d9e6984d6f0fa24bd4b3b101cc0a29a793133881"
+    },
+    {
+      "path": "src/evidence_intake/evaluator.py",
+      "sha256": "a93cf3d21e1f886df63909544f121bdf6b6ea9e95947648bb51e27d8d0968274"
+    },
+    {
+      "path": "tests/test_evidence_intake.py",
+      "sha256": "74fd8a29ccdc0d085dfa33c83034676de210630bb185b87ee02faf6ac54d36ca"
+    }
+  ]
+}

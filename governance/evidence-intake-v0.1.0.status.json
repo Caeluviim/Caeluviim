@@ -12,15 +12,15 @@
   "artifact_manifest": [
     {
       "path": "README.md",
-      "sha256": "286c388e229b8500268acc34b1b1b37bfb908a9a5a301230bd51ea8ce345cad2"
+      "sha256": "542ad175e61d484b95c5b303b47fd4607562c4ee59bb487c6fe20e17e6238a6c"
     },
     {
       "path": "docs/architecture/source-bound-evidence-intake.md",
-      "sha256": "0afd9b82b7fc90a8f90c49429bab48be9cf1f14af41e78af220a4da024225c17"
+      "sha256": "2dacaf5d5ea21fc9c4171828b81d01dd586e1b780f9744f993865b8a705b6143"
     },
     {
       "path": "schemas/evidence-intake-manifest.schema.json",
-      "sha256": "fe6ea62d12d7386c5168b20213794ed52548c56de82358561b6c0c3d0ad06374"
+      "sha256": "98a4fc159816b945657f4fc820bc8691680419511a11247287bc5cadbf9e3b83"
     },
     {
       "path": "schemas/evidence-intake-assessment.schema.json",
@@ -32,11 +32,11 @@
     },
     {
       "path": "ontology/evidence-intake.ttl",
-      "sha256": "b480156ca48779c10668a8ddd8436606fc0881dfb1930dc39051dd647c7c3355"
+      "sha256": "ef6fab32426324c99fc661c7e19d16046f7bf1470c5a1dca68a730272855bfd1"
     },
     {
       "path": "shapes/evidence-intake.shacl.ttl",
-      "sha256": "f22e30295d47ea49a2032dd83dc3f4f82e2b417990857e1a5c645373d30734ad"
+      "sha256": "4f2d13ab94927aa8ad24ddde095d37ba46511e529cf6d6a914a8819ea9352f7e"
     },
     {
       "path": "shapes/evidence-intake-assessment.shacl.ttl",
@@ -48,15 +48,15 @@
     },
     {
       "path": "examples/evidence-intake-manifest.valid.json",
-      "sha256": "d1932495e9b61c62055d2632ec8b06742b2bedbb95db34a306458eceb5ddde94"
+      "sha256": "626cc38af19799f1b58d5a8b55dc4f2d56d81cac2b650b67182d5b88b812af0b"
     },
     {
       "path": "examples/evidence-intake-manifest.valid.ttl",
-      "sha256": "f100b35c4f510f1ae3d204b85e430162ccc744bacb22e2aec9a381cd0465af3f"
+      "sha256": "d4d05b6769aef912a74b32b0abe2ea077975dfe6c8a3c831f6911c013466f2cc"
     },
     {
       "path": "examples/evidence-intake-assessment.json",
-      "sha256": "490355b0339dc441489f0fdff13692cad3f47fe71afb922474b713c111e6398a"
+      "sha256": "c4002e2c72965843b6a78946d9e6984d6f0fa24bd4b3b101cc0a29a793133881"
     },
     {
       "path": "src/evidence_intake/__init__.py",
@@ -68,7 +68,7 @@
     },
     {
       "path": "src/evidence_intake/evaluator.py",
-      "sha256": "79c3fa4de4650d0518cbae8f848ff483d4227b0ac0e29e57ef9a3a147d888088"
+      "sha256": "a93cf3d21e1f886df63909544f121bdf6b6ea9e95947648bb51e27d8d0968274"
     },
     {
       "path": "src/evidence_intake/store.py",
@@ -92,7 +92,7 @@
     },
     {
       "path": "tests/test_evidence_intake.py",
-      "sha256": "52c10b9a406405febfa43927c0b86486c9b6f371b180ff0c4801623545f4b2a3"
+      "sha256": "74fd8a29ccdc0d085dfa33c83034676de210630bb185b87ee02faf6ac54d36ca"
     },
     {
       "path": ".github/workflows/validate-evidence-intake.yml",

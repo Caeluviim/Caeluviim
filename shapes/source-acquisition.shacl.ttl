@@ -1,0 +1,205 @@
+@prefix acq: <https://caeluviim.org/ontology/source-acquisition#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+acq:AcquisitionManifestShape
+    a sh:NodeShape ;
+    sh:targetClass acq:AcquisitionManifest ;
+    sh:closed true ;
+    sh:ignoredProperties ( <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ) ;
+    sh:property [
+        sh:path acq:createdAt ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] ;
+    sh:property [
+        sh:path acq:createdBy ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path acq:sourceAuthorityAssessed ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:hasValue false
+    ] ;
+    sh:property [
+        sh:path acq:claimSupportAssessed ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:hasValue false
+    ] ;
+    sh:property [
+        sh:path acq:truthAssessed ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:hasValue false
+    ] ;
+    sh:property [ sh:path acq:hasSourceRequest ; sh:minCount 1 ; sh:class acq:SourceRequest ] ;
+    sh:property [ sh:path acq:hasRetrievalAttempt ; sh:minCount 1 ; sh:class acq:RetrievalAttempt ] ;
+    sh:property [ sh:path acq:hasCanonicalSourceIdentity ; sh:minCount 1 ; sh:class acq:CanonicalSourceIdentity ] ;
+    sh:property [ sh:path acq:hasSourceVersion ; sh:minCount 1 ; sh:class acq:SourceVersion ] ;
+    sh:property [ sh:path acq:hasSnapshotFixation ; sh:minCount 1 ; sh:class acq:SnapshotFixation ] ;
+    sh:property [ sh:path acq:hasRetrievedRepresentation ; sh:minCount 1 ; sh:class acq:RetrievedRepresentation ] ;
+    sh:property [ sh:path acq:hasAcquisitionFailure ; sh:class acq:AcquisitionFailure ] ;
+    sh:property [ sh:path acq:hasChangeEvent ; sh:class acq:ChangeEvent ] ;
+    sh:property [ sh:path acq:hasSupersessionRelation ; sh:class acq:SupersessionRelation ] ;
+    sh:property [ sh:path acq:hasAvailabilityObservation ; sh:minCount 1 ; sh:class acq:SourceAvailabilityObservation ] .
+
+acq:SourceRequestShape
+    a sh:NodeShape ;
+    sh:targetClass acq:SourceRequest ;
+    sh:property [ sh:path acq:requestedURI ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:anyURI ] ;
+    sh:property [ sh:path acq:discoveryMethod ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:minLength 1 ] ;
+    sh:property [ sh:path acq:requestedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path acq:requestingAgent ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] .
+
+acq:RetrievalAttemptShape
+    a sh:NodeShape ;
+    sh:targetClass acq:RetrievalAttempt ;
+    sh:property [ sh:path acq:request ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:SourceRequest ] ;
+    sh:property [ sh:path acq:requestedURI ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:anyURI ] ;
+    sh:property [ sh:path acq:startedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path acq:completedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path acq:transport ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path acq:retrievalOutcome ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "successful" "failed" "blocked" ) ] ;
+    sh:property [ sh:path acq:redirectHop ; sh:minCount 1 ; sh:class acq:RedirectHop ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Successful retrieval requires exactly one representation and no failure." ;
+        sh:select """
+            SELECT $this WHERE {
+              $this acq:retrievalOutcome "successful" .
+              {
+                FILTER NOT EXISTS { $this acq:representation ?representation . }
+              } UNION {
+                $this acq:failure ?failure .
+              }
+            }
+        """
+    ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Failed or blocked retrieval requires a failure and must not produce a representation." ;
+        sh:select """
+            SELECT $this WHERE {
+              $this acq:retrievalOutcome ?outcome .
+              FILTER (?outcome IN ("failed", "blocked"))
+              {
+                FILTER NOT EXISTS { $this acq:failure ?failure . }
+              } UNION {
+                $this acq:representation ?representation .
+              }
+            }
+        """
+    ] .
+
+acq:RedirectHopShape
+    a sh:NodeShape ;
+    sh:targetClass acq:RedirectHop ;
+    sh:property [ sh:path acq:hopSequence ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:minInclusive 0 ] ;
+    sh:property [ sh:path acq:requestedURI ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:anyURI ] ;
+    sh:property [ sh:path acq:statusCode ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:minInclusive 100 ; sh:maxInclusive 599 ] .
+
+acq:RetrievedRepresentationShape
+    a sh:NodeShape ;
+    sh:targetClass acq:RetrievedRepresentation ;
+    sh:property [ sh:path acq:attempt ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:RetrievalAttempt ] ;
+    sh:property [ sh:path acq:finalURI ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:anyURI ] ;
+    sh:property [ sh:path acq:canonicalIdentity ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:CanonicalSourceIdentity ] ;
+    sh:property [ sh:path acq:retrievedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path acq:statusCode ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:minInclusive 200 ; sh:maxInclusive 299 ] ;
+    sh:property [ sh:path acq:mediaType ; sh:minCount 1 ; sh:maxCount 1 ; sh:minLength 1 ] ;
+    sh:property [ sh:path acq:responseHeader ; sh:minCount 1 ; sh:minLength 1 ] ;
+    sh:property [ sh:path acq:contentPath ; sh:minCount 1 ; sh:maxCount 1 ; sh:minLength 1 ] ;
+    sh:property [ sh:path acq:byteLength ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:minInclusive 0 ] ;
+    sh:property [ sh:path acq:sha256 ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^[a-f0-9]{64}$" ] .
+
+acq:CanonicalSourceIdentityShape
+    a sh:NodeShape ;
+    sh:targetClass acq:CanonicalSourceIdentity ;
+    sh:property [ sh:path acq:canonicalURI ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:anyURI ] ;
+    sh:property [ sh:path acq:identificationMethod ; sh:minCount 1 ; sh:maxCount 1 ; sh:minLength 1 ] .
+
+acq:SourceVersionShape
+    a sh:NodeShape ;
+    sh:targetClass acq:SourceVersion ;
+    sh:property [ sh:path acq:canonicalIdentity ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:CanonicalSourceIdentity ] ;
+    sh:property [ sh:path acq:representation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:RetrievedRepresentation ] ;
+    sh:property [ sh:path acq:fixedBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:SnapshotFixation ] ;
+    sh:property [ sh:path acq:observedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path acq:sha256 ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^[a-f0-9]{64}$" ] .
+
+acq:SnapshotFixationShape
+    a sh:NodeShape ;
+    sh:targetClass acq:SnapshotFixation ;
+    sh:property [ sh:path acq:representation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:RetrievedRepresentation ] ;
+    sh:property [ sh:path acq:snapshotID ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+    sh:property [ sh:path acq:contentPath ; sh:minCount 1 ; sh:maxCount 1 ; sh:minLength 1 ] ;
+    sh:property [ sh:path acq:fixedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path acq:hashAlgorithm ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue "sha256" ] ;
+    sh:property [ sh:path acq:byteLength ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:minInclusive 0 ] ;
+    sh:property [ sh:path acq:sha256 ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^[a-f0-9]{64}$" ] ;
+    sh:property [ sh:path acq:immutable ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue true ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "SnapshotID must be the urn:caeluviim:snapshot:sha256: content address for the recorded exact-byte digest." ;
+        sh:select """
+            SELECT $this WHERE {
+              $this acq:snapshotID ?snapshot ;
+                    acq:sha256 ?digest .
+              BIND(IRI(CONCAT("urn:caeluviim:snapshot:sha256:", STR(?digest))) AS ?expected)
+              FILTER (?snapshot != ?expected)
+            }
+        """
+    ] .
+
+acq:AcquisitionFailureShape
+    a sh:NodeShape ;
+    sh:targetClass acq:AcquisitionFailure ;
+    sh:property [ sh:path acq:attempt ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:RetrievalAttempt ] ;
+    sh:property [ sh:path acq:failureCategory ; sh:minCount 1 ; sh:maxCount 1 ; sh:minLength 1 ] ;
+    sh:property [ sh:path acq:failureDetail ; sh:minCount 1 ; sh:maxCount 1 ; sh:minLength 1 ] ;
+    sh:property [ sh:path acq:observedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path acq:evidentiaryAbsenceInferred ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue false ] .
+
+acq:ChangeEventShape
+    a sh:NodeShape ;
+    sh:targetClass acq:ChangeEvent ;
+    sh:property [ sh:path acq:canonicalIdentity ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:CanonicalSourceIdentity ] ;
+    sh:property [ sh:path acq:previousVersion ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:SourceVersion ] ;
+    sh:property [ sh:path acq:nextVersion ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:SourceVersion ] ;
+    sh:property [ sh:path acq:detectedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path acq:comparisonMethod ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue "sha256_digest_comparison" ] ;
+    sh:property [ sh:path acq:previousSHA256 ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^[a-f0-9]{64}$" ] ;
+    sh:property [ sh:path acq:nextSHA256 ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^[a-f0-9]{64}$" ] ;
+    sh:property [ sh:path acq:bytesChanged ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue true ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "ChangeEvent previous and next digests must differ." ;
+        sh:select """
+            SELECT $this WHERE {
+              $this acq:previousSHA256 ?previous ;
+                    acq:nextSHA256 ?next .
+              FILTER (?previous = ?next)
+            }
+        """
+    ] .
+
+acq:SupersessionRelationShape
+    a sh:NodeShape ;
+    sh:targetClass acq:SupersessionRelation ;
+    sh:property [ sh:path acq:supersededVersion ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:SourceVersion ] ;
+    sh:property [ sh:path acq:supersedingVersion ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:SourceVersion ] ;
+    sh:property [ sh:path acq:supersessionReason ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue "content_changed" ] .
+
+acq:SourceAvailabilityObservationShape
+    a sh:NodeShape ;
+    sh:targetClass acq:SourceAvailabilityObservation ;
+    sh:property [ sh:path acq:request ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:SourceRequest ] ;
+    sh:property [ sh:path acq:attempt ; sh:minCount 1 ; sh:maxCount 1 ; sh:class acq:RetrievalAttempt ] ;
+    sh:property [ sh:path acq:availabilityStatus ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "available" "unavailable" "blocked" "transport_error" ) ] ;
+    sh:property [ sh:path acq:observedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path acq:evidentiaryAbsenceInferred ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue false ] .

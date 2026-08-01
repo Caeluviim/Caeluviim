@@ -1,0 +1,104 @@
+name: Validate source acquisition
+
+on:
+  push:
+    paths:
+      - "README.md"
+      - "docs/architecture/source-acquisition-lifecycle.md"
+      - "docs/architecture/source-bound-evidence-intake.md"
+      - "schemas/source-acquisition-*.schema.json"
+      - "schemas/evidence-intake-manifest.schema.json"
+      - "ontology/source-acquisition.ttl"
+      - "ontology/evidence-intake.ttl"
+      - "shapes/source-acquisition.shacl.ttl"
+      - "shapes/evidence-intake.shacl.ttl"
+      - "examples/source-acquisition*"
+      - "examples/evidence-intake*"
+      - "governance/source-acquisition-v0.1.0.status.json"
+      - "governance/evidence-intake-v0.1.0.status.json"
+      - "src/source_acquisition/**"
+      - "src/evidence_intake/evaluator.py"
+      - "scripts/source_acquisition.py"
+      - "queries/source-acquisition-*.rq"
+      - "tests/test_source_acquisition.py"
+      - "tests/test_evidence_intake.py"
+      - "requirements-dev.txt"
+      - ".github/workflows/validate-source-acquisition.yml"
+  pull_request:
+    paths:
+      - "README.md"
+      - "docs/architecture/source-acquisition-lifecycle.md"
+      - "docs/architecture/source-bound-evidence-intake.md"
+      - "schemas/source-acquisition-*.schema.json"
+      - "schemas/evidence-intake-manifest.schema.json"
+      - "ontology/source-acquisition.ttl"
+      - "ontology/evidence-intake.ttl"
+      - "shapes/source-acquisition.shacl.ttl"
+      - "shapes/evidence-intake.shacl.ttl"
+      - "examples/source-acquisition*"
+      - "examples/evidence-intake*"
+      - "governance/source-acquisition-v0.1.0.status.json"
+      - "governance/evidence-intake-v0.1.0.status.json"
+      - "src/source_acquisition/**"
+      - "src/evidence_intake/evaluator.py"
+      - "scripts/source_acquisition.py"
+      - "queries/source-acquisition-*.rq"
+      - "tests/test_source_acquisition.py"
+      - "tests/test_evidence_intake.py"
+      - "requirements-dev.txt"
+      - ".github/workflows/validate-source-acquisition.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: src
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python -m unittest discover -s tests -v
+      - run: |
+          pyshacl -a -i rdfs \
+            -s shapes/source-acquisition.shacl.ttl \
+            -e ontology/source-acquisition.ttl \
+            examples/source-acquisition-manifest.valid.ttl
+      - run: |
+          python scripts/source_acquisition.py --project-root . validate \
+            --manifest examples/source-acquisition-manifest.valid.json \
+            --rdf examples/source-acquisition-manifest.valid.ttl
+      - run: |
+          python scripts/source_acquisition.py --project-root . evaluate \
+            --manifest examples/source-acquisition-manifest.valid.json
+      - run: |
+          python scripts/source_acquisition.py --project-root . intake \
+            --manifest examples/source-acquisition-manifest.valid.json \
+            --output acquisition-intake.json
+          python -c 'import json; p=json.load(open("acquisition-intake.json")); assert len(p["eligible_snapshots"]) == 3; assert "restricted-audit" not in json.dumps(p); assert p["authority_boundary_preserved"] is True'
+      - run: |
+          acquisition_runtime_dir="$(mktemp -d)"
+          python scripts/source_acquisition.py --project-root . ingest \
+            --manifest examples/source-acquisition-manifest.valid.json \
+            --rdf examples/source-acquisition-manifest.valid.ttl \
+            --store "$acquisition_runtime_dir/source-acquisition.trig" \
+            --graph-base urn:caeluviim:graph:source-acquisition:ci \
+            --output "$acquisition_runtime_dir/ingestion.json"
+          python -c 'import json,sys; p=json.load(open(sys.argv[1])); assert p["graphs_disjoint"] is True; assert p["eligible_snapshot_count"] == 3; assert p["failed_attempt_count"] == 1' "$acquisition_runtime_dir/ingestion.json"
+          python scripts/source_acquisition.py --project-root . query \
+            --store "$acquisition_runtime_dir/source-acquisition.trig" \
+            --sparql-file queries/source-acquisition-changes.rq
+          python scripts/source_acquisition.py --project-root . query \
+            --store "$acquisition_runtime_dir/source-acquisition.trig" \
+            --sparql-file queries/source-acquisition-failures.rq
+          python scripts/source_acquisition.py --project-root . query \
+            --store "$acquisition_runtime_dir/source-acquisition.trig" \
+            --sparql-file queries/source-acquisition-intake-eligible.rq
+      - run: |
+          python scripts/evidence_intake.py --project-root . validate \
+            --manifest examples/evidence-intake-manifest.valid.json \
+            --rdf examples/evidence-intake-manifest.valid.ttl
+      - run: |
+          git diff --check
