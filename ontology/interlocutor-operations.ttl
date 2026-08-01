@@ -1,0 +1,145 @@
+@prefix io: <https://caeluviim.org/ontology/interlocutor-operations#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://caeluviim.org/ontology/interlocutor-operations> a owl:Ontology ;
+    rdfs:label "Caeluviim Interlocutor Operations Ontology" ;
+    owl:imports <http://www.w3.org/ns/prov-o> .
+
+io:Utterance a owl:Class ; rdfs:subClassOf prov:Entity .
+io:SourceSpan a owl:Class ; rdfs:subClassOf prov:Entity .
+io:Quotation a owl:Class ; rdfs:subClassOf prov:Entity .
+io:Interpretation a owl:Class ; rdfs:subClassOf prov:Entity .
+io:Proposition a owl:Class ; rdfs:subClassOf prov:Entity .
+io:TruthAssessment a owl:Class ; rdfs:subClassOf prov:Entity .
+io:ContextSnapshot a owl:Class ; rdfs:subClassOf prov:Entity .
+io:EvidenceSet a owl:Class ; rdfs:subClassOf prov:Entity .
+io:AssessmentStandard a owl:Class ; rdfs:subClassOf prov:Entity .
+io:JurisdictionOrDomain a owl:Class ; rdfs:subClassOf prov:Entity .
+io:CanonicalOperation a owl:Class ; rdfs:subClassOf prov:Entity .
+io:OperationDefinitionOccurrence a owl:Class ; rdfs:subClassOf prov:Entity .
+io:ForceType a owl:Class ; rdfs:subClassOf prov:Entity .
+io:Frame a owl:Class ; rdfs:subClassOf prov:Entity .
+io:ConceptualDomain a owl:Class ; rdfs:subClassOf prov:Entity .
+io:Turn a owl:Class ; rdfs:subClassOf io:Utterance .
+io:TurnConstructionUnit a owl:Class ; rdfs:subClassOf io:SourceSpan .
+io:ReferringExpression a owl:Class ; rdfs:subClassOf io:SourceSpan .
+
+io:TransformationEvent a owl:Class ; rdfs:subClassOf prov:Activity .
+io:AssessmentActivity a owl:Class ; rdfs:subClassOf prov:Activity .
+io:ContestationEvent a owl:Class ; rdfs:subClassOf prov:Activity .
+io:RepairEvent a owl:Class ; rdfs:subClassOf prov:Activity .
+io:CorrectionEvent a owl:Class ; rdfs:subClassOf prov:Activity .
+io:ForceAssignment a owl:Class ; rdfs:subClassOf prov:Activity .
+io:OperationOccurrence a owl:Class ; rdfs:subClassOf prov:Activity .
+io:PresuppositionAssertion a owl:Class ; rdfs:subClassOf prov:Activity .
+io:EntailmentAssertion a owl:Class ; rdfs:subClassOf prov:Activity .
+io:ImplicatureAssertion a owl:Class ; rdfs:subClassOf prov:Activity .
+io:FrameAssignment a owl:Class ; rdfs:subClassOf prov:Activity .
+io:ConceptualMapping a owl:Class ; rdfs:subClassOf prov:Activity .
+io:CoreferenceAssertion a owl:Class ; rdfs:subClassOf prov:Activity .
+io:AdjacencyPair a owl:Class ; rdfs:subClassOf prov:Activity .
+io:SocialIndexicalityAssertion a owl:Class ; rdfs:subClassOf prov:Activity .
+
+io:contentHash a owl:DatatypeProperty ;
+    rdfs:domain io:Utterance ; rdfs:range xsd:string .
+io:content a owl:DatatypeProperty ;
+    rdfs:domain io:Utterance ; rdfs:range xsd:string .
+io:startChar a owl:DatatypeProperty ;
+    rdfs:domain io:SourceSpan ; rdfs:range xsd:nonNegativeInteger .
+io:endChar a owl:DatatypeProperty ;
+    rdfs:domain io:SourceSpan ; rdfs:range xsd:positiveInteger .
+io:exactText a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+io:confidence a owl:DatatypeProperty ;
+    rdfs:range xsd:decimal .
+io:assessmentStatus a owl:DatatypeProperty ;
+    rdfs:domain io:TruthAssessment ; rdfs:range xsd:string .
+io:assessmentTime a owl:DatatypeProperty ;
+    rdfs:domain io:TruthAssessment ; rdfs:range xsd:dateTime .
+io:ruleVersionId a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+io:determinismClass a owl:DatatypeProperty ;
+    rdfs:domain io:TransformationEvent ; rdfs:range xsd:string .
+io:contestable a owl:DatatypeProperty ;
+    rdfs:range xsd:boolean .
+io:operationLabel a owl:DatatypeProperty ;
+    rdfs:domain io:CanonicalOperation ; rdfs:range xsd:string .
+io:sourceStatus a owl:DatatypeProperty ;
+    rdfs:domain io:OperationDefinitionOccurrence ; rdfs:range xsd:string .
+
+io:hasSourceSpan a owl:ObjectProperty ;
+    rdfs:range io:SourceSpan .
+io:spanOf a owl:ObjectProperty ;
+    rdfs:domain io:SourceSpan ; rdfs:range io:Utterance ;
+    owl:inverseOf io:hasSpan .
+io:hasSpan a owl:ObjectProperty ;
+    rdfs:domain io:Utterance ; rdfs:range io:SourceSpan .
+io:quotedFrom a owl:ObjectProperty ;
+    rdfs:domain io:Quotation ; rdfs:range io:SourceSpan .
+io:usedContext a owl:ObjectProperty ;
+    rdfs:range io:ContextSnapshot .
+io:assessesProposition a owl:ObjectProperty ;
+    rdfs:domain io:TruthAssessment ; rdfs:range io:Proposition .
+io:usedEvidenceSet a owl:ObjectProperty ;
+    rdfs:domain io:TruthAssessment ; rdfs:range io:EvidenceSet .
+io:evaluatedUnderStandard a owl:ObjectProperty ;
+    rdfs:domain io:TruthAssessment ; rdfs:range io:AssessmentStandard .
+io:evaluatedWithinDomain a owl:ObjectProperty ;
+    rdfs:domain io:TruthAssessment ; rdfs:range io:JurisdictionOrDomain .
+io:hasReason a owl:ObjectProperty ;
+    rdfs:domain io:TruthAssessment ; rdfs:range prov:Entity .
+io:hasAlternative a owl:ObjectProperty ;
+    rdfs:range prov:Entity .
+io:contests a owl:ObjectProperty ;
+    rdfs:domain io:ContestationEvent ; rdfs:range prov:Entity .
+io:contestedBy a owl:ObjectProperty ;
+    rdfs:domain prov:Entity ; rdfs:range io:ContestationEvent ;
+    owl:inverseOf io:contests .
+io:supersedes a owl:ObjectProperty ;
+    rdfs:domain prov:Entity ; rdfs:range prov:Entity .
+io:definesOperation a owl:ObjectProperty ;
+    rdfs:domain io:OperationDefinitionOccurrence ; rdfs:range io:CanonicalOperation .
+io:detectedOperation a owl:ObjectProperty ;
+    rdfs:domain io:OperationOccurrence ; rdfs:range io:CanonicalOperation .
+io:targetsEntity a owl:ObjectProperty ;
+    rdfs:domain prov:Activity ; rdfs:range prov:Entity .
+io:assignedForceType a owl:ObjectProperty ;
+    rdfs:domain io:ForceAssignment ; rdfs:range io:ForceType .
+io:presupposes a owl:ObjectProperty ;
+    rdfs:domain io:PresuppositionAssertion ; rdfs:range io:Proposition .
+io:entails a owl:ObjectProperty ;
+    rdfs:domain io:EntailmentAssertion ; rdfs:range io:Proposition .
+io:implicates a owl:ObjectProperty ;
+    rdfs:domain io:ImplicatureAssertion ; rdfs:range io:Proposition .
+io:evokesFrame a owl:ObjectProperty ;
+    rdfs:domain io:FrameAssignment ; rdfs:range io:Frame .
+io:hasSourceDomain a owl:ObjectProperty ;
+    rdfs:domain io:ConceptualMapping ; rdfs:range io:ConceptualDomain .
+io:hasTargetDomain a owl:ObjectProperty ;
+    rdfs:domain io:ConceptualMapping ; rdfs:range io:ConceptualDomain .
+io:corefersWith a owl:ObjectProperty ;
+    rdfs:domain io:CoreferenceAssertion ; rdfs:range io:ReferringExpression .
+io:hasFirstPairPart a owl:ObjectProperty ;
+    rdfs:domain io:AdjacencyPair ; rdfs:range io:Turn .
+io:hasSecondPairPart a owl:ObjectProperty ;
+    rdfs:domain io:AdjacencyPair ; rdfs:range io:Turn .
+io:repairsTroubleSource a owl:ObjectProperty ;
+    rdfs:domain io:RepairEvent ; rdfs:range prov:Entity .
+io:indexesSocialMeaning a owl:ObjectProperty ;
+    rdfs:domain io:SocialIndexicalityAssertion ; rdfs:range prov:Entity .
+io:contrastsWith a owl:ObjectProperty, owl:SymmetricProperty ;
+    rdfs:domain prov:Entity ; rdfs:range prov:Entity .
+io:extends a owl:ObjectProperty ;
+    rdfs:domain prov:Entity ; rdfs:range prov:Entity .
+io:revisesConcept a owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:wasRevisionOf .
+
+io:Assertive a io:ForceType ; rdfs:label "assertive" .
+io:Directive a io:ForceType ; rdfs:label "directive" .
+io:Commissive a io:ForceType ; rdfs:label "commissive" .
+io:Expressive a io:ForceType ; rdfs:label "expressive" .
+io:Declaration a io:ForceType ; rdfs:label "declaration" .
