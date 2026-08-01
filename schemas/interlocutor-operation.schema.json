@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schemas/interlocutor-operation.schema.json",
+  "title": "Caeluviim Interlocutor Operation Record",
+  "oneOf": [
+    { "$ref": "#/$defs/utterance" },
+    { "$ref": "#/$defs/source_span" },
+    { "$ref": "#/$defs/quotation" },
+    { "$ref": "#/$defs/transformation" },
+    { "$ref": "#/$defs/interpretation" },
+    { "$ref": "#/$defs/force_assignment" },
+    { "$ref": "#/$defs/proposition" },
+    { "$ref": "#/$defs/truth_assessment" },
+    { "$ref": "#/$defs/contestation" },
+    { "$ref": "#/$defs/revision" },
+    { "$ref": "#/$defs/operation_occurrence" }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 8,
+      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+    },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "record_header": {
+      "type": "object",
+      "required": ["record_type", "record_id", "created_at", "provenance_id"],
+      "properties": {
+        "record_type": { "type": "string" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "provenance_id": { "$ref": "#/$defs/id" }
+      }
+    },
+    "utterance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_type", "record_id", "created_at", "provenance_id", "utterance_id", "content", "content_hash", "speaker_agent_id", "channel", "encoding"],
+      "properties": {
+        "record_type": { "const": "utterance" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "provenance_id": { "$ref": "#/$defs/id" },
+        "utterance_id": { "$ref": "#/$defs/id" },
+        "content": { "type": "string" },
+        "content_hash": { "$ref": "#/$defs/hash" },
+        "speaker_agent_id": { "$ref": "#/$defs/id" },
+        "channel": { "type": "string", "minLength": 1 },
+        "encoding": { "type": "string", "minLength": 1 },
+        "language_tags": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 2 } }
+      }
+    },
+    "source_span": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_type", "record_id", "created_at", "provenance_id", "span_id", "utterance_id", "start_char", "end_char", "exact_text", "span_uri"],
+      "properties": {
+        "record_type": { "const": "source_span" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "provenance_id": { "$ref": "#/$defs/id" },
+        "span_id": { "$ref": "#/$defs/id" },
+        "utterance_id": { "$ref": "#/$defs/id" },
+        "start_char": { "type": "integer", "minimum": 0 },
+        "end_char": { "type": "integer", "minimum": 1 },
+        "exact_text": { "type": "string" },
+        "span_uri": { "$ref": "#/$defs/id" }
+      }
+    },
+    "quotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_type", "record_id", "created_at", "provenance_id", "quotation_id", "source_span_ids", "exact_text"],
+      "properties": {
+        "record_type": { "const": "quotation" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "provenance_id": { "$ref": "#/$defs/id" },
+        "quotation_id": { "$ref": "#/$defs/id" },
+        "source_span_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "exact_text": { "type": "string" }
+      }
+    },
+    "transformation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_type", "record_id", "created_at", "provenance_id", "transformation_id", "operation_type_id", "input_entity_ids", "output_entity_ids", "agent_id", "rule_version_id", "determinism_class"],
+      "properties": {
+        "record_type": { "const": "transformation" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "provenance_id": { "$ref": "#/$defs/id" },
+        "transformation_id": { "$ref": "#/$defs/id" },
+        "operation_type_id": { "$ref": "#/$defs/id" },
+        "input_entity_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "output_entity_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "agent_id": { "$ref": "#/$defs/id" },
+        "rule_version_id": { "$ref": "#/$defs/id" },
+        "model_version_id": { "$ref": "#/$defs/id" },
+        "parameters": { "type": "object" },
+        "determinism_class": { "enum": ["deterministic", "seeded_stochastic", "model_generated", "human_judgment"] },
+        "seed": { "type": ["integer", "string"] }
+      }
+    },
+    "interpretation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_type", "record_id", "created_at", "provenance_id", "interpretation_id", "source_span_ids", "context_id", "content", "confidence", "rule_version_id", "alternative_interpretation_ids", "contestable"],
+      "properties": {
+        "record_type": { "const": "interpretation" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "provenance_id": { "$ref": "#/$defs/id" },
+        "interpretation_id": { "$ref": "#/$defs/id" },
+        "source_span_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "context_id": { "$ref": "#/$defs/id" },
+        "content": { "type": "string", "minLength": 1 },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "rule_version_id": { "$ref": "#/$defs/id" },
+        "alternative_interpretation_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "contestable": { "const": true }
+      }
+    },
+    "force_assignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_type", "record_id", "created_at", "provenance_id", "force_assignment_id", "target_id", "force_type", "source_span_ids", "context_id", "confidence", "rule_version_id", "alternative_force_types", "contestable"],
+      "properties": {
+        "record_type": { "const": "force_assignment" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "provenance_id": { "$ref": "#/$defs/id" },
+        "force_assignment_id": { "$ref": "#/$defs/id" },
+        "target_id": { "$ref": "#/$defs/id" },
+        "force_type": { "enum": ["assertive", "directive", "commissive", "expressive", "declaration", "question", "warning", "request", "complaint", "repair", "other"] },
+        "source_span_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "context_id": { "$ref": "#/$defs/id" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "rule_version_id": { "$ref": "#/$defs/id" },
+        "alternative_force_types": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "contestable": { "const": true }
+      }
+    },
+    "proposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_type", "record_id", "created_at", "provenance_id", "proposition_id", "content", "source_span_ids", "attribution_mode"],
+      "properties": {
+        "record_type": { "const": "proposition" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "provenance_id": { "$ref": "#/$defs/id" },
+        "proposition_id": { "$ref": "#/$defs/id" },
+        "content": { "type": "string", "minLength": 1 },
+        "source_span_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "attribution_mode": { "enum": ["quoted", "attributed_report", "first_person_avowal", "system_inference", "external_claim"] },
+        "speaker_agent_id": { "$ref": "#/$defs/id" }
+      }
+    },
+    "truth_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_type", "record_id", "created_at", "provenance_id", "assessment_id", "proposition_id", "context_id", "evidence_set_id", "standard_id", "assessment_time", "status", "confidence", "reason_ids", "rule_version_id"],
+      "properties": {
+        "record_type": { "const": "truth_assessment" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "provenance_id": { "$ref": "#/$defs/id" },
+        "assessment_id": { "$ref": "#/$defs/id" },
+        "proposition_id": { "$ref": "#/$defs/id" },
+        "context_id": { "$ref": "#/$defs/id" },
+        "evidence_set_id": { "$ref": "#/$defs/id" },
+        "standard_id": { "$ref": "#/$defs/id" },
+        "jurisdiction_or_domain_id": { "$ref": "#/$defs/id" },
+        "assessment_time": { "$ref": "#/$defs/timestamp" },
+        "status": { "enum": ["supported", "unsupported", "contradicted", "unresolved", "indeterminate", "inapplicable", "disputed"] },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "reason_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "alternative_assessment_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "rule_version_id": { "$ref": "#/$defs/id" }
+      }
+    },
+    "contestation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_type", "record_id", "created_at", "provenance_id", "contestation_id", "target_id", "challenger_agent_id", "grounds", "status"],
+      "properties": {
+        "record_type": { "const": "contestation" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "provenance_id": { "$ref": "#/$defs/id" },
+        "contestation_id": { "$ref": "#/$defs/id" },
+        "target_id": { "$ref": "#/$defs/id" },
+        "challenger_agent_id": { "$ref": "#/$defs/id" },
+        "grounds": { "type": "string", "minLength": 1 },
+        "source_span_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "proposed_alternative_id": { "$ref": "#/$defs/id" },
+        "status": { "enum": ["open", "accepted", "rejected", "partially_accepted", "superseded"] }
+      }
+    },
+    "revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_type", "record_id", "created_at", "provenance_id", "revision_id", "prior_record_id", "revised_record_id", "reason"],
+      "properties": {
+        "record_type": { "const": "revision" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "provenance_id": { "$ref": "#/$defs/id" },
+        "revision_id": { "$ref": "#/$defs/id" },
+        "prior_record_id": { "$ref": "#/$defs/id" },
+        "revised_record_id": { "$ref": "#/$defs/id" },
+        "reason": { "type": "string", "minLength": 1 },
+        "contestation_id": { "$ref": "#/$defs/id" }
+      }
+    },
+    "operation_occurrence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_type", "record_id", "created_at", "provenance_id", "occurrence_id", "canonical_operation_id", "target_id", "source_span_ids", "detection_mode", "confidence", "rule_version_id", "contestable"],
+      "properties": {
+        "record_type": { "const": "operation_occurrence" },
+        "record_id": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "provenance_id": { "$ref": "#/$defs/id" },
+        "occurrence_id": { "$ref": "#/$defs/id" },
+        "canonical_operation_id": { "$ref": "#/$defs/id" },
+        "target_id": { "$ref": "#/$defs/id" },
+        "source_span_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "detection_mode": { "enum": ["explicit", "rule_detected", "model_inferred", "human_annotated"] },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "rule_version_id": { "$ref": "#/$defs/id" },
+        "alternative_operation_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "contestable": { "const": true }
+      }
+    }
+  }
+}
