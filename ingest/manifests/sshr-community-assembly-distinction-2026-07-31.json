@@ -1,0 +1,211 @@
+{
+  "manifest_version": "0.1.0",
+  "ingest_id": "urn:caeluviim:ingest:mat-sshr-community-assembly-2026-07-31-001",
+  "source": {
+    "source_id": "urn:caeluviim:source:mat-sshr-community-assembly-2026-07-31-001",
+    "source_type": "conversation",
+    "title": "Southside assembly and emergent-community distinction — source record",
+    "uri": "https://github.com/Caeluviim/Caeluviim/blob/main/sources/matters/sshr/mat-sshr-2026-07-31-001-community-assembly-extension.md",
+    "content_hash": "sha256:d969bad21581953789b7656cbd84b808e927aa1bfafb9eda90bbe8abc93b167a",
+    "captured_at": "2026-07-31T20:30:00Z",
+    "authority": "First-person conceptual correction and analytical articulation supplied in conversation; program-specific factual application not independently verified"
+  },
+  "nodes": [
+    {
+      "id": "urn:caeluviim:project:mat-sshr-community-assembly-extension",
+      "labels": ["Project"],
+      "properties": {
+        "title": "Southside assembly and emergent-community distinction",
+        "status": "active",
+        "verification_state": "pending",
+        "governance_state": "unratified",
+        "matter_extension_id": "MAT-SSHR-2026-07-31-001-COMMUNITY",
+        "parent_matter_id": "MAT-SSHR-2026-07-31-001"
+      }
+    },
+    {
+      "id": "urn:caeluviim:institution:sshr-community-assembly-context",
+      "labels": ["Institution"],
+      "properties": {
+        "title": "Southside Harm Reduction Services — community assembly context",
+        "entity_state": "provisional_reference",
+        "canonical_candidate_id": "urn:caeluviim:institution:southside-harm-reduction-services",
+        "verification_state": "pending"
+      }
+    },
+    {
+      "id": "urn:caeluviim:evidence:mat-sshr-community-obs-001",
+      "labels": ["Evidence"],
+      "properties": {
+        "title": "Conceptual correction distinguishing institutional assembly from community formation",
+        "evidence_type": "first_person_conceptual_correction",
+        "status": "reported",
+        "independent_verification": false,
+        "observation_id": "OBS-COM-001"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:mat-sshr-assembly-community-distinction",
+      "labels": ["Claim"],
+      "properties": {
+        "title": "Institutional assembly and community formation are causally distinct",
+        "status": "analytical_distinction",
+        "validation_state": "pending_program_application",
+        "claim_id": "CLM-COM-001"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:mat-sshr-instrumental-target-consolidation",
+      "labels": ["Claim"],
+      "properties": {
+        "title": "Material inducements and controlled access may function as instrumental target-consolidation mechanisms",
+        "status": "contested_institutional_hypothesis",
+        "validation_state": "pending",
+        "claim_id": "CLM-COM-002"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:mat-sshr-community-causal-source-persons",
+      "labels": ["Claim"],
+      "properties": {
+        "title": "Emergent community belongs causally to the persons occupying and relating within the shared space",
+        "status": "social_causal_proposition",
+        "validation_state": "pending_program_application",
+        "claim_id": "CLM-COM-003"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:mat-sshr-appropriation-emergent-social-value",
+      "labels": ["Claim"],
+      "properties": {
+        "title": "The institution may appropriate participant-generated community value as evidence of institutional community creation or support",
+        "status": "contested_public_framing_hypothesis",
+        "validation_state": "pending",
+        "claim_id": "CLM-COM-004"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:mat-sshr-community-nonlegitimation",
+      "labels": ["Claim"],
+      "properties": {
+        "title": "Emergent community does not itself legitimate the institutional assembly apparatus",
+        "status": "normative_institutional_assessment",
+        "validation_state": "pending_program_application",
+        "claim_id": "CLM-COM-005"
+      }
+    },
+    {
+      "id": "urn:caeluviim:task:mat-sshr-community-assembly-audit",
+      "labels": ["Task"],
+      "properties": {
+        "title": "Audit inducements, access controls, assembly mechanisms, and community attribution",
+        "status": "not_started",
+        "acceptance_condition": "Inventory inducements and access rules; compare funded objectives, attendance metrics, participant accounts, and public community claims sufficient to test CLM-COM-001 through CLM-COM-005"
+      }
+    },
+    {
+      "id": "urn:caeluviim:artifact:mat-sshr-community-source-record-v0-1",
+      "labels": ["Artifact", "Provenance"],
+      "properties": {
+        "title": "Southside assembly and emergent-community distinction source record v0.1",
+        "path": "sources/matters/sshr/mat-sshr-2026-07-31-001-community-assembly-extension.md",
+        "source_sha256": "sha256:d969bad21581953789b7656cbd84b808e927aa1bfafb9eda90bbe8abc93b167a",
+        "status": "captured",
+        "parent_matter_id": "MAT-SSHR-2026-07-31-001"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-community-obs-evidences-distinction",
+      "type": "EVIDENCED_BY",
+      "from": "urn:caeluviim:claim:mat-sshr-assembly-community-distinction",
+      "to": "urn:caeluviim:evidence:mat-sshr-community-obs-001",
+      "properties": {"strength": "conceptual_source", "status": "reported_articulation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-target-consolidation-extends-distinction",
+      "type": "EXTENDS",
+      "from": "urn:caeluviim:claim:mat-sshr-instrumental-target-consolidation",
+      "to": "urn:caeluviim:claim:mat-sshr-assembly-community-distinction",
+      "properties": {"status": "analytical_extension"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-community-source-extends-distinction",
+      "type": "EXTENDS",
+      "from": "urn:caeluviim:claim:mat-sshr-community-causal-source-persons",
+      "to": "urn:caeluviim:claim:mat-sshr-assembly-community-distinction",
+      "properties": {"status": "causal_specification"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-appropriation-derived-from-community-source",
+      "type": "DERIVED_FROM",
+      "from": "urn:caeluviim:claim:mat-sshr-appropriation-emergent-social-value",
+      "to": "urn:caeluviim:claim:mat-sshr-community-causal-source-persons",
+      "properties": {"status": "analytical_derivation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-nonlegitimation-extends-distinction",
+      "type": "EXTENDS",
+      "from": "urn:caeluviim:claim:mat-sshr-community-nonlegitimation",
+      "to": "urn:caeluviim:claim:mat-sshr-assembly-community-distinction",
+      "properties": {"status": "normative_extension"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-target-consolidation-targets-institution",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:claim:mat-sshr-instrumental-target-consolidation",
+      "to": "urn:caeluviim:institution:sshr-community-assembly-context",
+      "properties": {"status": "pending_validation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-appropriation-targets-institution",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:claim:mat-sshr-appropriation-emergent-social-value",
+      "to": "urn:caeluviim:institution:sshr-community-assembly-context",
+      "properties": {"status": "pending_validation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-community-task-part-of-project",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:task:mat-sshr-community-assembly-audit",
+      "to": "urn:caeluviim:project:mat-sshr-community-assembly-extension",
+      "properties": {"priority": "high"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-community-task-targets-distinction",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:task:mat-sshr-community-assembly-audit",
+      "to": "urn:caeluviim:claim:mat-sshr-assembly-community-distinction",
+      "properties": {"purpose": "validation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-community-task-targets-consolidation",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:task:mat-sshr-community-assembly-audit",
+      "to": "urn:caeluviim:claim:mat-sshr-instrumental-target-consolidation",
+      "properties": {"purpose": "validation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-community-task-targets-appropriation",
+      "type": "TARGETS",
+      "from": "urn:caeluviim:task:mat-sshr-community-assembly-audit",
+      "to": "urn:caeluviim:claim:mat-sshr-appropriation-emergent-social-value",
+      "properties": {"purpose": "validation"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-community-artifact-part-of-project",
+      "type": "PART_OF",
+      "from": "urn:caeluviim:artifact:mat-sshr-community-source-record-v0-1",
+      "to": "urn:caeluviim:project:mat-sshr-community-assembly-extension",
+      "properties": {"status": "captured"}
+    },
+    {
+      "id": "urn:caeluviim:relation:mat-sshr-community-claim-derived-from-artifact",
+      "type": "DERIVED_FROM",
+      "from": "urn:caeluviim:claim:mat-sshr-assembly-community-distinction",
+      "to": "urn:caeluviim:artifact:mat-sshr-community-source-record-v0-1",
+      "properties": {"status": "source_bound"}
+    }
+  ]
+}
