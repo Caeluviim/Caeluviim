@@ -4,7 +4,7 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator, FormatChecker
 from pyshacl import validate
-from rdflib import Graph, Namespace, RDF
+from rdflib import Graph, Namespace, RDF, OWL
 
 ROOT = Path(__file__).resolve().parents[1]
 IO = Namespace("https://caeluviim.org/ontology/interlocutor-operations#")
@@ -108,9 +108,9 @@ class TestInterlocutorOperations(unittest.TestCase):
     def test_rdf_vocabulary_and_shapes_parse(self):
         self.assertGreater(len(self.ontology), 0)
         self.assertGreater(len(self.shapes), 0)
-        self.assertTrue(any(self.ontology.subjects(RDF.type, IO.Utterance)))
-        self.assertTrue(any(self.ontology.subjects(RDF.type, IO.TransformationEvent)))
-        self.assertTrue(any(self.ontology.subjects(RDF.type, IO.CanonicalOperation)))
+        self.assertIn((IO.Utterance, RDF.type, OWL.Class), self.ontology)
+        self.assertIn((IO.TransformationEvent, RDF.type, OWL.Class), self.ontology)
+        self.assertIn((IO.CanonicalOperation, RDF.type, OWL.Class), self.ontology)
 
     def test_valid_rdf_example_conforms_to_shapes(self):
         conforms, report_graph, report_text = validate(
