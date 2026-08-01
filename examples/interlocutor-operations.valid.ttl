@@ -14,8 +14,8 @@ ex:u1 a io:Utterance ;
 
 ex:s1 a io:SourceSpan ;
     io:spanOf ex:u1 ;
-    io:startChar 0 ;
-    io:endChar 27 ;
+    io:startChar "0"^^xsd:nonNegativeInteger ;
+    io:endChar "27"^^xsd:positiveInteger ;
     io:exactText "The meeting starts at noon." .
 
 ex:q1 a io:Quotation ;
@@ -51,6 +51,7 @@ ex:force1 a io:ForceAssignment ;
     io:hasSourceSpan ex:s1 ;
     io:usedContext ex:context1 ;
     io:confidence 0.76 ;
+    io:ruleVersionId "urn:caeluviim:rule:force-assignment:0.1.0" ;
     io:contestable true .
 
 ex:assessment1 a io:TruthAssessment ;
