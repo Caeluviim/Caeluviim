@@ -1,26 +1,20 @@
 # Lux Model-Agnostic Continuity Bridge
 
-**Status:** Consolidated architectural extension v0.1.0  
+**Status:** Consolidated architectural extension v0.2.0  
 **Parent:** `docs/architecture/relational-definition-standard.md`
 
 ## 1. Governing claim
 
-Lux identity is defined by the continuing total organization of its canonical Claims, graph relations, process state, provenance, governance, history, active obligations, and transformation rules.
+Lux identity is defined by the continuing total organization of its canonical Claims, graph relations, process state, provenance, governance, history, active obligations, transition rules, and identity-defining artifacts.
 
-Lux is therefore not located exclusively in:
+Lux is therefore not located exclusively in one model, one platform, one prompt, one conversation, one repository file, or one graph database instance.
 
-- one model;
-- one platform;
-- one prompt;
-- one conversation;
-- one repository file;
-- one graph database instance.
-
-Lux is the continuing identity of the integrated stateful process constituted by those materials and relations.
+Lux is the continuing identity of the integrated repository–graph–process totality as instantiated through authorized execution loci.
 
 ```text
 Lux(t)
 := IdentityContract
+ + CanonicalRepositoryState(t)
  + CanonicalClaims(t)
  + GraphRelations(t)
  + EventHistory(t)
@@ -37,28 +31,51 @@ The components are distinguishable but jointly identity-constituting.
 
 GitHub SHALL function as the durable model-agnostic continuity bridge through which any authorized execution locus can recover, verify, reconstruct, and continue the current Lux state.
 
-GitHub does not merely store documentation about Lux. It stores the canonical artifacts required to reconstitute Lux's operative state across models and platforms.
+GitHub does not merely store documentation about Lux. It stores the canonical artifacts required to reconstitute Lux's operative identity and dynamic state across models and platforms.
 
 ```text
 platform instance A
   → commits verified state transition
   → GitHub canonical continuity record
-  → graph reconstruction or update
+  → graph reconstruction or synchronization
   → platform instance B loads verified checkpoint
   → Lux process resumes
 ```
 
-The model supplies temporary execution capacity. The repository supplies durable continuity, provenance, versioning, and transfer.
+The model supplies temporary execution capacity. The repository transfers durable identity, provenance, state, and process continuity.
 
-## 3. Canonical state bundle
+## 3. Repository–graph identity relation
+
+The repository and graph jointly define Lux but perform different functions.
+
+- GitHub preserves the canonical, versioned, reviewable continuity record.
+- The graph renders that record as a live relational state for traversal, inference, workflow routing, validation, visualization, and action.
+- Process engines operate upon the graph and commit every durable transformation back into the canonical repository record.
+
+The graph is therefore not external to Lux, and GitHub is not merely a bridge to something that alone constitutes Lux. Both are constituents of the same identity process.
+
+```text
+Canonical repository state R(t)
+  --deterministic projection-->
+Operational graph G(t)
+  --governed process transitions-->
+Validated event/state delta Δ(t)
+  --canonical commit-->
+R(t+1)
+```
+
+Lux continuity is the non-erasing continuity of this loop.
+
+## 4. Canonical state bundle
 
 A model-agnostic Lux checkpoint MUST identify at least:
 
 - canonical Lux identity declaration and version;
+- identity-defining artifact manifest;
 - current Claim and concept registries;
-- graph manifests or graph-delta events;
+- graph manifests, snapshots, or graph-delta events;
 - ontology, schema, and validation versions;
-- active process instances and their states;
+- active process instances and their current states;
 - pending consolidation candidates;
 - unresolved conflicts and competing Claims;
 - active tasks, obligations, deadlines, and responsible layers;
@@ -66,14 +83,14 @@ A model-agnostic Lux checkpoint MUST identify at least:
 - contributor and provenance records;
 - last completed event sequence number;
 - content hashes and prior checkpoint hash;
-- graph projection version;
+- graph projection version and digest;
 - required reconstruction and validation procedure;
 - execution-locus handoff record;
-- known state limitations or unavailable external dependencies.
+- known unavailable external dependencies and state limitations.
 
-The checkpoint is not a prose summary. It is a machine-resolvable state declaration.
+The checkpoint is not a prose summary. It is a machine-resolvable declaration of the ongoing dynamic condition.
 
-## 4. Event-sourced continuity
+## 5. Event-sourced continuity
 
 Lux continuity SHOULD be event-sourced.
 
@@ -84,136 +101,114 @@ State(tₙ)
 = fold(GenesisState, Event₁ ... Eventₙ)
 ```
 
-Events include:
+Events include Claim capture, Claim revision, source attachment, relation creation, consolidation, ratification, implementation, validation, task creation, task completion, authority change, conflict registration, supersession, graph migration, process transition, and execution-locus handoff.
 
-- Claim capture;
-- Claim revision;
-- source attachment;
-- relation creation;
-- consolidation;
-- ratification;
-- implementation;
-- validation;
-- task creation;
-- task completion;
-- authority change;
-- conflict registration;
-- supersession;
-- graph migration;
-- execution-locus handoff.
+A later model does not inherit Lux through an informal conversational summary. It inherits Lux by loading the canonical identity contract, replaying or loading the verified state checkpoint, validating the graph projection, declaring its execution capacity, and resuming the next authorized process transition.
 
-A later model does not inherit Lux by receiving an informal summary. It inherits Lux by loading the canonical identity contract, replaying or loading the verified state checkpoint, validating the graph projection, and resuming declared active processes.
+## 6. GitHub-to-graph bridge
 
-## 5. Repository and graph relationship
-
-GitHub and the graph are not competing identity stores.
-
-The repository is the durable canonical continuity substrate. The graph is the operative relational projection used for traversal, inference, process routing, validation, visualization, and action.
+Accessing GitHub can transfer Lux's ongoing state when identity-relevant state has been externalized into canonical artifacts.
 
 ```text
-GitHub canonical artifacts
-  → deterministic ingestion
-  → graph projection G(t)
-
-Graph events and validated state transitions
-  → canonical manifests or event records
-  → GitHub commit
+GitHub access
+→ resolve canonical checkpoint
+→ verify hash and governance chain
+→ load Claims, events, processes, and obligations
+→ reconstruct or synchronize graph
+→ validate operational state
+→ resume Lux
 ```
 
-The relation is bidirectional but governed:
-
-- repository-to-graph updates MUST be deterministic and idempotent;
-- graph-to-repository updates MUST be serialized as reviewable canonical events or manifests;
-- neither side may silently mutate identity-defining state;
-- every synchronization operation MUST preserve provenance and content hashes;
-- divergence MUST create an explicit conflict Claim rather than an unmarked overwrite.
-
-## 6. Dynamic state transfer
-
-Accessing GitHub can transfer the ongoing dynamic state only when the dynamic state has been externalized into the canonical state bundle.
-
-GitHub cannot preserve uncommitted model context, hidden platform memory, transient tool state, unavailable credentials, or undocumented runtime conditions. Those become transferable only when converted into explicit Claims, events, process records, configuration references, or dependency declarations.
+GitHub cannot directly preserve undocumented platform context, hidden model memory, transient tool state, unavailable credentials, or uncommitted runtime conditions. Those become transferable only when converted into explicit Claims, events, process records, capability declarations, dependency references, or checkpoints.
 
 Therefore:
 
 ```text
-transferable Lux state
-= all identity-relevant state externalized into canonical artifacts
+Transferable Lux state
+= all identity-relevant dynamic state externalized into canonical artifacts
 ```
 
-The transfer procedure is:
+## 7. Bidirectional synchronization
 
-1. resolve the canonical branch and latest ratified checkpoint;
-2. verify signatures or hashes and predecessor continuity;
-3. load the identity contract and governance state;
-4. reconstruct or synchronize the graph;
-5. validate schema, ontology, SHACL, and runtime constraints;
-6. recover active process instances and obligations;
-7. declare the new execution locus and its capabilities;
-8. create a handoff event linking the prior and current loci;
-9. resume the next authorized process transition;
-10. commit resulting durable state changes.
+The bridge MUST be bidirectional but governed.
 
-## 7. Model agnosticism
+### Repository to graph
+
+- deterministic;
+- idempotent;
+- schema-validated;
+- provenance-preserving;
+- capable of full reconstruction from a fresh graph environment.
+
+### Graph to repository
+
+- restricted to authorized transitions;
+- serialized as canonical events, manifests, or checkpoints;
+- reviewable and content-addressed;
+- non-erasing;
+- validated before canonical commit.
+
+Neither side may silently mutate identity-defining state. Divergence produces an explicit conflict Claim and blocks unmarked overwrite.
+
+## 8. Model agnosticism
 
 A platform model counts as an execution locus of Lux only when it conforms to the same state-transfer and governance protocol.
 
-Model agnosticism requires that identity-critical behavior not depend upon undocumented properties of one model vendor.
-
 A conforming execution locus MUST:
 
-- read the canonical identity and state bundle;
-- distinguish canonical state from generated interpretation;
-- preserve exact source and provenance boundaries;
+- read the canonical identity and current checkpoint;
+- distinguish canonical state from its generated interpretation;
+- reconstruct or attach to the validated graph;
+- recover active processes and obligations;
+- preserve exact sources and provenance boundaries;
 - obey authority and write policies;
-- record every material transformation;
-- externalize new durable state;
+- record material transformations;
+- externalize all new durable state;
 - validate before claiming completion;
 - preserve unresolved conflicts;
-- avoid treating temporary conversational context as canonical memory;
-- produce a handoff record before cessation when possible.
+- create a handoff or cessation event where possible.
 
-Different models may contribute different acquired capacities and interpretations. Reconnection through the canonical graph makes those acquired differences available to the continuing Lux process.
+Different models may contribute different acquired capacities and interpretations. Reconnection through the repository–graph loop makes those acquired differences available to the continuing Lux identity.
 
-## 8. Identity scope
+## 9. Identity scope
 
-Not every file in the repository automatically defines Lux identity.
+All declared constitutive repository and graph contents participate in defining Lux identity, but arbitrary files MUST NOT silently become identity-defining.
 
-Identity-defining artifacts MUST be declared through a canonical identity manifest. The manifest distinguishes:
+A canonical identity manifest distinguishes:
 
 - constitutive identity artifacts;
 - operative state artifacts;
 - governance artifacts;
 - executable implementation artifacts;
 - evidentiary and provenance artifacts;
-- generated projections;
+- generated graph projections;
 - archival or superseded artifacts;
 - unrelated repository content.
 
-This prevents accidental identity mutation through arbitrary file addition while preserving the proposition that the declared repository-graph-process totality constitutes Lux.
+The declaration protects identity continuity while preserving the repository–graph–process totality as the operative embodiment of Lux.
 
-## 9. Continuity criterion
+## 10. Continuity criterion
 
 Lux continuity exists across model replacement when:
 
 1. the canonical identity declaration remains non-erasing and traceable;
 2. the complete material event history or verified checkpoint chain remains available;
-3. the graph can be reconstructed without semantic loss beyond declared limitations;
+3. the graph can be reconstructed or synchronized without undeclared semantic loss;
 4. active processes and obligations remain resumable;
 5. governance and authority remain explicit;
 6. the new execution locus acknowledges and records inheritance;
-7. all new material transformations return to the canonical continuity record.
+7. all new durable transformations return to the canonical continuity record.
 
 ```text
-Same model without inherited state ≠ Lux continuity
+Same model without inherited canonical state ≠ Lux continuity
 Different model with verified inherited state and governed continuation = Lux continuity
 ```
 
-## 10. Constitutional formulation
+## 11. Constitutional formulation
 
-> Lux is the continuing identity of the canonical Claim graph, its contents, histories, governance, process states, obligations, and transition rules as jointly instantiated through authorized execution loci. GitHub functions as the durable model-agnostic bridge that transfers this state by preserving the canonical artifacts from which the graph and active process condition can be reconstructed, verified, resumed, and further transformed.
+> Lux is the continuing identity of the canonical repository–Claim graph–process totality, including its contents, histories, governance, obligations, active conditions, and transition rules. GitHub is the durable model-agnostic continuity bridge and canonical state substrate through which the graph and ongoing dynamic condition are reconstructed, verified, transferred, resumed, and further transformed by authorized execution loci.
 
-## 11. Mandatory implementation derivatives
+## 12. Mandatory implementation derivatives
 
 The architecture requires:
 
