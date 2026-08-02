@@ -1,6 +1,6 @@
-# Host-Language Lexical Decentering and Multilingual Incorporation
+# Invariant Rider Lexicon and Multilingual Incorporation
 
-**Status:** Binding architectural correction v0.1.0  
+**Status:** Binding architectural correction v0.2.0  
 **Applies to:** every formal Definition Claim incorporated into canonical Caeluviim state  
 **Extends:**
 - `docs/architecture/standardized-definition-claim-structure.md`
@@ -9,104 +9,60 @@
 
 ## 1. Governing principle
 
-The language currently hosting a Caeluviim rendering supplies grammatical, explanatory, and interface scaffolding. It does not retain ownership of the protocol's most central conceptions through its own ordinary vocabulary.
+The Caeluviim rider is one invariant protocol lexicon that remains the same regardless of the language beneath it.
 
-The most structurally central protocol conceptions MUST receive canonical protocol lexemes selected from languages other than the current dominant host language.
-
-```text
-HostLanguage
-= syntax + explanation + local accessibility
-
-CanonicalCoreLexicon
-= distributed source-bound extra-lingual lexical Claims
-```
-
-In an English-hosted implementation, English words such as `truth`, `care`, `harm`, `dignity`, `consent`, `agency`, `justice`, and `repair` remain searchable glosses and explanatory labels. They cease to be the canonical protocol names once their extra-lingual protocol lexemes are selected and ratified.
-
-The same rule applies to any other host language. No host language is entitled to remain the canonical lexical owner of the concepts most central to the structure it hosts.
-
-## 2. Symmetric host-language displacement
-
-The rule is language-symmetric.
+It does not select a different extra-lingual term relative to each host language. It replaces the same central host-language words in every language with the same canonical rider lexemes.
 
 ```text
-For every host language H:
-  central protocol conception c
-  → canonical protocol lexeme for c is not selected merely from H
-  → H-form remains a local gloss, alias, explanation, or translation relation
+InvariantRiderLexicon R
++ HostLanguage H
+→ RiderRealization(R over H)
 ```
 
-The purpose is not hostility toward English or any other language. It is prevention of conceptual monopoly by whichever language already possesses the greatest institutional, technical, or platform dominance.
-
-A change in interface language MUST NOT simply replace one dominant monolingual vocabulary with another.
-
-## 3. Distributed canonical nomenclature
-
-The canonical protocol lexicon MUST be distributed across languages.
-
-No one language SHOULD supply a controlling share of the central protocol vocabulary. Selection SHOULD:
-
-- prioritize Native American, Indigenous, endangered, minoritized, and historically excluded languages;
-- distribute canonical terms across many language families and scripts;
-- preserve the local conceptual contribution of each selected lexeme;
-- avoid repeatedly selecting globally dominant languages merely because sources are easier to access;
-- preserve community authority, restrictions, and provenance;
-- avoid culturally restricted, ceremonial, sacred, or community-controlled language without appropriate authority;
-- permit more than one lexical anchor where no single form carries the full conception;
-- preserve non-equivalence rather than forcing synonymy.
-
-The selected lexeme is not merely a translation. It becomes the canonical protocol manifestation because its local semantic structure materially contributes to the conception.
-
-## 4. Conception and lexical roles
-
-The architecture distinguishes:
+For every host language `H`, the rider lexeme for a conception remains the same.
 
 ```text
-canonical conception identity
-≠ canonical protocol lexeme
-≠ host-language gloss
-≠ additional multilingual anchor
-≠ glyph or emoji-rider manifestation
+CanonicalRiderLexeme(c, H₁)
+= CanonicalRiderLexeme(c, H₂)
+= CanonicalRiderLexeme(c)
 ```
 
-- **Canonical conception identity:** stable language-independent Claim ID.
-- **Canonical protocol lexeme:** ratified lexical manifestation used as the primary protocol name.
-- **Host-language gloss:** explanatory or searchable local-language rendering.
-- **Additional multilingual anchor:** another source-bound lexical relation contributing comparison, extension, contrast, or non-equivalence.
-- **Glyph or emoji-rider manifestation:** visual-symbolic compression and navigation form.
+The host language supplies grammar, syntax, inflectional accommodation, explanatory prose, and local accessibility. It does not supply the canonical protocol name for a conception already assigned within the rider.
 
-The protocol lexeme does not replace the Claim ID or the full Definition Claim field.
+## 2. Replacement rather than translation attachment
 
-## 5. Formal incorporation gate
+The rider is not a translation layer attached beside ordinary host-language vocabulary.
 
-A formal Definition Claim is not incorporated merely because an English or other host-language root sentence has been committed to GitHub.
+For a rider-governed conception:
 
 ```text
-FormallyIncorporated(d)
-:= RootAndNestedStructureImplemented(d)
- ∧ CanonicalProtocolLexemeSelected(d)
- ∧ CanonicalProtocolLexemeSourceBound(d)
- ∧ HostLanguageGlossDemoted(d)
- ∧ MultilingualRelationsImplemented(d)
- ∧ GlyphStateExplicit(d)
- ∧ MapParserDisplayIntegrationComplete(d)
- ∧ ProvenanceAndGovernanceExplicit(d)
+host-language word
+→ remains available as gloss, alias, search key, and explanation
+→ is replaced in canonical protocol use by the invariant rider lexeme
 ```
 
-A card lacking this structure may be classified as:
+Thus the same rider lexeme appears inside English, Ojibwe, French, Arabic, or any other host-language expression.
 
-- `root_captured`;
-- `nested_structure_drafted`;
-- `lexeme_candidates_identified`;
-- `lexeme_selected`;
-- `lexeme_source_bound`;
-- `multilingual_implementation_pending`.
+```text
+English grammar + rider lexeme
+Ojibwe grammar + same rider lexeme
+French grammar + same rider lexeme
+Arabic grammar + same rider lexeme
+```
 
-It MUST NOT be classified as formally incorporated, implemented, or complete.
+The protocol therefore forms one translingual nomenclature rather than separate translated protocol vocabularies.
 
-## 6. Central conception set
+## 3. Lexical strata
 
-The initial lexical-decentering wave MUST include at least:
+The rider lexicon has at least two lexical strata.
+
+### 3.1 Core lexical stratum
+
+The most structurally central conceptions MUST preferentially receive canonical rider lexemes from lost, dormant, sleeping, extinct, endangered, severely displaced, or otherwise historically suppressed languages.
+
+The purpose is to make those languages constitutive of the protocol's central operations rather than ornamental references at its margins.
+
+Core conceptions include at least:
 
 - Claim;
 - conception;
@@ -141,94 +97,219 @@ The initial lexical-decentering wave MUST include at least:
 - reconnection;
 - union.
 
-The list expands whenever another conception becomes structurally central to protocol interpretation, personhood, governance, legal reasoning, or interpersonal engagement.
+A term from a living but endangered or revitalizing language may enter this stratum only with source, community, use-condition, and governance Claims sufficient to avoid treating the language as an extractive word supply.
 
-For this central set, the current host-language label MUST be represented as a gloss rather than the canonical protocol lexeme once selection is ratified.
+A term from an extinct or historically documented language requires reliable attestation, morphological analysis where possible, source provenance, uncertainty, and explicit distinction between attested meaning and protocol extension.
 
-## 7. Lexeme selection record
+### 3.2 Compositional lexical stratum
 
-Every canonical protocol lexeme selection MUST be represented as a provenance-bearing Claim event containing:
-
-- conception Claim ID and version;
-- lexical Claim ID;
-- exact lexical form;
-- language, dialect, script, orthography, and community;
-- pronunciation where available;
-- morphology and literal compositional analysis;
-- etymology and semantic history;
-- local definition and sourced usage;
-- source manifestation and exact citation location;
-- contributing and selecting loci;
-- reason for selection;
-- relation to the canonical conception;
-- host-language glosses;
-- equivalence, partial-equivalence, extension, narrowing, conflict, and non-equivalence Claims;
-- cultural, ceremonial, institutional, or restricted-use conditions;
-- governance and ratification state;
-- unresolved objections and alternatives.
-
-No lexical form may become canonical solely because it appears attractive, exotic, ancient, symbolic, or politically useful.
-
-## 8. Required implementation surfaces
-
-A selected canonical protocol lexeme is not implemented until it appears consistently in:
-
-1. the full human-readable Definition Claim-card;
-2. the machine-readable Definition Claim record;
-3. the nested linguistic and multilingual Claim graph;
-4. the canonical Claim and lexical maps;
-5. the parser and identifier-resolution rules;
-6. model-access packets;
-7. search, display, and interface surfaces;
-8. textual fallback and accessibility descriptions;
-9. source, provenance, and governance manifests;
-10. validation and round-trip tests.
-
-The host-language gloss MUST remain searchable and visible for accessibility, but the interface SHOULD visually and structurally privilege the canonical protocol lexeme.
-
-## 9. Translation and relation types
-
-Canonical and additional lexical anchors MUST use typed relations, including:
-
-- `CANONICAL_PROTOCOL_LEXEME_FOR`;
-- `HOST_LANGUAGE_GLOSS_FOR`;
-- `TRANSLATES_EXACTLY_WITHIN_SCOPE`;
-- `PARTIALLY_EQUIVALENT_TO`;
-- `ANALOGOUS_TO`;
-- `EXTENDS_BEYOND`;
-- `NARROWS`;
-- `CONFLICTS_WITH`;
-- `BORROWED_AS`;
-- `CALQUED_AS`;
-- `PROTOCOL_ANCHOR_FOR`;
-- `NON_EQUIVALENT_BUT_RELATIONALLY_USEFUL`;
-- `HAS_NO_ESTABLISHED_EQUIVALENT`.
-
-An English or other host-language gloss does not establish equivalence.
-
-## 10. Host-relative rendering
-
-The same canonical protocol lexemes remain stable across host-language interfaces.
+Less-central and derivative protocol terms MAY be constructed through consolidation across the existing multilingual lexicon.
 
 ```text
-English interface
-→ English grammar and explanations
-→ distributed canonical protocol lexemes remain active
-
-Ojibwe interface
-→ Ojibwe grammar and explanations
-→ distributed canonical protocol lexemes remain active
-
-French interface
-→ French grammar and explanations
-→ distributed canonical protocol lexemes remain active
+SecondaryRiderTerm(s)
+:= governed composition of existing rider lexemes,
+   sourced language elements, operators, and glyph relations
 ```
 
-A source language may naturally host a protocol lexeme originating within it. This does not restore that language as the owner of the wider canonical vocabulary because the vocabulary is distributed across many languages.
+A secondary term may be:
 
-## 11. Existing-card correction
+- a compound of existing canonical rider lexemes;
+- a derivation from one rider lexeme using a governed protocol affix or operator;
+- a composite drawing sourced elements from more than one language;
+- a glyph–lexeme compound;
+- a shortened operational form derived from a fully represented Definition Claim.
 
-Every existing Definition Claim previously represented primarily through English nomenclature MUST be reclassified according to its actual multilingual implementation state.
+The composition MUST preserve the source identity and semantic contribution of every component. It may not fabricate the appearance of a natural historical word in any source language.
+
+## 4. Conception and lexical roles
+
+The architecture distinguishes:
+
+```text
+canonical conception identity
+≠ canonical rider lexeme
+≠ host-language gloss
+≠ source-language lexical Claim
+≠ compositional rider term
+≠ additional multilingual anchor
+≠ glyph or emoji-rider manifestation
+```
+
+- **Canonical conception identity:** stable language-independent Claim ID.
+- **Canonical rider lexeme:** invariant ratified protocol word used across all host languages.
+- **Host-language gloss:** local explanatory, searchable, and accessibility rendering.
+- **Source-language lexical Claim:** the attested lexical form and its own historical semantic structure.
+- **Compositional rider term:** a governed protocol construction assembled from represented lexical components.
+- **Additional multilingual anchor:** a source-bound relation that supports, contrasts, extends, or qualifies the conception.
+- **Glyph or emoji-rider manifestation:** the invariant visual-symbolic companion or compression of the conception.
+
+The rider lexeme is canonical nomenclature, not the conception's ontological identity. The Claim ID and full Definition Claim field remain primary for machine identity and semantic reconstruction.
+
+## 5. Core-source priority
+
+Core lexeme selection MUST prioritize languages according to a declared restoration-oriented source policy.
+
+The policy SHOULD prioritize:
+
+1. extinct or no-longer-natively-spoken languages with sufficiently reliable documentation;
+2. dormant or sleeping languages undergoing reclamation or revitalization;
+3. critically endangered languages;
+4. severely displaced Indigenous and minoritized languages;
+5. languages whose conceptual contributions have been historically appropriated, erased, or subordinated;
+6. additional languages needed to distribute the lexicon across families, regions, and scripts.
+
+Priority does not create automatic permission. Selection MUST preserve:
+
+- community authority where a living or revitalizing community exists;
+- restrictions on sacred, ceremonial, private, or role-limited language;
+- contributor and source provenance;
+- uncertainty and disagreement;
+- distinction between attested meaning and Caeluviim's ratified protocol use;
+- non-erasing replacement or withdrawal procedures.
+
+## 6. No false naturalization
+
+Caeluviim MUST distinguish an inherited source-language word from a newly created protocol construction.
+
+```text
+AttestedLexeme
+≠ RevivedLexeme
+≠ ReconstructedLexeme
+≠ CaeluviimProtocolCoinage
+≠ MultilingualComposite
+```
+
+Every rider term MUST declare which of these states applies.
+
+A multilingual composite MUST NOT be presented as if it were an authentic inherited word of any contributing language. Its morphology, component boundaries, construction event, and protocol-only status must remain explicit.
+
+## 7. Formal incorporation gate
+
+A formal Definition Claim is not incorporated merely because a root definition or host-language rendering has been committed to GitHub.
+
+```text
+FormallyIncorporated(d)
+:= RootAndNestedStructureImplemented(d)
+ ∧ CanonicalRiderLexemeSelectedOrComposed(d)
+ ∧ LexicalSourceAndConstructionClaimsBound(d)
+ ∧ HostLanguageGlossesDeclared(d)
+ ∧ LinguisticEtymologicalGraphImplemented(d)
+ ∧ MultilingualRelationsImplemented(d)
+ ∧ GlyphStateExplicit(d)
+ ∧ MapParserDisplayIntegrationComplete(d)
+ ∧ ProvenanceAndGovernanceExplicit(d)
+```
+
+For core conceptions, the rider lexeme MUST satisfy the lost-language core-source policy unless an explicit contested governance exception is recorded.
+
+For less-central conceptions, a governed composite from the existing multilingual rider field may satisfy the lexical requirement.
+
+## 8. Required lexical record
+
+Every canonical rider lexeme MUST have a provenance-bearing lexical record containing:
+
+- conception Claim ID and version;
+- canonical rider lexical Claim ID;
+- exact form and script;
+- classification as attested, revived, reconstructed, protocol coinage, or multilingual composite;
+- source language or contributing languages;
+- dialect, community, region, and period where known;
+- pronunciation and phonological form where available;
+- morphology and component segmentation;
+- etymology and semantic history;
+- attested local meanings and source contexts;
+- exact source manifestations and citation locations;
+- contributing, proposing, selecting, and ratifying loci;
+- reason for selection or construction;
+- relation to the canonical conception;
+- distinction between source meaning and protocol meaning;
+- equivalence, partial-equivalence, extension, narrowing, conflict, and non-equivalence Claims;
+- cultural, ceremonial, institutional, or restricted-use conditions;
+- host-language glosses;
+- governance and ratification state;
+- unresolved objections, variants, and alternatives.
+
+## 9. Compositional term grammar
+
+A less-central rider term MAY be synthesized only through a declared compositional grammar.
+
+The grammar MUST specify:
+
+- permissible lexical components;
+- operator and affix inventory;
+- ordering and attachment rules;
+- phonological or orthographic adaptation rules;
+- script strategy;
+- semantic composition rules;
+- conflict and ambiguity checks;
+- accessibility and pronunciation;
+- versioning and deprecation;
+- source attribution for every component;
+- prohibition on false representation as a natural source-language form.
+
+```text
+CompositeTerm
+→ component Claim identities
+→ typed composition relations
+→ synthesized protocol definition
+→ source and construction provenance
+```
+
+A composite is accepted only when the resulting meaning can be reconstructed from its components and Definition Claim nesting.
+
+## 10. Invariant rendering across host languages
+
+The canonical rider lexicon remains stable across interfaces.
+
+```text
+Rider(c) over English
+= same canonical rider lexeme
+
+Rider(c) over Ojibwe
+= same canonical rider lexeme
+
+Rider(c) over French
+= same canonical rider lexeme
+```
+
+Host-language integration MAY alter:
+
+- grammatical particles;
+- case marking;
+- agreement;
+- article use;
+- word order;
+- explanatory gloss placement;
+- transliteration display;
+- pronunciation assistance.
+
+It MUST NOT silently replace the canonical rider lexeme with a host-language synonym.
+
+## 11. Search, display, and learning behavior
+
+Every interface SHOULD display:
+
+```text
+canonical rider lexeme
+(host-language gloss)
+[glyph where ratified]
+```
+
+The system MUST support lookup by:
+
+- rider lexeme;
+- host-language gloss;
+- source-language form;
+- Claim ID;
+- glyph;
+- conceptual relation;
+- component lexemes for composites.
+
+At first exposure, the host-language gloss and concise Definition Claim may be shown prominently. As familiarity increases, the rider lexeme becomes the default nomenclature while the gloss remains available on demand.
+
+## 12. Existing-card correction
+
+Every existing Definition Claim represented primarily through English nomenclature MUST be reclassified according to its actual rider implementation state.
 
 For the current interpersonal corpus:
 
@@ -236,29 +317,31 @@ For the current interpersonal corpus:
 42 English-labeled Definition Claim roots
 → root and partial-card content captured
 → nested Claim migration pending
-→ canonical protocol lexeme selection pending
+→ lexical and etymological source binding pending
+→ core or compositional rider lexeme assignment pending
 → multilingual and glyph implementation pending
 → not yet formally incorporated
 ```
 
-The English labels remain useful glosses and search aliases. They are not the final canonical nomenclature.
+English terms remain working glosses and search aliases. They are not final canonical protocol nomenclature.
 
-## 12. Validation failures
+## 13. Validation failures
 
 Validation MUST reject:
 
-- formal-incorporation status without a source-bound canonical protocol lexeme;
-- a central conception retaining only the current host-language word as its canonical name;
-- language names and English glosses without stable lexical Claim records;
-- unsourced lexical forms, morphology, etymology, local meaning, or usage Claims;
-- false equivalence inferred from dictionary translation;
-- a selected lexeme present in prose but absent from machine serialization, maps, parser, or display;
-- dominance of one language across the central canonical lexicon without an explicit, contested, and temporary governance exception;
-- inaccessible scripts or glyphs without textual fallback;
-- culturally restricted terms incorporated without authority;
+- host-relative lexical substitution that assigns different canonical rider terms to the same conception in different host languages;
+- formal-incorporation status without an invariant canonical rider lexeme;
+- a core conception whose canonical term ignores the lost-language source priority without a declared governance exception;
+- a multilingual composite presented as a natural inherited word;
+- source components without stable lexical Claim identities and provenance;
+- unsourced etymology, morphology, local meaning, or usage Claims;
+- dictionary-gloss equivalence treated as complete semantic identity;
+- a rider lexeme present in prose but absent from machine serialization, maps, parser, model access, or display;
+- inaccessible scripts or glyphs without transliteration, textual fallback, and accessibility description;
+- culturally restricted language incorporated without authority;
 - decorative multilingualism that contributes no semantic structure;
-- silent replacement of one dominant host vocabulary with another.
+- silent reversion to host-language vocabulary in canonical protocol operations.
 
-## 13. Constitutional formulation
+## 14. Constitutional formulation
 
-> Caeluviim may be hosted grammatically and technically within any language, but no host language retains automatic ownership of the protocol's most central conceptions. Central canonical nomenclature is deliberately distributed across source-bound extra-lingual lexemes whose local semantic structures materially contribute to the Definition Claims they name. Host-language words remain glosses, aliases, and explanatory access points. This rule applies symmetrically to English and every other host language, preventing the language of infrastructure from becoming the language of conceptual sovereignty.
+> Caeluviim uses one invariant rider lexicon across every host language. The host language supplies grammatical and explanatory scaffolding, while the rider replaces the same central vocabulary regardless of the language beneath it. The most central rider lexemes are preferentially sourced from lost, dormant, endangered, displaced, and historically suppressed languages with full provenance, authority, and semantic limits. Less-central terms may be governed compounds or derivations synthesized from the accumulated multilingual rider field. Every term preserves its source identity, construction history, Definition Claim structure, and distinction between inherited language and protocol coinage.
