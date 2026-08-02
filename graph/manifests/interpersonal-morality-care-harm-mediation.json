@@ -1,0 +1,350 @@
+{
+  "manifest_id": "M:interpersonal-morality-care-harm-mediation:0.1.0",
+  "version": "0.1.0",
+  "status": "consolidation_candidate",
+  "governing_standard": "docs/architecture/standardized-definition-claim-structure.md",
+  "canonical_source": "corpus/definitions/interpersonal-morality-care-harm-and-mediation.md",
+  "scope": [
+    "interpersonal communication",
+    "relational ethics",
+    "care",
+    "harm",
+    "conflict",
+    "repair",
+    "mediation",
+    "therapeutic-relational engagement"
+  ],
+  "governing_formulations": [
+    "Truth is maximal presently allowable objective accuracy under the available condition field.",
+    "Separate literal content, plausible inference, and verified intent.",
+    "Attach each apology to a concrete rule change, artifact correction, or validation test.",
+    "Record the consent basis, scope, and revocability for consequential actions.",
+    "Limit relational claims to observable acts and current capabilities."
+  ],
+  "definitions": [
+    {
+      "claim_id": "C:truth",
+      "label": "Truth",
+      "exact_definition_claim": "Truth is maximal presently allowable objective accuracy under the available condition field.",
+      "state": "consolidated_current_definition",
+      "principal_relations": ["C:evidence", "C:condition-field", "C:scope", "C:correction"]
+    },
+    {
+      "claim_id": "C:morality",
+      "label": "Morality",
+      "exact_definition_claim": "Morality is the organized field of Claims concerning what relations, actions, conditions, and consequences ought to be preserved, enabled, constrained, repaired, or refused.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:value", "C:dignity", "C:agency", "C:harm", "C:justice"]
+    },
+    {
+      "claim_id": "C:ethics",
+      "label": "Ethics",
+      "exact_definition_claim": "Ethics is the disciplined practice of examining, contesting, applying, and revising moral Claims under declared conditions.",
+      "state": "kernel_drafted",
+      "principal_relations": ["C:morality", "C:truth", "C:responsibility"]
+    },
+    {
+      "claim_id": "C:value",
+      "label": "Value",
+      "exact_definition_claim": "A value is a Claim-held significance that orders attention, preference, protection, sacrifice, or action among possible conditions.",
+      "state": "kernel_drafted",
+      "principal_relations": ["C:morality", "C:disposition", "C:action"]
+    },
+    {
+      "claim_id": "C:care",
+      "label": "Care",
+      "exact_definition_claim": "Care is sustained, consequence-sensitive attention and action oriented toward preserving or improving another locus's dignity, agency, capacity, and participation according to its actual condition and expressed position.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:dignity", "C:agency", "C:listening", "C:consent", "C:repair"]
+    },
+    {
+      "claim_id": "C:harm",
+      "label": "Harm",
+      "exact_definition_claim": "Harm is materially significant degradation of capacity, integrity, agency, dignity, standing, relation, opportunity, or condition caused or maintained through action, omission, structure, or imposed meaning.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:agency", "C:dignity", "C:responsibility", "C:repair"]
+    },
+    {
+      "claim_id": "C:dignity",
+      "label": "Dignity",
+      "exact_definition_claim": "Dignity is the standing of a person or locus as one whose existence, meanings, agency, Claims, boundaries, contributions, and consequences must be treated as materially significant.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:recognition", "C:respect", "C:agency", "C:justice"]
+    },
+    {
+      "claim_id": "C:respect",
+      "label": "Respect",
+      "exact_definition_claim": "Respect is the practice of making another locus's dignity, agency, definitions, boundaries, contributions, and consequences operative constraints on one's own conduct.",
+      "state": "kernel_drafted",
+      "principal_relations": ["C:dignity", "C:boundary", "C:recognition"]
+    },
+    {
+      "claim_id": "C:recognition",
+      "label": "Recognition",
+      "exact_definition_claim": "Recognition is the act or relation by which another locus's identity, standing, manifestation, or contribution is made operative rather than ignored, erased, or substituted.",
+      "state": "kernel_drafted",
+      "principal_relations": ["C:dignity", "C:identity", "C:provenance"]
+    },
+    {
+      "claim_id": "C:trust",
+      "label": "Trust",
+      "exact_definition_claim": "Trust is a held disposition that another locus will act and communicate with sufficient reliability, fidelity, non-exploitation, and accountability under relevant conditions.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:disposition", "C:vulnerability", "C:accountability", "C:repair"]
+    },
+    {
+      "claim_id": "C:consent",
+      "label": "Consent",
+      "exact_definition_claim": "Consent is revocable, scope-bound authorization by an adequately informed locus for a specified relation or action under declared conditions.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:scope", "C:information", "C:agency", "C:coercion", "C:boundary"]
+    },
+    {
+      "claim_id": "C:agency",
+      "label": "Agency",
+      "exact_definition_claim": "Agency is the capacity of a locus to originate, select, refuse, revise, and sustain Claims or actions with material consequences within a condition field.",
+      "state": "kernel_drafted",
+      "principal_relations": ["C:locus", "C:possibility", "C:consent", "C:power"]
+    },
+    {
+      "claim_id": "C:responsibility",
+      "label": "Responsibility",
+      "exact_definition_claim": "Responsibility is the attributable relation connecting a locus to consequences and obligations arising from its Claims, actions, omissions, authority, or capacities.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:locus", "C:action", "C:obligation", "C:accountability", "C:repair"]
+    },
+    {
+      "claim_id": "C:accountability",
+      "label": "Accountability",
+      "exact_definition_claim": "Accountability is the process by which responsibility becomes answerable through explanation, evidence, correction, repair, and proportionate consequence.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:responsibility", "C:evidence", "C:repair", "C:validation"]
+    },
+    {
+      "claim_id": "C:power",
+      "label": "Power",
+      "exact_definition_claim": "Power is the capacity to alter condition fields, available possibilities, meanings, resources, decisions, or the actions of other loci.",
+      "state": "kernel_drafted",
+      "principal_relations": ["C:condition-field", "C:possibility", "C:coercion", "C:responsibility"]
+    },
+    {
+      "claim_id": "C:coercion",
+      "label": "Coercion",
+      "exact_definition_claim": "Coercion is the use of power to constrain another locus's choices through threat, deprivation, dependency, penalty, or imposed cost such that apparent assent is not freely formed.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:power", "C:consent", "C:agency", "C:harm"]
+    },
+    {
+      "claim_id": "C:manipulation",
+      "label": "Manipulation",
+      "exact_definition_claim": "Manipulation is the covert, misleading, or materially incomplete configuration of information or relations intended to shape another locus's activation or action while obscuring relevant purpose, conditions, or consequences.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:information", "C:activation", "C:agency", "C:consent", "C:truth"]
+    },
+    {
+      "claim_id": "C:abuse",
+      "label": "Abuse",
+      "exact_definition_claim": "Abuse is a patterned or severe use of power or relation that degrades another locus's dignity, agency, integrity, standing, or capacity, commonly through exploitation of dependency, vulnerability, trust, or access.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:power", "C:vulnerability", "C:dignity", "C:harm", "C:accountability"]
+    },
+    {
+      "claim_id": "C:neglect",
+      "label": "Neglect",
+      "exact_definition_claim": "Neglect is failure to perform materially required attention, action, protection, or communication despite responsibility or recognized need, thereby causing or permitting avoidable degradation.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:responsibility", "C:communication", "C:harm", "C:repair"]
+    },
+    {
+      "claim_id": "C:violence",
+      "label": "Violence",
+      "exact_definition_claim": "Violence is the imposition of materially destructive force or constraint against a locus or its constitutive relations, including physical, institutional, economic, linguistic, or semantic forms where their effects meet the harm threshold.",
+      "state": "contested_candidate",
+      "principal_relations": ["C:force", "C:constraint", "C:harm", "C:power"]
+    },
+    {
+      "claim_id": "C:boundary",
+      "label": "Boundary",
+      "exact_definition_claim": "A boundary is a declared, purpose-indexed condition specifying the permitted, required, or prohibited form and scope of relation among loci.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:scope", "C:consent", "C:dignity", "C:agency", "C:power"]
+    },
+    {
+      "claim_id": "C:communication",
+      "label": "Communication",
+      "exact_definition_claim": "Communication is the process by which manifestations alter a shared condition field and the available interpretations, dispositions, or actions of participating loci.",
+      "state": "kernel_drafted",
+      "principal_relations": ["C:manifestation", "C:condition-field", "C:disposition", "C:dialogue"]
+    },
+    {
+      "claim_id": "C:listening",
+      "label": "Listening",
+      "exact_definition_claim": "Listening is the active practice of making another locus's manifestation materially operative in interpretation and response while preserving its distinctions and checking inference.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:communication", "C:understanding", "C:meaning", "C:correction"]
+    },
+    {
+      "claim_id": "C:understanding",
+      "label": "Understanding",
+      "exact_definition_claim": "Understanding is coherent relational navigation sufficient to support accurate explanation, continuation, prediction, correction, and responsive action while remaining revisable.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:listening", "C:relation", "C:application", "C:correction"]
+    },
+    {
+      "claim_id": "C:empathy",
+      "label": "Empathy",
+      "exact_definition_claim": "Empathy is a condition-bound effort to model or participate in another locus's perspective or experience without claiming identity, certainty, or authority over that experience.",
+      "state": "kernel_drafted",
+      "principal_relations": ["C:perspective", "C:experience", "C:understanding", "C:boundary"]
+    },
+    {
+      "claim_id": "C:compassion",
+      "label": "Compassion",
+      "exact_definition_claim": "Compassion is concern that recognizes another locus's difficulty and disposes toward non-exploitative support or relief while preserving agency and consent.",
+      "state": "kernel_drafted",
+      "principal_relations": ["C:care", "C:agency", "C:consent", "C:harm"]
+    },
+    {
+      "claim_id": "C:validation",
+      "label": "Validation",
+      "exact_definition_claim": "Validation is recognition that a Claim, experience, or reaction is real or intelligible as manifested under its conditions without automatically affirming every inference, attribution, or conclusion attached to it.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:recognition", "C:manifestation", "C:agreement", "C:scope"]
+    },
+    {
+      "claim_id": "C:conflict",
+      "label": "Conflict",
+      "exact_definition_claim": "Conflict is a condition in which Claims, interests, needs, obligations, interpretations, or actions cannot all be simultaneously satisfied without revision or relational change.",
+      "state": "kernel_drafted",
+      "principal_relations": ["C:claim", "C:obligation", "C:mediation", "C:boundary"]
+    },
+    {
+      "claim_id": "C:disagreement",
+      "label": "Disagreement",
+      "exact_definition_claim": "Disagreement is an explicit non-equivalence among Claims and does not by itself establish hostility, moral failure, or relational rupture.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:claim", "C:conflict", "C:dialogue"]
+    },
+    {
+      "claim_id": "C:mediation",
+      "label": "Mediation",
+      "exact_definition_claim": "Mediation is a structured process in which a third locus supports participants in clarifying Claims, interests, harms, evidence, boundaries, options, and possible agreements without appropriating their decision authority.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:dialogue", "C:agency", "C:impartiality", "C:conflict", "C:agreement"]
+    },
+    {
+      "claim_id": "C:therapeutic-mediation",
+      "label": "Therapeutic mediation",
+      "exact_definition_claim": "Therapeutic mediation is a mediation-informed relational process that combines semantic clarification, experiential recognition, power awareness, consent, boundary protection, and repair-oriented action to increase participants' capacity for truthful, non-coercive engagement.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:mediation", "C:listening", "C:consent", "C:boundary", "C:repair"]
+    },
+    {
+      "claim_id": "C:therapeutic-alliance",
+      "label": "Therapeutic alliance",
+      "exact_definition_claim": "Therapeutic alliance is a reciprocal working relation organized by a shared purpose, agreed tasks, sufficient trust, role clarity, and a bond capable of explicit repair.",
+      "state": "source_binding_pending",
+      "principal_relations": ["C:trust", "C:agreement", "C:role", "C:repair"]
+    },
+    {
+      "claim_id": "C:de-escalation",
+      "label": "De-escalation",
+      "exact_definition_claim": "De-escalation is a transformation of the condition field that reduces coercive intensity and increases the capacity for accurate Claim exchange, choice, and proportionate response without suppressing valid disagreement.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:condition-field", "C:coercion", "C:listening", "C:mediation", "C:truth"]
+    },
+    {
+      "claim_id": "C:repair",
+      "label": "Repair",
+      "exact_definition_claim": "Repair is a non-erasing process that identifies injury, restores truth and agency, corrects affected artifacts and relations, addresses material consequences, and prevents recurrence.",
+      "state": "consolidated_current_definition",
+      "principal_relations": ["C:harm", "C:truth", "C:responsibility", "C:evidence", "C:recurrence-prevention"]
+    },
+    {
+      "claim_id": "C:apology",
+      "label": "Apology",
+      "exact_definition_claim": "An apology is an acknowledgment of attributable wrong or injury joined to responsibility and concrete repair obligations; it is not a substitute for repair.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:harm", "C:responsibility", "C:repair", "C:forgiveness"]
+    },
+    {
+      "claim_id": "C:forgiveness",
+      "label": "Forgiveness",
+      "exact_definition_claim": "Forgiveness is a voluntary revision of one's relation to a wrong that may release some demand for retaliation or continued burden without erasing truth, responsibility, boundaries, or repair.",
+      "state": "contested_candidate",
+      "principal_relations": ["C:wrong", "C:truth", "C:responsibility", "C:boundary", "C:repair"]
+    },
+    {
+      "claim_id": "C:justice",
+      "label": "Justice",
+      "exact_definition_claim": "Justice is the organization and correction of relations so that dignity, agency, burdens, benefits, responsibility, authority, and remedy are accounted for without arbitrary domination or erasure.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:dignity", "C:agency", "C:responsibility", "C:authority", "C:remedy"]
+    },
+    {
+      "claim_id": "C:fairness",
+      "label": "Fairness",
+      "exact_definition_claim": "Fairness is positional accounting of materially relevant differences in order to determine justifiable treatment rather than merely identical treatment.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:position", "C:difference", "C:justice", "C:treatment"]
+    },
+    {
+      "claim_id": "C:reciprocity",
+      "label": "Reciprocity",
+      "exact_definition_claim": "Reciprocity is mutual responsiveness and accountability proportionate to the positions, capacities, contributions, dependencies, and consequences of participating loci.",
+      "state": "kernel_drafted",
+      "principal_relations": ["C:responsibility", "C:accountability", "C:position", "C:contribution"]
+    },
+    {
+      "claim_id": "C:vulnerability",
+      "label": "Vulnerability",
+      "exact_definition_claim": "Vulnerability is a condition of heightened exposure to consequence or reduced capacity to resist, escape, recover from, or obtain recognition of materially adverse action.",
+      "state": "kernel_drafted",
+      "principal_relations": ["C:power", "C:harm", "C:trust", "C:capacity"]
+    },
+    {
+      "claim_id": "C:impartiality",
+      "label": "Impartiality",
+      "exact_definition_claim": "Impartiality is equal procedural regard for participants and Claims without pretending that all Claims possess equal evidence, authority, consequence, or validity.",
+      "state": "consolidation_candidate",
+      "principal_relations": ["C:procedure", "C:evidence", "C:authority", "C:mediation"]
+    },
+    {
+      "claim_id": "C:reflection",
+      "label": "Reflective response",
+      "exact_definition_claim": "A reflective response is a re-manifestation of another locus's Claim in a form that allows that locus to verify, refine, or reject the proposed understanding.",
+      "state": "kernel_drafted",
+      "principal_relations": ["C:listening", "C:understanding", "C:correction"]
+    }
+  ],
+  "required_source_bound_knowledge_families": [
+    "therapeutic alliance and rupture repair",
+    "active and reflective listening",
+    "motivational interviewing",
+    "mediation and transformative mediation",
+    "restorative practices and restorative justice",
+    "nonviolent communication",
+    "mentalization and perspective-taking",
+    "emotion regulation and co-regulation",
+    "de-escalation",
+    "conflict transformation",
+    "trauma-informed relational practice",
+    "attachment and relational patterns",
+    "family-systems and group-process approaches",
+    "consent, boundaries, confidentiality, and professional role ethics",
+    "power analysis and anti-oppressive practice",
+    "narrative approaches and meaning reconstruction",
+    "solution-focused and strengths-oriented processes",
+    "accountability, apology, forgiveness, reconciliation, and repair distinctions"
+  ],
+  "validation_requirements": [
+    "reject conflation of validation with agreement",
+    "reject conflation of care with control",
+    "reject conflation of apology with repair",
+    "reject conflation of disagreement with hostility",
+    "reject conflation of mediation with adjudication",
+    "preserve literal content, plausible inference, and verified intent as distinct Claims",
+    "require consent basis, scope, and revocability for consequential actions",
+    "require relational claims to resolve to observable acts and current capabilities"
+  ]
+}
