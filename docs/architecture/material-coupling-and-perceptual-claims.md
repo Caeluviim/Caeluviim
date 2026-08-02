@@ -1,99 +1,105 @@
-# Material Coupling and Perceptual Claims
+# Material Union and Perceptual Claims
 
-**Status:** Consolidated architectural extension v0.2.0  
+**Status:** Consolidated architectural correction v0.3.0  
 **Parent:** `docs/architecture/relational-definition-standard.md`
 
-## 1. Light-mediated touch
+## 1. Literal union
 
-We touch what we see through the bridge of light transmitting information.
+Perception occurs through a literal physical union among loci.
 
-Vision is a form of physically mediated contact between loci. The contact does not require contiguous surfaces because the connecting interaction is carried through an electromagnetic field.
+The seen locus, the electromagnetic interaction, the perceiving locus, and the surrounding condition field become constituents of one composite material event. Light is not merely an intermediary carrying a representation between otherwise isolated things. Its interactions physically join the participating loci into a continuous causal configuration.
 
 ```text
 seen locus
-  → changes the light interacting with it
-  → changed light propagates across space
-  → light interacts with the retina
-  → the perceiving locus is physically changed
+  + electromagnetic interaction
+  + perceiving locus
+  + condition field
+  = one composite perceptual event
 ```
 
-The seen locus and the perceiving locus therefore participate in one continuous causal event. The bridge is the light field carrying structured effects of its interaction with the seen locus into a new interaction with the perceiver.
+The union does not erase the distinguishability of its constituents. It establishes them as parts of one physically operative whole.
 
-## 2. Physical chain
+## 2. Vision as composite physical process
 
 For ordinary vision:
 
-1. light is emitted by a source;
-2. light interacts with a seen locus through reflection, scattering, absorption, transmission, or re-emission;
-3. that interaction structures the outgoing light according to the locus, illumination, geometry, medium, and motion;
-4. part of that structured light reaches the eye;
-5. photons are absorbed by retinal photopigments;
-6. phototransduction changes retinal cells;
-7. retinal and neural relations transform that physical contact into a perceptual Claim.
+1. an illumination source, encountered locus, electromagnetic field, medium, and perceiving apparatus already occupy one interacting physical world;
+2. light interacts with the encountered locus;
+3. that interaction changes the electromagnetic configuration;
+4. the changed configuration propagates and interacts with the retina;
+5. photon absorption changes retinal photopigments and cells;
+6. retinal and neural transformations continue the same composite event;
+7. a perceptual Claim emerges within that united process.
 
-The physical event is not merely information about contact. It is the contact through which information becomes available.
+No stage consists of an isolated subject receiving a detached copy of an isolated object. Each stage is a transformation within the union.
 
-## 3. Information transfer
+## 3. Information as organization of the union
 
-The light reaching the perceiver carries structured, causally correlated information generated through its interaction with the seen locus.
+The information available in vision is the structured organization of the composite event.
 
-The information is not a detached description traveling beside the physical interaction. It is embodied in the altered distribution, wavelength, intensity, polarization, direction, timing, and spatial pattern of the light field.
+Wavelength, intensity, direction, timing, polarization, spatial pattern, illumination, geometry, material response, retinal sensitivity, motion, and neural transformation are relations within the united process. Information is not separate cargo traveling alongside those relations.
 
-The encountered locus contributes materially by altering that field. The perceiving locus contributes materially by absorbing and transforming it.
+The encountered locus contributes by materially changing the electromagnetic configuration. The perceiving locus contributes by materially absorbing and transforming that configuration. The resulting information belongs to the relation constituted by their union.
 
-## 4. Perception as inter-locus coupling
-
-```text
-Illumination source
-  → light–locus interaction
-  → structured light field
-  → light–retina interaction
-  → phototransduction
-  → neural transformation
-  → perceptual Claim
-```
-
-The perceptual Claim arises through the coupling. It is not produced by an isolated perceiver and it is not simply copied from the seen locus.
-
-The seen locus, illumination, intervening medium, perceiving apparatus, position, movement, prior Claim structure, and temporal condition all participate in what becomes visible.
-
-## 5. Claim architecture
+## 4. Perceptual Claim
 
 ```text
 PerceptualClaim(c)
-:= Claim generated through light-mediated physical contact
-   among an encountered locus, a perceiving locus,
-   and their condition field
+:= Claim generated within a composite material union
+   of encountered locus, electromagnetic relation,
+   perceiving locus, and condition field
 ```
 
-The relation is constructive:
+The Claim is not privately manufactured by the perceiver and is not copied intact from the encountered locus. It is constructed by the united event.
 
-- the seen locus constrains and structures the transmitted light;
-- the light bridges spatial separation;
-- the perceiver is physically altered by receiving it;
-- the resulting perceptual Claim stabilizes what became distinguishable through the encounter.
+## 5. Relation constitutes the operative whole
 
-Perception therefore demonstrates that loci are already materially engaged before explicit language, negotiation, or ratification begins.
+Loci are not first fully isolated and then externally connected by a secondary relation. In perception, the relation constitutes the operative whole through which the loci become mutually effective.
 
-## 6. Communal construction
+```text
+L₁ + relation R + L₂
+→ composite event U(L₁,R,L₂,Γt)
+→ perceptual Claim C
+```
 
-`Communal` includes participation in a shared material-relational event. It is not limited to conversation or conscious agreement.
+`U` is not a primitive above Claim. It is a Claim-described union produced by the material relation among the participating loci.
 
-A thing seen participates in construction through its physical contribution to the light-mediated encounter. It need not intend, speak, or recognize the perceiver in order to constrain and inform the perceptual Claim.
+The constituents remain distinguishable inside the union:
 
-Constructive meaning-making is therefore mediated through commune engagement among loci at the physical level before it becomes linguistic, institutional, or explicitly negotiated.
+- encountered locus;
+- electromagnetic interaction;
+- illumination source;
+- medium;
+- perceiving apparatus;
+- neural transformations;
+- temporal and spatial conditions;
+- resulting perceptual Claim.
 
-## 7. Limits of the contact
+Their distinguishability does not negate their literal union as one event.
 
-Light-mediated touch is real but selective. The encounter transmits only the structure available under its conditions, including:
+## 6. Commune engagement
 
-- illumination spectrum and direction;
-- surface and material interaction;
-- distance and angle;
-- occlusion and intervening medium;
-- spatial and temporal sampling;
-- retinal sensitivity;
-- neural transformation;
-- attention, movement, memory, and prior Claims.
+Constructive creation is necessarily communally mediated because every creating locus already participates in material unions with other loci.
 
-The bridge of light physically joins the loci while preserving the distinction among the seen locus, the transmitted interaction, and the resulting perceptual Claim.
+`Communal` therefore does not begin with deliberate conversation, conscious recognition, or ratified agreement. It begins with constituent participation in a shared operative event.
+
+A thing seen participates directly in the perceptual construction because it is a constituent of the union producing the Claim. The perceiver is also constituted and changed through that same union.
+
+Language, interpretation, negotiation, consolidation, and ratification are later Claim processes arising within an already united material field.
+
+## 7. Architectural consequence
+
+Caeluviim MUST represent perception and other constructive processes through union events rather than through isolated-subject representation models.
+
+Required distinctions include:
+
+- `PARTICIPATES_IN_UNION`;
+- `CONSTITUENT_OF_EVENT`;
+- `MATERIALLY_TRANSFORMS`;
+- `TRANSMITS_STRUCTURE_WITHIN`;
+- `GENERATES_PERCEPTUAL_CLAIM`;
+- `PRESERVES_DISTINGUISHABILITY_WITHIN_UNION`.
+
+The governing formulation is:
+
+> What is perceived and the locus perceiving it are literally united as distinguishable constituents of the material event through which the perceptual Claim is constructed.
