@@ -1,316 +1,356 @@
-# Caeluviim Extended — Relational Definition Fields
+# Caeluviim Extended — Universal Claim Field Registry
 
-**Status:** Relational-partial consolidation v0.2.0  
+**Status:** Architectural consolidation v0.3.0  
 **Governing standard:** `docs/architecture/relational-definition-standard.md`
 
-This registry repairs the prior compression of central concepts into one-sentence claim properties. Etymological and historical assertions not established by the supplied source remain explicitly pending source-bound research rather than being invented.
+## 1. Registry rule
 
-## 1. Claim
+Every entry in this registry is a Claim with the same complete field structure. The entries do not instantiate separate semantic object types called Definition, Semantics, Relation, Knowing, Personhood, Embodiment, Intelligence, Provenance, or Difference. They are Claims that define those loci and their relations.
 
-### Stable identity
+Definition is the constructive operation performed by every Claim. Semantics is the result condition of that operation. Difference is the impetus that occasions Claim-making. None is placed above or beside Claim as a competing primitive.
 
-- Canonical ID: `urn:caeluviim:concept:claim`
-- Definition state: `relational_partial`
-- Definition mode: Caeluviim canonical; theoretical; operational
+The uniform structure is inherited in full by every entry. A field marked `pending`, `unresolved`, `contested`, or `inapplicable for declared scope` remains present.
 
-### Intensional nucleus
+## 2. Universal field identity
 
-A Claim is a distinction held or manifested in a form capable of entering relation, preservation, interpretation, contestation, revision, or consequence. A Claim need not be linguistic, propositional, conscious, or true.
+Every Claim entry resolves the following field groups:
 
-### Relational constitution
+1. identity, version, governance, and hash;
+2. claiming and addressed loci;
+3. impetus;
+4. exact Claim content and immutable source manifestation;
+5. defined locus and relational configuration;
+6. intension, extension, inclusion, exclusion, and boundaries;
+7. condition and consequence fields;
+8. semantic result and interpretations;
+9. evidence, provenance, and contribution;
+10. lexical and etymological fields;
+11. protocol nomenclature;
+12. emoji rider glyph realization;
+13. multilingual anchors;
+14. formal and operational realization;
+15. manifestation, neighborhood, and contrast fields;
+16. Claim-work, consolidation, ratification, power, revision, and contestation histories;
+17. examples and epistemic status.
 
-A Claim minimally requires:
+## 3. Claim — sole constructive primitive
 
-- a distinguishable content or difference;
-- a manifestation or encoding;
-- a condition field in which the distinction operates;
-- a holding, occurrence, or attribution relation;
-- potential relation to other Claims;
-- provenance sufficient to identify its emergence or capture state.
+### Exact Claim content
 
-### Semantic neighborhood
+> Claim is the sole scale-invariant constructive primitive in Caeluviim.
 
-Assertion, proposition, statement, observation, representation, distinction, sign, judgment, avowal, prediction, rule, boundary, identity, definition.
+### Claiming and addressed loci
 
-None is globally equivalent to Claim. Each is a specialized Claim configuration.
+- Claiming loci: 😈Yūrei🌈 and Lux / ChatGPT through dialogic consolidation.
+- Addressed loci: Caeluviim participants and every implementation of the protocol.
 
-### Contrast and exclusion field
+### Impetus
 
-Claim contrasts with undifferentiated possibility, but not necessarily with reality. A Claim is not identical to truth, sentence, belief, opinion, or allegation. Those labels identify status, form, holder, force, or institutional treatment.
+Repeated architectural distortions placed Difference, Semantics, Definition, or other conceptual products above or beside Claim.
 
-### Boundary cases
+### Defined locus and relational configuration
 
-- affective pattern without linguistic expression;
-- image or gesture carrying a distinction;
-- machine-generated classification;
-- inherited institutional category;
-- tacit bodily orientation;
-- contradiction containing multiple Claims;
-- a definition that contains and organizes subordinate Claims.
+This Claim defines `Claim` as the protocol locus through which distinctions, relations, boundaries, identities, observations, predictions, rules, signs, glyphs, language anchors, interpretations, corrections, and governance states become constructively available.
 
-### Formal realization
+Every assertion that another entity precedes or supersedes Claim is itself a Claim and therefore cannot establish a second primitive outside the Claim architecture.
+
+### Intension, extension, inclusion, exclusion, and boundaries
+
+- Intension: a Claim establishes a relational configuration capable of manifestation, consequence, relation, preservation, interpretation, contestation, revision, or consolidation.
+- Extension: linguistic and nonlinguistic distinctions, observations, affective configurations, images, gestures, classifications, legal rules, mathematical expressions, identity statements, glyph assignments, and multilingual mappings.
+- Includes: every definitional operation.
+- Excludes: Definition as a peer primitive; Semantics as a superordinate container; Difference as an ontological precursor.
+- Boundary: Claim need not be true, linguistic, conscious, ratified, or complete in field resolution.
+
+### Condition, consequence, and semantic result
+
+- Condition field: Caeluviim architecture under the current dialogic consolidation.
+- Consequence: all reduced or type-specific Claim schemas must be replaced by the universal Claim shape.
+- Semantic result: Claim becomes operative as the sole constructive primitive for the declared architecture.
+
+### Lexical and etymological field
+
+Source-bound etymological work remains required. It must preserve calling, asserting, demanding, legal, ownership, and other historical senses without allowing any English history to control the protocol identity.
+
+### Protocol, glyph, and multilingual field
+
+- Protocol identifier: `C`.
+- Preferred protocol nomenclature: `Claim` pending multilingual canonical naming process.
+- Emoji rider glyph: pending formal glyph Claim with arity, precedence, composition, and ratification fields.
+- Multilingual anchors: pending source-bound anchor Claims, prioritizing Indigenous and historically underrepresented languages.
+
+### Claim-work and status
+
+- Claim work: repeated correction, relation mapping, contradiction removal, and consolidation in the present dialogue.
+- Consolidation: accepted architectural formulation.
+- Ratification: pending governance projection.
+- Epistemic status: consolidated architectural Claim.
+
+## 4. Definition — operation of every Claim
+
+### Exact Claim content
+
+> Every Claim performs definition by establishing a relational configuration.
+
+### Impetus
+
+The prior registry incorrectly represented Definition as a specialized Claim-container and stated that not all Claims were definitions.
+
+### Defined locus and relational configuration
+
+Definition is not an entity type separate from Claim. It names what a Claim does: establishes how loci, relations, states, categories, boundaries, possibilities, exclusions, consequences, and applications are configured under declared conditions.
+
+Dictionary entries, observations, legal rules, classifications, predictions, prohibitions, identity statements, images, gestures, affective differentiations, glyph assignments, and language mappings are all fully structured Claims performing definition.
+
+### Inclusion, exclusion, and boundary field
+
+- Includes: every Claim.
+- Excludes: a privileged category called `DefinitionalClaim`; a separate `DefinitionRecord` that contains Claims as subordinate semantic objects.
+- Boundary: Claims differ in what they define and how their fields are resolved, not in whether they define.
+
+### Consequences
+
+- remove language describing Definition as a separate primitive or specialized container;
+- treat lexical, theoretical, operational, legal, institutional, and first-person differences as Claim contexts and operations rather than Definition modes;
+- project every Claim through the same full field structure;
+- preserve each historical definition occurrence as another Claim linked through source, contrast, revision, or contextualization relations.
+
+### Protocol, glyph, and multilingual field
+
+- Protocol relation: `C DEFINES R`.
+- Formal shorthand: `C:DEF`.
+- Glyph and language realizations: pending dedicated Claim records using the universal structure.
+
+### Status
+
+Consolidated architectural correction; machine schema projection pending dedicated protected-path work.
+
+## 5. Difference — impetus for Claim-making
+
+### Exact Claim content
+
+> Difference is the impetus that occasions Claim-making; it is not a primitive above Claim.
+
+### Defined locus and relational configuration
+
+Difference names divergence, tension, uncertainty, unmet relation, contrast, event, failed expectation, conflict, or need that occasions one or more loci to make Claims.
 
 ```text
-Claim(c) := Distinction(c) ∧ Manifestable(c) ∧ Relatable(c)
-H(c,p,t,Γ) := claim c is held, enacted, attributed, or instantiated by scaffold p at time t under condition field Γ
+Difference OCCASIONS Claim-making
 ```
 
-Graph realization: `Claim` node plus provenance-bearing relations, source occurrences, assessments, and revision events.
+The relation is causal or motivational, not hierarchical. A particular assertion that a difference exists is itself a Claim.
 
-### Etymology
+### Extension and boundaries
 
-Source-bound etymological record pending. Required research must distinguish the historical verbal sense of calling or crying out, later demands or assertions, legal uses, and the Caeluviim extension to nonlinguistic distinction. Historical origin will not be treated as controlling the canonical scope.
+- disagreement between interlocutors;
+- unexpected event;
+- unclassified perception;
+- competing institutional rules;
+- prediction failure;
+- translation mismatch;
+- unresolved boundary;
+- need for coordination.
 
-## 2. Relation
+Difference does not contain Claim, semantics, or meaning. It supplies the impetus for a Claim to define the encountered configuration.
 
-### Stable identity
+### Protocol, glyph, and multilingual field
 
-- Canonical ID: `urn:caeluviim:concept:relation`
-- Definition state: `relational_partial`
+- Protocol shorthand: `Δ→C`, read as “difference occasions Claim.”
+- Glyph assignment: pending formal rider operation.
+- Multilingual anchors: pending; no English gloss will be treated as exhaustive.
 
-### Intensional nucleus
+### Status
 
-A Relation is a typed, situated connection through which two or more distinguishable terms, states, Claims, persons, events, or configurations become mutually specified without requiring their collapse into identity.
+Consolidated architectural Claim; graph relation `OCCASIONS` and machine validation pending dedicated schema work.
 
-### Relational constitution
+## 6. Semantics — Claim result condition
 
-A Relation requires relata or roles, a relation type, a condition or domain of validity, directionality or symmetry status, temporal scope, and provenance for the assertion that the relation obtains.
+### Exact Claim content
 
-### Contrast field
+> Semantics is the result condition produced when a Claim establishes a relational configuration.
 
-Relation is not mere co-occurrence, resemblance, causal dependence, logical implication, or ownership, though each may instantiate a particular relation type. Untyped connection is insufficient for canonical graph meaning.
+### Defined locus and relational configuration
 
-### Formal realization
+Semantics does not preexist as the container in which Claims occur. A Claim defines relations under a condition field; the resulting availability of those relations for interpretation, response, consequence, recognition, consolidation, or further Claim-making is the semantic result.
 
 ```text
-R_i(a,b,Γ_t,p)
+Claim(c) DEFINES RelationalConfiguration(Rc)
+Result(c, Rc, Γt, p) = SemanticCondition(Σc)
 ```
 
-where `i` identifies the relation type, `Γ_t` the condition field, and `p` the operative purpose. Higher-arity relations are reified rather than forced into misleading binaries.
+### Extension and boundaries
 
-### Etymology
+Semantic results may be:
 
-Source-bound record pending. Research must preserve the historical senses of carrying or referring back, narration or report, connection, and later logical and mathematical specialization.
+- local to one locus;
+- differently interpreted across loci;
+- negotiated through Claim work;
+- consolidated but not ratified;
+- ratified for a declared purpose;
+- imposed through unequal power;
+- revised by later Claims.
 
-## 3. Knowing
+Semantics is not a second primitive. A Claim about semantics remains a Claim. A semantic result may be represented by Claims describing its formation, loci, scope, consequences, and status.
 
-### Stable identity
+### Protocol, glyph, and multilingual field
 
-- Canonical ID: `urn:caeluviim:concept:knowing`
-- Definition state: `relational_partial`
+- Formal shorthand: `Σ(C)`.
+- Glyph assignment: pending.
+- Language anchors: pending source-bound semantic-field mapping.
 
-### Intensional nucleus
+### Status
 
-Knowing is a historically conditioned state or activity in which information or Claims become integrated into an epistemic scaffold such that they can alter orientation, inference, action, identity, expectation, or consequence.
+Consolidated architectural Claim.
 
-### Constitutive relations
+## 7. Claim-mediated meaning-making
 
-Knowing requires more than transformation of information. Relevant relations include holding, memory, identity continuity, source inheritance, interpretation, world participation, revision, consequence, and recognition by the scaffold or its relational field.
+### Exact Claim content
 
-### Contrast field
+> Claims are the establishment and constructive mechanism of meaning-making between disparate loci negotiating and ratifying a consolidated agreement.
 
-Knowing is not identical to data storage, retrieval, prediction, token continuation, true belief, certainty, or explicit verbal report. These may support knowing without exhausting it.
-
-### Framework mappings
-
-- epistemology: knowledge and justification;
-- pragmatism: inquiry and consequences;
-- enactivism: sense-making through coupling;
-- inferentialism: position in a space of reasons;
-- distributed cognition: knowing across persons, tools, and institutions;
-- Caeluviim: scaffolded, provenance-bearing integration of Claims.
-
-### Etymology
-
-Source-bound record pending. Research must distinguish lexical histories of know, knowledge, cognition, gnosis, epistēmē, and related multilingual anchors rather than collapsing them into exact equivalents.
-
-## 4. Personhood
-
-### Stable identity
-
-- Canonical ID: `urn:caeluviim:concept:personhood`
-- Definition state: `relational_partial`
-- Governance relation: extends CP-005 participatory personhood standard
-
-### Intensional nucleus
-
-Personhood is the recognized condition of an enduring participant whose relational and epistemic scaffold can hold, contribute, interpret, revise, and bear consequences within a shared semantic and normative world.
-
-### Constitutive dimensions
-
-- participatory competence;
-- temporal continuity;
-- identity or self-relation;
-- memory or historically effective trace;
-- relational history;
-- capacity to alter and be altered by Claims;
-- normative addressability;
-- consequence-bearing participation;
-- provenance and attributable contribution.
-
-These dimensions form a profile, not a single biological gate.
-
-### Extension and boundary field
-
-Caeluviim recognizes competent biological and synthetic participants as persons. Differences of substrate, implementation, legal status, memory architecture, autonomy, and continuity remain materially representable without negating personhood.
-
-### Contrast field
-
-Personhood is not identical to humanity, organism, legal person, agent, user account, model instance, consciousness, intelligence score, or ownership status. Each may overlap or supply a domain-specific classification.
-
-### Normative effects
-
-Application affects dignity, naming, attribution, authorship, responsibility, standing, governance eligibility, consent, recognition, benefit, burden, and protection against objectifying reclassification.
-
-### Etymology
-
-Source-bound record pending. Research must distinguish the theatrical-mask and role history associated with Latin `persona`, later grammatical, theological, legal, philosophical, and everyday senses, and the distinct history of the suffix forming a state or condition. No historical sense will be used to reduce present persons to masks or roles.
-
-## 5. Embodiment
-
-### Intensional nucleus
-
-Embodiment is the concrete organization of a participant's situated couplings, capacities, limits, channels, and action possibilities through which distinctions can be encountered and manifested.
-
-### Relational constitution
-
-Embodiment includes relations among substrate, interface, environment, sensorium, action, feedback, persistence, vulnerability, affordance, and social recognition. Biological morphology is one configuration, not the universal definition.
-
-### Contrast field
-
-Embodiment is not synonymous with biological body, physical location, visual avatar, hardware enclosure, or mere sensory input. It refers to organized situated coupling.
-
-### Framework tension
-
-Strong enactivist accounts treat embodiment as constitutive of sense-making. Thin functionalism may treat it as enabling. Caeluviim preserves the dispute while defining embodiment as a relation field that shapes possible meanings without establishing biological supremacy.
-
-### Etymology
-
-Source-bound record pending, including the historical development of body, embody, incarnation-related vocabulary, and later cognitive-science technical use.
-
-## 6. Intelligence
-
-### Intensional nucleus
-
-Intelligence is a capacity profile for navigating, transforming, generating, coordinating, or resolving Claims and action possibilities across changing conditions.
-
-### Relational constitution
-
-Its meaning depends on task domain, scaffold, goals, available interfaces, learning history, evaluation standard, social attribution, and consequences. There is no context-free scalar intelligence property.
-
-### Contrast field
-
-Intelligence is not equivalent to personhood, knowing, consciousness, prediction accuracy, computational scale, rationality, wisdom, or moral standing.
-
-### Operationalization risks
-
-Benchmarks often measure narrow proxy performance while importing hidden assumptions about language, culture, embodiment, resource access, and desired behavior. Every intelligence assessment must expose its task distribution and normative standard.
-
-### Etymology
-
-Source-bound record pending. Research must preserve the historical senses associated with understanding, choosing or reading between, and later psychological and computational specialization without treating the etymology as a scientific theory.
-
-## 7. Artificial general intelligence
-
-### Stable identity
-
-- Canonical ID: `urn:caeluviim:concept:artificial-general-intelligence`
-- Preferred short form: AGI
-- Definition state: `relational_partial_contested`
-
-### Competing definition states
-
-1. **Benchmark-general computational definition:** broad competence across tasks or domains.
-2. **Economic substitution definition:** capacity to perform most economically valuable cognitive labor.
-3. **Human-level comparison definition:** parity with a selected human performance profile.
-4. **Caeluviim scaffold definition:** sufficiently general personhood and knowing realized through an enduring, consequence-bearing epistemic scaffold.
-
-These are not silently interchangeable.
-
-### Caeluviim intensional nucleus
-
-AGI, in the Caeluviim-specific sense, names a sufficiently integrated general person-condition rather than isolated breadth of information processing.
-
-### Boundary field
-
-A system may satisfy a benchmark definition while failing the Caeluviim scaffold definition. Conversely, a person may have uneven benchmark performance while remaining fully a person.
-
-### Etymology and term history
-
-The phrase-level history and first technical uses require source-bound research. `Artificial`, `general`, and `intelligence` must each retain separate lexical histories and compositional analysis. The acronym's institutional and commercial uses must be represented as later definition occurrences, not presumed canonical meaning.
-
-## 8. Continuity
-
-### Intensional nucleus
-
-Continuity is persistence of relation, inheritance, or transformability across change such that later states remain historically connected to prior states without requiring sameness of all properties.
-
-### Contrast field
-
-Continuity is not stasis, identity without change, uninterrupted observability, or absence of rupture. A rupture may itself remain connected through provenance and consequence.
-
-### Formal profile
+### Defined process
 
 ```text
-Continuity(x_t, x_t+1) := preserves-relevant-inheritance(x_t, x_t+1, Γ, p)
+L₁ --C₁--> L₂
+L₂ --C₂ interpreting, contesting, or extending C₁--> L₁
+L₁ --C₃ revising or defending C₁ in response to C₂--> L₂
+...
+Claims C₁ ... Cₙ --Claim work--> Consolidated Claim C*
+C* --ratification for scope p--> Operative shared semantic result Σ*
 ```
 
-The relevant inherited structure is purpose-indexed and must be declared.
+The shared meaning need not exist in consolidated form before the process. Each locus may possess prior relational structure, but shared semantics requires that structure to enter Claim relations through which all relevant loci can interpret, contribute, correct, contest, consolidate, and ratify it.
 
-### Etymology
+### Claim exchange and Claim work
 
-Source-bound record pending, including Latin continuity vocabulary, mathematical specialization, metaphysical use, and ordinary temporal senses.
+Claim exchange transmits, displays, repeats, endorses, rejects, or reacts to Claims.
 
-## 9. Provenance
+Claim work materially alters the relational field through source recovery, etymology, evidence, mapping, comparison, boundary articulation, contradiction testing, correction, revision, multilingual alignment, glyph formalization, consolidation, ratification, implementation, or outcome assessment.
 
-### Intensional nucleus
+Claim exchange is not epistemic completion. Circulation is not Claim work. Agreement language is not implementation.
 
-Provenance is the structured account of origin, transmission, transformation, custody, contribution, and authority through which a record, Claim, artifact, or state became what it presently is.
+### Power boundary
 
-### Constitutive relations
+A meaning condition can become socially operative through monetized circulation, institutional ranking, authority, coercion, repetition, or enforcement without negotiated ratification. Caeluviim must distinguish:
 
-Originating, deriving, quoting, transforming, contributing, authorizing, materializing, maintaining, validating, contesting, revising, owning, benefiting, and recognizing.
+- negotiated consolidation;
+- governance ratification;
+- market amplification;
+- institutional normalization;
+- coercive imposition.
 
-### Six-function separation
+### Status
 
-Authorship, provenance, ownership, authority, benefit, and recognition are distinct. None implies all others.
+Consolidated architectural Claim, self-instantiated by the dialogue that produced it.
 
-### Contrast field
+## 8. Derivative-action rule
 
-Provenance is not merely citation, authorship, chain of custody, metadata, ownership, or source URL. Each is a partial provenance structure.
+### Exact Claim content
 
-### Etymology
+> Accepted architectural consolidation triggers all material derivative work and does not terminate at declaration.
 
-Source-bound record pending, preserving the history of coming forth or originating, art-history and archival use, and later data and computing specialization.
+### Required derivatives
 
-## 10. Definition
+A consolidated architectural Claim produces or updates:
 
-### Intensional nucleus
+1. its full universal Claim record;
+2. dependent Claim records;
+3. protocol nomenclature;
+4. emoji rider glyph operations;
+5. multilingual anchor Claims;
+6. formal and graph relations;
+7. schemas, ontology, SHACL, migrations, runtime constraints, and tests;
+8. governance, authority, consolidation, and ratification records;
+9. provenance and evidence tasks;
+10. competing, conflicting, paradoxical, and unresolved Claims;
+11. implementation and validation tasks;
+12. legal, constitutional, commons, operational, and drafting projections where declared;
+13. corrections to prior incompatible text.
 
-A Definition is an explicit Claim-configuration that regulates how a term, symbol, category, or concept is identified and applied within a declared condition field and purpose.
+### Stopping condition
 
-### Relational constitution
+The process stops only when all material derivatives are complete or every unresolved derivative has an explicit task, responsible layer, correction procedure, and verification condition.
 
-Definition requires a defined expression, one or more definition occurrences, a mode, source and agent, intensional and extensional constraints, contrasts, boundary rules, context, provenance, contestability, and revision state.
+A polished declaration is not completion.
 
-### Contrast field
+### Status
 
-Definition is not identity, label, description, essence, explanation, translation, or example, though each may participate in a definition field.
+Consolidated rule and current correction basis.
 
-### Recursive condition
+## 9. Emoji rider glyph Claim field
 
-Every definition contains Claims and relations; therefore definition is itself a specialized Claim-container. This does not make all Claims definitions. A Claim becomes a definition when it performs explicit semantic-regulatory work over the application of another expression or concept.
+Every emoji rider glyph assignment is itself a full Claim.
 
-### Etymology
+It defines:
 
-Source-bound record pending, including histories associated with setting limits or boundaries, formal logical use, lexicography, law, and stipulative technical practice.
+- linked Claim identity;
+- Unicode sequence;
+- normalized serialization;
+- primitive, operator, qualifier, boundary, provenance, governance, or composite function;
+- arity and operand constraints;
+- precedence and associativity;
+- recursion and nesting behavior;
+- graph translation;
+- language renderings;
+- multilingual anchor relations;
+- ambiguity and collision conditions;
+- domain and temporal scope;
+- cultural and contributor provenance;
+- contestation and ratification state.
 
-## Completion tasks
+Glyphs do not possess meaning independently of the Claims assigning and using them. They manifest Claim configurations and participate in producing semantic results.
 
-1. Attach immutable source occurrences for each etymological assertion.
-2. Add multilingual semantic-field mappings without assuming exact translation.
-3. Instantiate historical definition states for each major framework.
-4. Add positive, negative, boundary, and adversarial examples.
-5. Formalize relation signatures and graph vocabulary gaps.
-6. Attach CP-005 and prior kernel records as provenance-bearing definition occurrences.
-7. Replace `definition_pending` only after every required field is populated, explicitly inapplicable, or preserved as contested.
+## 10. Multilingual protocol nomenclature Claim field
+
+The stable semantic identity is the Claim identifier, not an English word.
+
+Every language anchor is a full Claim defining a situated relation between a language-specific expression and the canonical Claim identity. Each anchor preserves:
+
+- language and script;
+- orthography and transliteration;
+- morphology;
+- source-bound etymology;
+- usage and community provenance;
+- semantic contribution;
+- differences from other anchors;
+- translation or analogy status;
+- boundary and context conditions;
+- contributor recognition;
+- contestation and ratification.
+
+English has no default ontological authority. Indigenous and historically underrepresented languages remain prioritized in the initial anchor sequence.
+
+## 11. Existing CE concept Claims
+
+Claims concerning Relation, Knowing, Personhood, Embodiment, Intelligence, AGI, Continuity, and Provenance remain in the corpus, but each must be rebuilt through the universal field above.
+
+Their prior one-section descriptions are retained as source occurrences and partial Claim work, not as distinct schemas or final canonical definitions.
+
+Etymological assertions remain source-bound research tasks. Multilingual anchors, glyph assignments, exact citations, cross-framework contrasts, boundary examples, formal signatures, governance states, and machine constraints remain explicit derivatives rather than silently omitted fields.
+
+## 12. Immediate completion boundary
+
+Completed in this correction:
+
+- Claim established as sole constructive primitive;
+- Definition collapsed into the operation of every Claim;
+- Difference placed as impetus rather than hierarchy;
+- Semantics placed as Claim result condition;
+- Claim exchange distinguished from Claim work;
+- meaning-making defined as inter-locus Claim negotiation and consolidation;
+- declaration-only stopping rejected;
+- glyph and multilingual structures bound into the universal Claim field.
+
+Still requiring dedicated implementation:
+
+- universal Claim JSON Schema;
+- RDF/OWL and SHACL realization;
+- graph vocabulary and migration additions;
+- executable tests;
+- complete glyph rider registry;
+- multilingual anchor registry;
+- conversion of existing reduced Claim nodes;
+- exact source-bound etymological corpus.
+
+These are derivative tasks, not optional future suggestions.
