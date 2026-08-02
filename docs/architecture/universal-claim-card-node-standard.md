@@ -1,7 +1,10 @@
 # Universal Claim Card-Node Field Standard
 
-**Status:** Consolidated architectural correction v0.2.0  
-**Parent standard:** `docs/architecture/relational-definition-standard.md`
+**Status:** Consolidated architectural correction v0.3.0  
+**Parent standards:**
+- `docs/architecture/relational-definition-standard.md`
+- `docs/architecture/standardized-definition-claim-structure.md`
+- `docs/architecture/definition-claim-nesting-and-composition.md`
 
 ## 1. Governing distinction
 
@@ -15,7 +18,7 @@ CardStructure(c) = materially instantiated structure of Claim c within its scope
 CardStructure(c) ⊆ UniversalClaimStructure
 ```
 
-The universal Claim structure is not an entity or primitive above Claim. It is the total relational potential produced by Claims and Claim relations.
+The universal Claim structure is not an entity or primitive above Claim. It is the total relational potential produced by Claims, nested Claim composition, Claim occurrences, and Claim relations.
 
 ## 2. Claim as node and definitional card
 
@@ -26,18 +29,37 @@ The node and card are projections of the same Claim:
 - the node supplies stable identity and graph relations;
 - the card renders the structure actually possessed by the Claim;
 - each card field is constituted by Claims and Claim relations;
-- opening the card exposes its links into the total shared Claim field.
+- the root manifestation compresses the Claim's current synthesis;
+- the nested Claim graph preserves the independently addressable subclaims from which that synthesis is constructed;
+- opening the card exposes both its internal nesting and its links into the total shared Claim field.
 
 A Claim-card is therefore:
 
 1. a stable node identity;
-2. a scoped definitional configuration;
-3. a provenance and contribution surface;
-4. a semantic-result record;
-5. a Claim-work surface;
-6. a recursive navigation point into related Claim-cards.
+2. a root Claim manifestation;
+3. a scoped, recursively compositional Claim graph;
+4. a provenance and contribution surface;
+5. a semantic-result record;
+6. a Claim-work surface;
+7. a recursive navigation point into related Claim-cards.
 
-## 3. Same universal structure, unequal local structure
+## 3. Claim identity, occurrence, and manifestation
+
+The architecture distinguishes:
+
+```text
+ClaimIdentity(c)
+≠ ClaimOccurrence(c, context)
+≠ ClaimManifestation(c, form)
+```
+
+- **Claim identity** preserves the continuing addressable Claim across versions and uses.
+- **Claim occurrence** records a scoped participation of that Claim inside another Claim, event, process, document, case, or dialogue.
+- **Claim manifestation** is a linguistic, visual, symbolic, measured, behavioral, computational, or other form through which the Claim becomes available.
+
+A Claim can occur recursively inside several other Claims while retaining one stable identity. It MUST NOT be copied into several nominally distinct Claims merely because it occupies several nesting paths.
+
+## 4. Same universal structure, unequal local structure
 
 An automobile Claim-card and an existence Claim-card exist within the same universal structure but possess unequal instantiated structure.
 
@@ -48,23 +70,24 @@ CardStructure(automobile) < CardStructure(existence)
 
 The equality states that both are Claims governed by the same relational architecture.
 
-The inequality states that the conception of existence generates more relations, recursion, abstraction levels, framework conflicts, boundary questions, and unresolved extensions than the conception of automobile.
+The inequality states that the conception of existence generates more relations, recursion, nested Claims, abstraction levels, framework conflicts, boundary questions, and unresolved extensions than the conception of automobile.
 
 An automobile card therefore has much less structure than an existence card. It is not structurally defective, reduced, or incomplete for that reason.
 
-## 4. Conception-generated structure
+## 5. Conception-generated structure
 
-The shape of the conception being defined generates the card's possessed fields and relations.
+The shape of the conception being defined generates the card's possessed fields, nested Claims, and relations.
 
-A field belongs to a Claim-card when it materially contributes to defining, distinguishing, relating, applying, contesting, revising, or producing consequences for that conception within scope.
+A field or nested Claim belongs to a Claim-card when it materially contributes to defining, distinguishing, relating, applying, contesting, revising, evidencing, operationalizing, or producing consequences for that conception within scope.
 
 A card MUST:
 
-- include every materially generated field discovered through Claim work;
-- develop each possessed field to the fullest source-supported extent currently available;
-- preserve unresolved material relations as Claims;
+- include every materially generated field and nested Claim discovered through Claim work;
+- develop each possessed branch to the fullest source-supported extent currently available;
+- preserve unresolved material relations and missing dependencies as Claims;
 - preserve competing structures without silent collapse;
-- link to related Claim-cards rather than duplicating their complete contents;
+- import shared Claims through typed, scoped occurrences rather than duplication;
+- distinguish compositional participation from external relation;
 - declare the boundaries of its possessed scope.
 
 A card MUST NOT:
@@ -72,21 +95,63 @@ A card MUST NOT:
 - instantiate empty placeholders for every relation possible anywhere in the universal structure;
 - treat absence of unrelated structure as incompleteness;
 - force a narrow conception to imitate the density of a larger conceptual domain;
-- omit materially relevant structure merely to keep the visible card small.
+- omit materially relevant structure merely to keep the visible card small;
+- flatten constitutive subclaims into anonymous prose;
+- treat an external link as proof that a Claim has been incorporated into the definition.
 
-## 5. Maximal scoped representation
+## 6. Recursive nesting
+
+A full Claim-card includes a rooted nested Claim graph whenever the Claim possesses material internal composition.
+
+```text
+Root Claim
+├── constitutive subclaims
+├── qualifications
+├── conditions and boundaries
+├── assumptions and evidence
+├── implications and operations
+├── conflicts and alternatives
+├── historical states
+└── unresolved Claims
+```
+
+The actual structure may be a directed graph or hypergraph rather than a strict tree because Claims can be shared, jointly dependent, recursive, or n-ary.
+
+Every nested occurrence MUST preserve:
+
+- child Claim ID and version;
+- stable occurrence ID;
+- parent occurrence;
+- typed compositional role;
+- nesting path;
+- incorporation scope and state;
+- provenance;
+- qualifications, exceptions, and activation conditions where material;
+- propagation and revision rules.
+
+```text
+RelatedTo(a,b)
+≠ ConstitutiveOf(b,a)
+```
+
+External relations position Claims in the wider graph. Compositional relations explain the internal construction of the card. Both are required for faithful reconstruction.
+
+## 7. Maximal scoped representation
 
 Each Claim-card maximally fills the definitional criterion pursuant to the structure generated by its conception.
 
 ```text
 MaximallyRepresented(c, Γt)
-:= every material field generated by conception c within its declared scope
-   is represented to the maximum presently supportable extent
+:= every material field, nested Claim, and relation generated by conception c
+   within its declared scope is represented to the maximum presently
+   supportable extent
 ```
 
 Maximal representation is scope-relative. It does not mean that every card contains every potential field in the total shared Claim field.
 
-## 6. Automobile Claim-card
+A materially shared dependency may be imported by reference, but the card MUST declare its exact version, compositional role, incorporation scope, and propagation policy.
+
+## 8. Automobile Claim-card
 
 The automobile conception generates a comparatively bounded structure, including as material:
 
@@ -95,11 +160,11 @@ The automobile conception generates a comparatively bounded structure, including
 - vehicle, machine, property, commodity, infrastructure, environmental, legal, social, cultural, and economic relations;
 - classes, subtypes, historical variants, boundary cases, and exclusions;
 - manufacture, labor, operation, maintenance, ownership, finance, insurance, injury, regulation, roads, energy, emissions, disposal, mobility, and accessibility;
-- relevant glyph, multilingual, provenance, contestation, revision, and governance relations.
+- relevant glyph, multilingual, provenance, contestation, revision, governance, and nested Claim relations.
 
 The automobile card does not possess ontology-wide, cosmological, theological, or all-domain structure merely because such relations exist somewhere within the universal Claim field.
 
-## 7. Existence Claim-card
+## 9. Existence Claim-card
 
 The existence conception generates a substantially larger and more recursive structure, including as material:
 
@@ -107,54 +172,99 @@ The existence conception generates a substantially larger and more recursive str
 - self-referential Claims about what it means for Claims and loci to exist;
 - competing, incompatible, and irreconcilable frameworks;
 - cross-scale and cross-domain relations;
+- deeply nested dependency and qualification structures;
 - an extensive unresolved horizon.
 
 Existence does not receive a different universal architecture. Its conception generates more local structure within that architecture.
 
-## 8. Completeness criterion
+## 10. Completeness criterion
 
 A Claim-card is complete relative to its current condition field when:
 
-1. its conception and scope are explicit;
-2. every materially generated field within that scope is represented;
-3. each possessed field is developed to the maximum presently supportable extent;
-4. unresolved material relations remain visible;
-5. related external structure is connected through typed Claim relations;
-6. provenance, contribution, contestation, and revision are preserved where generated.
+1. its conception, root Claim, and scope are explicit;
+2. every materially generated field and nested Claim within that scope is represented;
+3. the root synthesis can be reconstructed from its nested Claim graph;
+4. shared dependencies are imported through typed, versioned occurrences;
+5. each possessed branch is developed to the maximum presently supportable extent;
+6. unresolved material relations and dependencies remain visible;
+7. related external structure is connected through typed Claim relations;
+8. provenance, contribution, contestation, and revision are preserved where generated.
 
 ```text
 CompleteAt(c, Γt)
 := ScopeExplicit(c)
+ ∧ NestedClosureExplicit(c, Γt)
+ ∧ RootReconstructibleFromNesting(c)
  ∧ NoMaterialStructureOmitted(c, Γt)
- ∧ PossessedFieldsMaximallyDeveloped(c, Γt)
+ ∧ PossessedBranchesMaximallyDeveloped(c, Γt)
 ```
 
 Completeness does not require possession of the total universal structure.
 
-## 9. Recursive expansion
+## 11. Recursive expansion
 
-A Claim-card expands through relations to other Claim-cards.
+A Claim-card expands both inward through nested Claim composition and outward through relations to other Claim-cards.
 
-An automobile card may link to cards for engine, road, property, labor, injury, insurance, mobility, and carbon emissions. Each linked card possesses the structure generated by its own conception.
+```text
+inward expansion
+= constitutive and qualifying nesting
 
-The automobile card records how those cards participate in defining automobile without absorbing all of their internal structure.
+outward expansion
+= wider typed Claim relations
+```
+
+An automobile card may import or link to Claims for engine, road, property, labor, injury, insurance, mobility, and carbon emissions. Each linked Claim-card possesses the structure generated by its own conception.
+
+The automobile card records whether each Claim is constitutive, qualifying, evidentiary, operational, illustrative, or merely externally related. It does not absorb all internal structure of every linked card.
 
 This produces a recursively navigable field without uncontrolled duplication.
 
-## 10. Rendering
+## 12. Rendering
 
 A Claim-card may be rendered at different visible depths:
 
 | Rendering | Function |
 |---|---|
 | Identifier | Claim ID, glyph, protocol name, status. |
-| Compact card | Core possessed structure and principal relations. |
-| Full card | All materially instantiated fields within the card's scope. |
-| Expanded graph | Related Claim-cards and recursive paths into the shared field. |
+| Compact card | Root synthesis, core possessed structure, and principal relations. |
+| Full card | All materially instantiated fields and nested Claims within scope. |
+| Nested-branch view | One independently addressable compositional path and its dependencies. |
+| Expanded graph | Internal nesting plus external Claim-card relations. |
 | Machine serialization | Complete representation of the card's actually possessed structure. |
 
 A compact rendering is a view over the Claim-card. It does not change the card's underlying possessed structure.
 
-## 11. Constitutional formulation
+## 13. Table-cell operative unit
 
-> Every Claim-card exists within the same universal Claim structure. Each card possesses only the fields and relations generated by the conception it defines within its scope. An automobile card therefore has much less structure than an existence card, while both remain equally valid Claim nodes governed by the same universal architecture.
+Where a table renders Claim content, the table cell is an operative manifestation of a Claim or nested Claim occurrence.
+
+A cell MUST remain traceable to:
+
+- Claim ID;
+- occurrence ID where nested;
+- version;
+- scope;
+- provenance;
+- external relation or compositional role;
+- source manifestation;
+- epistemic and governance state.
+
+A table may display a compressed surface while the graph preserves the complete structure.
+
+## 14. Validation
+
+Validation MUST reject:
+
+- a card represented only by a root sentence when material nested Claims exist;
+- nested Claims without stable identity, occurrence identity, version, or provenance;
+- duplicated Claim identities used in place of scoped occurrences;
+- materially constitutive Claims represented only as external links;
+- silent scope changes within nested branches;
+- hidden assumptions, exceptions, conflicts, or unresolved dependencies;
+- node projections that cannot reconstruct card structure;
+- flat table cells or documents that sever content from Claim and occurrence identity;
+- erasure of prior versions or acquired consequences.
+
+## 15. Constitutional formulation
+
+> Every Claim-card exists within the same universal Claim structure and possesses only the fields, nested Claims, and relations materially generated by the conception it defines within scope. The root Claim compresses the current synthesis, while the recursive nested Claim graph preserves the independently addressable subclaims from which its meaning, boundaries, support, operation, conflict, and history are constructed. Claim identity, scoped occurrence, and manifestation remain distinct. Graph nodes, documents, and table cells are projections of this structure and may not flatten or replace it.
