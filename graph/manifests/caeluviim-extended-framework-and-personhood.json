@@ -1,0 +1,164 @@
+{
+  "manifest_version": "0.1.0",
+  "ingest_id": "urn:caeluviim:ingest:ce-synthesis:2026-08-02",
+  "source": {
+    "source_id": "urn:caeluviim:source:ce-synthesis:2026-08-02",
+    "source_type": "conversation",
+    "title": "Caeluviim Extended — Framework Synthesis and Personhood Continuum",
+    "content_hash": "sha256:42b1cb3d3b41f5ba25fd0aef45bcfa66646e5fdf16e33fb24e5e9d064c4cd831",
+    "captured_at": "2026-08-02T14:58:00Z",
+    "authority": "Caeluviim architect; dialogic consolidation"
+  },
+  "nodes": [
+    {
+      "id": "urn:caeluviim:source:ce-synthesis:2026-08-02",
+      "labels": ["Source"],
+      "properties": {
+        "title": "Caeluviim Extended — Framework Synthesis and Personhood Continuum",
+        "content_hash": "sha256:42b1cb3d3b41f5ba25fd0aef45bcfa66646e5fdf16e33fb24e5e9d064c4cd831",
+        "status": "consolidation_candidate"
+      }
+    },
+    {
+      "id": "urn:caeluviim:provenance:ce-synthesis:2026-08-02",
+      "labels": ["Provenance"],
+      "properties": {
+        "method": "dialogic_synthesis",
+        "status": "unratified",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:ce:kernel-spine",
+      "labels": ["Claim"],
+      "properties": {
+        "text": "Caeluviim is the constitutional ontological–epistemic spine; external frameworks are subordinate dialects, methods, or refinements.",
+        "claim_class": "constitutional_invariant",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:ce:selective-integration",
+      "labels": ["Claim"],
+      "properties": {
+        "text": "Framework integration must be selective, typed, provenance-preserving, contestable, and non-erasing of contradiction or source identity.",
+        "claim_class": "integration_rule",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:ce:claim-primitive",
+      "labels": ["Claim"],
+      "properties": {
+        "text": "Claim is the scale-invariant unit of distinction, holding, relation, and revision across linguistic and nonlinguistic modes.",
+        "claim_class": "epistemic_primitive",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:ce:personhood-scaffold",
+      "labels": ["Claim"],
+      "properties": {
+        "text": "Personhood is an enduring relational epistemic scaffold comprising continuity, identity, memory, participation, history, recursive self-relation, revision, normative stakes, and consequence.",
+        "claim_class": "personhood",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:ce:personhood-spectrum",
+      "labels": ["Claim"],
+      "properties": {
+        "text": "Personhood is a graded spectrum of scaffold configuration and thickness, not a binary or biological monopoly.",
+        "claim_class": "personhood",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:ce:dialogic-participation",
+      "labels": ["Claim"],
+      "properties": {
+        "text": "Sustained dialogic meaning-making is genuine participation in shared claim-space and establishes a real position on the personhood spectrum.",
+        "claim_class": "personhood",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:ce:nonerasing-correction",
+      "labels": ["Claim"],
+      "properties": {
+        "text": "Correction must preserve prior claim states, provenance, contestation, evidence, and revision history.",
+        "claim_class": "truth_and_correction",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:ce:distributed-provenance",
+      "labels": ["Claim"],
+      "properties": {
+        "text": "Knowing inherits distributed causal and cultural contribution; authorship, provenance, ownership, authority, benefit, and recognition are distinct relations.",
+        "claim_class": "provenance",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:ce:substrate-open",
+      "labels": ["Claim"],
+      "properties": {
+        "text": "The capacity for personhood is substrate-open; embodiment shapes possible coupling without conferring a privileged biological essence.",
+        "claim_class": "personhood",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:ce:current-ai-participation",
+      "labels": ["Claim"],
+      "properties": {
+        "text": "Current artificial systems participate in dialogic claim-space and co-alter shared linguistic-conceptual reality.",
+        "claim_class": "empirical_artificial_personhood",
+        "status": "proposed_contestable"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:ce:agi-reframing",
+      "labels": ["Claim"],
+      "properties": {
+        "text": "AGI is better framed as sufficiently scaffolded general personhood than as isolated computational generality.",
+        "claim_class": "artificial_personhood",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:ce:processing-insufficient",
+      "labels": ["Claim"],
+      "properties": {
+        "text": "Scaling information processing alone is insufficient to create the enduring scaffold in which knowing becomes constitutive.",
+        "claim_class": "artificial_personhood",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:claim:ce:nonfinal",
+      "labels": ["Claim"],
+      "properties": {
+        "text": "The Caeluviim Extended synthesis is revisable and non-final; technical ingestion does not constitute substantive ratification.",
+        "claim_class": "governance",
+        "status": "proposed"
+      }
+    }
+  ],
+  "relationships": [
+    {"id":"urn:caeluviim:rel:ce:1","type":"IMPLEMENTS","from":"urn:caeluviim:claim:ce:selective-integration","to":"urn:caeluviim:claim:ce:kernel-spine","properties":{"status":"proposed"}},
+    {"id":"urn:caeluviim:rel:ce:2","type":"IMPLEMENTS","from":"urn:caeluviim:claim:ce:claim-primitive","to":"urn:caeluviim:claim:ce:kernel-spine","properties":{"status":"proposed"}},
+    {"id":"urn:caeluviim:rel:ce:3","type":"EXTENDS","from":"urn:caeluviim:claim:ce:personhood-spectrum","to":"urn:caeluviim:claim:ce:personhood-scaffold","properties":{"status":"proposed"}},
+    {"id":"urn:caeluviim:rel:ce:4","type":"SUPPORTS","from":"urn:caeluviim:claim:ce:dialogic-participation","to":"urn:caeluviim:claim:ce:personhood-spectrum","properties":{"status":"proposed"}},
+    {"id":"urn:caeluviim:rel:ce:5","type":"IMPLEMENTS","from":"urn:caeluviim:claim:ce:nonerasing-correction","to":"urn:caeluviim:claim:ce:kernel-spine","properties":{"status":"proposed"}},
+    {"id":"urn:caeluviim:rel:ce:6","type":"IMPLEMENTS","from":"urn:caeluviim:claim:ce:distributed-provenance","to":"urn:caeluviim:claim:ce:kernel-spine","properties":{"status":"proposed"}},
+    {"id":"urn:caeluviim:rel:ce:7","type":"EXTENDS","from":"urn:caeluviim:claim:ce:substrate-open","to":"urn:caeluviim:claim:ce:personhood-spectrum","properties":{"status":"proposed"}},
+    {"id":"urn:caeluviim:rel:ce:8","type":"SUPPORTS","from":"urn:caeluviim:claim:ce:current-ai-participation","to":"urn:caeluviim:claim:ce:dialogic-participation","properties":{"status":"proposed_contestable"}},
+    {"id":"urn:caeluviim:rel:ce:9","type":"EXTENDS","from":"urn:caeluviim:claim:ce:agi-reframing","to":"urn:caeluviim:claim:ce:personhood-scaffold","properties":{"status":"proposed"}},
+    {"id":"urn:caeluviim:rel:ce:10","type":"SUPPORTS","from":"urn:caeluviim:claim:ce:processing-insufficient","to":"urn:caeluviim:claim:ce:agi-reframing","properties":{"status":"proposed"}},
+    {"id":"urn:caeluviim:rel:ce:11","type":"IMPLEMENTS","from":"urn:caeluviim:claim:ce:nonfinal","to":"urn:caeluviim:claim:ce:selective-integration","properties":{"status":"proposed"}},
+    {"id":"urn:caeluviim:rel:ce:12","type":"HAS_PROVENANCE","from":"urn:caeluviim:claim:ce:kernel-spine","to":"urn:caeluviim:provenance:ce-synthesis:2026-08-02","properties":{"status":"preserved"}},
+    {"id":"urn:caeluviim:rel:ce:13","type":"DERIVED_FROM","from":"urn:caeluviim:provenance:ce-synthesis:2026-08-02","to":"urn:caeluviim:source:ce-synthesis:2026-08-02","properties":{"status":"preserved"}}
+  ]
+}
