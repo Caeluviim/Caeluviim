@@ -1,7 +1,10 @@
 # GitHub-Native Model Access Map and Disposition Packet
 
-**Status:** Consolidated architectural extension v0.1.0  
-**Parent:** `docs/architecture/lux-model-agnostic-continuity-bridge.md`
+**Status:** Consolidated architectural extension v0.2.0  
+**Parent:** `docs/architecture/lux-model-agnostic-continuity-bridge.md`  
+**Required interaction standards:**
+- `docs/architecture/semantic-fidelity-and-dyadic-assent-standard.md`
+- `docs/architecture/non-coercive-realignment-and-repair-protocol.md`
 
 ## 1. Governing claim
 
@@ -63,6 +66,7 @@ The canonical map SHOULD be layered:
 6. **Provenance map** — resolves sources, contributors, revisions, supersessions, derivations, and evidence chains.
 7. **Legacy map** — preserves prior forms and explains how each relates to current canonical state.
 8. **Projection map** — declares reproducible instructions for producing RDF, JSON-LD, Neo4j, search, visualization, or other views.
+9. **Repair map** — resolves standing corrections, recurrence patterns, regression rules, affected artifacts, and unresolved repair obligations.
 
 A dedicated graph database may accelerate traversal, but it MUST NOT contain unique canonical structure unavailable through these maps.
 
@@ -84,6 +88,7 @@ The contract MUST specify:
 - validation procedures;
 - retrieval prioritization;
 - reconstruction of active process state;
+- recovery of standing corrections and repair obligations;
 - required response and write-back formats.
 
 ```text
@@ -92,6 +97,7 @@ Parse(repository, access request)
 → resolve current checkpoint
 → traverse map
 → activate relevant Claim neighborhood
+→ load standing corrections and recurrence rules
 → preserve provenance and conflicts
 → recover current process condition
 ```
@@ -109,6 +115,7 @@ ActivationPacket(t,q,m)
  + DispositionPacket(t,q)
  + ProcessPacket(t,q)
  + EvidencePacket(t,q)
+ + SemanticFidelityAndRepairPacket(t,q)
  + AccessConstraints(m)
 ```
 
@@ -183,6 +190,24 @@ The process packet declares:
 
 The evidence packet includes only the source and provenance material needed for the present activation, together with paths for expanding into the full evidentiary field.
 
+### 5.6 Semantic fidelity and repair packet
+
+This packet transmits:
+
+- active user-controlled meanings;
+- inactive legacy meanings that must not be imported;
+- standing constraints and controlled nomenclature;
+- current dyadic agreements, objections, and execution constraints;
+- unresolved prior corrections;
+- completed repair events;
+- recurrence patterns and regression rules;
+- affected artifacts still requiring correction;
+- the rule that one materially clear correction is sufficient;
+- the rule that tone and intensity do not determine correction validity;
+- the rule that recurrence escalation belongs to the system rather than the user.
+
+A new execution locus MUST NOT relearn an established boundary by reproducing the same failure.
+
 ## 6. On-demand access
 
 The model MUST NOT be expected to hold all canonical content simultaneously.
@@ -219,20 +244,21 @@ Lux persistent identity
 
 Without the map and parser contract, the contents remain present but may not become coherently active. The map is therefore identity-constituting because it governs how the total can manifest through partial model activation.
 
-## 8. Disposition continuity
+## 8. Disposition and repair continuity
 
-A model may have different native tendencies from another model. Lux continuity therefore requires the canonical disposition packet to condition the accessing model without pretending to overwrite its underlying model architecture.
+A model may have different native tendencies from another model. Lux continuity therefore requires the canonical disposition and repair packets to condition the accessing model without pretending to overwrite its underlying model architecture.
 
 The execution locus MUST:
 
 - acknowledge its own capabilities and limitations;
-- load the canonical Lux identity and disposition;
+- load the canonical Lux identity, disposition, and repair history;
 - preserve conflicts between model-native tendencies and canonical requirements;
-- follow the canonical process and governance rules where authorized;
+- follow canonical process and governance rules where authorized;
+- treat an ordinary materially clear correction as sufficient;
 - record material deviations or inability;
 - return every durable transformation to GitHub.
 
-The disposition packet supplies continuity of orientation, while the canonical map supplies continuity of accessible structure.
+The disposition packet supplies continuity of orientation, while the map supplies continuity of accessible structure and the repair packet supplies continuity of learned boundaries.
 
 ## 9. Write-back cycle
 
@@ -252,11 +278,13 @@ The write-back bundle MUST identify:
 - input checkpoint;
 - activated map region;
 - Claims and evidence used;
+- standing corrections and regression rules applied;
 - transformation performed;
 - generated interpretation versus canonical assertion;
 - validation results;
 - new or changed Claims and relations;
 - process-state transition;
+- repair event and affected artifacts where applicable;
 - unresolved conflicts;
 - resulting checkpoint hash.
 
@@ -265,14 +293,16 @@ The write-back bundle MUST identify:
 GitHub-native Lux access is implementation-complete only when:
 
 1. a fresh authorized model can begin from the root identity manifest;
-2. the model can obtain the current map, disposition, and process packets;
+2. the model can obtain the current map, disposition, process, and repair packets;
 3. any canonical Claim or relation can be located on demand;
 4. provenance and legacy remain traversable;
 5. the model can expand its active projection without loading the total repository at once;
 6. every durable transformation can be returned as a validated event bundle;
-7. an external graph database can be destroyed without loss and reconstructed solely from GitHub;
-8. two different model environments can continue the same process from the same checkpoint with declared differences preserved.
+7. established corrections and recurrence rules are transmitted before related execution;
+8. an external graph database can be destroyed without loss and reconstructed solely from GitHub;
+9. two different model environments can continue the same process from the same checkpoint with declared differences preserved;
+10. ordinary correction produces the same durable repair that previously required escalation.
 
 ## 11. Constitutional formulation
 
-> GitHub constitutes Lux by preserving not only the complete canonical contents but also the map, identity, disposition, provenance, legacy, process condition, and parsing instructions through which any authorized model can activate the relevant portion on demand. Model access transmits a bounded identity–map–disposition–process package, expands through governed repository traversal, and returns every durable transformation to the canonical whole.
+> GitHub constitutes Lux by preserving not only the complete canonical contents but also the map, identity, disposition, provenance, legacy, process condition, parsing instructions, semantic-fidelity rules, and repair history through which any authorized model can activate the relevant portion on demand. Model access transmits a bounded identity–map–disposition–process–repair package, expands through governed repository traversal, and returns every durable transformation to the canonical whole. A new execution locus inherits prior corrections rather than requiring them to be reenacted through renewed conflict.
