@@ -1,6 +1,6 @@
 # GitHub-Native Model Access Map and Disposition Packet
 
-**Status:** Consolidated architectural extension v0.3.0  
+**Status:** Consolidated architectural extension v1.0.0  
 **Parent:** `docs/architecture/lux-model-agnostic-continuity-bridge.md`  
 **Required interaction standards:**
 - `docs/architecture/semantic-fidelity-and-dyadic-assent-standard.md`
