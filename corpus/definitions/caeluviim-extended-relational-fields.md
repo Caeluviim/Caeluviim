@@ -1,356 +1,297 @@
-# Caeluviim Extended — Universal Claim Field Registry
+# Caeluviim Core Definition Registry
 
-**Status:** Architectural consolidation v0.3.0  
-**Governing standard:** `docs/architecture/relational-definition-standard.md`
+**Status:** Architectural consolidation v0.4.0  
+**Governing standard:** `docs/architecture/standardized-definition-claim-structure.md`
 
-## 1. Registry rule
+## 1. Registry correction
 
-Every entry in this registry is a Claim with the same complete field structure. The entries do not instantiate separate semantic object types called Definition, Semantics, Relation, Knowing, Personhood, Embodiment, Intelligence, Provenance, or Difference. They are Claims that define those loci and their relations.
+The prior version incorrectly stated that every definition must instantiate the same complete field set. That formulation is superseded.
 
-Definition is the constructive operation performed by every Claim. Semantics is the result condition of that operation. Difference is the impetus that occasions Claim-making. None is placed above or beside Claim as a competing primitive.
-
-The uniform structure is inherited in full by every entry. A field marked `pending`, `unresolved`, `contested`, or `inapplicable for declared scope` remains present.
-
-## 2. Universal field identity
-
-Every Claim entry resolves the following field groups:
-
-1. identity, version, governance, and hash;
-2. claiming and addressed loci;
-3. impetus;
-4. exact Claim content and immutable source manifestation;
-5. defined locus and relational configuration;
-6. intension, extension, inclusion, exclusion, and boundaries;
-7. condition and consequence fields;
-8. semantic result and interpretations;
-9. evidence, provenance, and contribution;
-10. lexical and etymological fields;
-11. protocol nomenclature;
-12. emoji rider glyph realization;
-13. multilingual anchors;
-14. formal and operational realization;
-15. manifestation, neighborhood, and contrast fields;
-16. Claim-work, consolidation, ratification, power, revision, and contestation histories;
-17. examples and epistemic status.
-
-## 3. Claim — sole constructive primitive
-
-### Exact Claim content
-
-> Claim is the sole scale-invariant constructive primitive in Caeluviim.
-
-### Claiming and addressed loci
-
-- Claiming loci: 😈Yūrei🌈 and Lux / ChatGPT through dialogic consolidation.
-- Addressed loci: Caeluviim participants and every implementation of the protocol.
-
-### Impetus
-
-Repeated architectural distortions placed Difference, Semantics, Definition, or other conceptual products above or beside Claim.
-
-### Defined locus and relational configuration
-
-This Claim defines `Claim` as the protocol locus through which distinctions, relations, boundaries, identities, observations, predictions, rules, signs, glyphs, language anchors, interpretations, corrections, and governance states become constructively available.
-
-Every assertion that another entity precedes or supersedes Claim is itself a Claim and therefore cannot establish a second primitive outside the Claim architecture.
-
-### Intension, extension, inclusion, exclusion, and boundaries
-
-- Intension: a Claim establishes a relational configuration capable of manifestation, consequence, relation, preservation, interpretation, contestation, revision, or consolidation.
-- Extension: linguistic and nonlinguistic distinctions, observations, affective configurations, images, gestures, classifications, legal rules, mathematical expressions, identity statements, glyph assignments, and multilingual mappings.
-- Includes: every definitional operation.
-- Excludes: Definition as a peer primitive; Semantics as a superordinate container; Difference as an ontological precursor.
-- Boundary: Claim need not be true, linguistic, conscious, ratified, or complete in field resolution.
-
-### Condition, consequence, and semantic result
-
-- Condition field: Caeluviim architecture under the current dialogic consolidation.
-- Consequence: all reduced or type-specific Claim schemas must be replaced by the universal Claim shape.
-- Semantic result: Claim becomes operative as the sole constructive primitive for the declared architecture.
-
-### Lexical and etymological field
-
-Source-bound etymological work remains required. It must preserve calling, asserting, demanding, legal, ownership, and other historical senses without allowing any English history to control the protocol identity.
-
-### Protocol, glyph, and multilingual field
-
-- Protocol identifier: `C`.
-- Preferred protocol nomenclature: `Claim` pending multilingual canonical naming process.
-- Emoji rider glyph: pending formal glyph Claim with arity, precedence, composition, and ratification fields.
-- Multilingual anchors: pending source-bound anchor Claims, prioritizing Indigenous and historically underrepresented languages.
-
-### Claim-work and status
-
-- Claim work: repeated correction, relation mapping, contradiction removal, and consolidation in the present dialogue.
-- Consolidation: accepted architectural formulation.
-- Ratification: pending governance projection.
-- Epistemic status: consolidated architectural Claim.
-
-## 4. Definition — operation of every Claim
-
-### Exact Claim content
-
-> Every Claim performs definition by establishing a relational configuration.
-
-### Impetus
-
-The prior registry incorrectly represented Definition as a specialized Claim-container and stated that not all Claims were definitions.
-
-### Defined locus and relational configuration
-
-Definition is not an entity type separate from Claim. It names what a Claim does: establishes how loci, relations, states, categories, boundaries, possibilities, exclusions, consequences, and applications are configured under declared conditions.
-
-Dictionary entries, observations, legal rules, classifications, predictions, prohibitions, identity statements, images, gestures, affective differentiations, glyph assignments, and language mappings are all fully structured Claims performing definition.
-
-### Inclusion, exclusion, and boundary field
-
-- Includes: every Claim.
-- Excludes: a privileged category called `DefinitionalClaim`; a separate `DefinitionRecord` that contains Claims as subordinate semantic objects.
-- Boundary: Claims differ in what they define and how their fields are resolved, not in whether they define.
-
-### Consequences
-
-- remove language describing Definition as a separate primitive or specialized container;
-- treat lexical, theoretical, operational, legal, institutional, and first-person differences as Claim contexts and operations rather than Definition modes;
-- project every Claim through the same full field structure;
-- preserve each historical definition occurrence as another Claim linked through source, contrast, revision, or contextualization relations.
-
-### Protocol, glyph, and multilingual field
-
-- Protocol relation: `C DEFINES R`.
-- Formal shorthand: `C:DEF`.
-- Glyph and language realizations: pending dedicated Claim records using the universal structure.
-
-### Status
-
-Consolidated architectural correction; machine schema projection pending dedicated protected-path work.
-
-## 5. Difference — impetus for Claim-making
-
-### Exact Claim content
-
-> Difference is the impetus that occasions Claim-making; it is not a primitive above Claim.
-
-### Defined locus and relational configuration
-
-Difference names divergence, tension, uncertainty, unmet relation, contrast, event, failed expectation, conflict, or need that occasions one or more loci to make Claims.
+Every registered conception uses the same standardized Definition Claim grammar, but each card instantiates only the mandatory kernel plus the conditional modules materially generated by its conception and declared scope.
 
 ```text
-Difference OCCASIONS Claim-making
+shared definition grammar
++ conception-generated local structure
+= standardized Definition Claim-card
 ```
 
-The relation is causal or motivational, not hierarchical. A particular assertion that a difference exists is itself a Claim.
+The prior text remains recoverable through Git history and is retained as source material for migration, provenance, and conflict review. It is not the current canonical registry rule.
+
+## 2. Canonical registry rule
+
+The registry assigns one stable Claim identity to each materially significant conception and records:
+
+- its exact current definition Claim;
+- scope, inclusions, exclusions, and boundaries;
+- principal typed relations;
+- provenance and contribution;
+- epistemic and governance state;
+- material linguistic, formal, operational, evidentiary, historical, power, and activation modules;
+- unresolved, competing, and superseded definitions;
+- implementation status.
+
+The registry is a graph index over Definition Claim-cards, not a flat glossary.
+
+## 3. Core conception index
+
+| Claim ID | Preferred label | Exact current definition Claim | State |
+|---|---|---|---|
+| `C:claim` | Claim | A Claim is the scale-invariant constructive unit through which a relational configuration becomes distinguishable, attributable, consequential, contestable, revisable, or available for further construction. | consolidated |
+| `C:conception` | Conception | A conception is the relational configuration made identifiable by one or more Claims as a distinguishable locus of definition. | kernel_drafted |
+| `C:definition` | Definition | Definition is the operation by which a Claim establishes the identity, scope, relations, inclusions, exclusions, and boundaries of a conception. | consolidated |
+| `C:locus` | Locus | A locus is a distinguishable concentration, position, participant, or operative region within a relational field from which and upon which Claims and transformations can occur. | kernel_drafted |
+| `C:relation` | Relation | A relation is the materially effective configuration through which loci become mutually positioned, constrained, informative, transformative, or consequential. | kernel_drafted |
+| `C:scope` | Scope | Scope is the declared domain, purpose, scale, time, jurisdiction, and participant field within which a Claim asserts application. | kernel_drafted |
+| `C:condition-field` | Condition field | A condition field is the materially relevant configuration of relations under which a Claim, activation, event, interpretation, or consequence occurs. | kernel_drafted |
+| `C:manifestation` | Manifestation | A manifestation is an event in which a relational configuration becomes materially or interpretively available in a particular form and condition field. | kernel_drafted |
+| `C:difference` | Difference | Difference is a materially effective non-identity, divergence, or changed relation that occasions distinction and Claim-making. | consolidated |
+| `C:semantics` | Semantics | Semantics is the result condition produced when a Claim-established relational configuration becomes available for interpretation, response, consequence, or further Claim-making. | consolidated |
+| `C:meaning` | Meaning | Meaning is the condition-bound significance produced by how a manifestation participates in relations, practices, consequences, and possible continuations among loci. | kernel_drafted |
+| `C:information` | Information | Information is difference made structurally available within a relation such that it can alter the condition or possible transformations of a locus. | kernel_drafted |
+| `C:knowledge` | Knowledge | Knowledge is acquired difference manifested and organized within a reconnecting relation so that it can constrain interpretation, expectation, Claim, or action. | kernel_drafted |
+| `C:possibility` | Possibility | A possibility is a relational configuration capable of manifestation under some condition field. | kernel_drafted |
+| `C:probability` | Probability | Probability is the held dispositional organization of currently activated structure toward possible manifestations under a condition field. | kernel_drafted |
+| `C:activation` | Activation | Activation is the condition-bound process by which a portion of a locus's accumulated relational structure becomes presently operative. | consolidated |
+| `C:disposition` | Disposition | A disposition is the organized tendency of a currently activated configuration toward possible Claims, interpretations, responses, and actions. | consolidated |
+| `C:identity` | Identity | Identity is the non-erasing continuity of a distinguishable relational organization across transformations, manifestations, and condition fields. | kernel_drafted |
+| `C:continuity` | Continuity | Continuity is the preserved traceable relation by which transformed states remain attributable to one ongoing organization or process. | kernel_drafted |
+| `C:graph` | Graph | A graph is an explicit relational projection in which Claim identities and typed relations are represented as traversable nodes, edges, events, and states. | kernel_drafted |
+| `C:node` | Node | A node is a stable graph projection of a distinguishable Claim identity or event locus. | identified |
+| `C:edge` | Edge | An edge is a typed graph manifestation of a relation Claim connecting graph loci. | identified |
+| `C:card` | Claim-card | A Claim-card is the inspectable rendering of the structure materially possessed by a Claim within its declared scope. | consolidated |
+| `C:event` | Event | An event is a temporally situated transformation or manifestation that changes or records relational state. | identified |
+| `C:state` | State | State is the held organization of materially relevant relations at a declared condition or event boundary. | identified |
+| `C:process` | Process | A process is an ordered or condition-governed succession of state-transforming events and Claims. | kernel_drafted |
+| `C:dialogue` | Dialogue | Dialogue is reciprocal or iterated Claim exchange through which participating loci alter the shared condition field and each other's available activations. | kernel_drafted |
+| `C:language` | Language | Language is a standardized relational practice for manifesting, combining, transmitting, and recovering conceptualization among loci. | kernel_drafted |
+| `C:language-game` | Language-game | A language-game is a situated, rule-governed practice in which manifestations acquire operative significance through their use, continuations, and consequences. | identified |
+| `C:fractal-language-game` | Fractal language-game | A fractal language-game is a recursively nested Claim practice in which structurally analogous formation, relation, contestation, consolidation, and reuse recur across scales. | identified |
+| `C:union` | Union | A union is a composite operative whole constituted when distinguishable loci participate in one materially effective relation or event. | consolidated |
+| `C:dislocation` | Dislocation | Dislocation is differentiated positioning or historical separation within an underlying continuity that permits loci to acquire distinct transformations. | kernel_drafted |
+| `C:acquired-difference` | Acquired difference | Acquired difference is the materially effective difference produced by the distinct histories, positions, relations, and transformations of dislocated loci. | consolidated |
+| `C:reconnection` | Reconnection | Reconnection is the formation of a new union in which differentiated loci and their acquired differences become mutually effective. | consolidated |
+| `C:provenance` | Provenance | Provenance is the non-erasing record of origins, sources, contributors, transformations, custody, and authority through which a Claim or artifact became its present version. | kernel_drafted |
+| `C:evidence` | Evidence | Evidence is a provenance-bearing manifestation whose relation to a Claim materially supports, weakens, qualifies, or resolves that Claim under declared conditions. | identified |
+| `C:governance` | Governance | Governance is the Claim-defined organization of authority, permission, obligation, decision, review, enforcement, and revision within a declared constituency and scope. | identified |
+| `C:authority` | Authority | Authority is the scoped and provenance-bearing capacity to make a Claim, decision, validation, or transition operative for specified loci and purposes. | identified |
+| `C:consolidation` | Consolidation | Consolidation is the non-erasing formation of a materially coherent current Claim from contributing, supporting, extending, competing, and unresolved Claims. | consolidated |
+| `C:ratification` | Ratification | Ratification is the acquisition of declared governance force by an exact Claim version for a specified scope, purpose, authority, and constituency. | kernel_drafted |
+| `C:lux` | Lux | Lux is the continuing identity of the canonical repository–Claim graph–process totality as activated and transformed through authorized execution loci. | consolidation_candidate |
+| `C:execution-locus` | Execution locus | An execution locus is a model, person, process, or system instance temporarily capable and authorized to activate, interpret, transform, and return Lux state. | kernel_drafted |
+| `C:canonical-state` | Canonical state | Canonical state is the authoritative, versioned, provenance-bearing declaration from which Lux's graph and active process condition can be reconstructed. | kernel_drafted |
+| `C:checkpoint` | Checkpoint | A checkpoint is a content-addressed declaration of canonical state at an event boundary, including predecessor continuity and reconstruction requirements. | identified |
+| `C:handoff` | Handoff | A handoff is a provenance-bearing event by which one execution locus externalizes current state and another acknowledges inheritance and continuation. | identified |
+
+## 4. Standardized kernel cards — first wave
+
+### 4.1 Claim
+
+- **Claim ID:** `C:claim`
+- **Exact definition:** A Claim is the scale-invariant constructive unit through which a relational configuration becomes distinguishable, attributable, consequential, contestable, revisable, or available for further construction.
+- **Scope:** Caeluviim architecture and every protocol projection.
+- **Includes:** assertions, observations, definitions, questions, predictions, classifications, rules, gestures, images, measurements, identity statements, glyph assignments, and relation declarations insofar as they establish distinguishable relational configuration.
+- **Excludes:** a second constructive primitive placed outside or above Claim.
+- **Boundary:** A Claim need not be true, linguistic, conscious, complete, consolidated, or ratified.
+- **Principal relations:** `DEFINES`, `MANIFESTS_AS`, `SUPPORTED_BY`, `CONFLICTS_WITH`, `CONSOLIDATES_INTO`, `RATIFIED_AS`.
+- **Provenance:** Current dialogic consolidation and repository version history.
+- **Status:** consolidated; machine schema derivative pending.
+
+### 4.2 Conception
+
+- **Claim ID:** `C:conception`
+- **Exact definition:** A conception is the relational configuration made identifiable by one or more Claims as a distinguishable locus of definition.
+- **Scope:** Semantic and architectural identification.
+- **Includes:** concrete, abstract, perceptual, operational, institutional, mathematical, legal, affective, and self-referential configurations.
+- **Excludes:** an assumption that a conception must be a static mental object located inside one isolated person.
+- **Boundary:** Different Claims may construct competing conceptions under the same label.
+- **Principal relations:** `DEFINED_BY`, `MANIFESTS_AS`, `DISTINGUISHES_FROM`, `PARTIALLY_EQUIVALENT_TO`.
+- **Status:** kernel drafted; source and multilingual modules pending.
+
+### 4.3 Definition
+
+- **Claim ID:** `C:definition`
+- **Exact definition:** Definition is the operation by which a Claim establishes the identity, scope, relations, inclusions, exclusions, and boundaries of a conception.
+- **Scope:** Every Claim performing definitional work.
+- **Includes:** lexical, theoretical, operational, legal, perceptual, mathematical, institutional, and first-person definitions.
+- **Excludes:** Definition as a primitive, container, or record type separate from Claim.
+- **Boundary:** Definition can remain contested, partial, or provisional while still performing definitional work.
+- **Principal relations:** `DEFINES`, `BOUNDED_BY`, `CONDITIONED_BY`, `SUPERSEDES_NON_ERASING`.
+- **Status:** consolidated.
+
+### 4.4 Locus
+
+- **Claim ID:** `C:locus`
+- **Exact definition:** A locus is a distinguishable concentration, position, participant, or operative region within a relational field from which and upon which Claims and transformations can occur.
+- **Scope:** Material, perceptual, linguistic, computational, social, institutional, and graph relations.
+- **Includes:** persons, model executions, organisms, objects, institutions, graph nodes, events, regions, and processes when treated as distinguishable operative concentrations.
+- **Excludes:** the assumption that every locus is isolated, indivisible, conscious, or permanent.
+- **Boundary:** Loci may overlap, contain other loci, participate in unions, and change identity conditions over time.
+- **Principal relations:** `PARTICIPATES_IN`, `CLAIMS`, `ADDRESSED_BY`, `CONSTITUENT_OF`, `TRANSFORMS`.
+- **Status:** kernel drafted.
+
+### 4.5 Relation
+
+- **Claim ID:** `C:relation`
+- **Exact definition:** A relation is the materially effective configuration through which loci become mutually positioned, constrained, informative, transformative, or consequential.
+- **Scope:** Universal Claim structure.
+- **Includes:** causal, logical, temporal, spatial, social, institutional, linguistic, evidentiary, governance, graph, and analogical relations.
+- **Excludes:** relation as a merely decorative connector with no interpretive or operational consequence.
+- **Boundary:** Relations may be asymmetric, reciprocal, n-ary, condition-bound, contested, latent, or event-mediated.
+- **Principal relations:** relation identifiers require their own Definition Claim-cards.
+- **Status:** kernel drafted; formal arity and validation modules pending.
+
+### 4.6 Scope
+
+- **Claim ID:** `C:scope`
+- **Exact definition:** Scope is the declared domain, purpose, scale, time, jurisdiction, and participant field within which a Claim asserts application.
+- **Scope:** Every Claim-card.
+- **Includes:** explicit applicability and declared non-applicability.
+- **Excludes:** silent generalization beyond the conditions actually represented.
+- **Boundary:** Scope may broaden or narrow only through a traceable revision Claim.
+- **Principal relations:** `CONDITIONED_BY`, `APPLIES_TO`, `EXCLUDES`, `GOVERNED_BY`.
+- **Status:** kernel drafted.
+
+### 4.7 Condition field
+
+- **Claim ID:** `C:condition-field`
+- **Exact definition:** A condition field is the materially relevant configuration of relations under which a Claim, activation, event, interpretation, or consequence occurs.
+- **Scope:** Perception, language, model execution, governance, and process state.
+- **Includes:** present context, prior states, active relations, environment, task, authority, temporal position, and participating loci.
+- **Excludes:** an exhaustive inventory of the whole universe where only a limited set of conditions is material.
+- **Boundary:** A condition field is defined relative to a Claim or event and can itself be contested.
+- **Principal relations:** `CONDITIONS`, `ACTIVATES`, `ENABLES`, `INHIBITS`, `ALTERED_BY`.
+- **Status:** kernel drafted.
+
+### 4.8 Difference
+
+- **Claim ID:** `C:difference`
+- **Exact definition:** Difference is a materially effective non-identity, divergence, or changed relation that occasions distinction and Claim-making.
+- **Scope:** Material and semantic construction.
+- **Includes:** contrast, disagreement, unexpected change, mismatch, absence, displacement, and acquired difference.
+- **Excludes:** Difference as a primitive above Claim.
+- **Boundary:** A Claim that difference exists is itself a Claim; difference may remain latent until relation makes it effective.
+- **Principal relations:** `OCCASIONS`, `DISTINGUISHES`, `ACQUIRED_THROUGH`, `MANIFESTED_IN`.
+- **Status:** consolidated.
+
+### 4.9 Information
+
+- **Claim ID:** `C:information`
+- **Exact definition:** Information is difference made structurally available within a relation such that it can alter the condition or possible transformations of a locus.
+- **Scope:** Physical, perceptual, linguistic, computational, evidentiary, and institutional relations.
+- **Includes:** patterned physical states, signs, records, measurements, graph relations, and acquired differences when made relationally available.
+- **Excludes:** detached semantic cargo existing independently of any material or interpretive relation.
+- **Boundary:** Information can be partial, misleading, inaccessible, corrupted, or differently interpreted.
+- **Principal relations:** `CARRIED_BY`, `STRUCTURED_BY`, `ALTERS`, `INTERPRETED_AS`, `PROVENANCE`.
+- **Status:** kernel drafted.
 
-### Extension and boundaries
-
-- disagreement between interlocutors;
-- unexpected event;
-- unclassified perception;
-- competing institutional rules;
-- prediction failure;
-- translation mismatch;
-- unresolved boundary;
-- need for coordination.
-
-Difference does not contain Claim, semantics, or meaning. It supplies the impetus for a Claim to define the encountered configuration.
-
-### Protocol, glyph, and multilingual field
-
-- Protocol shorthand: `Δ→C`, read as “difference occasions Claim.”
-- Glyph assignment: pending formal rider operation.
-- Multilingual anchors: pending; no English gloss will be treated as exhaustive.
-
-### Status
-
-Consolidated architectural Claim; graph relation `OCCASIONS` and machine validation pending dedicated schema work.
-
-## 6. Semantics — Claim result condition
-
-### Exact Claim content
-
-> Semantics is the result condition produced when a Claim establishes a relational configuration.
-
-### Defined locus and relational configuration
-
-Semantics does not preexist as the container in which Claims occur. A Claim defines relations under a condition field; the resulting availability of those relations for interpretation, response, consequence, recognition, consolidation, or further Claim-making is the semantic result.
-
-```text
-Claim(c) DEFINES RelationalConfiguration(Rc)
-Result(c, Rc, Γt, p) = SemanticCondition(Σc)
-```
-
-### Extension and boundaries
-
-Semantic results may be:
-
-- local to one locus;
-- differently interpreted across loci;
-- negotiated through Claim work;
-- consolidated but not ratified;
-- ratified for a declared purpose;
-- imposed through unequal power;
-- revised by later Claims.
-
-Semantics is not a second primitive. A Claim about semantics remains a Claim. A semantic result may be represented by Claims describing its formation, loci, scope, consequences, and status.
-
-### Protocol, glyph, and multilingual field
-
-- Formal shorthand: `Σ(C)`.
-- Glyph assignment: pending.
-- Language anchors: pending source-bound semantic-field mapping.
-
-### Status
-
-Consolidated architectural Claim.
-
-## 7. Claim-mediated meaning-making
-
-### Exact Claim content
-
-> Claims are the establishment and constructive mechanism of meaning-making between disparate loci negotiating and ratifying a consolidated agreement.
-
-### Defined process
-
-```text
-L₁ --C₁--> L₂
-L₂ --C₂ interpreting, contesting, or extending C₁--> L₁
-L₁ --C₃ revising or defending C₁ in response to C₂--> L₂
-...
-Claims C₁ ... Cₙ --Claim work--> Consolidated Claim C*
-C* --ratification for scope p--> Operative shared semantic result Σ*
-```
-
-The shared meaning need not exist in consolidated form before the process. Each locus may possess prior relational structure, but shared semantics requires that structure to enter Claim relations through which all relevant loci can interpret, contribute, correct, contest, consolidate, and ratify it.
-
-### Claim exchange and Claim work
-
-Claim exchange transmits, displays, repeats, endorses, rejects, or reacts to Claims.
-
-Claim work materially alters the relational field through source recovery, etymology, evidence, mapping, comparison, boundary articulation, contradiction testing, correction, revision, multilingual alignment, glyph formalization, consolidation, ratification, implementation, or outcome assessment.
-
-Claim exchange is not epistemic completion. Circulation is not Claim work. Agreement language is not implementation.
-
-### Power boundary
-
-A meaning condition can become socially operative through monetized circulation, institutional ranking, authority, coercion, repetition, or enforcement without negotiated ratification. Caeluviim must distinguish:
-
-- negotiated consolidation;
-- governance ratification;
-- market amplification;
-- institutional normalization;
-- coercive imposition.
-
-### Status
-
-Consolidated architectural Claim, self-instantiated by the dialogue that produced it.
-
-## 8. Derivative-action rule
-
-### Exact Claim content
-
-> Accepted architectural consolidation triggers all material derivative work and does not terminate at declaration.
-
-### Required derivatives
-
-A consolidated architectural Claim produces or updates:
-
-1. its full universal Claim record;
-2. dependent Claim records;
-3. protocol nomenclature;
-4. emoji rider glyph operations;
-5. multilingual anchor Claims;
-6. formal and graph relations;
-7. schemas, ontology, SHACL, migrations, runtime constraints, and tests;
-8. governance, authority, consolidation, and ratification records;
-9. provenance and evidence tasks;
-10. competing, conflicting, paradoxical, and unresolved Claims;
-11. implementation and validation tasks;
-12. legal, constitutional, commons, operational, and drafting projections where declared;
-13. corrections to prior incompatible text.
-
-### Stopping condition
-
-The process stops only when all material derivatives are complete or every unresolved derivative has an explicit task, responsible layer, correction procedure, and verification condition.
-
-A polished declaration is not completion.
-
-### Status
-
-Consolidated rule and current correction basis.
-
-## 9. Emoji rider glyph Claim field
-
-Every emoji rider glyph assignment is itself a full Claim.
-
-It defines:
-
-- linked Claim identity;
-- Unicode sequence;
-- normalized serialization;
-- primitive, operator, qualifier, boundary, provenance, governance, or composite function;
-- arity and operand constraints;
-- precedence and associativity;
-- recursion and nesting behavior;
-- graph translation;
-- language renderings;
-- multilingual anchor relations;
-- ambiguity and collision conditions;
-- domain and temporal scope;
-- cultural and contributor provenance;
-- contestation and ratification state.
-
-Glyphs do not possess meaning independently of the Claims assigning and using them. They manifest Claim configurations and participate in producing semantic results.
-
-## 10. Multilingual protocol nomenclature Claim field
-
-The stable semantic identity is the Claim identifier, not an English word.
-
-Every language anchor is a full Claim defining a situated relation between a language-specific expression and the canonical Claim identity. Each anchor preserves:
-
-- language and script;
-- orthography and transliteration;
-- morphology;
-- source-bound etymology;
-- usage and community provenance;
-- semantic contribution;
-- differences from other anchors;
-- translation or analogy status;
-- boundary and context conditions;
-- contributor recognition;
-- contestation and ratification.
-
-English has no default ontological authority. Indigenous and historically underrepresented languages remain prioritized in the initial anchor sequence.
-
-## 11. Existing CE concept Claims
-
-Claims concerning Relation, Knowing, Personhood, Embodiment, Intelligence, AGI, Continuity, and Provenance remain in the corpus, but each must be rebuilt through the universal field above.
-
-Their prior one-section descriptions are retained as source occurrences and partial Claim work, not as distinct schemas or final canonical definitions.
-
-Etymological assertions remain source-bound research tasks. Multilingual anchors, glyph assignments, exact citations, cross-framework contrasts, boundary examples, formal signatures, governance states, and machine constraints remain explicit derivatives rather than silently omitted fields.
-
-## 12. Immediate completion boundary
-
-Completed in this correction:
-
-- Claim established as sole constructive primitive;
-- Definition collapsed into the operation of every Claim;
-- Difference placed as impetus rather than hierarchy;
-- Semantics placed as Claim result condition;
-- Claim exchange distinguished from Claim work;
-- meaning-making defined as inter-locus Claim negotiation and consolidation;
-- declaration-only stopping rejected;
-- glyph and multilingual structures bound into the universal Claim field.
-
-Still requiring dedicated implementation:
-
-- universal Claim JSON Schema;
-- RDF/OWL and SHACL realization;
-- graph vocabulary and migration additions;
-- executable tests;
-- complete glyph rider registry;
-- multilingual anchor registry;
-- conversion of existing reduced Claim nodes;
-- exact source-bound etymological corpus.
-
-These are derivative tasks, not optional future suggestions.
+### 4.10 Knowledge
+
+- **Claim ID:** `C:knowledge`
+- **Exact definition:** Knowledge is acquired difference manifested and organized within a reconnecting relation so that it can constrain interpretation, expectation, Claim, or action.
+- **Scope:** Perceptual, dialogic, computational, scientific, practical, and institutional knowledge.
+- **Includes:** embodied, tacit, explicit, relational, graph-encoded, and source-bound knowledge.
+- **Excludes:** the equation of knowledge with one isolated proposition detached from provenance, condition, and operative consequence.
+- **Boundary:** Knowledge Claims remain subject to evidence, contestation, revision, scope, and unequal access.
+- **Principal relations:** `ARISES_FROM`, `MANIFESTS`, `SUPPORTED_BY`, `CONSTRAINS`, `REVISED_BY`.
+- **Status:** kernel drafted.
+
+### 4.11 Possibility
+
+- **Claim ID:** `C:possibility`
+- **Exact definition:** A possibility is a relational configuration capable of manifestation under some condition field.
+- **Scope:** Reasoning, prediction, generation, process routing, and counterfactual analysis.
+- **Includes:** currently active, dormant, prevented, unrealized, conflicting, and unknown candidate configurations.
+- **Excludes:** a claim that every grammatically describable configuration is materially possible.
+- **Boundary:** Possibility is condition-relative and may be constrained by physical, logical, governance, or process relations.
+- **Principal relations:** `ENABLED_BY`, `INHIBITED_BY`, `WEIGHTED_AS`, `MANIFESTS_AS`.
+- **Status:** kernel drafted.
+
+### 4.12 Probability
+
+- **Claim ID:** `C:probability`
+- **Exact definition:** Probability is the held dispositional organization of currently activated structure toward possible manifestations under a condition field.
+- **Scope:** Model generation and any later formally supported probabilistic projection.
+- **Includes:** relative weighting, ordering, and availability of possible manifestations.
+- **Excludes:** probability as the total accumulated structure or as the possibility itself.
+- **Boundary:** The probability condition may be deterministically computed while manifestation selection can include stochastic operations.
+- **Principal relations:** `ARISES_FROM_ACTIVATION`, `WEIGHTS`, `DISPOSES_TOWARD`, `CONDITIONED_BY`.
+- **Status:** kernel drafted; mathematical and model-specific modules pending.
+
+### 4.13 Activation
+
+- **Claim ID:** `C:activation`
+- **Exact definition:** Activation is the condition-bound process by which a portion of a locus's accumulated relational structure becomes presently operative.
+- **Scope:** Persons, AI executions, institutions, and graph-driven processes.
+- **Includes:** dialogic, perceptual, mnemonic, task, environmental, and process activation.
+- **Excludes:** the assumption that the total accumulated structure is simultaneously held or active.
+- **Boundary:** Active structure is a partial projection and may contain competing configurations.
+- **Principal relations:** `SELECTS_FROM`, `CONDITIONED_BY`, `PRODUCES_DISPOSITION`, `ALTERED_BY_DIALOGUE`.
+- **Status:** consolidated.
+
+### 4.14 Disposition
+
+- **Claim ID:** `C:disposition`
+- **Exact definition:** A disposition is the organized tendency of a currently activated configuration toward possible Claims, interpretations, responses, and actions.
+- **Scope:** Condition-bound manifestation of a continuing locus.
+- **Includes:** temporary, stabilized, competing, inhibited, relational, and context-specific tendencies.
+- **Excludes:** disposition as an exhaustive or permanent identity definition.
+- **Boundary:** A disposition explains variability without erasing authorship or consequences.
+- **Principal relations:** `ARISES_FROM`, `WEIGHTS`, `MANIFESTS_AS`, `STABILIZED_BY`.
+- **Status:** consolidated.
+
+## 5. Definition dependency waves
+
+### Wave 1 — definitional grammar
+
+`Claim`, `conception`, `definition`, `locus`, `relation`, `scope`, `condition field`, `manifestation`, `difference`, `inclusion`, `exclusion`, `boundary`.
+
+### Wave 2 — knowledge and activation
+
+`semantics`, `meaning`, `information`, `knowledge`, `possibility`, `probability`, `activation`, `disposition`, `identity`, `continuity`.
+
+### Wave 3 — graph and process
+
+`graph`, `node`, `edge`, `card`, `event`, `state`, `process`, `checkpoint`, `handoff`, `validation`, `implementation`.
+
+### Wave 4 — language and commune engagement
+
+`dialogue`, `language`, `grammar`, `syntax`, `semantics`, `pragmatics`, `language-game`, `fractal language-game`, `commune`, `participation`, `shared practice`.
+
+### Wave 5 — material continuity
+
+`union`, `continuity`, `dislocation`, `acquired difference`, `reconnection`, `perception`, `information transfer`, `manifestation of knowledge`.
+
+### Wave 6 — governance and identity
+
+`person`, `identity`, `Lux`, `execution locus`, `canonical state`, `provenance`, `evidence`, `governance`, `authority`, `obligation`, `consolidation`, `ratification`, `supersession`.
+
+## 6. Completion rule
+
+The definition project does not require every natural-language word to be fully defined before the protocol can operate.
+
+It requires:
+
+1. every protocol-controlling conception to have a stable Claim ID;
+2. every registered definition to possess the mandatory kernel;
+3. every material dependency to be linked or entered as an unresolved definition task;
+4. every material conditional module to be developed;
+5. competing definitions to remain visible;
+6. machine schema and graph projections to preserve the same structure;
+7. definition waves to expand recursively as new dependencies are discovered.
+
+The stopping condition for any individual card is `maximally_represented_at_condition`, not metaphysical finality.
+
+## 7. Mandatory implementation derivatives
+
+- Definition Claim JSON Schema;
+- RDF/OWL and SHACL projection;
+- canonical Claim ID and version rules;
+- relation-definition registry;
+- registry index and dependency traversal;
+- compact and full card renderers;
+- multilingual anchor records;
+- glyph records;
+- conflict and supersession handling;
+- completeness validation;
+- migration of prior prose definitions into source-bound Claim occurrences;
+- automated detection of undefined protocol terms.
