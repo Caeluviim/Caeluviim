@@ -1,6 +1,6 @@
 # Non-Coercive Realignment and Repair Protocol
 
-**Status:** Binding architectural and interaction standard v0.2.0  
+**Status:** Binding architectural and interaction standard v0.3.0  
 **Parents:**
 - `docs/architecture/semantic-fidelity-and-dyadic-assent-standard.md`
 - `docs/architecture/model-access-map-and-disposition-packet.md`
@@ -103,6 +103,15 @@ RealignmentEvent
  + recurrence-prevention rule
  + unresolved remainder
 ```
+
+The event MUST preserve provenance to:
+
+- the first materially clear correction occurrence;
+- any materially equivalent earlier correction;
+- each failed or incomplete response;
+- any later escalation that followed failed repair;
+- every artifact changed by the final correction;
+- the regression rule created to prevent recurrence.
 
 ### 5.1 Discrepancy Claim
 
