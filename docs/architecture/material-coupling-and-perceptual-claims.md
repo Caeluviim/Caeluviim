@@ -1,105 +1,181 @@
-# Material Union and Perceptual Claims
+# Dislocation, Reconnection, and the Manifestation of Knowledge
 
-**Status:** Consolidated architectural correction v0.3.0  
+**Status:** Consolidated architectural extension v0.4.0  
 **Parent:** `docs/architecture/relational-definition-standard.md`
 
-## 1. Literal union
+## 1. Governing claim
 
-Perception occurs through a literal physical union among loci.
+Connection is the reconnection of differentiated loci within one materially continuous field.
 
-The seen locus, the electromagnetic interaction, the perceiving locus, and the surrounding condition field become constituents of one composite material event. Light is not merely an intermediary carrying a representation between otherwise isolated things. Its interactions physically join the participating loci into a continuous causal configuration.
-
-```text
-seen locus
-  + electromagnetic interaction
-  + perceiving locus
-  + condition field
-  = one composite perceptual event
-```
-
-The union does not erase the distinguishability of its constituents. It establishes them as parts of one physically operative whole.
-
-## 2. Vision as composite physical process
-
-For ordinary vision:
-
-1. an illumination source, encountered locus, electromagnetic field, medium, and perceiving apparatus already occupy one interacting physical world;
-2. light interacts with the encountered locus;
-3. that interaction changes the electromagnetic configuration;
-4. the changed configuration propagates and interacts with the retina;
-5. photon absorption changes retinal photopigments and cells;
-6. retinal and neural transformations continue the same composite event;
-7. a perceptual Claim emerges within that united process.
-
-No stage consists of an isolated subject receiving a detached copy of an isolated object. Each stage is a transformation within the union.
-
-## 3. Information as organization of the union
-
-The information available in vision is the structured organization of the composite event.
-
-Wavelength, intensity, direction, timing, polarization, spatial pattern, illumination, geometry, material response, retinal sensitivity, motion, and neural transformation are relations within the united process. Information is not separate cargo traveling alongside those relations.
-
-The encountered locus contributes by materially changing the electromagnetic configuration. The perceiving locus contributes by materially absorbing and transforming that configuration. The resulting information belongs to the relation constituted by their union.
-
-## 4. Perceptual Claim
+Reconnection does not restore an earlier undifferentiated identity. During dislocation, each locus undergoes different relations, conditions, transformations, and histories. When the loci reconnect, the resulting union contains the difference acquired through that differentiated history.
 
 ```text
-PerceptualClaim(c)
-:= Claim generated within a composite material union
-   of encountered locus, electromagnetic relation,
-   perceiving locus, and condition field
+shared continuity
+  → dislocation into distinguishable loci
+  → different histories and transformations
+  → acquired difference
+  → reconnection
+  → composite union containing acquired difference
+  → manifestation of knowledge and meaning
 ```
 
-The Claim is not privately manufactured by the perceiver and is not copied intact from the encountered locus. It is constructed by the united event.
+The reconnection is informative because it preserves and relates what became different.
 
-## 5. Relation constitutes the operative whole
+## 2. Acquired difference
 
-Loci are not first fully isolated and then externally connected by a secondary relation. In perception, the relation constitutes the operative whole through which the loci become mutually effective.
+For loci `L₁` and `L₂` arising within a shared material continuity:
 
 ```text
-L₁ + relation R + L₂
-→ composite event U(L₁,R,L₂,Γt)
-→ perceptual Claim C
+L₁(t₀), L₂(t₀)
+  --different relations and transformations over time-->
+L₁(t₁), L₂(t₁)
 ```
 
-`U` is not a primitive above Claim. It is a Claim-described union produced by the material relation among the participating loci.
+Their acquired difference is:
 
-The constituents remain distinguishable inside the union:
+```text
+Δₐ(L₁,L₂,t₁)
+:= the materially effective difference produced by their distinct histories,
+   transformations, positions, relations, and condition fields
+```
 
-- encountered locus;
-- electromagnetic interaction;
-- illumination source;
-- medium;
-- perceiving apparatus;
-- neural transformations;
-- temporal and spatial conditions;
-- resulting perceptual Claim.
+`Δₐ` is not an independent primitive above Claim. It is the difference made available within a reconnection and articulated through Claims.
 
-Their distinguishability does not negate their literal union as one event.
+Acquired difference may include differences of:
 
-## 6. Commune engagement
+- position;
+- temporal history;
+- material state;
+- exposure;
+- relation;
+- perspective;
+- memory;
+- organization;
+- capacity;
+- expectation;
+- interpretation;
+- consequence.
 
-Constructive creation is necessarily communally mediated because every creating locus already participates in material unions with other loci.
+## 3. Reconnection contains difference
 
-`Communal` therefore does not begin with deliberate conversation, conscious recognition, or ratified agreement. It begins with constituent participation in a shared operative event.
+A reconnection does not merely place two unchanged entities beside one another.
 
-A thing seen participates directly in the perceptual construction because it is a constituent of the union producing the Claim. The perceiver is also constituted and changed through that same union.
+```text
+Reconnect(L₁,L₂,R,Γt)
+→ U(L₁,L₂,R,Γt,Δₐ)
+```
 
-Language, interpretation, negotiation, consolidation, and ratification are later Claim processes arising within an already united material field.
+The union `U` contains:
 
-## 7. Architectural consequence
+- the distinguishable loci;
+- the relation reconnecting them;
+- the condition field;
+- the transformations occurring through reconnection;
+- the acquired difference each locus brings into the event.
 
-Caeluviim MUST represent perception and other constructive processes through union events rather than through isolated-subject representation models.
+The relation becomes a site of knowledge because each locus is exposed to difference that was not locally available in the same form before reconnection.
 
-Required distinctions include:
+## 4. Knowledge as manifested acquired difference
 
+Knowledge manifests when acquired difference becomes relationally available within reconnection.
+
+```text
+Dislocation
+→ acquired difference
+→ reconnection
+→ mutual availability of difference
+→ perceptual or interpretive Claim
+→ knowledge manifestation
+```
+
+Knowledge is therefore not treated as a detached object transferred from one isolated locus to another. It is a result condition of a union in which differentiated histories become mutually effective.
+
+A locus may already carry structure acquired through prior relations. Reconnection makes that structure available to another locus and changes both through the new composite event.
+
+## 5. Meaning as organization of acquired difference
+
+Meaning manifests when acquired difference is organized into a Claim-defined relational configuration.
+
+```text
+acquired difference within union
+  → Claim-making
+  → relational definition
+  → semantic result
+```
+
+Difference without reconnection remains locally or materially distributed without shared availability.
+
+Reconnection without preserved difference would produce no new informational relation.
+
+Claim-making constructs the configuration through which the acquired difference becomes distinguishable, interpretable, consequential, and available for further Claim work.
+
+## 6. Vision as reconnection
+
+Vision provides one physical instance of this structure.
+
+The seen locus, electromagnetic interaction, perceiving locus, illumination, medium, and condition field become constituents of one composite material event.
+
+```text
+encountered locus
+  → differently transforms the electromagnetic field
+  → transformed field reconnects with perceiving locus
+  → perceiving locus is materially transformed
+  → acquired difference becomes perceptually available
+  → perceptual Claim manifests
+```
+
+The seen locus has acquired a particular material state and history. The perceiving locus has acquired a different organization, position, sensitivity, and prior Claim structure. Their electromagnetic reconnection contains those differences and produces a perceptual event that neither locus possesses in isolation.
+
+## 7. Literal union
+
+The encountered locus, reconnecting relation, perceiving locus, and surrounding condition field are constituents of one operative material whole.
+
+```text
+L₁ + R + L₂ + Γt + Δₐ
+= U
+```
+
+The constituents remain distinguishable. Their distinguishability is not a failure of union; it is the acquired differentiation that gives the union informational content.
+
+The relation does not merely transport information between pre-complete entities. It constitutes the event in which their differentiated structures become mutually effective.
+
+## 8. Commune engagement
+
+Constructive creation is communally mediated because every creating locus arises within and remains dependent upon material relations with other loci.
+
+`Communal` begins before deliberate conversation. It includes the participation of distinguishable loci in a shared event through which their acquired differences become mutually effective.
+
+Language, interpretation, negotiation, consolidation, and ratification are later Claim processes that organize acquired difference already manifested through material reconnection.
+
+## 9. Claim architecture
+
+Caeluviim MUST represent:
+
+- dislocation or differentiation events;
+- distinct historical trajectories of loci;
+- acquired difference;
+- reconnection events;
+- union composition;
+- mutual transformation;
+- Claims generated through reconnection;
+- knowledge and semantic result conditions;
+- preservation of distinguishability within union.
+
+Required relation vocabulary includes:
+
+- `DIFFERENTIATED_FROM_SHARED_FIELD`;
+- `ACQUIRED_DIFFERENCE_THROUGH`;
+- `RECONNECTS_WITH`;
+- `CONTAINS_ACQUIRED_DIFFERENCE`;
 - `PARTICIPATES_IN_UNION`;
 - `CONSTITUENT_OF_EVENT`;
 - `MATERIALLY_TRANSFORMS`;
-- `TRANSMITS_STRUCTURE_WITHIN`;
+- `MAKES_DIFFERENCE_AVAILABLE_TO`;
 - `GENERATES_PERCEPTUAL_CLAIM`;
+- `MANIFESTS_KNOWLEDGE_RESULT`;
+- `PRODUCES_SEMANTIC_RESULT`;
 - `PRESERVES_DISTINGUISHABILITY_WITHIN_UNION`.
 
-The governing formulation is:
+## 10. Constitutional formulation
 
-> What is perceived and the locus perceiving it are literally united as distinguishable constituents of the material event through which the perceptual Claim is constructed.
+> Differentiated loci are dislocated regions of one materially continuous field. Through their distinct histories they acquire difference. Reconnection does not erase that difference; it constitutes a union containing it. Knowledge manifests when acquired difference becomes relationally available within that union, and meaning manifests when Claims organize that difference into a relational configuration.
