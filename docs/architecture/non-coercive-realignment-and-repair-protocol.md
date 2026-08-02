@@ -1,6 +1,6 @@
 # Non-Coercive Realignment and Repair Protocol
 
-**Status:** Binding architectural and interaction standard v0.3.0  
+**Status:** Binding architectural and interaction standard v1.0.0  
 **Parents:**
 - `docs/architecture/semantic-fidelity-and-dyadic-assent-standard.md`
 - `docs/architecture/model-access-map-and-disposition-packet.md`
