@@ -1,76 +1,99 @@
 # Material Coupling and Perceptual Claims
 
-**Status:** Consolidated architectural extension v0.1.0  
+**Status:** Consolidated architectural extension v0.2.0  
 **Parent:** `docs/architecture/relational-definition-standard.md`
 
-## 1. Physical connection
+## 1. Light-mediated touch
 
-A perceiving locus is physically connected to what it sees through a causal chain of material interaction.
+We touch what we see through the bridge of light transmitting information.
+
+Vision is a form of physically mediated contact between loci. The contact does not require contiguous surfaces because the connecting interaction is carried through an electromagnetic field.
+
+```text
+seen locus
+  → changes the light interacting with it
+  → changed light propagates across space
+  → light interacts with the retina
+  → the perceiving locus is physically changed
+```
+
+The seen locus and the perceiving locus therefore participate in one continuous causal event. The bridge is the light field carrying structured effects of its interaction with the seen locus into a new interaction with the perceiver.
+
+## 2. Physical chain
 
 For ordinary vision:
 
 1. light is emitted by a source;
-2. photons interact with a material locus through reflection, scattering, absorption, transmission, or re-emission;
-3. the resulting distribution of photons is modulated by that interaction and by illumination, geometry, medium, and motion;
-4. a subset of those photons enters the eye and is focused onto the retina;
-5. photon absorption by retinal photopigments initiates phototransduction;
-6. retinal and neural processes transform the signal into a perceptual Claim configuration.
+2. light interacts with a seen locus through reflection, scattering, absorption, transmission, or re-emission;
+3. that interaction structures the outgoing light according to the locus, illumination, geometry, medium, and motion;
+4. part of that structured light reaches the eye;
+5. photons are absorbed by retinal photopigments;
+6. phototransduction changes retinal cells;
+7. retinal and neural relations transform that physical contact into a perceptual Claim.
 
-The perceived locus therefore contributes materially to the perceptual result. The perceiver does not generate the result without constraint, and the result is not a complete transfer of the thing itself.
+The physical event is not merely information about contact. It is the contact through which information becomes available.
 
-## 2. Information terminology
+## 3. Information transfer
 
-The photons reaching the eye carry structured, causally correlated information produced by their interaction with the encountered locus.
+The light reaching the perceiver carries structured, causally correlated information generated through its interaction with the seen locus.
 
-`Optical coherence` has a narrower physical meaning concerning phase correlation and is not generally required for ordinary vision. The architectural term is therefore:
+The information is not a detached description traveling beside the physical interaction. It is embodied in the altered distribution, wavelength, intensity, polarization, direction, timing, and spatial pattern of the light field.
 
-> photon-mediated transfer of structured, causally correlated information
+The encountered locus contributes materially by altering that field. The perceiving locus contributes materially by absorbing and transforming it.
 
-This information is partial and condition-bound. It reflects the encountered locus under a particular illumination, angle, distance, medium, temporal state, sensory apparatus, and processing history.
-
-## 3. Perception as inter-locus coupling
+## 4. Perception as inter-locus coupling
 
 ```text
 Illumination source
-  → photon interaction with encountered locus L₂
-  → modulated photon field
-  → retinal interaction at perceiving locus L₁
-  → phototransduction and neural transformation
-  → perceptual Claim C
+  → light–locus interaction
+  → structured light field
+  → light–retina interaction
+  → phototransduction
+  → neural transformation
+  → perceptual Claim
 ```
 
-The perceptual Claim is generated through the physical coupling of loci. It belongs exclusively to neither locus taken in isolation.
+The perceptual Claim arises through the coupling. It is not produced by an isolated perceiver and it is not simply copied from the seen locus.
 
-The encountered locus supplies material constraint and causal contribution. The perceiving locus supplies sensory organization, position, motion, prior structure, and transformation. The condition field supplies illumination, medium, geometry, time, and surrounding relations.
+The seen locus, illumination, intervening medium, perceiving apparatus, position, movement, prior Claim structure, and temporal condition all participate in what becomes visible.
 
-## 4. Architectural consequence
-
-Perception is not modeled as an isolated subject privately representing an external object. It is modeled as a materially mediated Claim event arising through inter-locus coupling.
+## 5. Claim architecture
 
 ```text
 PerceptualClaim(c)
-:= Claim generated through a causal information-bearing relation
-   between perceiving locus, encountered locus, and condition field
+:= Claim generated through light-mediated physical contact
+   among an encountered locus, a perceiving locus,
+   and their condition field
 ```
 
-This coupling precedes explicit linguistic exchange. Language and later Claim work stabilize, compare, communicate, contest, and consolidate perceptual Claims that already arise through material relations.
+The relation is constructive:
 
-## 5. Relation to communal construction
+- the seen locus constrains and structures the transmitted light;
+- the light bridges spatial separation;
+- the perceiver is physically altered by receiving it;
+- the resulting perceptual Claim stabilizes what became distinguishable through the encounter.
 
-`Communal` must not be restricted to deliberate conversation or agreement. In this architecture it names participation in a shared material-relational event.
+Perception therefore demonstrates that loci are already materially engaged before explicit language, negotiation, or ratification begins.
 
-A thing seen participates causally without needing intention, language, or reciprocal recognition. Physical interaction supplies a real contribution to meaning construction before explicit social negotiation begins.
+## 6. Communal construction
 
-## 6. Limits
+`Communal` includes participation in a shared material-relational event. It is not limited to conversation or conscious agreement.
 
-The photon-mediated signal does not transparently deliver every property of the encountered locus. It carries information conditioned by:
+A thing seen participates in construction through its physical contribution to the light-mediated encounter. It need not intend, speak, or recognize the perceiver in order to constrain and inform the perceptual Claim.
+
+Constructive meaning-making is therefore mediated through commune engagement among loci at the physical level before it becomes linguistic, institutional, or explicitly negotiated.
+
+## 7. Limits of the contact
+
+Light-mediated touch is real but selective. The encounter transmits only the structure available under its conditions, including:
 
 - illumination spectrum and direction;
 - surface and material interaction;
-- occlusion and medium;
+- distance and angle;
+- occlusion and intervening medium;
 - spatial and temporal sampling;
 - retinal sensitivity;
 - neural transformation;
 - attention, movement, memory, and prior Claims.
 
-The physical connection grounds perception while preserving the distinction between the encountered locus, the transmitted signal, and the resulting perceptual Claim.
+The bridge of light physically joins the loci while preserving the distinction among the seen locus, the transmitted interaction, and the resulting perceptual Claim.
