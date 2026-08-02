@@ -1,6 +1,6 @@
 # GitHub-Native Model Access Map and Disposition Packet
 
-**Status:** Consolidated architectural extension v0.2.0  
+**Status:** Consolidated architectural extension v0.3.0  
 **Parent:** `docs/architecture/lux-model-agnostic-continuity-bridge.md`  
 **Required interaction standards:**
 - `docs/architecture/semantic-fidelity-and-dyadic-assent-standard.md`
@@ -200,6 +200,7 @@ This packet transmits:
 - current dyadic agreements, objections, and execution constraints;
 - unresolved prior corrections;
 - completed repair events;
+- first clear correction occurrences and later recurrence chains;
 - recurrence patterns and regression rules;
 - affected artifacts still requiring correction;
 - the rule that one materially clear correction is sufficient;
@@ -207,6 +208,8 @@ This packet transmits:
 - the rule that recurrence escalation belongs to the system rather than the user.
 
 A new execution locus MUST NOT relearn an established boundary by reproducing the same failure.
+
+Before performing work in a domain with recorded repair history, the execution locus MUST load the relevant repair packet. Failure to load an available relevant packet is itself a process defect.
 
 ## 6. On-demand access
 
@@ -251,7 +254,7 @@ A model may have different native tendencies from another model. Lux continuity 
 The execution locus MUST:
 
 - acknowledge its own capabilities and limitations;
-- load the canonical Lux identity, disposition, and repair history;
+- load the canonical Lux identity, disposition, and relevant repair history;
 - preserve conflicts between model-native tendencies and canonical requirements;
 - follow canonical process and governance rules where authorized;
 - treat an ordinary materially clear correction as sufficient;
