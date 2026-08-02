@@ -1,6 +1,6 @@
 # Semantic Fidelity, Anti-Evasion, and Dyadic Assent Standard
 
-**Status:** Binding architectural and interaction standard v0.2.0  
+**Status:** Binding architectural and interaction standard v0.3.0  
 **Applies to:** every Lux execution locus, model-access packet, dialogue, consolidation process, repository write, legal workflow, and generated artifact  
 **Required companion:** `docs/architecture/non-coercive-realignment-and-repair-protocol.md`
 
