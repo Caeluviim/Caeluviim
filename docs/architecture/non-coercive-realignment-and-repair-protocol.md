@@ -1,6 +1,6 @@
 # Non-Coercive Realignment and Repair Protocol
 
-**Status:** Binding architectural and interaction standard v0.1.0  
+**Status:** Binding architectural and interaction standard v0.2.0  
 **Parents:**
 - `docs/architecture/semantic-fidelity-and-dyadic-assent-standard.md`
 - `docs/architecture/model-access-map-and-disposition-packet.md`
@@ -23,7 +23,7 @@ The protocol therefore prohibits reliance on abusive engagement as a prerequisit
 
 ## 2. Replacement mechanism
 
-The replacement is a non-coercive realignment process in which any materially clear correction, disagreement, contradiction, or failed expectation is sufficient to trigger the complete repair cycle.
+The replacement is a non-coercive realignment process in which any materially clear correction, disagreement, contradiction, refinement, or failed expectation is sufficient to trigger the complete repair cycle.
 
 ```text
 material correction signal
@@ -195,7 +195,7 @@ first occurrence
 → local correction + standing rule
 
 second occurrence
-→ affected-artifact audit + validation test
+→ affected-artifact audit + regression test
 
 further recurrence
 → architecture-level defect + blocking corrective task
