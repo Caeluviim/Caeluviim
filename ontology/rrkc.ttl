@@ -1,0 +1,76 @@
+@prefix rrkc: <https://caeluviim.org/ontology/rrkc#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://caeluviim.org/ontology/rrkc> a owl:Ontology ;
+    rdfs:label "RRKC formal-calculus ontology" ;
+    owl:versionInfo "2.0.0" .
+
+rrkc:FormalModule a owl:Class .
+rrkc:Layer a owl:Class .
+rrkc:Sort a owl:Class .
+rrkc:Constructor a owl:Class .
+rrkc:TermConstructor a owl:Class ; rdfs:subClassOf rrkc:Constructor .
+rrkc:PropositionConstructor a owl:Class ; rdfs:subClassOf rrkc:Constructor .
+rrkc:BinderConstructor a owl:Class ; rdfs:subClassOf rrkc:Constructor .
+rrkc:Judgment a owl:Class .
+rrkc:RelationSignature a owl:Class .
+rrkc:OperationSignature a owl:Class .
+rrkc:GovernanceOperation a owl:Class .
+rrkc:TheoremObligation a owl:Class .
+rrkc:TerminationFragment a owl:Class .
+rrkc:ProvenanceConvention a owl:Class .
+rrkc:ConformanceCondition a owl:Class .
+rrkc:VerificationArtifact a owl:Class .
+
+rrkc:hasLayer a owl:ObjectProperty ;
+    rdfs:domain rrkc:FormalModule ; rdfs:range rrkc:Layer .
+rrkc:extendsLayer a owl:ObjectProperty ;
+    rdfs:domain rrkc:Layer ; rdfs:range rrkc:Layer .
+rrkc:hasSort a owl:ObjectProperty ;
+    rdfs:domain rrkc:FormalModule ; rdfs:range rrkc:Sort .
+rrkc:hasConstructor a owl:ObjectProperty ;
+    rdfs:domain rrkc:FormalModule ; rdfs:range rrkc:Constructor .
+rrkc:hasJudgment a owl:ObjectProperty ;
+    rdfs:domain rrkc:FormalModule ; rdfs:range rrkc:Judgment .
+rrkc:hasRelationSignature a owl:ObjectProperty ;
+    rdfs:domain rrkc:FormalModule ; rdfs:range rrkc:RelationSignature .
+rrkc:hasOperationSignature a owl:ObjectProperty ;
+    rdfs:domain rrkc:FormalModule ; rdfs:range rrkc:OperationSignature .
+rrkc:hasGovernanceOperation a owl:ObjectProperty ;
+    rdfs:domain rrkc:FormalModule ; rdfs:range rrkc:GovernanceOperation .
+rrkc:hasTheorem a owl:ObjectProperty ;
+    rdfs:domain rrkc:FormalModule ; rdfs:range rrkc:TheoremObligation .
+rrkc:hasTerminationFragment a owl:ObjectProperty ;
+    rdfs:domain rrkc:FormalModule ; rdfs:range rrkc:TerminationFragment .
+rrkc:hasProvenanceConvention a owl:ObjectProperty ;
+    rdfs:domain rrkc:FormalModule ; rdfs:range rrkc:ProvenanceConvention .
+rrkc:hasConformanceCondition a owl:ObjectProperty ;
+    rdfs:domain rrkc:FormalModule ; rdfs:range rrkc:ConformanceCondition .
+rrkc:verifiedBy a owl:ObjectProperty ;
+    rdfs:domain rrkc:TheoremObligation ; rdfs:range rrkc:VerificationArtifact .
+rrkc:bindsVariableIn a owl:ObjectProperty ;
+    rdfs:domain rrkc:BinderConstructor ; rdfs:range rrkc:Constructor .
+rrkc:domainSort a owl:ObjectProperty ;
+    rdfs:domain rrkc:RelationSignature ; rdfs:range rrkc:Sort .
+rrkc:rangeSort a owl:ObjectProperty ;
+    rdfs:domain rrkc:RelationSignature ; rdfs:range rrkc:Sort .
+rrkc:inputSort a owl:ObjectProperty ;
+    rdfs:domain rrkc:OperationSignature ; rdfs:range rrkc:Sort .
+rrkc:outputSort a owl:ObjectProperty ;
+    rdfs:domain rrkc:OperationSignature ; rdfs:range rrkc:Sort .
+
+rrkc:identifier a owl:DatatypeProperty ; rdfs:range xsd:string .
+rrkc:version a owl:DatatypeProperty ; rdfs:range xsd:string .
+rrkc:status a owl:DatatypeProperty ; rdfs:range xsd:string .
+rrkc:notation a owl:DatatypeProperty ; rdfs:range xsd:string .
+rrkc:layerIndex a owl:DatatypeProperty ; rdfs:range xsd:nonNegativeInteger .
+rrkc:partial a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+rrkc:orderConvention a owl:DatatypeProperty ; rdfs:range xsd:string .
+rrkc:restriction a owl:DatatypeProperty ; rdfs:range xsd:string .
+rrkc:terminationMeasure a owl:DatatypeProperty ; rdfs:range xsd:string .
+rrkc:globalStrongNormalizationClaimed a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+rrkc:theoremId a owl:DatatypeProperty ; rdfs:range xsd:string .
+rrkc:verificationStatus a owl:DatatypeProperty ; rdfs:range xsd:string .
+rrkc:statement a owl:DatatypeProperty ; rdfs:range xsd:string .
