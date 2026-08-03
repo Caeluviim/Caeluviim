@@ -49,7 +49,7 @@ Every named principle, concept, invariant, mode, facet, and required relation ty
 
 Each derived entity is linked to the source section from which it was formalized. The runtime also automatically links each ingested entity and reified relationship assertion to the source record and ingestion event.
 
-The production manifest contains **145 nodes and 293 relationship assertions**. It is stored as deterministic base64-encoded gzip JSON in `lux-kernel-core-v0.1.0.json.gz.b64`; decoding occurs before schema and graph-invariant validation.
+The production manifest contains **145 nodes and 293 relationship assertions**. `lux-kernel-core-v0.1.0.json.gz.b64` is a hash-verified multipart index whose nine ordered parts concatenate to deterministic base64-encoded gzip JSON. Payload integrity, decompression, schema validation, and graph-invariant validation all occur before ingestion.
 
 ## 4. Relation representation
 
@@ -171,7 +171,7 @@ These are implementation translations, not alterations to the source proposal:
 
 - immutable submitted source record
 - architecture specification
-- compressed production ingestion manifest
+- hash-verified multipart compressed production ingestion manifest
 - closure computation module
 - `caeluviim-graph closure` CLI command
 - production sync support for `.json` and `.json.gz.b64` manifests
@@ -185,14 +185,14 @@ python -m caeluviim_graph.cli closure \
   urn:caeluviim:kernel:principle:master-thesis
 ```
 
-The command decodes and validates the manifest before computing closure and returns deterministic JSON.
+The command assembles, hash-checks, decodes, and validates the manifest before computing closure and returns deterministic JSON.
 
 ## 10. Acceptance criteria
 
 1. The source record remains immutable and hash-addressed.
 2. Every kernel entity has a stable URI and source-span derivation.
 3. Every relationship assertion is independently addressable after ingestion.
-4. The kernel manifest decodes and validates against the existing ingestion schema.
+4. The kernel manifest assembles, hash-checks, decodes, and validates against the existing ingestion schema.
 5. The closure checker identifies antecedents, forward dependents, evidence, provenance, and missing declared necessities.
 6. The closure checker never reports truth or ratification.
 7. The production sync ingests the manifest idempotently.
