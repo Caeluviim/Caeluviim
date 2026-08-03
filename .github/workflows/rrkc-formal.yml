@@ -1,0 +1,35 @@
+name: RRKC formal verification
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "formal/rrkc/**"
+      - ".github/workflows/rrkc-formal.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "formal/rrkc/**"
+      - ".github/workflows/rrkc-formal.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build RRKC Lean package
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: formal/rrkc
+          build: true
+          test: false
+          lint: false
+          use-github-cache: true
