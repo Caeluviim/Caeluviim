@@ -1,5 +1,6 @@
-name = "rrkc"
+name = "RRKC"
 version = "0.2.0"
+defaultTargets = ["RRKC"]
 
 [[lean_lib]]
 name = "RRKC"
