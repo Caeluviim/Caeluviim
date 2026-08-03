@@ -49,6 +49,8 @@ Every named principle, concept, invariant, mode, facet, and required relation ty
 
 Each derived entity is linked to the source section from which it was formalized. The runtime also automatically links each ingested entity and reified relationship assertion to the source record and ingestion event.
 
+The production manifest contains **145 nodes and 293 relationship assertions**. It is stored as deterministic base64-encoded gzip JSON in `lux-kernel-core-v0.1.0.json.gz.b64`; decoding occurs before schema and graph-invariant validation.
+
 ## 4. Relation representation
 
 The submitted relation vocabulary is preserved as `Rule` nodes. Runtime edges use the repository’s existing allowlist. The exact submitted semantic relation is retained in the edge property `semantic_relation`.
@@ -169,27 +171,28 @@ These are implementation translations, not alterations to the source proposal:
 
 - immutable submitted source record
 - architecture specification
-- production ingestion manifest
+- compressed production ingestion manifest
 - closure computation module
 - `caeluviim-graph closure` CLI command
-- unit tests for complete closure, missing evidence, missing targets, reverse dependencies, non-claim rejection, and production-manifest validation
+- production sync support for `.json` and `.json.gz.b64` manifests
+- unit tests for complete closure, missing evidence, missing targets, reverse dependencies, non-claim rejection, manifest decoding, and production-manifest validation
 
 ## 9. CLI
 
 ```bash
 python -m caeluviim_graph.cli closure \
-  ingest/manifests/lux-kernel-core-v0.1.0.json \
+  ingest/manifests/lux-kernel-core-v0.1.0.json.gz.b64 \
   urn:caeluviim:kernel:principle:master-thesis
 ```
 
-The command validates the manifest before computing closure and returns deterministic JSON.
+The command decodes and validates the manifest before computing closure and returns deterministic JSON.
 
 ## 10. Acceptance criteria
 
 1. The source record remains immutable and hash-addressed.
 2. Every kernel entity has a stable URI and source-span derivation.
 3. Every relationship assertion is independently addressable after ingestion.
-4. The kernel manifest validates against the existing ingestion schema.
+4. The kernel manifest decodes and validates against the existing ingestion schema.
 5. The closure checker identifies antecedents, forward dependents, evidence, provenance, and missing declared necessities.
 6. The closure checker never reports truth or ratification.
 7. The production sync ingests the manifest idempotently.
