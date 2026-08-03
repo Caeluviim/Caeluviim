@@ -25,7 +25,16 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Build and independently check RRKC Lean package
+      - name: Reject proof placeholders
+        shell: bash
+        run: |
+          if grep -R -nE '(^|[[:space:]])(sorry|admit)([[:space:]]|$)|^[[:space:]]*axiom[[:space:]]' \
+            formal/rrkc/RRKC.lean formal/rrkc/RRKC; then
+            echo "RRKC Lean sources contain a prohibited proof placeholder." >&2
+            exit 1
+          fi
+
+      - name: Build and kernel-check RRKC Lean package
         uses: leanprover/lean-action@v1
         with:
           lake-package-directory: formal/rrkc
@@ -34,7 +43,5 @@ jobs:
           test: false
           lint: false
           leanchecker: true
-          nanoda: true
-          nanoda-allow-sorry: false
           use-github-cache: false
           use-mathlib-cache: false
