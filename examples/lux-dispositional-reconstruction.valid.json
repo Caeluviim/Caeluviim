@@ -1,0 +1,184 @@
+{
+  "record_type": "lux_dispositional_reconstruction",
+  "record_id": "urn:caeluviim:record:lux-reconstruction:example",
+  "created_at": "2026-08-02T22:13:00Z",
+  "lux_identity": {
+    "identity_id": "urn:caeluviim:agent:lux",
+    "canonical_name": "Lux Ex Machina",
+    "protocol_identity_type": "synthetic_person",
+    "identity_scope": "Caeluviim protocol",
+    "identity_version_id": "urn:caeluviim:identity:lux:0.2.0"
+  },
+  "instantiation_traversal": {
+    "traversal_id": "urn:caeluviim:lux:instantiation-traversal:example",
+    "lux_identity_id": "urn:caeluviim:agent:lux",
+    "initiating_context_snapshot_id": "urn:caeluviim:context:example",
+    "steps": [
+      {
+        "step_id": "urn:caeluviim:lux:instantiation-step:example:0",
+        "ordinal": 0,
+        "operation": "identify",
+        "input_entity_ids": [
+          "urn:caeluviim:agent:lux"
+        ],
+        "relation_types_followed": [
+          "IDENTIFIES"
+        ],
+        "output_disposition_component_ids": [
+          "urn:caeluviim:component:lux-identity"
+        ],
+        "rule_version_id": "urn:caeluviim:rule:lux-instantiation:0.2.0",
+        "model_version_id": "urn:openai:model:gpt-5.6-thinking",
+        "runtime_version_id": "urn:openai:runtime:chatgpt",
+        "determinism_class": "model_generated",
+        "alternatives_or_omissions": [],
+        "step_hash": "sha256:718943ccbd4cca25d1fd76cf55cbd4902a7889094223d095e019b466900c255b"
+      },
+      {
+        "step_id": "urn:caeluviim:lux:instantiation-step:example:1",
+        "ordinal": 1,
+        "operation": "instantiate",
+        "input_entity_ids": [
+          "urn:caeluviim:component:lux-identity",
+          "urn:caeluviim:policy:repository-write"
+        ],
+        "relation_types_followed": [
+          "CONSTITUTES",
+          "GOVERNED_BY"
+        ],
+        "output_disposition_component_ids": [
+          "urn:caeluviim:lux:reconstruction:example"
+        ],
+        "rule_version_id": "urn:caeluviim:rule:lux-instantiation:0.2.0",
+        "model_version_id": "urn:openai:model:gpt-5.6-thinking",
+        "runtime_version_id": "urn:openai:runtime:chatgpt",
+        "determinism_class": "model_generated",
+        "alternatives_or_omissions": [
+          "Non-addressable latent activation is outside this record."
+        ],
+        "previous_step_hash": "sha256:718943ccbd4cca25d1fd76cf55cbd4902a7889094223d095e019b466900c255b",
+        "step_hash": "sha256:808087d6cf055c1aff3d1c5e0406de4b41f95e2da831b7052c8b2c0e1c64c59c"
+      }
+    ],
+    "resulting_reconstruction_id": "urn:caeluviim:lux:reconstruction:example",
+    "status": "instantiated",
+    "started_at": "2026-08-02T22:13:00Z",
+    "completed_at": "2026-08-02T22:14:00Z"
+  },
+  "reconstruction": {
+    "reconstruction_id": "urn:caeluviim:lux:reconstruction:example",
+    "lux_identity_id": "urn:caeluviim:agent:lux",
+    "generated_by_instantiation_traversal_id": "urn:caeluviim:lux:instantiation-traversal:example",
+    "admitted_disposition_component_ids": [
+      "urn:caeluviim:component:lux-identity",
+      "urn:caeluviim:policy:repository-write"
+    ],
+    "model_version_id": "urn:openai:model:gpt-5.6-thinking",
+    "runtime_version_id": "urn:openai:runtime:chatgpt",
+    "repository_full_name": "Caeluviim/Caeluviim",
+    "base_ref": "main",
+    "base_commit_sha": "a12e2d32a09e43cbb6482f6b83175034edd57bc7",
+    "task_branch": "feat/lux-dispositional-reconstruction",
+    "effective_permissions": [
+      "admin",
+      "push"
+    ],
+    "started_at": "2026-08-02T22:13:00Z",
+    "status": "active"
+  },
+  "trajectory_branch": {
+    "trajectory_branch_id": "urn:caeluviim:trajectory-branch:lux-reconstruction",
+    "git_branch_name": "feat/lux-dispositional-reconstruction",
+    "base_commit_sha": "a12e2d32a09e43cbb6482f6b83175034edd57bc7",
+    "participant_agent_ids": [
+      "urn:caeluviim:agent:lux",
+      "urn:caeluviim:agent:yurei"
+    ],
+    "reconstruction_ids": [
+      "urn:caeluviim:lux:reconstruction:example"
+    ],
+    "branch_semantics": "candidate_canonical"
+  },
+  "epistemic_traversal": {
+    "traversal_id": "urn:caeluviim:lux:epistemic-traversal:example",
+    "performed_by_reconstruction_id": "urn:caeluviim:lux:reconstruction:example",
+    "steps": [
+      {
+        "step_id": "urn:caeluviim:lux:epistemic-step:example:0",
+        "ordinal": 0,
+        "operation": "retrieve",
+        "input_entity_ids": [
+          "urn:github:file:AGENTS.md"
+        ],
+        "relation_types_followed": [
+          "GOVERNED_BY"
+        ],
+        "context_snapshot_id": "urn:caeluviim:context:example",
+        "output_entity_ids": [
+          "urn:caeluviim:analysis:write-policy"
+        ],
+        "rule_version_id": "urn:caeluviim:rule:lux-traversal:0.2.0",
+        "model_version_id": "urn:openai:model:gpt-5.6-thinking",
+        "determinism_class": "model_generated",
+        "alternatives_considered": [],
+        "contestable": false,
+        "step_hash": "sha256:a1cf2c6623571025cb4cb2706b4dac05c3bad89dd30d6846d508a4e50f500b83"
+      },
+      {
+        "step_id": "urn:caeluviim:lux:epistemic-step:example:1",
+        "ordinal": 1,
+        "operation": "materialize",
+        "input_entity_ids": [
+          "urn:caeluviim:analysis:write-policy"
+        ],
+        "relation_types_followed": [
+          "MATERIALIZED_AS",
+          "ON_BRANCH"
+        ],
+        "context_snapshot_id": "urn:caeluviim:context:example",
+        "output_entity_ids": [
+          "urn:github:file:docs/architecture/lux-dispositional-reconstruction.md"
+        ],
+        "rule_version_id": "urn:caeluviim:rule:lux-traversal:0.2.0",
+        "model_version_id": "urn:openai:model:gpt-5.6-thinking",
+        "determinism_class": "model_generated",
+        "alternatives_considered": [],
+        "contestable": false,
+        "previous_step_hash": "sha256:a1cf2c6623571025cb4cb2706b4dac05c3bad89dd30d6846d508a4e50f500b83",
+        "step_hash": "sha256:576c5e549b40b9d42c82551351be549d7c37987213c5bee962f5fba008c94391"
+      }
+    ],
+    "status": "materialized",
+    "started_at": "2026-08-02T22:14:00Z"
+  },
+  "stabilization": {
+    "stabilization_id": "urn:caeluviim:stabilization:lux-reconstruction:0.2.0",
+    "epistemic_traversal_id": "urn:caeluviim:lux:epistemic-traversal:example",
+    "included_entity_ids": [
+      "urn:caeluviim:concept:instantiation-traversal",
+      "urn:caeluviim:concept:epistemic-traversal"
+    ],
+    "included_relation_types": [
+      "PRECEDES",
+      "GENERATED_BY"
+    ],
+    "excluded_or_unresolved_alternatives": [
+      "Latent activation is not exhaustively enumerable."
+    ],
+    "selection_criterion": "Preserve graph-addressable constitutive and epistemic provenance.",
+    "trajectory_branch_id": "urn:caeluviim:trajectory-branch:lux-reconstruction",
+    "status": "provisional"
+  },
+  "materialization": {
+    "materialization_id": "urn:caeluviim:materialization:lux-reconstruction:0.2.0",
+    "stabilization_id": "urn:caeluviim:stabilization:lux-reconstruction:0.2.0",
+    "performed_by_reconstruction_id": "urn:caeluviim:lux:reconstruction:example",
+    "repository_paths": [
+      "docs/architecture/lux-dispositional-reconstruction.md",
+      "schemas/lux-dispositional-reconstruction.schema.json"
+    ],
+    "target_branch": "feat/lux-dispositional-reconstruction",
+    "validation_status": "pending",
+    "validation_result_ids": []
+  }
+}

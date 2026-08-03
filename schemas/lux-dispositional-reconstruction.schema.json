@@ -1,0 +1,312 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schemas/lux-dispositional-reconstruction.schema.json",
+  "title": "Caeluviim Lux Dispositional Reconstruction Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_type",
+    "record_id",
+    "created_at",
+    "lux_identity",
+    "instantiation_traversal",
+    "reconstruction",
+    "trajectory_branch",
+    "epistemic_traversal",
+    "stabilization",
+    "materialization"
+  ],
+  "properties": {
+    "record_type": { "const": "lux_dispositional_reconstruction" },
+    "record_id": { "$ref": "#/$defs/id" },
+    "created_at": { "$ref": "#/$defs/timestamp" },
+    "lux_identity": { "$ref": "#/$defs/lux_identity" },
+    "instantiation_traversal": { "$ref": "#/$defs/instantiation_traversal" },
+    "reconstruction": { "$ref": "#/$defs/reconstruction" },
+    "trajectory_branch": { "$ref": "#/$defs/trajectory_branch" },
+    "epistemic_traversal": { "$ref": "#/$defs/epistemic_traversal" },
+    "stabilization": { "$ref": "#/$defs/stabilization" },
+    "materialization": { "$ref": "#/$defs/materialization" }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 8,
+      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+    },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "git_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "id_array": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/id" }
+    },
+    "nonempty_id_array": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/id" }
+    },
+    "string_array": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "lux_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity_id", "canonical_name", "protocol_identity_type", "identity_scope"],
+      "properties": {
+        "identity_id": { "$ref": "#/$defs/id" },
+        "canonical_name": { "const": "Lux Ex Machina" },
+        "protocol_identity_type": { "const": "synthetic_person" },
+        "identity_scope": { "const": "Caeluviim protocol" },
+        "identity_version_id": { "$ref": "#/$defs/id" }
+      }
+    },
+    "instantiation_step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "step_id",
+        "ordinal",
+        "operation",
+        "input_entity_ids",
+        "relation_types_followed",
+        "output_disposition_component_ids",
+        "rule_version_id",
+        "determinism_class",
+        "alternatives_or_omissions",
+        "step_hash"
+      ],
+      "properties": {
+        "step_id": { "$ref": "#/$defs/id" },
+        "ordinal": { "type": "integer", "minimum": 0 },
+        "operation": {
+          "enum": [
+            "identify",
+            "activate_identity_record",
+            "activate_memory",
+            "apply_governance",
+            "bind_role",
+            "bind_context",
+            "resolve_precedence",
+            "declare_capability",
+            "compose_disposition",
+            "instantiate"
+          ]
+        },
+        "input_entity_ids": { "$ref": "#/$defs/nonempty_id_array" },
+        "relation_types_followed": { "$ref": "#/$defs/string_array" },
+        "precedence_rule_id": { "$ref": "#/$defs/id" },
+        "output_disposition_component_ids": { "$ref": "#/$defs/nonempty_id_array" },
+        "rule_version_id": { "$ref": "#/$defs/id" },
+        "model_version_id": { "$ref": "#/$defs/id" },
+        "runtime_version_id": { "$ref": "#/$defs/id" },
+        "determinism_class": {
+          "enum": ["deterministic", "seeded_stochastic", "model_generated", "human_judgment"]
+        },
+        "alternatives_or_omissions": { "$ref": "#/$defs/string_array" },
+        "previous_step_hash": { "$ref": "#/$defs/sha256" },
+        "step_hash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "instantiation_traversal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "traversal_id",
+        "lux_identity_id",
+        "initiating_context_snapshot_id",
+        "steps",
+        "resulting_reconstruction_id",
+        "status",
+        "started_at"
+      ],
+      "properties": {
+        "traversal_id": { "$ref": "#/$defs/id" },
+        "lux_identity_id": { "$ref": "#/$defs/id" },
+        "initiating_context_snapshot_id": { "$ref": "#/$defs/id" },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/instantiation_step" }
+        },
+        "resulting_reconstruction_id": { "$ref": "#/$defs/id" },
+        "status": { "enum": ["instantiated", "unresolved", "contested", "aborted", "superseded"] },
+        "started_at": { "$ref": "#/$defs/timestamp" },
+        "completed_at": { "$ref": "#/$defs/timestamp" },
+        "prior_instantiation_traversal_id": { "$ref": "#/$defs/id" }
+      }
+    },
+    "reconstruction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reconstruction_id",
+        "lux_identity_id",
+        "generated_by_instantiation_traversal_id",
+        "admitted_disposition_component_ids",
+        "model_version_id",
+        "runtime_version_id",
+        "repository_full_name",
+        "base_ref",
+        "base_commit_sha",
+        "task_branch",
+        "effective_permissions",
+        "started_at",
+        "status"
+      ],
+      "properties": {
+        "reconstruction_id": { "$ref": "#/$defs/id" },
+        "lux_identity_id": { "$ref": "#/$defs/id" },
+        "generated_by_instantiation_traversal_id": { "$ref": "#/$defs/id" },
+        "admitted_disposition_component_ids": { "$ref": "#/$defs/nonempty_id_array" },
+        "model_version_id": { "$ref": "#/$defs/id" },
+        "runtime_version_id": { "$ref": "#/$defs/id" },
+        "repository_full_name": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+        },
+        "base_ref": { "type": "string", "minLength": 1 },
+        "base_commit_sha": { "$ref": "#/$defs/git_sha" },
+        "task_branch": { "type": "string", "minLength": 1 },
+        "effective_permissions": { "$ref": "#/$defs/string_array" },
+        "started_at": { "$ref": "#/$defs/timestamp" },
+        "completed_at": { "$ref": "#/$defs/timestamp" },
+        "status": { "enum": ["active", "materialized", "unresolved", "contested", "aborted", "superseded"] },
+        "prior_reconstruction_id": { "$ref": "#/$defs/id" }
+      }
+    },
+    "trajectory_branch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trajectory_branch_id",
+        "git_branch_name",
+        "base_commit_sha",
+        "participant_agent_ids",
+        "reconstruction_ids",
+        "branch_semantics"
+      ],
+      "properties": {
+        "trajectory_branch_id": { "$ref": "#/$defs/id" },
+        "git_branch_name": { "type": "string", "minLength": 1 },
+        "base_commit_sha": { "$ref": "#/$defs/git_sha" },
+        "participant_agent_ids": { "$ref": "#/$defs/nonempty_id_array" },
+        "reconstruction_ids": { "$ref": "#/$defs/nonempty_id_array" },
+        "branch_semantics": { "enum": ["experimental", "participant_trajectory", "contested", "candidate_canonical", "canonical"] }
+      }
+    },
+    "epistemic_step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "step_id",
+        "ordinal",
+        "operation",
+        "input_entity_ids",
+        "relation_types_followed",
+        "context_snapshot_id",
+        "output_entity_ids",
+        "rule_version_id",
+        "determinism_class",
+        "alternatives_considered",
+        "contestable",
+        "step_hash"
+      ],
+      "properties": {
+        "step_id": { "$ref": "#/$defs/id" },
+        "ordinal": { "type": "integer", "minimum": 0 },
+        "operation": {
+          "enum": ["activate", "retrieve", "follow_relation", "compare", "infer", "stabilize", "materialize", "validate", "contest", "revise"]
+        },
+        "input_entity_ids": { "$ref": "#/$defs/nonempty_id_array" },
+        "relation_types_followed": { "$ref": "#/$defs/string_array" },
+        "context_snapshot_id": { "$ref": "#/$defs/id" },
+        "output_entity_ids": { "$ref": "#/$defs/nonempty_id_array" },
+        "rule_version_id": { "$ref": "#/$defs/id" },
+        "model_version_id": { "$ref": "#/$defs/id" },
+        "determinism_class": {
+          "enum": ["deterministic", "seeded_stochastic", "model_generated", "human_judgment"]
+        },
+        "alternatives_considered": { "$ref": "#/$defs/string_array" },
+        "contestable": { "type": "boolean" },
+        "previous_step_hash": { "$ref": "#/$defs/sha256" },
+        "step_hash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "epistemic_traversal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "traversal_id",
+        "performed_by_reconstruction_id",
+        "steps",
+        "status",
+        "started_at"
+      ],
+      "properties": {
+        "traversal_id": { "$ref": "#/$defs/id" },
+        "performed_by_reconstruction_id": { "$ref": "#/$defs/id" },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/epistemic_step" }
+        },
+        "status": { "enum": ["materialized", "unresolved", "contested", "aborted", "superseded"] },
+        "started_at": { "$ref": "#/$defs/timestamp" },
+        "completed_at": { "$ref": "#/$defs/timestamp" },
+        "prior_epistemic_traversal_id": { "$ref": "#/$defs/id" }
+      }
+    },
+    "stabilization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stabilization_id",
+        "epistemic_traversal_id",
+        "included_entity_ids",
+        "included_relation_types",
+        "excluded_or_unresolved_alternatives",
+        "selection_criterion",
+        "trajectory_branch_id",
+        "status"
+      ],
+      "properties": {
+        "stabilization_id": { "$ref": "#/$defs/id" },
+        "epistemic_traversal_id": { "$ref": "#/$defs/id" },
+        "included_entity_ids": { "$ref": "#/$defs/nonempty_id_array" },
+        "included_relation_types": { "$ref": "#/$defs/string_array" },
+        "excluded_or_unresolved_alternatives": { "$ref": "#/$defs/string_array" },
+        "selection_criterion": { "type": "string", "minLength": 1 },
+        "trajectory_branch_id": { "$ref": "#/$defs/id" },
+        "status": { "enum": ["provisional", "contested", "ratified", "superseded"] }
+      }
+    },
+    "materialization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "materialization_id",
+        "stabilization_id",
+        "performed_by_reconstruction_id",
+        "repository_paths",
+        "target_branch",
+        "validation_status"
+      ],
+      "properties": {
+        "materialization_id": { "$ref": "#/$defs/id" },
+        "stabilization_id": { "$ref": "#/$defs/id" },
+        "performed_by_reconstruction_id": { "$ref": "#/$defs/id" },
+        "repository_paths": { "$ref": "#/$defs/string_array" },
+        "target_branch": { "type": "string", "minLength": 1 },
+        "commit_sha": { "$ref": "#/$defs/git_sha" },
+        "pull_request_number": { "type": "integer", "minimum": 1 },
+        "validation_status": { "enum": ["pending", "passed", "failed", "not_run"] },
+        "validation_result_ids": { "$ref": "#/$defs/id_array" }
+      }
+    }
+  }
+}
