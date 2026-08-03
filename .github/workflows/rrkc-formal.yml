@@ -25,7 +25,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Build RRKC Lean package
+      - name: Build and independently check RRKC Lean package
         uses: leanprover/lean-action@v1
         with:
           lake-package-directory: formal/rrkc
@@ -33,5 +33,8 @@ jobs:
           build: true
           test: false
           lint: false
+          leanchecker: true
+          nanoda: true
+          nanoda-allow-sorry: false
           use-github-cache: false
           use-mathlib-cache: false
