@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schemas/rrkc-r2.schema.json",
+  "title": "RRKC R2 closed formal-calculus record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "module_id",
+    "version",
+    "status",
+    "tower",
+    "sorts",
+    "term_constructors",
+    "proposition_constructors",
+    "relation_signatures",
+    "operation_signatures",
+    "judgments",
+    "governance_operations",
+    "provenance",
+    "termination_fragment",
+    "theorems",
+    "conformance"
+  ],
+  "properties": {
+    "module_id": {"type": "string", "format": "uri"},
+    "version": {"const": "2.0.0"},
+    "status": {"enum": ["proposed", "validated", "ratified", "rejected"]},
+    "tower": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "prefixItems": [
+        {"const": "R0"},
+        {"const": "RE"},
+        {"const": "RR"},
+        {"const": "RS"},
+        {"const": "RX"}
+      ],
+      "items": false
+    },
+    "sorts": {
+      "type": "array",
+      "minItems": 10,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "term_constructors": {
+      "type": "array",
+      "minItems": 16,
+      "items": {"$ref": "#/$defs/constructor"}
+    },
+    "proposition_constructors": {
+      "type": "array",
+      "minItems": 8,
+      "items": {"$ref": "#/$defs/constructor"}
+    },
+    "relation_signatures": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/relationSignature"}
+    },
+    "operation_signatures": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/operationSignature"}
+    },
+    "judgments": {
+      "type": "array",
+      "minItems": 15,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "governance_operations": {
+      "type": "array",
+      "minItems": 7,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["amend", "ratify", "revoke", "delegate", "veto", "suspend", "restore"]
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["order_convention", "event_fields", "replay_requirement"],
+      "properties": {
+        "order_convention": {"const": "strict-irreflexive-transitive-acyclic"},
+        "event_fields": {
+          "type": "array",
+          "const": ["event_id", "label", "inputs", "outputs"]
+        },
+        "replay_requirement": {
+          "const": "provenance-isomorphism-and-semantic-equality"
+        }
+      }
+    },
+    "termination_fragment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "restriction", "measure", "global_strong_normalization_claimed"],
+      "properties": {
+        "name": {"const": "K_SN"},
+        "restriction": {"type": "string", "minLength": 1},
+        "measure": {"type": "string", "minLength": 1},
+        "global_strong_normalization_claimed": {"const": false}
+      }
+    },
+    "theorems": {
+      "type": "array",
+      "minItems": 19,
+      "items": {"$ref": "#/$defs/theorem"}
+    },
+    "conformance": {
+      "type": "array",
+      "minItems": 8,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "constructor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "result"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "arguments": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "result": {"type": "string", "minLength": 1},
+        "binds": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "layer": {"enum": ["R0", "RE", "RR", "RS", "RX"]},
+        "partial": {"type": "boolean"}
+      }
+    },
+    "relationSignature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["symbol", "left", "right"],
+      "properties": {
+        "symbol": {"type": "string", "minLength": 1},
+        "left": {"type": "string", "minLength": 1},
+        "right": {"type": "string", "minLength": 1}
+      }
+    },
+    "operationSignature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["symbol", "inputs", "output"],
+      "properties": {
+        "symbol": {"type": "string", "minLength": 1},
+        "inputs": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "output": {"type": "string", "minLength": 1}
+      }
+    },
+    "theorem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "scope", "status", "verification"],
+      "properties": {
+        "id": {"pattern": "^T[0-9]+$"},
+        "name": {"type": "string", "minLength": 1},
+        "scope": {"type": "string", "minLength": 1},
+        "status": {"enum": ["specified", "executable-instance-checked", "machine-proved", "rejected"]},
+        "verification": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
