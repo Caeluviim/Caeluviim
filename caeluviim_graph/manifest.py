@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import base64
+import binascii
+import gzip
 import hashlib
 import json
 import re
@@ -151,6 +154,10 @@ class ManifestValidationError(ValueError):
         super().__init__("Manifest validation failed:\n- " + "\n- ".join(errors))
 
 
+class ManifestEncodingError(ValueError):
+    """Raised when a manifest file cannot be decoded into JSON."""
+
+
 def canonical_json(value: Any) -> str:
     """Return deterministic JSON suitable for hashing and audit comparison."""
 
@@ -162,7 +169,28 @@ def sha256_record(value: Any) -> str:
 
 
 def load_manifest(path: str | Path) -> dict[str, Any]:
-    return json.loads(Path(path).read_text(encoding="utf-8"))
+    """Load plain JSON or deterministic base64-encoded gzip JSON manifests."""
+
+    manifest_path = Path(path)
+    try:
+        encoded_text = manifest_path.read_text(encoding="utf-8")
+        if manifest_path.name.endswith(".json.gz.b64"):
+            encoded_text = "".join(encoded_text.split())
+            compressed = base64.b64decode(encoded_text, validate=True)
+            decoded_text = gzip.decompress(compressed).decode("utf-8")
+            return json.loads(decoded_text)
+        return json.loads(encoded_text)
+    except (
+        OSError,
+        binascii.Error,
+        EOFError,
+        gzip.BadGzipFile,
+        UnicodeDecodeError,
+        json.JSONDecodeError,
+    ) as exc:
+        raise ManifestEncodingError(
+            f"Unable to decode manifest {manifest_path}: {exc}"
+        ) from exc
 
 
 def load_schema(path: str | Path) -> dict[str, Any]:
