@@ -43,7 +43,7 @@ theorem T5_contraction (t : Term (τ :: τ :: Γ) ρ) :
 /- T6 preservation is enforced by the indices of `Step`: source and target
 share the same context and sort. -/
 theorem T6_preservation {G : Governance} {t t' : Term Γ τ}
-    (h : Step G t t') : ∃ u : Term Γ τ, u = t' :=
+    (_h : Step G t t') : ∃ u : Term Γ τ, u = t' :=
   ⟨t', rfl⟩
 
 inductive Canonical : Term Γ τ → Prop where
