@@ -22,10 +22,13 @@ def _print(value: Any) -> None:
 
 def _validated_manifests(directory: Path, schema_path: Path) -> list[dict[str, Any]]:
     schema = load_schema(schema_path)
-    manifests: list[dict[str, Any]] = []
-    for path in sorted(directory.glob("*.json")):
-        manifests.append(validate_manifest(load_manifest(path), schema))
-    return manifests
+    paths = sorted(
+        {
+            *directory.glob("*.json"),
+            *directory.glob("*.json.gz.b64"),
+        }
+    )
+    return [validate_manifest(load_manifest(path), schema) for path in paths]
 
 
 def build_parser() -> argparse.ArgumentParser:
