@@ -4,20 +4,25 @@ Status: proposed
 
 ## Purpose
 
-Every substantive assistant response concerning Caeluviim should be grounded in a pinned repository state and archived back to the repository through the repository's task-branch and pull-request controls.
+Every assistant response in the Caeluviim project thread must begin from a complete repository copy pinned to an exact repository state and must be archived back to the repository through the task-branch and pull-request controls.
 
-## Start-of-response boundary
+## Mandatory start-of-response copy
 
-Before composing the substantive response:
+Before drafting any user-visible response:
 
 1. Resolve repository metadata for `Caeluviim/Caeluviim`.
 2. Resolve the current default branch and exact head commit SHA.
-3. Create a working copy pinned to that SHA when the execution environment permits a clone or archive download.
-4. When a local copy cannot be created, use authenticated GitHub connector reads pinned to the exact head SHA and record the copy limitation, cause, correction, and verification result.
-5. Read `AGENTS.md` and `config/repository-write-policy.json` before any mutation.
-6. Record the repository, branch, head SHA, timestamp, snapshot method, and snapshot result in the response archive.
+3. Create a fresh, complete local copy of the repository.
+4. Check out the exact resolved head commit in detached state.
+5. Verify the copy with the remote URL, `git rev-parse HEAD`, repository file count, and hashes of `AGENTS.md` and `config/repository-write-policy.json`.
+6. Read `AGENTS.md` and `config/repository-write-policy.json` from that copy before any mutation.
+7. Record the repository, default branch, pinned head SHA, timestamp, copy method, verification results, and copy receipt in the response archive.
 
-The pinned commit is the source boundary for repository-state claims in that response. Later repository activity is not silently incorporated.
+Authenticated connector reads, selected-file fetches, commit searches, and metadata queries are repository evidence but are not a repository copy and do not satisfy this boundary.
+
+When the complete copy cannot be created, the boundary has failed. The failure report must not describe connector reads as a copy or as a completed correction. The report must state the exact unresolved cause, required corrective action, responsible layer, and verification procedure. A failure report may still be archived through connector writes on a task branch, but that archive does not cure the missing start-of-response copy.
+
+The pinned commit is the sole source boundary for repository-state claims in the response. Later repository activity is not silently incorporated.
 
 ## Response construction
 
@@ -30,16 +35,17 @@ The response must distinguish:
 
 No live graph delta may be claimed without a runtime-generated ingestion or status receipt identifying the runtime, source commit, manifest, timestamp, result, node count, relationship count, validation result, and receipt hash.
 
-## End-of-response boundary
+## Mandatory end-of-response archive
 
-After composing the response:
+At the conclusion of response construction and before transmitting the response:
 
-1. Write the assistant response to `records/assistant-responses/YYYY/MM/DD/` on an explicitly named task branch.
+1. Write the exact user-visible response body to `records/assistant-responses/YYYY/MM/DD/` on an explicitly named non-default task branch.
 2. Never write directly to `main`.
 3. Open or update a pull request carrying the response archive.
-4. Fetch the written file from the task branch and verify its content and blob SHA.
-5. Inspect the pull request's changed-file list.
-6. Report the branch, files, commit SHA, pull request, validation state, and remaining merge boundary.
+4. Fetch the written file from the task branch and verify its exact content and blob SHA.
+5. Inspect the pull request changed-file list.
+6. Verify the response-body hash recorded in the archive.
+7. Report the branch, files, commit SHA, pull request, validation state, remaining merge boundary, and any unresolved start-copy failure.
 
 The repository archive is evidence that the response was written to the repository. It is not evidence that the live graph changed.
 
@@ -48,8 +54,6 @@ The repository archive is evidence that the response was written to the reposito
 A failure report must state either:
 
 - the exact cause, correction applied, resulting artifact or commit, and verification result; or
-- the exact unresolved cause, required corrective action, responsible layer, and verification procedure.
+- the exact unresolved cause, reason it remains unresolved, required corrective action, responsible layer, and verification procedure.
 
-## Current execution limitation
-
-The response execution container may not have outbound DNS or network access to `github.com`. In that condition, a direct `git clone` cannot serve as the working-copy mechanism. The authenticated GitHub connector is the corrective repository-access path, with reads pinned to the resolved commit SHA.
+No workflow may be reported as complete while the mandatory repository copy is absent.
