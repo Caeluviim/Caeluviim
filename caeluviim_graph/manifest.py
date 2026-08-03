@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+import base64
+import binascii
+import gzip
 import hashlib
 import json
 import re
+import zlib
 from copy import deepcopy
 from pathlib import Path
 from typing import Any, Mapping
@@ -151,6 +155,10 @@ class ManifestValidationError(ValueError):
         super().__init__("Manifest validation failed:\n- " + "\n- ".join(errors))
 
 
+class ManifestEncodingError(ValueError):
+    """Raised when a manifest file cannot be decoded into JSON."""
+
+
 def canonical_json(value: Any) -> str:
     """Return deterministic JSON suitable for hashing and audit comparison."""
 
@@ -161,8 +169,75 @@ def sha256_record(value: Any) -> str:
     return "sha256:" + hashlib.sha256(canonical_json(value).encode("utf-8")).hexdigest()
 
 
+def _encoded_payload(manifest_path: Path, encoded_text: str) -> str:
+    stripped = encoded_text.strip()
+    if not stripped.startswith("{"):
+        return "".join(stripped.split())
+
+    index = json.loads(stripped)
+    expected_keys = {"encoding", "encoded_sha256", "parts"}
+    if not isinstance(index, dict) or set(index) != expected_keys:
+        raise ManifestEncodingError(
+            f"Compressed manifest index {manifest_path} must contain exactly: "
+            "encoding, encoded_sha256, parts"
+        )
+    if index["encoding"] != "base64+gzip+json":
+        raise ManifestEncodingError(
+            f"Unsupported compressed manifest encoding in {manifest_path}"
+        )
+    parts = index["parts"]
+    if not isinstance(parts, list) or not parts or not all(
+        isinstance(part, str) and part for part in parts
+    ):
+        raise ManifestEncodingError(
+            f"Compressed manifest index {manifest_path} has an invalid parts list"
+        )
+
+    parent = manifest_path.parent.resolve()
+    payload_parts: list[str] = []
+    for part in parts:
+        part_path = (manifest_path.parent / part).resolve()
+        if part_path.parent != parent:
+            raise ManifestEncodingError(
+                f"Compressed manifest part escapes its directory: {part}"
+            )
+        payload_parts.append("".join(part_path.read_text(encoding="utf-8").split()))
+
+    payload = "".join(payload_parts)
+    actual_sha256 = hashlib.sha256(payload.encode("ascii")).hexdigest()
+    if actual_sha256 != index["encoded_sha256"]:
+        raise ManifestEncodingError(
+            f"Compressed manifest payload hash mismatch for {manifest_path}"
+        )
+    return payload
+
+
 def load_manifest(path: str | Path) -> dict[str, Any]:
-    return json.loads(Path(path).read_text(encoding="utf-8"))
+    """Load plain JSON or base64-encoded gzip JSON manifests, including multipart indexes."""
+
+    manifest_path = Path(path)
+    try:
+        encoded_text = manifest_path.read_text(encoding="utf-8")
+        if manifest_path.name.endswith(".json.gz.b64"):
+            payload = _encoded_payload(manifest_path, encoded_text)
+            compressed = base64.b64decode(payload, validate=True)
+            decoded_text = gzip.decompress(compressed).decode("utf-8")
+            return json.loads(decoded_text)
+        return json.loads(encoded_text)
+    except ManifestEncodingError:
+        raise
+    except (
+        OSError,
+        binascii.Error,
+        EOFError,
+        gzip.BadGzipFile,
+        zlib.error,
+        UnicodeDecodeError,
+        json.JSONDecodeError,
+    ) as exc:
+        raise ManifestEncodingError(
+            f"Unable to decode manifest {manifest_path}: {exc}"
+        ) from exc
 
 
 def load_schema(path: str | Path) -> dict[str, Any]:

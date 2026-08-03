@@ -1,0 +1,15 @@
+{
+  "encoded_sha256": "17c8175e66dea0ef19aa93256f3b7228608658e0088767b972400a74b79482c4",
+  "encoding": "base64+gzip+json",
+  "parts": [
+    "lux-kernel-core-v0.1.0.json.gz.b64.part-001",
+    "lux-kernel-core-v0.1.0.json.gz.b64.part-002",
+    "lux-kernel-core-v0.1.0.json.gz.b64.part-003",
+    "lux-kernel-core-v0.1.0.json.gz.b64.part-004",
+    "lux-kernel-core-v0.1.0.json.gz.b64.part-005",
+    "lux-kernel-core-v0.1.0.json.gz.b64.part-006",
+    "lux-kernel-core-v0.1.0.json.gz.b64.part-007",
+    "lux-kernel-core-v0.1.0.json.gz.b64.part-008",
+    "lux-kernel-core-v0.1.0.json.gz.b64.part-009"
+  ]
+}
