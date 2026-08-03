@@ -1,0 +1,7 @@
+The required start-of-response repository copy was attempted. It failed at DNS resolution: `git clone https://github.com/Caeluviim/Caeluviim.git` returned `Could not resolve host: github.com`. Connector reads were not represented as a repository copy.
+
+The final-form commercial-plasmapheresis complaint now exists in PR #34 at `legal/complaints/commercial-plasmapheresis/minnesota-commercial-plasmapheresis-complaint-final-form.md`. PR #34 is open, non-draft, mergeable, and Graph ingestion validation run 160 completed successfully. The pleading is final-form as to structure and legal theories; filing still requires plaintiff identity, exact entities and registered agents, dates, locations, advertisements, consent forms, procedure and laboratory records, venue facts, and damages chronology.
+
+The duplicate hourly event watch was corrected: `Caeluviim Material Event Watch` is disabled; `Caeluviim Runtime Alerts` remains enabled as the single hourly condition watch. Its metadata reports notifications disabled, so hourly checks are active but push delivery is not claimed.
+
+This response was archived on branch `ops/repository-first-response-protocol-20260803` in PR #33 at `records/assistant-responses/2026/08/03/2026-08-03T13-35-04-05-00-agency-and-final-draft-status.md` and fetched back for content verification. Classification: repository evidence only. No runtime receipt is present; no live graph change is claimed.
