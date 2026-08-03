@@ -7,6 +7,7 @@ Caeluviim is a provenance-tracked formal architecture for representing claims, a
 | Module | Status | Primary specification | Machine constraints |
 |---|---|---|---|
 | Error-Mediated Generative Non-Closure | Proposed v0.1.0 | [`docs/architecture/error-mediated-generative-nonclosure.md`](docs/architecture/error-mediated-generative-nonclosure.md) | JSON Schema, OWL/RDF vocabulary, SHACL shapes, executable tests |
+| RRKC closed formal calculus | Proposed v2.0.0 | [`docs/architecture/rrkc-r2-formal-specification.md`](docs/architecture/rrkc-r2-formal-specification.md) | Ott source, Lean target, executable reference, JSON Schema, OWL/RDF, SHACL, graph manifest, tests |
 
 ## Working graph runtime
 
@@ -47,6 +48,7 @@ See [`docs/operations/laptop-host.md`](docs/operations/laptop-host.md) for start
 - `scripts/laptop/` — laptop-host lifecycle, backup, and restore commands
 - `docs/architecture/` — normative architecture specifications
 - `docs/operations/` — executable operating procedures
+- `formal/` — formal-language sources, proof targets, and executable reference semantics
 - `schemas/` — JSON Schema validation contracts
 - `ontology/` — RDF/OWL vocabulary
 - `shapes/` — SHACL graph constraints
@@ -59,11 +61,13 @@ See [`docs/operations/laptop-host.md`](docs/operations/laptop-host.md) for start
 python -m pip install -r requirements-dev.txt
 python -m unittest discover -s tests -v
 pyshacl -s shapes/emgn.shacl.ttl -e ontology/emgn.ttl examples/emgn-record.valid.ttl
+pyshacl -s shapes/rrkc.shacl.ttl -e ontology/rrkc.ttl examples/rrkc-r2.valid.ttl
 python -m caeluviim_graph.cli validate examples/ingest-manifest.valid.json
+python -m caeluviim_graph.cli validate ingest/manifests/rrkc-r2.json
 ```
 
 ## Governance state
 
-The EMGN module is implemented but remains **proposed**, not ratified. Ratification requires two independent validators who are not the proposer, with provenance recorded in the module's governance record.
+The EMGN and RRKC modules are implemented but remain **proposed**, not ratified. Ratification requires the applicable independent validation and governance record for each module.
 
 The graph runtime is an operational implementation substrate. Loading a record does not ratify its semantic or governance claims; those states must be represented explicitly in the ingested material.
