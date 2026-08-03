@@ -7,8 +7,9 @@ This directory is the formalization boundary for RRKC R2.
 1. `rrkc_r0.ott` is the grammar and rule source of truth.
 2. `RRKC/R0.lean` is the intrinsic Lean representation of the executable R0 surface.
 3. `RRKC/Metatheory.lean` contains the machine-checked T2–T7 declarations.
-4. `reference_model.py` is the executable reference used by repository tests.
-5. `../../docs/architecture/rrkc-r2-formal-specification.md` is the normative explanatory specification.
+4. `../../docs/architecture/rrkc-r2-verification-register.md` is the live theorem-status register.
+5. `reference_model.py` is the executable reference used by repository tests.
+6. `../../docs/architecture/rrkc-r2-formal-specification.md` is the normative explanatory specification and original proposal snapshot.
 
 ## Verification status
 
