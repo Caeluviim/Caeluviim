@@ -1,0 +1,47 @@
+name: RRKC formal verification
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "formal/rrkc/**"
+      - ".github/workflows/rrkc-formal.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "formal/rrkc/**"
+      - ".github/workflows/rrkc-formal.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Reject proof placeholders
+        shell: bash
+        run: |
+          if grep -R -nE '(^|[[:space:]])(sorry|admit)([[:space:]]|$)|^[[:space:]]*axiom[[:space:]]' \
+            formal/rrkc/RRKC.lean formal/rrkc/RRKC; then
+            echo "RRKC Lean sources contain a prohibited proof placeholder." >&2
+            exit 1
+          fi
+
+      - name: Build and kernel-check RRKC Lean package
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: formal/rrkc
+          auto-config: false
+          build: true
+          test: false
+          lint: false
+          leanchecker: true
+          use-github-cache: false
+          use-mathlib-cache: false

@@ -78,12 +78,12 @@ rrkc:StrictPrecedence a rrkc:ProvenanceConvention ;
     rrkc:orderConvention "strict-irreflexive-transitive-acyclic" .
 
 rrkc:T1 a rrkc:TheoremObligation ; rrkc:theoremId "T1" ; rrkc:verificationStatus "executable-instance-checked" .
-rrkc:T2 a rrkc:TheoremObligation ; rrkc:theoremId "T2" ; rrkc:verificationStatus "executable-instance-checked" .
-rrkc:T3 a rrkc:TheoremObligation ; rrkc:theoremId "T3" ; rrkc:verificationStatus "specified" .
-rrkc:T4 a rrkc:TheoremObligation ; rrkc:theoremId "T4" ; rrkc:verificationStatus "specified" .
-rrkc:T5 a rrkc:TheoremObligation ; rrkc:theoremId "T5" ; rrkc:verificationStatus "specified" .
-rrkc:T6 a rrkc:TheoremObligation ; rrkc:theoremId "T6" ; rrkc:verificationStatus "executable-instance-checked" .
-rrkc:T7 a rrkc:TheoremObligation ; rrkc:theoremId "T7" ; rrkc:verificationStatus "executable-instance-checked" .
+rrkc:T2 a rrkc:TheoremObligation ; rrkc:theoremId "T2" ; rrkc:verificationStatus "machine-proved" .
+rrkc:T3 a rrkc:TheoremObligation ; rrkc:theoremId "T3" ; rrkc:verificationStatus "machine-proved" .
+rrkc:T4 a rrkc:TheoremObligation ; rrkc:theoremId "T4" ; rrkc:verificationStatus "machine-proved" .
+rrkc:T5 a rrkc:TheoremObligation ; rrkc:theoremId "T5" ; rrkc:verificationStatus "machine-proved" .
+rrkc:T6 a rrkc:TheoremObligation ; rrkc:theoremId "T6" ; rrkc:verificationStatus "machine-proved" .
+rrkc:T7 a rrkc:TheoremObligation ; rrkc:theoremId "T7" ; rrkc:verificationStatus "machine-proved" .
 rrkc:T8 a rrkc:TheoremObligation ; rrkc:theoremId "T8" ; rrkc:verificationStatus "specified" .
 rrkc:T9 a rrkc:TheoremObligation ; rrkc:theoremId "T9" ; rrkc:verificationStatus "specified" .
 rrkc:T10 a rrkc:TheoremObligation ; rrkc:theoremId "T10" ; rrkc:verificationStatus "specified" .
