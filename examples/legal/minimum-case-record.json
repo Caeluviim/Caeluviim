@@ -1,0 +1,49 @@
+{
+  "case_id": "urn:caeluviim:legal-case:minimum-example",
+  "court": "District Court, Fourth Judicial District, State of Minnesota",
+  "caption": {
+    "plaintiff": "Example Plaintiff",
+    "defendants": ["Example Defendant"]
+  },
+  "jurisdiction_and_venue": [
+    "This draft records a proposed jurisdictional allegation that must be independently verified before filing.",
+    "This draft records a proposed venue allegation that must be independently verified before filing."
+  ],
+  "parties": [
+    "Plaintiff is identified by the source-bound case record.",
+    "Defendant is identified by the source-bound case record."
+  ],
+  "facts": [
+    {
+      "id": "F1",
+      "text": "A source-bound event is alleged to have occurred.",
+      "source_ids": ["urn:caeluviim:evidence:example-1"]
+    },
+    {
+      "id": "F2",
+      "text": "The alleged event is represented separately from any conclusion about liability.",
+      "source_ids": ["urn:caeluviim:evidence:example-2"]
+    }
+  ],
+  "causes_of_action": [
+    {
+      "title": "Proposed Count — Authority and Elements Require Verification",
+      "authority": "Unresolved authority placeholder represented as an explicit drafting input, not a legal conclusion",
+      "elements": [
+        "The source-bound facts must satisfy every required element before this count can be treated as filing-ready.",
+        "Conflicting facts, defenses, exhaustion requirements, limitations periods, and jurisdictional defects remain unresolved unless separately represented."
+      ],
+      "incorporates": ["F1", "F2"]
+    }
+  ],
+  "requested_relief": [
+    "Enter only relief authorized by verified governing law and supported by the adjudicated record.",
+    "Grant any further relief the court determines lawful and appropriate."
+  ],
+  "provenance": {
+    "source_commit": "UNRESOLVED_UNTIL_MATERIALIZATION",
+    "manifest_id": "urn:caeluviim:manifest:minimum-legal-case-example",
+    "generated_at": "2026-08-03T13:25:00Z"
+  },
+  "verification": "I declare only that this machine-generated example demonstrates document assembly. It does not verify the truth or legal sufficiency of any allegation."
+}
