@@ -1,0 +1,99 @@
+@prefix rrkc: <https://caeluviim.org/ontology/rrkc#> .
+
+<urn:caeluviim:module:rrkc:r2> a rrkc:FormalModule ;
+    rrkc:identifier "urn:caeluviim:module:rrkc:r2" ;
+    rrkc:version "2.0.0" ;
+    rrkc:status "proposed" ;
+    rrkc:hasLayer rrkc:R0, rrkc:RE, rrkc:RR, rrkc:RS, rrkc:RX ;
+    rrkc:hasSort rrkc:EntitySort, rrkc:ClaimSort, rrkc:EvidenceSort, rrkc:RelationSort,
+        rrkc:ActivitySort, rrkc:AgentSort, rrkc:PolicySort, rrkc:ProvenanceSort,
+        rrkc:PropSort, rrkc:CodeSort, rrkc:ArrowSort ;
+    rrkc:hasConstructor rrkc:VarCtor, rrkc:IdCtor, rrkc:ClaimCtor, rrkc:EvidenceCtor,
+        rrkc:RelCtor, rrkc:ActCtor, rrkc:StampCtor, rrkc:ReviseCtor, rrkc:VersionCtor,
+        rrkc:LambdaCtor, rrkc:ApplicationCtor, rrkc:LetCtor, rrkc:QuoteCtor,
+        rrkc:DecodeCtor, rrkc:EvalCtor, rrkc:InternalRunCtor, rrkc:TopCtor,
+        rrkc:BottomCtor, rrkc:NotCtor, rrkc:AndCtor, rrkc:OrCtor, rrkc:ImpliesCtor,
+        rrkc:ForallCtor, rrkc:ExistsCtor, rrkc:TermEqualityCtor, rrkc:SupportsCtor,
+        rrkc:RebutsCtor, rrkc:AdmissibleCtor, rrkc:DerivedFromCtor ;
+    rrkc:hasTerminationFragment rrkc:KSN ;
+    rrkc:hasProvenanceConvention rrkc:StrictPrecedence ;
+    rrkc:hasTheorem rrkc:T1, rrkc:T2, rrkc:T3, rrkc:T4, rrkc:T5, rrkc:T6, rrkc:T7,
+        rrkc:T8, rrkc:T9, rrkc:T10, rrkc:T11, rrkc:T12, rrkc:T13, rrkc:T14,
+        rrkc:T15, rrkc:T16, rrkc:T17, rrkc:T18, rrkc:T19, rrkc:T20 .
+
+rrkc:R0 a rrkc:Layer ; rrkc:layerIndex 0 .
+rrkc:RE a rrkc:Layer ; rrkc:layerIndex 1 ; rrkc:extendsLayer rrkc:R0 .
+rrkc:RR a rrkc:Layer ; rrkc:layerIndex 2 ; rrkc:extendsLayer rrkc:RE .
+rrkc:RS a rrkc:Layer ; rrkc:layerIndex 3 ; rrkc:extendsLayer rrkc:RR .
+rrkc:RX a rrkc:Layer ; rrkc:layerIndex 4 ; rrkc:extendsLayer rrkc:RS .
+
+rrkc:EntitySort a rrkc:Sort ; rrkc:notation "Entity" .
+rrkc:ClaimSort a rrkc:Sort ; rrkc:notation "Claim" .
+rrkc:EvidenceSort a rrkc:Sort ; rrkc:notation "Evidence" .
+rrkc:RelationSort a rrkc:Sort ; rrkc:notation "Relation" .
+rrkc:ActivitySort a rrkc:Sort ; rrkc:notation "Activity" .
+rrkc:AgentSort a rrkc:Sort ; rrkc:notation "Agent" .
+rrkc:PolicySort a rrkc:Sort ; rrkc:notation "Policy" .
+rrkc:ProvenanceSort a rrkc:Sort ; rrkc:notation "Provenance" .
+rrkc:PropSort a rrkc:Sort ; rrkc:notation "Prop" .
+rrkc:CodeSort a rrkc:Sort ; rrkc:notation "Code(tau)" .
+rrkc:ArrowSort a rrkc:Sort ; rrkc:notation "Arrow(tau1,tau2)" .
+
+rrkc:VarCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "x_tau" .
+rrkc:IdCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "id(a)" .
+rrkc:ClaimCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "claim(p)" .
+rrkc:EvidenceCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "evidence(d)" .
+rrkc:RelCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "rel(r,e1,e2)" .
+rrkc:ActCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "act(sigma,args)" .
+rrkc:StampCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "stamp(e,pi)" .
+rrkc:ReviseCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "revise(e,e')" .
+rrkc:VersionCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "e@v" .
+rrkc:LambdaCtor a rrkc:Constructor, rrkc:TermConstructor, rrkc:BinderConstructor ; rrkc:notation "lambda x:tau.e" .
+rrkc:ApplicationCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "e1 e2" .
+rrkc:LetCtor a rrkc:Constructor, rrkc:TermConstructor, rrkc:BinderConstructor ; rrkc:notation "let x=e1 in e2" .
+rrkc:QuoteCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "quote(e)" .
+rrkc:DecodeCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "decode(c)" ; rrkc:partial true .
+rrkc:EvalCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "eval(c)" ; rrkc:partial true .
+rrkc:InternalRunCtor a rrkc:Constructor, rrkc:TermConstructor ; rrkc:notation "Run_internal(code,e)" ; rrkc:partial true .
+rrkc:TopCtor a rrkc:Constructor, rrkc:PropositionConstructor ; rrkc:notation "top" .
+rrkc:BottomCtor a rrkc:Constructor, rrkc:PropositionConstructor ; rrkc:notation "bottom" .
+rrkc:NotCtor a rrkc:Constructor, rrkc:PropositionConstructor ; rrkc:notation "not phi" .
+rrkc:AndCtor a rrkc:Constructor, rrkc:PropositionConstructor ; rrkc:notation "phi and psi" .
+rrkc:OrCtor a rrkc:Constructor, rrkc:PropositionConstructor ; rrkc:notation "phi or psi" .
+rrkc:ImpliesCtor a rrkc:Constructor, rrkc:PropositionConstructor ; rrkc:notation "phi implies psi" .
+rrkc:ForallCtor a rrkc:Constructor, rrkc:PropositionConstructor, rrkc:BinderConstructor ; rrkc:notation "forall x:tau.phi" .
+rrkc:ExistsCtor a rrkc:Constructor, rrkc:PropositionConstructor, rrkc:BinderConstructor ; rrkc:notation "exists x:tau.phi" .
+rrkc:TermEqualityCtor a rrkc:Constructor, rrkc:PropositionConstructor ; rrkc:notation "e1 = e2" .
+rrkc:SupportsCtor a rrkc:Constructor, rrkc:PropositionConstructor ; rrkc:notation "e supports p" .
+rrkc:RebutsCtor a rrkc:Constructor, rrkc:PropositionConstructor ; rrkc:notation "e rebuts p" .
+rrkc:AdmissibleCtor a rrkc:Constructor, rrkc:PropositionConstructor ; rrkc:notation "T admissible" .
+rrkc:DerivedFromCtor a rrkc:Constructor, rrkc:PropositionConstructor ; rrkc:notation "e derivedFrom e'" .
+
+rrkc:KSN a rrkc:TerminationFragment ;
+    rrkc:restriction "No eval beneath quote; recursion structurally decreases; eval strictly decreases Code level." ;
+    rrkc:terminationMeasure "lexicographic maximum Code level and reducible-term size" ;
+    rrkc:globalStrongNormalizationClaimed false .
+
+rrkc:StrictPrecedence a rrkc:ProvenanceConvention ;
+    rrkc:orderConvention "strict-irreflexive-transitive-acyclic" .
+
+rrkc:T1 a rrkc:TheoremObligation ; rrkc:theoremId "T1" ; rrkc:verificationStatus "executable-instance-checked" .
+rrkc:T2 a rrkc:TheoremObligation ; rrkc:theoremId "T2" ; rrkc:verificationStatus "executable-instance-checked" .
+rrkc:T3 a rrkc:TheoremObligation ; rrkc:theoremId "T3" ; rrkc:verificationStatus "specified" .
+rrkc:T4 a rrkc:TheoremObligation ; rrkc:theoremId "T4" ; rrkc:verificationStatus "specified" .
+rrkc:T5 a rrkc:TheoremObligation ; rrkc:theoremId "T5" ; rrkc:verificationStatus "specified" .
+rrkc:T6 a rrkc:TheoremObligation ; rrkc:theoremId "T6" ; rrkc:verificationStatus "executable-instance-checked" .
+rrkc:T7 a rrkc:TheoremObligation ; rrkc:theoremId "T7" ; rrkc:verificationStatus "executable-instance-checked" .
+rrkc:T8 a rrkc:TheoremObligation ; rrkc:theoremId "T8" ; rrkc:verificationStatus "specified" .
+rrkc:T9 a rrkc:TheoremObligation ; rrkc:theoremId "T9" ; rrkc:verificationStatus "specified" .
+rrkc:T10 a rrkc:TheoremObligation ; rrkc:theoremId "T10" ; rrkc:verificationStatus "specified" .
+rrkc:T11 a rrkc:TheoremObligation ; rrkc:theoremId "T11" ; rrkc:verificationStatus "specified" .
+rrkc:T12 a rrkc:TheoremObligation ; rrkc:theoremId "T12" ; rrkc:verificationStatus "specified" .
+rrkc:T13 a rrkc:TheoremObligation ; rrkc:theoremId "T13" ; rrkc:verificationStatus "specified" .
+rrkc:T14 a rrkc:TheoremObligation ; rrkc:theoremId "T14" ; rrkc:verificationStatus "executable-instance-checked" .
+rrkc:T15 a rrkc:TheoremObligation ; rrkc:theoremId "T15" ; rrkc:verificationStatus "executable-instance-checked" .
+rrkc:T16 a rrkc:TheoremObligation ; rrkc:theoremId "T16" ; rrkc:verificationStatus "executable-instance-checked" .
+rrkc:T17 a rrkc:TheoremObligation ; rrkc:theoremId "T17" ; rrkc:verificationStatus "specified" .
+rrkc:T18 a rrkc:TheoremObligation ; rrkc:theoremId "T18" ; rrkc:verificationStatus "specified" .
+rrkc:T19 a rrkc:TheoremObligation ; rrkc:theoremId "T19" ; rrkc:verificationStatus "specified" .
+rrkc:T20 a rrkc:TheoremObligation ; rrkc:theoremId "T20" ; rrkc:verificationStatus "specified" .
