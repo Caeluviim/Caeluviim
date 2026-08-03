@@ -29,7 +29,9 @@ jobs:
         uses: leanprover/lean-action@v1
         with:
           lake-package-directory: formal/rrkc
+          auto-config: false
           build: true
           test: false
           lint: false
-          use-github-cache: true
+          use-github-cache: false
+          use-mathlib-cache: false
