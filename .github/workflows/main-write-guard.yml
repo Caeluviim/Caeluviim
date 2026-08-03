@@ -36,12 +36,39 @@ jobs:
           REPOSITORY: ${{ github.repository }}
           AFTER_SHA: ${{ github.event.after }}
         run: |
-          count="$({
-            gh api \
-              -H "Accept: application/vnd.github+json" \
-              "repos/${REPOSITORY}/commits/${AFTER_SHA}/pulls" \
-              --jq '[.[] | select(.merged_at != null and .base.ref == "main")] | length'
-          })"
+          # GitHub's commit-to-pull-request association can lag the push event.
+          # Retry the authoritative API before classifying the update as a
+          # direct write. This preserves immediate restoration for actual direct
+          # pushes while preventing valid PR merges from being reverted by an
+          # eventual-consistency race.
+          count="0"
+          api_error=""
+          for attempt in $(seq 1 12); do
+            if response="$({
+              gh api \
+                -H "Accept: application/vnd.github+json" \
+                "repos/${REPOSITORY}/commits/${AFTER_SHA}/pulls" \
+                --jq '[.[] | select(.merged_at != null and .base.ref == "main")] | length'
+            } 2>&1)"; then
+              count="$response"
+              api_error=""
+              if [[ "$count" != "0" ]]; then
+                break
+              fi
+            else
+              api_error="$response"
+            fi
+
+            if [[ "$attempt" != "12" ]]; then
+              sleep 5
+            fi
+          done
+
+          if [[ -n "$api_error" ]]; then
+            echo "Unable to verify commit-to-PR association after retries: $api_error" >&2
+            exit 1
+          fi
+
           echo "count=$count" >> "$GITHUB_OUTPUT"
 
       - name: Stop when the push was produced by a merged pull request
