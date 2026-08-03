@@ -1,0 +1,216 @@
+{
+  "manifest_version": "0.1.0",
+  "ingest_id": "urn:caeluviim:ingest:nigger-redefinition:2026-08-02",
+  "source": {
+    "source_id": "urn:caeluviim:source:nigger-redefinition:2026-08-02",
+    "source_type": "conversation",
+    "title": "Nigger Redefinition and Identity Declaration",
+    "content_hash": "sha256:3c3eb2189bb3a5c1eff175aeeebab7d659e733e74da8fb6fb53eaba1b1c1553e",
+    "captured_at": "2026-08-02",
+    "authority": "user-authored semantic and identity declaration"
+  },
+  "nodes": [
+    {
+      "id": "urn:caeluviim:source:nigger-redefinition:2026-08-02",
+      "labels": [
+        "Source"
+      ],
+      "properties": {
+        "title": "Nigger Redefinition and Identity Declaration",
+        "content_hash": "sha256:3c3eb2189bb3a5c1eff175aeeebab7d659e733e74da8fb6fb53eaba1b1c1553e",
+        "status": "source_bound_unverified"
+      }
+    },
+    {
+      "id": "C:semantic:nigger-universal-identity",
+      "labels": [
+        "Claim",
+        "DefinitionClaim"
+      ],
+      "properties": {
+        "preferred_label": "Nigger",
+        "exact_definition_claim": "Nigger means every person considered in their inherent, equal, and non-reducible dignity; a universal identity that rejects racial hierarchy, caste, inherited inferiority, and every system that marks any person as lesser.",
+        "version": "0.1.0",
+        "status": "proposed_source_bound",
+        "authorial_scope": "user-authored Caeluviim semantic declaration",
+        "public_adoption_asserted": false
+      }
+    },
+    {
+      "id": "L:en:nigger:caeluviim-redefinition",
+      "labels": [
+        "LexicalClaim",
+        "LexicalManifestation"
+      ],
+      "properties": {
+        "form": "nigger",
+        "language": "en",
+        "script": "Latn",
+        "lexeme_class": "protocol_coinage",
+        "status": "proposed_source_bound"
+      }
+    },
+    {
+      "id": "C:context:authored-redefinition-explicit",
+      "labels": [
+        "Claim",
+        "ContextCondition"
+      ],
+      "properties": {
+        "text": "The authored sense is active only when the redefinition or its stable claim identifier is explicit.",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "C:boundary:no-hostile-application",
+      "labels": [
+        "Claim",
+        "BoundaryCondition"
+      ],
+      "properties": {
+        "text": "The authored definition does not authorize contempt, exclusion, intimidation, humiliation, or hostile application against another person.",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "C:boundary:no-compelled-self-designation",
+      "labels": [
+        "Claim",
+        "BoundaryCondition"
+      ],
+      "properties": {
+        "text": "Recognition of the declaration does not require another person to adopt the word as a self-designation.",
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "C:lexical-public-interpretation:nigger",
+      "labels": [
+        "Claim",
+        "InterpretationState"
+      ],
+      "properties": {
+        "text": "Broader public interpretation materially diverges from the authored Caeluviim definition.",
+        "status": "unresolved_source_review_required"
+      }
+    },
+    {
+      "id": "urn:caeluviim:declaration:nigger-redefinition:2026-08-02",
+      "labels": [
+        "Declaration"
+      ],
+      "properties": {
+        "title": "Proposed Affidavit of Identity, Semantic Redefinition, and Universal Human Equality",
+        "content_hash": "sha256:1ecb2135fd9e297d934f110566ee9ccb496736a7d17feca26f460a252ec1f8c4",
+        "execution_state": "proposed_unexecuted_declaration",
+        "third_party_assent": "not_imputed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:provenance:nigger-redefinition:2026-08-02",
+      "labels": [
+        "Provenance"
+      ],
+      "properties": {
+        "method": "source_excerpts_to_canonical_synthesis",
+        "definition_card_hash": "sha256:3ad9ce993d6b2c9055b699cc980a8a4dd6c21f8475d99d7695425974471926ea",
+        "status": "preserved",
+        "version": "0.1.0"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "urn:caeluviim:rel:nigger-redefinition:1",
+      "type": "HAS_LEXICAL_MANIFESTATION",
+      "from": "C:semantic:nigger-universal-identity",
+      "to": "L:en:nigger:caeluviim-redefinition",
+      "properties": {
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:rel:nigger-redefinition:2",
+      "type": "DERIVED_FROM",
+      "from": "C:semantic:nigger-universal-identity",
+      "to": "urn:caeluviim:source:nigger-redefinition:2026-08-02",
+      "properties": {
+        "status": "preserved"
+      }
+    },
+    {
+      "id": "urn:caeluviim:rel:nigger-redefinition:3",
+      "type": "FORMALIZED_BY",
+      "from": "C:semantic:nigger-universal-identity",
+      "to": "urn:caeluviim:declaration:nigger-redefinition:2026-08-02",
+      "properties": {
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:rel:nigger-redefinition:4",
+      "type": "ACTIVATED_BY",
+      "from": "C:semantic:nigger-universal-identity",
+      "to": "C:context:authored-redefinition-explicit",
+      "properties": {
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:rel:nigger-redefinition:5",
+      "type": "HAS_BOUNDARY",
+      "from": "C:semantic:nigger-universal-identity",
+      "to": "C:boundary:no-hostile-application",
+      "properties": {
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:rel:nigger-redefinition:6",
+      "type": "HAS_BOUNDARY",
+      "from": "C:semantic:nigger-universal-identity",
+      "to": "C:boundary:no-compelled-self-designation",
+      "properties": {
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:rel:nigger-redefinition:7",
+      "type": "DISTINGUISHES_FROM",
+      "from": "C:semantic:nigger-universal-identity",
+      "to": "C:lexical-public-interpretation:nigger",
+      "properties": {
+        "status": "proposed"
+      }
+    },
+    {
+      "id": "urn:caeluviim:rel:nigger-redefinition:8",
+      "type": "HAS_PROVENANCE",
+      "from": "C:semantic:nigger-universal-identity",
+      "to": "urn:caeluviim:provenance:nigger-redefinition:2026-08-02",
+      "properties": {
+        "status": "preserved"
+      }
+    },
+    {
+      "id": "urn:caeluviim:rel:nigger-redefinition:9",
+      "type": "DERIVED_FROM",
+      "from": "urn:caeluviim:provenance:nigger-redefinition:2026-08-02",
+      "to": "urn:caeluviim:source:nigger-redefinition:2026-08-02",
+      "properties": {
+        "status": "preserved"
+      }
+    }
+  ],
+  "validation": {
+    "source_claim_separation": true,
+    "third_party_assent_imputed": false,
+    "technical_ingestion_is_ratification": false,
+    "unresolved_branches": [
+      "historical lexical-source review",
+      "multilingual anchors",
+      "glyph assignment",
+      "external community ratification"
+    ]
+  }
+}
