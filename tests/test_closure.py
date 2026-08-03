@@ -1,5 +1,4 @@
 import unittest
-from copy import deepcopy
 from pathlib import Path
 
 from caeluviim_graph.closure import ClosureCheckError, check_claim_closure
@@ -129,19 +128,26 @@ class TestClosureChecker(unittest.TestCase):
                 sample_manifest(), "urn:caeluviim:test:evidence:one"
             )
 
-    def test_kernel_manifest_conforms_and_master_thesis_closes(self):
+    def test_kernel_manifest_decodes_conforms_and_master_thesis_closes(self):
         schema = load_schema(ROOT / "schemas" / "ingest-manifest.schema.json")
         manifest = validate_manifest(
             load_manifest(
-                ROOT / "ingest" / "manifests" / "lux-kernel-core-v0.1.0.json"
+                ROOT
+                / "ingest"
+                / "manifests"
+                / "lux-kernel-core-v0.1.0.json.gz.b64"
             ),
             schema,
         )
+        self.assertEqual(145, len(manifest["nodes"]))
+        self.assertEqual(293, len(manifest["relationships"]))
         result = check_claim_closure(
             manifest, "urn:caeluviim:kernel:principle:master-thesis"
         )
         self.assertTrue(result["closure_complete"])
         self.assertGreaterEqual(result["closure_count"], 7)
+        self.assertFalse(result["truth_assessed"])
+        self.assertFalse(result["ratification_assessed"])
 
 
 if __name__ == "__main__":
