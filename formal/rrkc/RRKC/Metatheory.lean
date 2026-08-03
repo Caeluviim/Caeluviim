@@ -66,10 +66,29 @@ inductive Progress (G : Governance) (t : Term Γ τ) : Prop where
   | reduces : Step G t t' → Progress G t
   | blocked : Blocked G t → Progress G t
 
-/- The exhaustive proof is the next machine-check boundary. It depends on the
-chosen canonical-code predicate and evaluation strategy. It is intentionally
-an axiom rather than a false proof claim; CI must replace this declaration with
-a theorem before T7 can be marked machine-proved. -/
-axiom T7_governed_progress (G : Governance) (t : Term Γ τ) : Progress G t
+/- T7 governed progress for the selected R2 operational surface. Revisions are
+classified by the governance decision; every other constructor is either
+canonical/neutral or has a primitive reduction. -/
+theorem T7_governed_progress (G : Governance) (t : Term Γ τ) : Progress G t := by
+  cases t with
+  | var v => exact .canonical .var
+  | id s => exact .canonical .id
+  | claimEntity t => exact .canonical .claimEntity
+  | evidenceEntity t => exact .canonical .evidenceEntity
+  | rel r left right => exact .canonical .rel
+  | act op args => exact .canonical .act
+  | stamp t provenance => exact .canonical .stamp
+  | revise old new =>
+      classical
+      by_cases h : G.admits old new
+      · exact .reduces (.revise h)
+      · exact .blocked (.revise h)
+  | version t version => exact .canonical .version
+  | lam body => exact .canonical .lam
+  | app function argument => exact .canonical .neutralApp
+  | letE value body => exact .reduces .letE
+  | quote t => exact .canonical .quote
+  | decode code => exact .canonical .neutralDecode
+  | eval code => exact .canonical .neutralEval
 
 end RRKC
