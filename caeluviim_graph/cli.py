@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .client import GraphRuntime, Neo4jConfig
+from .closure import check_claim_closure
 from .manifest import load_manifest, load_schema, validate_manifest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,6 +40,14 @@ def build_parser() -> argparse.ArgumentParser:
     validate.add_argument("manifest", type=Path)
     validate.add_argument("--schema", type=Path, default=DEFAULT_SCHEMA)
 
+    closure = subparsers.add_parser(
+        "closure",
+        help="Compute recursive claim closure and report missing declared necessities",
+    )
+    closure.add_argument("manifest", type=Path)
+    closure.add_argument("claim_id")
+    closure.add_argument("--schema", type=Path, default=DEFAULT_SCHEMA)
+
     ingest = subparsers.add_parser("ingest", help="Validate and transactionally ingest a manifest")
     ingest.add_argument("manifest", type=Path)
     ingest.add_argument("--schema", type=Path, default=DEFAULT_SCHEMA)
@@ -64,15 +73,23 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+
+    if args.command == "validate":
+        manifest = validate_manifest(load_manifest(args.manifest), load_schema(args.schema))
+        _print({"status": "valid", "ingest_id": manifest["ingest_id"]})
+        return 0
+
+    if args.command == "closure":
+        manifest = validate_manifest(load_manifest(args.manifest), load_schema(args.schema))
+        _print(check_claim_closure(manifest, args.claim_id))
+        return 0
+
     runtime = GraphRuntime(Neo4jConfig.from_env())
 
     if args.command == "health":
         _print(runtime.health())
     elif args.command == "migrate":
         _print(runtime.migrate(args.directory))
-    elif args.command == "validate":
-        manifest = validate_manifest(load_manifest(args.manifest), load_schema(args.schema))
-        _print({"status": "valid", "ingest_id": manifest["ingest_id"]})
     elif args.command == "ingest":
         manifest = validate_manifest(load_manifest(args.manifest), load_schema(args.schema))
         _print(runtime.ingest(manifest))
