@@ -16,7 +16,7 @@ This change closes the evidentiary gap between repository-side ingestion capabil
 
 ## Semantic integration
 
-The repository already contained validated manifests, migrations, transactional ingestion, idempotency checks, provenance links, and graph statistics. The new receipt layer binds those components into one auditable event:
+The repository already contained validated manifests, migrations, transactional ingestion, idempotency checks, provenance links, and graph statistics. The receipt layer binds those components into one auditable event:
 
 `source commit -> validated manifest -> identified runtime -> transaction result -> before/after graph state -> graph delta -> validation result -> receipt hash`
 
@@ -41,7 +41,11 @@ Retain the generated receipt files with runtime logs and backup metadata. Do not
 
 ## Verification state
 
-Repository implementation is proposed on its task branch. Hosted CI on the exact pull-request head is required. No operational Neo4j runtime was available through the GitHub connector during this execution, so no live graph mutation or runtime receipt is claimed.
+Repository implementation passed `Graph ingestion validation` workflow run #186 on exact PR head `6a4769e9c5533a7a236dca550971dbe63256fa85` and was squash-merged through PR #38 into `main` as commit `0dd59dff1d76b0cbcb3808e4749777c783c64e6f`.
+
+Classification: **merged repository implementation; operational runtime not verified**.
+
+No operational Neo4j runtime was available through the GitHub connector during this execution. Therefore no live graph mutation or runtime-generated ingestion receipt is claimed.
 
 ## Failure accounting
 
@@ -49,6 +53,6 @@ Unresolved cause: the connected GitHub execution surface provides repository rea
 
 Responsible layer: operational runtime access and deployment layer.
 
-Required corrective action: synchronize the merged commit to the identified runtime and execute the activation commands above.
+Required corrective action: synchronize merge commit `0dd59dff1d76b0cbcb3808e4749777c783c64e6f` or a later descendant to the identified runtime and execute the activation commands above.
 
 Verification procedure: require a receipt with runtime identity, exact source commit, manifest, UTC timestamp, result, before/after counts, graph delta, validation result, and a valid receipt hash; then compare it with Neo4j `stats` and the applicable backup metadata.
