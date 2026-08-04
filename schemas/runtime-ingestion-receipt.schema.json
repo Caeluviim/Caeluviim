@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schemas/runtime-ingestion-receipt.schema.json",
+  "title": "Caeluviim runtime ingestion receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "receipt_version",
+    "receipt_type",
+    "timestamp",
+    "runtime",
+    "source_commit",
+    "manifest",
+    "result",
+    "graph",
+    "validation",
+    "receipt_hash"
+  ],
+  "properties": {
+    "receipt_version": {"const": "1.0.0"},
+    "receipt_type": {"const": "caeluviim.runtime.ingestion"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "source_commit": {"type": "string", "minLength": 1},
+    "runtime": {
+      "type": "object",
+      "required": ["runtime_id", "runtime_kind", "database", "server_address", "host", "platform", "python"],
+      "properties": {
+        "runtime_id": {"type": "string", "minLength": 1},
+        "runtime_kind": {"const": "neo4j"},
+        "database": {"type": "string", "minLength": 1},
+        "server_address": {"type": "string", "minLength": 1},
+        "host": {"type": "string", "minLength": 1},
+        "platform": {"type": "string", "minLength": 1},
+        "python": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": true
+    },
+    "manifest": {
+      "type": "object",
+      "required": ["path", "ingest_id", "manifest_hash", "source_id", "source_content_hash"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "ingest_id": {"type": "string", "minLength": 1},
+        "manifest_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "source_id": {"type": "string", "minLength": 1},
+        "source_content_hash": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "required": ["status", "nodes_reported", "relationships_reported"],
+      "properties": {
+        "status": {"enum": ["ingested", "already_ingested"]},
+        "nodes_reported": {"type": "integer", "minimum": 0},
+        "relationships_reported": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "graph": {
+      "type": "object",
+      "required": ["before", "after", "delta"],
+      "properties": {
+        "before": {"type": "object", "additionalProperties": {"type": "integer"}},
+        "after": {"type": "object", "additionalProperties": {"type": "integer"}},
+        "delta": {"type": "object", "additionalProperties": {"type": "integer"}}
+      },
+      "additionalProperties": false
+    },
+    "validation": {
+      "type": "object",
+      "required": ["status", "schema", "ingest_id"],
+      "properties": {
+        "status": {"const": "valid"},
+        "schema": {"type": "string", "minLength": 1},
+        "ingest_id": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": true
+    },
+    "receipt_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}
