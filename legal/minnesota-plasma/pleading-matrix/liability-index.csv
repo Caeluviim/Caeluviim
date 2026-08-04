@@ -1,0 +1,10 @@
+Liability_ID,Liability_Type,Measure_or_Theory,Count_IDs,Amount_Status,Limitation
+L01,Plaintiff compensatory damages,Economic and noneconomic loss causally connected to an actionable count.,C01; C02; C04; C05; C06; C09,Unliquidated; complaint should comply with Rule 8.01.,Transaction and injury proof required.
+L02,Statutory deceptive-advertising liability,Damages and equitable relief available through section 8.31 for covered violations.,C01; C02,Unliquidated; exact public statements required.,Causal nexus and injury required.
+L03,Medical and consent-related liability,Damages for proven informed-consent negligence battery or fraud injuries.,C04; C05; C06,Unliquidated.,Expert-affidavit and causation barriers apply.
+L04,Restitution or product-value accounting,Return of a benefit unjustly retained measured by unjust gain rather than speculative total downstream value.,C07; C10,Unknown; requires accounting.,Contract ownership consent and duplication defenses are substantial.
+L05,Battery or contact damages,Damages for unconsented or materially different bodily contact.,C06,Unknown.,Inadequate disclosure generally sounds in negligence rather than battery.
+L06,Structural equitable relief,Court-ordered fund injunction corrective disclosure monitoring and administration.,C01; C03; C08,Requested minimum floor is USD 3.7 billion and is not adjudicated liability.,Requires authority causal fit proportionality manageability and lawful distribution.
+L07,Unjust enrichment,Restitution of value knowingly and unjustly retained.,C07,Unknown.,Cannot duplicate contract or legal damages.
+L08,No direct liability or limiting authority,Fact or authority limits a theory or requires a different mechanism.,All,No monetary amount.,Must remain visible to prevent overstatement.
+L09,Potential later punitive exposure,Available only after motion to amend and prima facie showing under sections 549.191 and 549.20.,C12,Not in initial complaint.,Requires deliberate-disregard proof and applicable corporate-agent requirements.
