@@ -33,6 +33,18 @@ def _duplicates(values: list[str]) -> list[str]:
     return sorted(key for key, count in Counter(values).items() if count > 1)
 
 
+def _schema_errors(
+    manifest: Mapping[str, Any], schema: Mapping[str, Any]
+) -> list[str]:
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    return [
+        f"{'.'.join(str(part) for part in error.absolute_path) or '<root>'}: {error.message}"
+        for error in sorted(
+            validator.iter_errors(manifest), key=lambda item: list(item.absolute_path)
+        )
+    ]
+
+
 def _validate_catalog_manifest(
     manifest: Mapping[str, Any], schema: Mapping[str, Any]
 ) -> dict[str, Any]:
@@ -45,13 +57,7 @@ def _validate_catalog_manifest(
     """
 
     candidate = deepcopy(dict(manifest))
-    validator = Draft202012Validator(schema, format_checker=FormatChecker())
-    errors = [
-        f"{'.'.join(str(part) for part in error.absolute_path) or '<root>'}: {error.message}"
-        for error in sorted(
-            validator.iter_errors(candidate), key=lambda item: list(item.absolute_path)
-        )
-    ]
+    errors = _schema_errors(candidate, schema)
     if errors:
         raise ManifestValidationError(errors)
 
@@ -102,8 +108,28 @@ def build_catalog(manifest_directory: Path, schema_path: Path) -> dict[str, Any]
 
     for path in paths:
         try:
-            manifests.append((path, _validate_catalog_manifest(load_manifest(path), schema)))
-        except Exception as exc:  # audit must report every invalid artifact
+            raw_manifest = load_manifest(path)
+        except Exception as exc:
+            errors.append({"path": str(path), "error": f"{type(exc).__name__}: {exc}"})
+            continue
+
+        structural_errors = _schema_errors(raw_manifest, schema)
+        if structural_errors:
+            errors.append(
+                {
+                    "path": str(path),
+                    "error": f"ManifestValidationError: {ManifestValidationError(structural_errors)}",
+                }
+            )
+            continue
+
+        # Structurally valid manifests must remain in the catalog-wide audit even
+        # when a manifest-local semantic invariant fails. Excluding them would
+        # hide cross-manifest duplicate identifiers and dangling endpoints.
+        manifests.append((path, deepcopy(raw_manifest)))
+        try:
+            _validate_catalog_manifest(raw_manifest, schema)
+        except Exception as exc:
             errors.append({"path": str(path), "error": f"{type(exc).__name__}: {exc}"})
 
     ingest_ids = [manifest["ingest_id"] for _, manifest in manifests]
