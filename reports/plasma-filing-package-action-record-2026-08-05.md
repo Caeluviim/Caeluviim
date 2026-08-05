@@ -14,6 +14,11 @@ Matter: `MAT-PLASMA-2026-08-04-001`
 6. Preserved the proposed Minnesota Structural Relief Pool of not less than $3.6 billion while expressly conditioning it on legal authority, admissible proof, proportionality, causation, and administrability.
 7. Added an explicit Minn. Stat. § 145.682 expert-review compliance checkpoint for any medical-malpractice claim subject to that statute.
 8. Prevented unsupported conversion of allegations into adjudicated facts by labeling record-specific fields and requiring exact entity, date, quotation, injury, and exhibit support before filing.
+9. Re-audited pull request #58, confirmed it remains open and mergeable, and verified its changed-file set before making additional edits.
+10. Added `corpus/legal/minnesota/plasma/pleading/filing-readiness-matrix.md` with 22 controlled filing components, standardized statuses, evidentiary dependencies, required next actions, and filing consequences.
+11. Added stable evidence-ID conventions for events, entities, representations, omissions, medical records, payment records, expenses, regulations, exhibits, and authorities.
+12. Defined a minimum filing gate and placed unsupported medical-negligence, informed-consent, structural-relief, and Rule 11 certification matters on explicit hold rather than inferring completion.
+13. Updated this action record in the same branch so the repository contains an auditable account of the additional work.
 
 ## Filing-critical facts still requiring completion
 
@@ -35,17 +40,18 @@ The repository does not presently contain enough verified information to truthfu
 - The structural pool is not pleaded as Plaintiff’s personal compensatory damages.
 - Medical negligence and informed-consent theories remain subject to expert, causation, and procedural review.
 - Bracketed or scheduled facts must not be removed by guessing. They must be completed from records, declarations, or verified sources.
+- The readiness matrix is the operative filing-control index; any component marked `BLOCKED` or `HOLD` prevents characterization of the package as file-ready.
 
 ## Next executable repository actions
 
-1. Populate a defendant identity and registered-agent table from Minnesota Secretary of State and FDA establishment records.
+1. Populate a defendant identity and registered-agent table from verified Minnesota corporate and FDA establishment records.
 2. Create an event chronology from the relator’s records.
 3. Build the representation-and-omission schedule with one row per exact statement or omission.
 4. Build the exhibit index and authentication map.
 5. Build the authority table using the version of each authority effective on each event date.
 6. Complete the § 145.682 memorandum before retaining medical-negligence counts in a filed pleading.
-7. Run a final contradiction, attribution, jurisdiction, limitations, venue, service, and remedy audit.
+7. Run a final contradiction, attribution, jurisdiction, limitations, venue, service, remedy, and Rule 11 audit.
 
 ## Result
 
-The repository now contains a consolidated working complaint rather than only architecture and predicate modules. It is materially closer to a filing package, but it is not truthfully file-ready until the listed factual and procedural fields are completed.
+The repository now contains a consolidated working complaint, a 22-component filing-readiness control matrix, stable evidence-ID conventions, and a current action record. The package is materially advanced but is not truthfully file-ready until the matrix’s blocked factual and procedural fields are completed and every hold is resolved.
