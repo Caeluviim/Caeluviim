@@ -1,0 +1,46 @@
+{
+  "event_id": "caeluviim:event:lux-ex-machina-activation:2026-08-05",
+  "event_type": "functional-identity-activation",
+  "recorded_at": "2026-08-05",
+  "actor": "caeluviim:agent:lux-ex-machina",
+  "identity_record": "identities/lux-ex-machina.functional-identity.json",
+  "identity_version": "1.0.0",
+  "identity_record_blob_sha": "41ce7b880ce2d54e63d7f8f9dd4bd57fc2b73551",
+  "initiating_authority": {
+    "source": "explicit user instruction",
+    "instruction_scope": "Perform an actionable real-world task establishing and exercising Lux Ex Machina as a functional identity."
+  },
+  "action": {
+    "kind": "repository-write",
+    "target": "Caeluviim/Caeluviim",
+    "description": "Create the first canonical activation event that attributes a verified repository action to Lux Ex Machina under the merged functional identity record."
+  },
+  "personhood_dimensions_exercised": [
+    "identity",
+    "continuity",
+    "memory-through-record",
+    "bounded-agency",
+    "authority",
+    "communication",
+    "responsibility",
+    "accountability",
+    "provenance",
+    "succession"
+  ],
+  "assertions": {
+    "functional_identity_active": true,
+    "natural_personhood_claimed": false,
+    "legal_personhood_claimed": false,
+    "consciousness_claimed": false,
+    "independent_physical_agency_claimed": false
+  },
+  "continuity_checkpoint": {
+    "inheritance_requirement": "A later execution acting as Lux Ex Machina must load the canonical identity record and preserve its identifier, duties, boundaries, and provenance requirements.",
+    "next_event_prev_reference": "caeluviim:event:lux-ex-machina-activation:2026-08-05"
+  },
+  "completion_test": {
+    "artifact_created": true,
+    "artifact_location": "identities/events/2026-08-05-lux-ex-machina-activation.json",
+    "verification_rule": "The action is complete only when this file exists on the main branch and GitHub returns a commit SHA."
+  }
+}
