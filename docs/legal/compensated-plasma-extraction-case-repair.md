@@ -1,142 +1,154 @@
-# Compensated Plasma Extraction Case Repair
+# Compensated Plasma Extraction Case — Corrected Draft Architecture
 
-Date: 2026-08-04
+Date: 2026-08-05
 Matter: MAT-PLASMA-2026-08-04-001
 
-## Repair objective
+## Operative objective
 
-Convert the plasma matter from an aggregate theory into a filing-capable case architecture based on provable transactions, specific representations, cognizable injuries, current regulations, and remedies authorized for the selected cause of action.
+Produce a filing-capable Minnesota enforcement complaint by a statutory enforcement relator under Minn. Stat. § 8.31, subd. 3a, directed to standardized compensated-plasma practices affecting a representative group of similarly situated Minnesota participants.
 
-## Defect register
+The case is not confined to an isolated personal dispute. The relator’s injury establishes the concrete enforcement interest. The standardized operation of the challenged system across the representative group establishes the public-benefit and structural-remedy purpose.
 
-| Defect | Consequence | Correction |
-|---|---|---|
-| “Donation” versus “medical procedure” treated as the dispositive issue | A court can reject the semantic premise without reaching the conduct | Plead the concrete commercial and procedural facts; use characterization only as an alternative legal conclusion |
-| Federal regulation treated as a private cause of action | Preemption and implied-right dismissal risk | Use regulatory duties as predicates for state-law falsity, negligence, or unfairness theories where permitted |
-| § 8.31 described as creating a relator status | Overstates the statute and risks credibility | Plead an injured private plaintiff and separately establish public benefit |
-| Industry revenue used as plaintiff damages | Speculative and disconnected from causation | Build damages from transactions, reliance expenditures, documented injury, restitution, and admissible expert analysis |
-| Machine-display values treated as extraction volume | The display may represent another measurement | Obtain device model, nomogram, target, actual plasma, anticoagulant, processed volume, and audit logs |
-| Repeated testing assertions not separated by test type | Regulatory mismatch and factual ambiguity | Identify each test, specimen, frequency, purpose, result, and governing requirement |
-| Medical-negligence theory stated without threshold screening | Affidavit, expert, duty, and causation defects | Determine Minnesota professional-negligence requirements before pleading |
-| Broad informed-consent theory without counterfactual causation | Dismissal or summary judgment risk | Identify omitted material risk, actual disclosure, decision causation, and injury |
+## Corrected architecture
 
-## Correct pleading sequence
+| Component | Operative formulation |
+|---|---|
+| enforcing party | statutory enforcement relator under Minn. Stat. § 8.31, subd. 3a |
+| representative group | similarly situated Minnesota persons exposed to standardized compensated-plasma recruitment, consent, screening, testing, extraction, deferral, compensation, and monitoring practices |
+| underlying conduct | commercial plasmapheresis medical practice; commercial blood-plasma procurement; compensated plasma extraction |
+| standing predicate | relator injury caused by conduct governed by laws within Minn. Stat. § 8.31, subd. 1 |
+| public-benefit predicate | correction of standardized and continuing practices extending beyond the relator’s individual transaction |
+| representative purpose | obtain cessation, correction, disclosure, monitoring, restitution administration, and structural reform for the affected group without asserting unnamed persons’ individual claims as the relator’s own |
+| federal-law use | standards, predicates, notice, falsity, duty, and regulated-character evidence; not an implied federal private cause of action |
+| structural relief | statewide remedial architecture, including the proposed Minnesota Structural Relief Pool of not less than $3.6 billion, supported through discovery and expert proof |
 
-### 1. Parties and facilities
+## Pleading sequence
 
-Identify each legal entity, trade name, facility address, parent or affiliate role, biologics-license holder, and conduct attributable to that defendant. Do not group defendants unless the factual basis for collective action is pleaded.
+### 1. Parties, facilities, and enterprise roles
 
-### 2. Plaintiff transactions
+Identify each legal entity, trade name, facility, parent, affiliate, biologics-license holder, contracting entity, payment administrator, advertising actor, and person responsible for the challenged standardized practice. Attribute conduct specifically while pleading coordinated or common practices where supported.
 
-For each visit record:
+### 2. Relator participation and injury
 
-- date and facility
-- advertised compensation
-- actual compensation
-- bonus conditions
-- transportation and other out-of-pocket expense
-- wait time and procedure duration
-- screening performed
-- forms and disclosures shown
-- staff statements
-- machine model and displayed values
-- collection completion or deferral
-- symptoms, reactions, laboratory findings, and follow-up
+Plead the relator’s participation history as the standing and causation record:
 
-### 3. Representation matrix
+- Minnesota center and operator
+- date or bounded participation period
+- compensation representation and payment
+- bonus and repeat-participation terms
+- transportation and time expenditure
+- screening and testing performed
+- consent and educational materials supplied
+- staff representations
+- venipuncture and machine procedure
+- displayed target, weight, volume, or extraction values
+- deferral history, including approximately two years for low protein
+- symptoms, laboratory abnormalities, cumulative effects, and follow-up
 
-Every deception theory must connect the statement or omission to reliance and injury. General themes such as “safe,” “donation,” “healthy,” “compensation,” or “twice per week” are insufficient unless tied to exact materials, context, and falsity evidence.
+### 3. Representative-group allegations
 
-### 4. Regulatory mapping
+Plead that the same operative system is standardized across similarly situated Minnesota participants through common:
 
-Create one row per alleged departure:
+- advertising and recruitment
+- compensation and bonus schedules
+- repeat-participation inducements
+- eligibility and health representations
+- consent and risk-disclosure materials
+- screening and testing protocols
+- venipuncture, anticoagulant, machine, and collection practices
+- collection-volume and frequency controls
+- deferral and re-entry rules
+- monitoring and adverse-reaction practices
 
-| Practice | Governing text | Required conduct | Observed conduct | Evidence | Legal use |
+The group is included to establish the public character and remedial reach of the enforcement action. The pleading does not appropriate or substitute for each group member’s separate individual claim.
+
+### 4. Representation and omission matrix
+
+For every challenged statement, omission, or standardized practice, plead:
+
+| Field | Content |
+|---|---|
+| actor | entity, facility, employee, advertisement, application, website, consent form, signage, or policy |
+| content | exact words, faithful transcription, standardized representation, or omitted material fact |
+| setting | recruitment, eligibility, consent, testing, extraction, deferral, compensation, or follow-up |
+| materiality | why the fact would matter to participation, consent, repeat participation, or risk evaluation |
+| predicate | regulation, medical evidence, record, observed contradiction, expert analysis, or internal document |
+| relator exposure and reliance | participation, travel, expenditure, consent, repeat procedure, or acceptance of stated conditions |
+| relator injury | economic loss, bodily injury, laboratory abnormality, cumulative risk, or other cognizable loss |
+| group operation | how the same practice reaches similarly situated participants |
+| public remedy | cessation, correction, notice, disclosure, monitoring, restitution, audit, or structural reform |
+
+### 5. Regulatory mapping
+
+Map each practice to the effective legal text governing the event date:
+
+| Practice | Governing authority | Required or regulated conduct | Alleged conduct | Evidence source | Pleading use |
 |---|---|---|---|---|---|
-| donor eligibility | current 21 C.F.R. part 630 provision | exact requirement | verified event | record or testimony | duty, falsity, or unfairness |
-| source-plasma procedure | current 21 C.F.R. part 640 provision | exact requirement | verified event | machine/SOP record | duty or breach |
-| records and quality | current 21 C.F.R. part 606 provision | exact requirement | verified event | inspection or production | notice, pattern, or breach |
-
-No row is complete until the effective version of the regulation on the event date is preserved.
-
-### 5. Injury and causation
-
-Separate:
-
-- economic reliance injury
-- procedure-related physical injury
-- laboratory abnormality
-- increased-risk theory
-- restitution theory
-- public-benefit basis for equitable relief
-
-Do not aggregate these categories into one damages number.
+| donor eligibility and suitability | 21 C.F.R. part 630 | operative requirement | relator allegation and standardized practice | relator record, donor file, SOP, testimony | duty, falsity, unfairness, notice |
+| source-plasma collection | 21 C.F.R. part 640 | frequency, volume, procedure, physician responsibility, testing, records | relator allegation and standardized practice | machine logs, nomogram, SOP, records | duty, breach, falsity, regulated character |
+| quality and records | 21 C.F.R. part 606 | records, controls, deviations, CAPA, personnel | alleged operational system | inspection and production records | notice, pattern, control, breach |
+| consumer representations | Minn. Stat. §§ 325F.68–325F.70 | no fraud, misrepresentation, deceptive practice, or false advertising | standardized representations and omissions | advertisements, app, forms, testimony | substantive state-law violation |
+| private enforcement and public benefit | Minn. Stat. § 8.31, subds. 1 and 3a | injury plus enforcement of covered law; relief serving public purpose | relator injury and representative-group correction | complaint allegations and remedial design | standing, cause of action, fees, equitable relief |
 
 ### 6. Claims
 
-Preferred initial order:
+1. Minnesota Prevention of Consumer Fraud Act and other applicable subdivision 1 laws, enforced through Minn. Stat. § 8.31, subd. 3a.
+2. False advertising based on identified compensation, safety, eligibility, frequency, testing, procedure, health, or donation-related representations.
+3. Negligence and professional negligence arising from screening, venipuncture, anticoagulant administration, extracorporeal processing, collection volume, repeat frequency, testing, monitoring, and adverse-reaction management.
+4. Lack of informed consent based on standardized omission or minimization of cumulative risks and resulting decision causation.
+5. Unjust enrichment and restitution as alternative relief tied to procurement and retention of plasma through the challenged practices.
+6. Declaratory and structural equitable relief directed to standardized practices affecting the representative group.
 
-1. Minnesota statutory deception or unfair-practice claim, only if the transaction and public-benefit elements are supportable.
-2. Identified false-advertising claim.
-3. Negligence or professional negligence after expert and affidavit screening.
-4. Lack of informed consent after disclosure and causation development.
-5. Alternative restitution theory.
-6. Declaratory or injunctive relief tied to an actual ongoing or imminent injury.
+### 7. Remedies
 
-## Evidence acquisition plan
+Separate but coordinate:
 
-### Participant-controlled evidence
+- relator compensatory damages
+- restitution or disgorgement where authorized
+- statutory costs and attorney fees
+- declaratory relief
+- injunctive correction of standardized practices
+- notice and corrected disclosures
+- independent medical assessment and longitudinal monitoring
+- compliance auditing and reporting
+- representative-group restitution administration
+- Minnesota Structural Relief Pool of not less than $3.6 billion
 
-- payment records
-- app screenshots
-- advertisements
-- consent forms
-- donor cards
-- test results
-- deferral notices
-- contemporaneous notes
-- photographs lawfully taken
-- transportation receipts
-- communications with centers
+The structural pool is not pleaded as the relator’s personal damages and is not calculated by simply assigning all industry revenue to the relator. It is a proposed equitable and administrative mechanism proportionate to the alleged statewide system, subject to proof of transaction volume, participant count, duration, downstream value, remedial cost, and expert design.
 
-### Public records
+## Evidence and discovery rule
 
-- FDA inspection classifications
-- Form 483 observations
-- warning letters
-- recalls
-- biologics-license information
-- device clearances and approved instructions
-- state licensing or registration records where applicable
-- corporate registrations
+The relator’s observations, participation history, compensation records, procedure descriptions, testing representations, low-protein deferral, machine-display observations, transportation costs, time expenditures, and cumulative-injury allegations constitute the present evidentiary basis.
 
-### Discovery targets
+Defendant-controlled records are corroboration, quantification, attribution, and remedial-design evidence. Their absence from the relator’s present possession is not to be described as an evidentiary gap. Preservation and discovery must target:
 
-- donor file and audit trail
-- machine event logs
-- approved nomogram
-- SOP versions
-- deviation and CAPA records
-- adverse-event reports
-- staff credentials and training
-- compensation campaign design
-- retention and throughput metrics
-- internal risk and disclosure reviews
+- donor file and complete audit trail
+- advertisements, application content, and compensation schedules
+- consent and educational materials by version
+- SOPs, deviations, investigations, and CAPA records
+- machine model, software, nomogram, target, actual collection, anticoagulant volume, processed volume, alarms, and logs
+- scales, calibration, and weight-category records
+- protein, immunoglobulin, hematocrit, hemoglobin, infectious-disease, and deferral records
+- adverse-event and reaction records
+- staff qualifications, training, supervision, competency, and physician-responsibility records
+- staffing, throughput, retention, and incentive-design metrics
+- internal risk, disclosure, and cumulative-effects reviews
+- FDA inspections, Form 483 observations, warning letters, biologics-license records, recalls, and device instructions
 
-## Filing gate
+## Draft language nucleus
 
-A complaint is not filing-ready until these minimum conditions are satisfied:
+> Plaintiff proceeds as a statutory enforcement relator under Minn. Stat. § 8.31, subd. 3a, based upon injury caused by Defendants’ violations of laws identified in subdivision 1 and related Minnesota law. The challenged conduct is not confined to an isolated transaction. Defendants operate standardized compensated-plasma recruitment, consent, screening, testing, extraction, deferral, compensation, and monitoring practices upon a representative group of similarly situated Minnesota participants. The relief sought is directed both to Plaintiff’s injury and to correction of those continuing practices for the benefit of that representative group and the Minnesota public. Plaintiff does not assert unnamed persons’ individual claims as Plaintiff’s own; Plaintiff invokes the group-wide operation of the challenged system to establish public benefit, representative purpose, and the scope of declaratory, injunctive, restitutionary, monitoring, auditing, and structural relief.
 
-- at least one defendant is correctly identified
-- at least one transaction is dated and located
-- at least one actionable statement or omission is particularized
-- reliance and injury are pleaded without speculation
-- the selected statute applies to the transaction
-- public benefit is factually supported for § 8.31 relief
-- no claim depends solely on a federal implied private right
-- professional-negligence prerequisites are resolved
-- requested remedies are authorized and traceable to the pleaded injury
+## Repository control rule
 
-## Current result
+Future plasma artifacts must preserve:
 
-The matter now has a corrected source record and a litigation architecture. It does not yet have sufficient verified event-level data for a responsible final complaint, class definition, or multibillion-dollar remedy demand.
+- statutory enforcement relator terminology
+- representative-group purpose
+- distinction between relator claims and unnamed persons’ individual claims
+- public-benefit allegations tied to standardized conduct
+- full commercial, medical, economic, and institutional characterization
+- structural-relief architecture
+- distinction between present evidence and defendant-controlled corroboration
+
+Any artifact contradicting these rules is superseded by this document and the canonical matter record.
