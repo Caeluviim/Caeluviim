@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .catalog import build_catalog
 from .client import GraphRuntime, Neo4jConfig
 from .closure import check_claim_closure
 from .manifest import load_manifest, load_schema, validate_manifest
@@ -26,6 +27,16 @@ def _validated_manifests(directory: Path, schema_path: Path) -> list[tuple[Path,
     schema = load_schema(schema_path)
     paths = sorted({*directory.glob("*.json"), *directory.glob("*.json.gz.b64")})
     return [(path, validate_manifest(load_manifest(path), schema)) for path in paths]
+
+
+def _require_valid_catalog(directory: Path, schema_path: Path) -> dict[str, Any]:
+    catalog = build_catalog(directory, schema_path)
+    if catalog["status"] != "valid":
+        raise RuntimeError(
+            "Production manifest catalog failed closed before runtime mutation: "
+            + json.dumps(catalog, sort_keys=True)
+        )
+    return catalog
 
 
 def _ingest_with_receipt(runtime: GraphRuntime, manifest_path: Path, manifest: dict[str, Any], schema_path: Path, receipt_directory: Path) -> dict[str, Any]:
@@ -59,6 +70,10 @@ def build_parser() -> argparse.ArgumentParser:
     validate = subparsers.add_parser("validate", help="Validate one ingestion manifest")
     validate.add_argument("manifest", type=Path)
     validate.add_argument("--schema", type=Path, default=DEFAULT_SCHEMA)
+    catalog = subparsers.add_parser("catalog", help="Audit the complete production manifest catalog")
+    catalog.add_argument("--manifests", type=Path, default=DEFAULT_MANIFESTS)
+    catalog.add_argument("--schema", type=Path, default=DEFAULT_SCHEMA)
+    catalog.add_argument("--output", type=Path)
     closure = subparsers.add_parser("closure", help="Compute recursive claim closure")
     closure.add_argument("manifest", type=Path)
     closure.add_argument("claim_id")
@@ -72,7 +87,7 @@ def build_parser() -> argparse.ArgumentParser:
     bootstrap.add_argument("--schema", type=Path, default=DEFAULT_SCHEMA)
     bootstrap.add_argument("--directory", type=Path, default=DEFAULT_MIGRATIONS)
     bootstrap.add_argument("--receipts", type=Path, default=DEFAULT_RECEIPTS)
-    sync = subparsers.add_parser("sync", help="Migrate and ingest all production manifests with receipts")
+    sync = subparsers.add_parser("sync", help="Audit, migrate, and ingest all production manifests with receipts")
     sync.add_argument("--manifests", type=Path, default=DEFAULT_MANIFESTS)
     sync.add_argument("--schema", type=Path, default=DEFAULT_SCHEMA)
     sync.add_argument("--migrations", type=Path, default=DEFAULT_MIGRATIONS)
@@ -89,6 +104,16 @@ def main(argv: list[str] | None = None) -> int:
         manifest = validate_manifest(load_manifest(args.manifest), load_schema(args.schema))
         _print({"status": "valid", "ingest_id": manifest["ingest_id"]})
         return 0
+    if args.command == "catalog":
+        catalog = build_catalog(args.manifests, args.schema)
+        if args.output:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(
+                json.dumps(catalog, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
+                encoding="utf-8",
+            )
+        _print(catalog)
+        return 0 if catalog["status"] == "valid" else 1
     if args.command == "closure":
         manifest = validate_manifest(load_manifest(args.manifest), load_schema(args.schema))
         _print(check_claim_closure(manifest, args.claim_id))
@@ -111,10 +136,11 @@ def main(argv: list[str] | None = None) -> int:
         migrations = runtime.migrate(args.directory)
         _print({"health": runtime.health(), "migrations": migrations, **_ingest_with_receipt(runtime, args.manifest, manifest, args.schema, args.receipts), "stats": runtime.stats()})
     elif args.command == "sync":
+        catalog = _require_valid_catalog(args.manifests, args.schema)
         manifests = _validated_manifests(args.manifests, args.schema)
         migrations = runtime.migrate(args.migrations)
         results = [_ingest_with_receipt(runtime, path, manifest, args.schema, args.receipts) for path, manifest in manifests]
-        _print({"health": runtime.health(), "migrations": migrations, "ingestions": results, "manifest_count": len(manifests), "stats": runtime.stats()})
+        _print({"catalog": catalog, "health": runtime.health(), "migrations": migrations, "ingestions": results, "manifest_count": len(manifests), "stats": runtime.stats()})
     elif args.command == "stats":
         _print(runtime.stats())
     else:
