@@ -1,0 +1,36 @@
+{
+  "manifest_id": "MAT-PLASMA-2026-08-04-001-GRAPH-2026-08-05",
+  "matter_id": "MAT-PLASMA-2026-08-04-001",
+  "status": "active",
+  "canonical_source": "sources/matters/plasma/mat-plasma-2026-08-04-001.md",
+  "legal_architecture": "docs/legal/compensated-plasma-extraction-case-repair.md",
+  "nodes": [
+    {"id":"relator","type":"AgentRole","label":"statutory enforcement relator under Minn. Stat. § 8.31, subd. 3a"},
+    {"id":"representative_group","type":"RepresentativeGroup","label":"similarly situated Minnesota compensated-plasma participants"},
+    {"id":"injury","type":"StandingPredicate","label":"relator injury caused by covered conduct"},
+    {"id":"standardized_system","type":"InstitutionalPracticeSystem","label":"standardized recruitment, consent, screening, testing, extraction, deferral, compensation, and monitoring"},
+    {"id":"public_benefit","type":"PublicBenefitPredicate","label":"correction of continuing practices extending beyond the relator"},
+    {"id":"structural_relief","type":"RemedyArchitecture","label":"declaratory, injunctive, restitutionary, monitoring, auditing, and structural relief"},
+    {"id":"relief_pool","type":"ProposedStructuralRemedy","label":"Minnesota Structural Relief Pool not less than $3.6 billion"},
+    {"id":"federal_regulations","type":"PredicateAuthority","label":"21 C.F.R. parts 606, 630, and 640"},
+    {"id":"mn_consumer_law","type":"PredicateAuthority","label":"Minn. Stat. §§ 325F.68–325F.70 and § 8.31"}
+  ],
+  "edges": [
+    {"from":"relator","relation":"HAS_STANDING_THROUGH","to":"injury"},
+    {"from":"standardized_system","relation":"OPERATES_UPON","to":"representative_group"},
+    {"from":"standardized_system","relation":"SUPPLIES","to":"public_benefit"},
+    {"from":"relator","relation":"SEEKS","to":"structural_relief"},
+    {"from":"structural_relief","relation":"BENEFITS","to":"representative_group"},
+    {"from":"structural_relief","relation":"INCLUDES_PROPOSED","to":"relief_pool"},
+    {"from":"federal_regulations","relation":"SUPPLIES_STANDARD_AND_PREDICATE_FOR","to":"standardized_system"},
+    {"from":"mn_consumer_law","relation":"AUTHORIZES_ENFORCEMENT_BY","to":"relator"},
+    {"from":"relator","relation":"DOES_NOT_APPROPRIATE_INDIVIDUAL_CLAIMS_OF","to":"representative_group"}
+  ],
+  "invariants": [
+    "Canonical role remains statutory enforcement relator.",
+    "Representative group is preserved as the public-benefit and remedial-purpose population.",
+    "Relator claims remain distinct from unnamed persons' individual claims.",
+    "Defendant-controlled corroborating records are not labeled evidentiary gaps.",
+    "Structural relief is preserved for proof and remedial design rather than deleted as speculative."
+  ]
+}
