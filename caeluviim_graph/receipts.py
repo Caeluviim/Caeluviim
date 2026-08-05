@@ -117,6 +117,74 @@ def verify_receipt(receipt: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def verify_receipt_directory(directory: Path) -> dict[str, Any]:
+    files = sorted(directory.glob("*.json")) if directory.exists() else []
+    entries: list[dict[str, Any]] = []
+    errors: list[dict[str, str]] = []
+    seen_hashes: dict[str, str] = {}
+    seen_events: dict[tuple[str, str, str], str] = {}
+    runtime_ids: set[str] = set()
+    previous_timestamp: str | None = None
+
+    for path in files:
+        try:
+            receipt = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append({"path": str(path), "code": "unreadable_receipt", "detail": str(exc)})
+            continue
+
+        verification = verify_receipt(receipt)
+        if not verification["valid"]:
+            errors.append({"path": str(path), "code": "invalid_receipt", "detail": json.dumps(verification, sort_keys=True)})
+            continue
+
+        timestamp = str(receipt["timestamp"])
+        runtime_id = str(receipt["runtime"].get("runtime_id", "unresolved"))
+        ingest_id = str(receipt["manifest"].get("ingest_id", "unresolved"))
+        source_commit = str(receipt.get("source_commit", "unresolved"))
+        receipt_hash = str(receipt["receipt_hash"])
+        event_key = (runtime_id, ingest_id, timestamp)
+
+        if receipt_hash in seen_hashes:
+            errors.append({"path": str(path), "code": "duplicate_receipt_hash", "detail": seen_hashes[receipt_hash]})
+        else:
+            seen_hashes[receipt_hash] = str(path)
+
+        if event_key in seen_events:
+            errors.append({"path": str(path), "code": "duplicate_runtime_event", "detail": seen_events[event_key]})
+        else:
+            seen_events[event_key] = str(path)
+
+        if previous_timestamp is not None and timestamp < previous_timestamp:
+            errors.append({"path": str(path), "code": "nonmonotonic_timestamp", "detail": f"{timestamp} precedes {previous_timestamp}"})
+        previous_timestamp = timestamp
+        runtime_ids.add(runtime_id)
+        entries.append(
+            {
+                "path": str(path),
+                "timestamp": timestamp,
+                "runtime_id": runtime_id,
+                "source_commit": source_commit,
+                "ingest_id": ingest_id,
+                "receipt_hash": receipt_hash,
+                "result_status": receipt["result"].get("status"),
+            }
+        )
+
+    if len(runtime_ids) > 1:
+        errors.append({"path": str(directory), "code": "mixed_runtime_ids", "detail": ",".join(sorted(runtime_ids))})
+
+    return {
+        "status": "valid" if files and not errors else "invalid",
+        "directory": str(directory),
+        "receipt_count": len(files),
+        "verified_count": len(entries),
+        "runtime_ids": sorted(runtime_ids),
+        "entries": entries,
+        "errors": errors,
+    }
+
+
 def write_receipt(receipt: Mapping[str, Any], directory: Path) -> Path:
     directory.mkdir(parents=True, exist_ok=True)
     ingest_slug = str(receipt["manifest"]["ingest_id"]).replace(":", "_").replace("/", "_")
