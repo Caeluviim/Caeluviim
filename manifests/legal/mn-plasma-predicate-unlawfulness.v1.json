@@ -1,0 +1,65 @@
+{
+  "manifest_id": "caeluviim:manifest:legal:mn-plasma-predicate-unlawfulness:v1",
+  "version": "1.0.0",
+  "created_at": "2026-08-05",
+  "agent": "caeluviim:agent:lux-ex-machina",
+  "source_records": [
+    "corpus/legal/minnesota/plasma/predicate-unlawfulness.json",
+    "corpus/legal/minnesota/plasma/pleading/predicate-unlawfulness-module.md"
+  ],
+  "ingestion": {
+    "claim_status": "proposed-operative",
+    "substantive_validation": "not-ratified-by-technical-validation",
+    "preserve_distinctions": [
+      "authority",
+      "required-operational-structure",
+      "alleged-operational-structure",
+      "representation",
+      "omission-content",
+      "disclosure-duty",
+      "materiality",
+      "destination-count",
+      "relief",
+      "provenance"
+    ],
+    "required_edges": [
+      "PREDICATE_AUTHORITY_DEFINES_REQUIRED_STRUCTURE",
+      "ACTUAL_STRUCTURE_DEVIATES_FROM_REQUIRED_STRUCTURE",
+      "DEVIATION_CONTRADICTS_REPRESENTATION",
+      "DEVIATION_SUPPLIES_OMISSION_CONTENT",
+      "PREDICATE_SUPPLIES_ELEMENT_CONTENT_TO_COUNT",
+      "COUNT_SUPPORTS_GROUP_DIRECTED_RELIEF"
+    ],
+    "prohibited_transformations": [
+      "convert predicate authority into standalone cause of action without an independently authorized private right",
+      "discard operational illegality because the predicate authority lacks a standalone private remedy",
+      "treat technical ingestion as factual verification or legal ratification",
+      "merge allegation status with adjudicated-fact status",
+      "remove disclosure-duty analysis from omission destinations"
+    ]
+  },
+  "corrections": [
+    {
+      "id": "FIX-025",
+      "replaced": "non-actionable violations as controlling ontology class",
+      "with": "predicate unlawfulness incorporated into actionable counts"
+    },
+    {
+      "id": "FIX-026",
+      "replaced": "operational violations framed primarily as contingent proof requests",
+      "with": "operational illegality as pleaded structural and element-supplying predicates"
+    },
+    {
+      "id": "FIX-027",
+      "replaced": "unrecorded semantic displacement",
+      "with": "explicit provenance and corrective-execution record"
+    }
+  ],
+  "validation_checks": [
+    "all predicate categories identify at least one destination count",
+    "all omission destinations preserve a disclosure-duty field",
+    "no predicate category is typed as an independent cause of action",
+    "all graph claims preserve allegation or proposal status",
+    "all source records are reachable from this manifest"
+  ]
+}
