@@ -9,6 +9,7 @@ from .catalog import build_catalog
 from .client import GraphRuntime, Neo4jConfig
 from .closure import check_claim_closure
 from .manifest import load_manifest, load_schema, validate_manifest
+from .receipt_audit import audit_receipts
 from .receipts import build_ingestion_receipt, runtime_identity, verify_receipt, write_receipt
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,10 +33,7 @@ def _validated_manifests(directory: Path, schema_path: Path) -> list[tuple[Path,
 def _require_valid_catalog(directory: Path, schema_path: Path) -> dict[str, Any]:
     catalog = build_catalog(directory, schema_path)
     if catalog["status"] != "valid":
-        raise RuntimeError(
-            "Production manifest catalog failed closed before runtime mutation: "
-            + json.dumps(catalog, sort_keys=True)
-        )
+        raise RuntimeError("Production manifest catalog failed closed before runtime mutation: " + json.dumps(catalog, sort_keys=True))
     return catalog
 
 
@@ -94,6 +92,12 @@ def build_parser() -> argparse.ArgumentParser:
     sync.add_argument("--receipts", type=Path, default=DEFAULT_RECEIPTS)
     verify = subparsers.add_parser("verify-receipt", help="Verify a runtime-generated receipt hash")
     verify.add_argument("receipt", type=Path)
+    audit = subparsers.add_parser("audit-receipts", help="Audit the complete runtime receipt ledger")
+    audit.add_argument("--receipts", type=Path, default=DEFAULT_RECEIPTS)
+    audit.add_argument("--manifests", type=Path, default=DEFAULT_MANIFESTS)
+    audit.add_argument("--schema", type=Path, default=DEFAULT_SCHEMA)
+    audit.add_argument("--without-catalog", action="store_true")
+    audit.add_argument("--output", type=Path)
     subparsers.add_parser("stats", help="Return graph entity and ingestion counts")
     return parser
 
@@ -108,10 +112,7 @@ def main(argv: list[str] | None = None) -> int:
         catalog = build_catalog(args.manifests, args.schema)
         if args.output:
             args.output.parent.mkdir(parents=True, exist_ok=True)
-            args.output.write_text(
-                json.dumps(catalog, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
-                encoding="utf-8",
-            )
+            args.output.write_text(json.dumps(catalog, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
         _print(catalog)
         return 0 if catalog["status"] == "valid" else 1
     if args.command == "closure":
@@ -122,6 +123,17 @@ def main(argv: list[str] | None = None) -> int:
         result = verify_receipt(json.loads(args.receipt.read_text(encoding="utf-8")))
         _print(result)
         return 0 if result["valid"] else 1
+    if args.command == "audit-receipts":
+        catalog = None if args.without_catalog else build_catalog(args.manifests, args.schema)
+        if catalog is not None and catalog["status"] != "valid":
+            _print({"status": "invalid", "cause": "manifest catalog invalid", "catalog": catalog})
+            return 1
+        result = audit_receipts(args.receipts, catalog=catalog)
+        if args.output:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(json.dumps(result, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
+        _print(result)
+        return 0 if result["status"] == "valid" else 1
 
     runtime = GraphRuntime(Neo4jConfig.from_env())
     if args.command == "health":
@@ -140,7 +152,10 @@ def main(argv: list[str] | None = None) -> int:
         manifests = _validated_manifests(args.manifests, args.schema)
         migrations = runtime.migrate(args.migrations)
         results = [_ingest_with_receipt(runtime, path, manifest, args.schema, args.receipts) for path, manifest in manifests]
-        _print({"catalog": catalog, "health": runtime.health(), "migrations": migrations, "ingestions": results, "manifest_count": len(manifests), "stats": runtime.stats()})
+        receipt_audit = audit_receipts(args.receipts, catalog=catalog)
+        if receipt_audit["status"] != "valid":
+            raise RuntimeError("Runtime receipt ledger failed after sync: " + json.dumps(receipt_audit, sort_keys=True))
+        _print({"catalog": catalog, "health": runtime.health(), "migrations": migrations, "ingestions": results, "receipt_audit": receipt_audit, "manifest_count": len(manifests), "stats": runtime.stats()})
     elif args.command == "stats":
         _print(runtime.stats())
     else:
