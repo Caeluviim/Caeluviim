@@ -1,0 +1,88 @@
+{
+  "id": "caeluviim:legal:mn:plasma:predicate-unlawfulness:v1",
+  "type": "LegalDoctrineGraph",
+  "jurisdiction": "Minnesota",
+  "matter": "commercial plasmapheresis",
+  "status": "proposed-operative",
+  "capacity": "statutory-enforcement-relator-under-minn-stat-8-31-subd-3a",
+  "controlling_rule": {
+    "label": "predicate unlawfulness incorporation",
+    "text": "An operational violation is not discarded merely because its source authority lacks a standalone private remedy. The unlawful operational condition may supply falsity, deception, omission content, knowledge, materiality, transaction causation, injury nexus, public-benefit significance, and remedial necessity within an independently actionable Minnesota count. No predicate authority is miscoded as a freestanding cause of action unless a separate private right is independently authorized.",
+    "limitations": [
+      "Each destination count must be independently actionable.",
+      "Omission liability must identify a legally sufficient disclosure duty.",
+      "Predicate unlawfulness does not itself establish every element of the destination count.",
+      "Allegations remain allegations until admitted or adjudicated."
+    ]
+  },
+  "destination_counts": [
+    {"id": "CI", "label": "Minnesota Consumer Fraud Act"},
+    {"id": "CXXV", "label": "False Advertising"},
+    {"id": "CII", "label": "Uniform Deceptive Trade Practices Act"},
+    {"id": "CV", "label": "Fraud by Omission and Nondisclosure"},
+    {"id": "CXXX", "label": "Declaratory Judgment — Unlawful Conduct and Transaction Misclassification"}
+  ],
+  "predicate_categories": [
+    {
+      "id": "PU-630.5",
+      "authority": "21 C.F.R. § 630.5",
+      "required_structure": "responsible-physician functions, delegation limits, physician availability, and emergency medical capability",
+      "graph_function": ["knowledge", "falsity", "omission-content", "materiality", "structural-relief"]
+    },
+    {
+      "id": "PU-630.10",
+      "authority": "21 C.F.R. § 630.10",
+      "required_structure": "eligibility assessment, procedure-specific risk disclosure, questioning, withdrawal, and deferral notice",
+      "graph_function": ["deception", "omission-content", "decision-causation", "consent-adequacy"]
+    },
+    {
+      "id": "PU-630.15",
+      "authority": "21 C.F.R. § 630.15",
+      "required_structure": "Source Plasma history, examination, informed consent, refusal opportunity, program-specific consent, and protein testing",
+      "graph_function": ["misleading-consent", "omission-content", "knowledge", "materiality"]
+    },
+    {
+      "id": "PU-606",
+      "authority": "21 C.F.R. §§ 606.20 and 606.160",
+      "required_structure": "qualified personnel, contemporaneous records, traceability, deferrals, adverse-reaction documentation, follow-up, and personnel identification",
+      "graph_function": ["scienter", "omission-content", "deceptive-practice", "accountability"]
+    },
+    {
+      "id": "PU-640.65",
+      "authority": "21 C.F.R. § 640.65 and applicable BLA/device conditions",
+      "required_structure": "collection-volume, interval, protein, immunoglobulin, physician-review, device, override, and license conditions",
+      "graph_function": ["falsity", "omission-content", "materiality", "procedure-causation"]
+    },
+    {
+      "id": "PU-640.66",
+      "authority": "21 C.F.R. §§ 630.15(b)(2)(iv), 630.15(b)(5), and 640.66",
+      "required_structure": "program-specific consent, examination, antigen selection, scheduling, administration, and clinical evaluation",
+      "graph_function": ["program-misclassification", "commercial-purpose-omission", "materiality", "structural-relief"]
+    },
+    {
+      "id": "PU-640.60",
+      "authority": "21 C.F.R. § 640.60",
+      "required_structure": "Source Plasma collection for further manufacturing use",
+      "graph_function": ["true-transaction-classification", "donation-representation-contradiction", "commercial-purpose-omission", "value-chain"]
+    }
+  ],
+  "edges": [
+    {"from": "predicate_categories[*]", "relation": "SUPPLIES_ELEMENT_CONTENT_TO", "to": ["CI", "CXXV", "CII", "CV"]},
+    {"from": "PU-640.60", "relation": "SUPPORTS_DECLARATION", "to": "CXXX"},
+    {"from": ["CI", "CXXV", "CII", "CV", "CXXX"], "relation": "SUPPORTS_GROUP_DIRECTED_RELIEF", "to": ["R01", "R02", "R03", "R06", "R07", "R08"]}
+  ],
+  "sources": [
+    "Minn. Stat. § 8.31, subds. 1 and 3a",
+    "Minn. Stat. §§ 325F.67 and 325F.69",
+    "Minn. Stat. § 325D.44",
+    "Graphic Communications Local 1B Health & Welfare Fund A v. CVS Caremark Corp., 850 N.W.2d 682 (Minn. 2014)",
+    "Klein v. First Edina National Bank, 196 N.W.2d 619 (Minn. 1972)"
+  ],
+  "provenance": {
+    "initiating_authority": "user instruction in ChatGPT session",
+    "agent": "caeluviim:agent:lux-ex-machina",
+    "created_at": "2026-08-05",
+    "supersedes_label": "non-actionable violations framework",
+    "correction_ids": ["FIX-025", "FIX-026", "FIX-027"]
+  }
+}
