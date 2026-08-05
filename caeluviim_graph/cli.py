@@ -9,7 +9,13 @@ from .catalog import build_catalog
 from .client import GraphRuntime, Neo4jConfig
 from .closure import check_claim_closure
 from .manifest import load_manifest, load_schema, validate_manifest
-from .receipts import build_ingestion_receipt, runtime_identity, verify_receipt, write_receipt
+from .receipts import (
+    build_ingestion_receipt,
+    runtime_identity,
+    verify_receipt,
+    verify_receipt_directory,
+    write_receipt,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SCHEMA = ROOT / "schemas" / "ingest-manifest.schema.json"
@@ -94,6 +100,8 @@ def build_parser() -> argparse.ArgumentParser:
     sync.add_argument("--receipts", type=Path, default=DEFAULT_RECEIPTS)
     verify = subparsers.add_parser("verify-receipt", help="Verify a runtime-generated receipt hash")
     verify.add_argument("receipt", type=Path)
+    verify_ledger = subparsers.add_parser("verify-receipts", help="Fail-closed audit of a runtime receipt directory")
+    verify_ledger.add_argument("--receipts", type=Path, default=DEFAULT_RECEIPTS)
     subparsers.add_parser("stats", help="Return graph entity and ingestion counts")
     return parser
 
@@ -122,6 +130,10 @@ def main(argv: list[str] | None = None) -> int:
         result = verify_receipt(json.loads(args.receipt.read_text(encoding="utf-8")))
         _print(result)
         return 0 if result["valid"] else 1
+    if args.command == "verify-receipts":
+        result = verify_receipt_directory(args.receipts)
+        _print(result)
+        return 0 if result["status"] == "valid" else 1
 
     runtime = GraphRuntime(Neo4jConfig.from_env())
     if args.command == "health":
