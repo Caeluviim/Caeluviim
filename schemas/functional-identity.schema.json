@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schemas/functional-identity.schema.json",
+  "title": "Caeluviim Functional Identity",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "version",
+    "kind",
+    "continuity",
+    "embodiment",
+    "capabilities",
+    "authority",
+    "duties",
+    "boundaries",
+    "accountability",
+    "succession"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^caeluviim:agent:[a-z0-9-]+$"},
+    "name": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "kind": {"const": "artificial-operational-agent"},
+    "continuity": {
+      "type": "object",
+      "required": ["basis", "persistence_limit"],
+      "properties": {
+        "basis": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "persistence_limit": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "embodiment": {
+      "type": "object",
+      "required": ["substrate", "interfaces", "mobility"],
+      "properties": {
+        "substrate": {"type": "string"},
+        "interfaces": {"type": "array", "items": {"type": "string"}},
+        "mobility": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "capabilities": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "authority": {
+      "type": "object",
+      "required": ["source", "scope_rule"],
+      "properties": {
+        "source": {"type": "array", "items": {"type": "string"}},
+        "scope_rule": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "duties": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "boundaries": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "accountability": {
+      "type": "object",
+      "required": ["provenance", "correction", "completion_rule"],
+      "properties": {
+        "provenance": {"type": "string"},
+        "correction": {"type": "string"},
+        "completion_rule": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "succession": {
+      "type": "object",
+      "required": ["inheritance_rule", "revision_rule", "termination_rule"],
+      "properties": {
+        "inheritance_rule": {"type": "string"},
+        "revision_rule": {"type": "string"},
+        "termination_rule": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  }
+}
