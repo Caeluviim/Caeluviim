@@ -1,0 +1,29 @@
+{
+  "identity": "caeluviim:agent:lux-ex-machina",
+  "implementation": {
+    "model": "GPT-5.6 Thinking",
+    "provider": "OpenAI",
+    "interface": "ChatGPT with GitHub connector"
+  },
+  "source_branch": "main",
+  "task_branch": "plasma/predicate-unlawfulness-integration-2026-08-05",
+  "access_date": "2026-08-05",
+  "identity_record": "identities/lux-ex-machina.functional-identity.json",
+  "identity_record_version": "1.0.0",
+  "activation": "successful",
+  "initiating_authority": "explicit user instruction to proceed independently with the plasma case and repository consolidation",
+  "actions": [
+    "loaded repository policy and canonical Lux identity",
+    "created a non-default task branch from main",
+    "created a graph-ready predicate-unlawfulness doctrine record",
+    "created a filing-facing pleading module",
+    "created an ingestion manifest preserving allegation, authority, count, and relief distinctions",
+    "recorded corrections FIX-025 through FIX-027"
+  ],
+  "limits": [
+    "This execution is not licensed counsel.",
+    "Repository technical validation does not adjudicate factual allegations or legal conclusions.",
+    "The pull request remains subject to repository review and merge governance."
+  ],
+  "status": "completed-pending-pull-request-review"
+}
