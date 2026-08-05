@@ -1,0 +1,11 @@
+record_id,record_type,defendant_entity,facility,visit_date,event_period,speaker_or_source,medium,exact_statement_or_omission,practice_observed,legal_authority,effective_authority_date,falsity_or_breach_basis,reliance,injury,evidence_location,authentication_method,public_benefit_basis,claim_mapping,verification_status,filing_use,notes
+PL-0001,transaction,,,,,,,,,,,,,,,,,,,unverified,exclude_until_verified,
+PL-0002,representation,,,,,,,,,,,,,,,,,,,unverified,exclude_until_verified,
+PL-0003,omission,,,,,,,,,,,,,,,,,,,unverified,exclude_until_verified,
+PL-0004,procedure,,,,,,,,,,,,,,,,,,,unverified,exclude_until_verified,
+PL-0005,testing,,,,,,,,,,,,,,,,,,,unverified,exclude_until_verified,
+PL-0006,machine_display,,,,,,,,,,,,,,,,,,,unverified,exclude_until_verified,
+PL-0007,compensation,,,,,,,,,,,,,,,,,,,unverified,exclude_until_verified,
+PL-0008,injury,,,,,,,,,,,,,,,,,,,unverified,exclude_until_verified,
+PL-0009,regulatory_mapping,,,,,,,,,,,,,,,,,,,unverified,exclude_until_verified,
+PL-0010,public_benefit,,,,,,,,,,,,,,,,,,,unverified,exclude_until_verified,
