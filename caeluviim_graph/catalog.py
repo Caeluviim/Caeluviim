@@ -4,10 +4,21 @@ import argparse
 import hashlib
 import json
 from collections import Counter
+from copy import deepcopy
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
-from .manifest import load_manifest, load_schema, validate_manifest
+from jsonschema import Draft202012Validator, FormatChecker
+
+from .manifest import (
+    ALLOWED_LABELS,
+    ALLOWED_RELATIONSHIP_TYPES,
+    RESERVED_PROPERTIES,
+    ManifestValidationError,
+    load_manifest,
+    load_schema,
+    safe_relationship_type,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFESTS = ROOT / "ingest" / "manifests"
@@ -18,6 +29,71 @@ def _canonical(value: Any) -> bytes:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
 
 
+def _duplicates(values: list[str]) -> list[str]:
+    return sorted(key for key, count in Counter(values).items() if count > 1)
+
+
+def _validate_catalog_manifest(
+    manifest: Mapping[str, Any], schema: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Validate one manifest without imposing manifest-local endpoint closure.
+
+    Runtime ingestion requires every relationship endpoint to exist in the same
+    manifest. The repository catalog has a broader purpose: it audits the union
+    of all production manifests, so cross-manifest references must remain
+    visible until the global endpoint pass below.
+    """
+
+    candidate = deepcopy(dict(manifest))
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    errors = [
+        f"{'.'.join(str(part) for part in error.absolute_path) or '<root>'}: {error.message}"
+        for error in sorted(
+            validator.iter_errors(candidate), key=lambda item: list(item.absolute_path)
+        )
+    ]
+    if errors:
+        raise ManifestValidationError(errors)
+
+    node_ids = [node["id"] for node in candidate["nodes"]]
+    relationship_ids = [relationship["id"] for relationship in candidate["relationships"]]
+    entity_ids = node_ids + relationship_ids + [candidate["source"]["source_id"], candidate["ingest_id"]]
+
+    for kind, values in (
+        ("node", node_ids),
+        ("relationship", relationship_ids),
+        ("entity", entity_ids),
+    ):
+        duplicate_ids = _duplicates(values)
+        if duplicate_ids:
+            errors.append(f"duplicate {kind} identifiers: {', '.join(duplicate_ids)}")
+
+    for node in candidate["nodes"]:
+        invalid = sorted(set(node.get("properties", {})).intersection(RESERVED_PROPERTIES))
+        if invalid:
+            errors.append(f"node {node['id']} uses reserved properties: {', '.join(invalid)}")
+        for label in node["labels"]:
+            if label not in ALLOWED_LABELS:
+                errors.append(f"node {node['id']} uses unsupported label {label}")
+
+    for relationship in candidate["relationships"]:
+        invalid = sorted(
+            set(relationship.get("properties", {})).intersection(RESERVED_PROPERTIES)
+        )
+        if invalid:
+            errors.append(
+                f"relationship {relationship['id']} uses reserved properties: {', '.join(invalid)}"
+            )
+        try:
+            safe_relationship_type(relationship["type"])
+        except ValueError as exc:
+            errors.append(f"relationship {relationship['id']}: {exc}")
+
+    if errors:
+        raise ManifestValidationError(errors)
+    return candidate
+
+
 def build_catalog(manifest_directory: Path, schema_path: Path) -> dict[str, Any]:
     schema = load_schema(schema_path)
     paths = sorted({*manifest_directory.glob("*.json"), *manifest_directory.glob("*.json.gz.b64")})
@@ -26,7 +102,7 @@ def build_catalog(manifest_directory: Path, schema_path: Path) -> dict[str, Any]
 
     for path in paths:
         try:
-            manifests.append((path, validate_manifest(load_manifest(path), schema)))
+            manifests.append((path, _validate_catalog_manifest(load_manifest(path), schema)))
         except Exception as exc:  # audit must report every invalid artifact
             errors.append({"path": str(path), "error": f"{type(exc).__name__}: {exc}"})
 
@@ -35,9 +111,9 @@ def build_catalog(manifest_directory: Path, schema_path: Path) -> dict[str, Any]
     relationship_ids = [rel["id"] for _, manifest in manifests for rel in manifest["relationships"]]
     node_id_set = set(node_ids)
 
-    duplicate_ingest_ids = sorted(key for key, count in Counter(ingest_ids).items() if count > 1)
-    duplicate_node_ids = sorted(key for key, count in Counter(node_ids).items() if count > 1)
-    duplicate_relationship_ids = sorted(key for key, count in Counter(relationship_ids).items() if count > 1)
+    duplicate_ingest_ids = _duplicates(ingest_ids)
+    duplicate_node_ids = _duplicates(node_ids)
+    duplicate_relationship_ids = _duplicates(relationship_ids)
 
     dangling: list[dict[str, str]] = []
     self_loops: list[str] = []
