@@ -19,6 +19,17 @@ Matter: `MAT-PLASMA-2026-08-04-001`
 11. Added stable evidence-ID conventions for events, entities, representations, omissions, medical records, payment records, expenses, regulations, exhibits, and authorities.
 12. Defined a minimum filing gate and placed unsupported medical-negligence, informed-consent, structural-relief, and Rule 11 certification matters on explicit hold rather than inferring completion.
 13. Updated this action record in the same branch so the repository contains an auditable account of the additional work.
+14. Re-audited PR #58 at head `ad5ff1dfc939f3ebce5c9705f6d1bf14a26ac94e`, confirmed it was open and mergeable, and verified the three existing changed files before further writes.
+15. Added `corpus/legal/minnesota/plasma/pleading/evidence-and-event-ledger.md` in commit `7dbccb398e487a167cb2ef396878879deb6dd162`.
+16. The evidence ledger now supplies controlled tables for event chronology, entity and facility identity, representations and omissions, medical and laboratory records, procedure and device data, payments, expenses, exhibits, authentication, contradictions, and complaint-paragraph mapping.
+17. Added `corpus/legal/minnesota/plasma/pleading/authority-and-elements-matrix.md` in commit `03281de8409d49d7dc099fdc1957fa8b612419fd`.
+18. The authority matrix now separates authority registration, event-date version control, claim elements, factual support, likely defenses, remedy authority, and explicit limits on using federal regulations as standards rather than implied private causes of action.
+19. Added `corpus/legal/minnesota/plasma/pleading/preservation-and-discovery-targets.md` in commit `29fe53e6e5b1f8d4d013f9d5b5d67a38b96db7d0`.
+20. The preservation plan now identifies participant, laboratory, device, payment, communication, policy, personnel, quality, corporate-control, retention, metadata, chain-of-custody, and discovery-sequencing controls without asserting that any unverified record exists.
+21. Added `corpus/legal/minnesota/plasma/pleading/filing-packet-and-rule11-checklist.md` in commit `887fc9a2621e45dee865d6e0e3fd3397a5c91670`.
+22. The filing checklist now controls caption, party identity, venue, pleading support, limitations, injury, public benefit, expert review, structural relief, summons, cover sheets, fees or waiver, exhibits, service, e-filing, redaction, deadline calendaring, and final certification.
+23. Preserved the rule that no blocked or held field may be completed by inference, and that unsupported claims or remedies must be withheld or removed from a filing candidate.
+24. Updated this action record after all four repository additions to preserve commit-level traceability.
 
 ## Filing-critical facts still requiring completion
 
@@ -41,17 +52,20 @@ The repository does not presently contain enough verified information to truthfu
 - Medical negligence and informed-consent theories remain subject to expert, causation, and procedural review.
 - Bracketed or scheduled facts must not be removed by guessing. They must be completed from records, declarations, or verified sources.
 - The readiness matrix is the operative filing-control index; any component marked `BLOCKED` or `HOLD` prevents characterization of the package as file-ready.
+- Operational templates are not evidence. A blank or partially populated schedule does not satisfy a filing gate until each material field is sourced, verified, and linked.
 
 ## Next executable repository actions
 
-1. Populate a defendant identity and registered-agent table from verified Minnesota corporate and FDA establishment records.
-2. Create an event chronology from the relator’s records.
-3. Build the representation-and-omission schedule with one row per exact statement or omission.
-4. Build the exhibit index and authentication map.
-5. Build the authority table using the version of each authority effective on each event date.
-6. Complete the § 145.682 memorandum before retaining medical-negligence counts in a filed pleading.
-7. Run a final contradiction, attribution, jurisdiction, limitations, venue, service, remedy, and Rule 11 audit.
+1. Populate the entity and facility register from verified Minnesota corporate, registered-agent, facility, and federal establishment records.
+2. Populate the event chronology from participant-controlled records and a reviewed declaration.
+3. Transcribe exact advertisement, application, consent, signage, and staff language into the representation-and-omission schedule.
+4. Index and authenticate the donor file, laboratory history, procedure records, payment records, expenses, communications, and preserved source materials.
+5. Complete the event-date authority register, claim-element matrix, adverse-authority review, limitations audit, and remedy-control matrix.
+6. Complete the § 145.682 and informed-consent review before retaining medical claims in a filed pleading.
+7. Prepare a separate damages and structural-remedy methodology supported by admissible data and legal authority.
+8. Resolve caption, venue, forms, fee or waiver, service, e-filing, redaction, and deadline-calendar requirements.
+9. Run final contradiction, attribution, jurisdiction, limitations, venue, service, remedy, privacy, and certification audits against the exact filing copy.
 
 ## Result
 
-The repository now contains a consolidated working complaint, a 22-component filing-readiness control matrix, stable evidence-ID conventions, and a current action record. The package is materially advanced but is not truthfully file-ready until the matrix’s blocked factual and procedural fields are completed and every hold is resolved.
+The repository now contains a consolidated working complaint, a 22-component filing-readiness control matrix, an operational evidence and event ledger, an authority and claim-element matrix, a preservation and discovery target plan, a filing-packet and certification checklist, stable evidence-ID conventions, and a commit-traceable action record. The package is materially advanced but is not truthfully file-ready until the blocked factual and procedural fields are completed and every hold is resolved.
