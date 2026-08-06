@@ -38,6 +38,17 @@ class FakeMemory(GraphMemory):
         }
 
 
+class CapturingGraphMemory(GraphMemory):
+    def __init__(self):
+        self.cypher = ""
+        self.parameters = {}
+
+    def _execute(self, cypher, **parameters):
+        self.cypher = cypher
+        self.parameters = parameters
+        return []
+
+
 class TestRecallRequest(unittest.TestCase):
     def test_request_is_bounded_and_normalised(self):
         request = RecallRequest(
@@ -77,6 +88,15 @@ class TestGraphMemoryRecall(unittest.TestCase):
             RecallRequest(text="identity", depth=0, context_limit=8)
         )
         self.assertEqual([], result["matches"][0]["context"])
+
+    def test_neo4j_search_handles_scalar_and_list_properties_separately(self):
+        memory = CapturingGraphMemory()
+        self.assertEqual([], memory.search("rrkc", limit=3))
+        self.assertIn("valueType(n[key]) STARTS WITH 'LIST'", memory.cypher)
+        self.assertIn("toStringList(n[key])", memory.cypher)
+        self.assertIn("toStringOrNull(n[key])", memory.cypher)
+        self.assertNotIn("toString(n[key])", memory.cypher)
+        self.assertEqual("rrkc", memory.parameters["query_text"])
 
 
 class TestRepositoryMemory(unittest.TestCase):
