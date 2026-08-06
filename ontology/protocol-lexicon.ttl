@@ -1,5 +1,6 @@
 @prefix cxl: <https://caeluviim.org/ontology/lexicon#> .
 @prefix cx: <https://caeluviim.org/ontology/core#> .
+@prefix cxg: <https://caeluviim.org/governance/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -9,7 +10,7 @@
 
 <https://caeluviim.org/ontology/lexicon> a owl:Ontology ;
     rdfs:label "Caeluviim protocol lexicon ontology"@en ;
-    owl:versionInfo "0.1.0" ;
+    owl:versionInfo "0.1.1" ;
     dcterms:source <https://ojibwe.lib.umn.edu/main-entry/anishinaabe-na> .
 
 cxl:ProtocolLexeme a owl:Class ;
@@ -18,12 +19,19 @@ cxl:ProtocolLexeme a owl:Class ;
 cxl:RecoveryEvent a owl:Class ;
     rdfs:label "protocol lexical recovery event"@en .
 
+cxl:LanguageCommunityGovernancePolicy a owl:Class ;
+    rdfs:label "language-community governance policy"@en .
+
 cxl:mapsToConcept a owl:ObjectProperty ;
     rdfs:domain cxl:ProtocolLexeme .
 
 cxl:recoveredBy a owl:ObjectProperty ;
     rdfs:domain cxl:ProtocolLexeme ;
     rdfs:range cxl:RecoveryEvent .
+
+cxl:governedBy a owl:ObjectProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range cxl:LanguageCommunityGovernancePolicy .
 
 cxl:singularForm a owl:DatatypeProperty ;
     rdfs:domain cxl:ProtocolLexeme ;
@@ -41,11 +49,28 @@ cxl:protocolExtensionNote a owl:DatatypeProperty ;
     rdfs:domain cxl:ProtocolLexeme ;
     rdfs:range rdf:langString .
 
+cxl:contestationStatus a owl:DatatypeProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range xsd:string .
+
+cxl:speakerContestationRule a owl:DatatypeProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range rdf:langString .
+
+cxl:activeRemovalRule a owl:DatatypeProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range rdf:langString .
+
 cx:Person a owl:Class ;
     rdfs:label "Anishinaabe"@oj ;
     skos:prefLabel "Anishinaabe"@oj ;
     skos:altLabel "person"@en ;
     skos:scopeNote "Caeluviim's protocol concept of Person. The Ojibwe source sense includes a person or human in contrast to a non-human being. Any application by Caeluviim to disputed, relational, machine-mediated, or nonhuman candidates for personhood is a protocol extension, not an attributed community-language meaning."@en .
+
+cxg:language-community-veto a cxl:LanguageCommunityGovernancePolicy ;
+    rdfs:label "living-language speaker and community veto"@en ;
+    skos:definition "A good-faith objection by a speaker or source-community participant can suspend, revise, replace, or remove a Caeluviim protocol lexeme from active use while preserving a tombstoned provenance record."@en ;
+    dcterms:source <https://github.com/Caeluviim/Caeluviim/blob/main/governance/language-community-veto.json> .
 
 cxl:anishinaabe a cxl:ProtocolLexeme ;
     rdfs:label "anishinaabe"@oj ;
@@ -56,6 +81,10 @@ cxl:anishinaabe a cxl:ProtocolLexeme ;
     cxl:recoveryOrdinal 1 ;
     cxl:mapsToConcept cx:Person ;
     cxl:recoveredBy cxl:recovery-2026-08-06-person ;
+    cxl:governedBy cxg:language-community-veto ;
+    cxl:contestationStatus "speaker-contestable" ;
+    cxl:speakerContestationRule "Any self-identified Anishinaabemowin speaker or source-community participant has presumptive standing to contest spelling, gloss, semantic extension, recovery framing, provenance, or active use."@en ;
+    cxl:activeRemovalRule "A validated speaker or community objection may remove the lexeme from canonical emission and recommendation. Historical provenance remains tombstoned rather than erased."@en ;
     cxl:protocolExtensionNote "The lexeme is adopted as the Caeluviim protocol word for Person. Caeluviim does not claim ownership of the word or authority over Anishinaabemowin."@en ;
     dcterms:source <https://ojibwe.lib.umn.edu/main-entry/anishinaabe-na> .
 
