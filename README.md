@@ -23,6 +23,7 @@ The repository contains a persistent laptop-host Neo4j ingestion system:
 - a containerized operator that requires no host Python installation
 - offline backup and restore commands for both `neo4j` and `system`
 - CI that starts Neo4j, validates the laptop configuration, synchronizes the corpus twice, and verifies idempotency
+- bounded semantic recall with provenance, graph context, entity retrieval, and ingestion chronology
 
 ### Windows PowerShell
 
@@ -40,9 +41,22 @@ The startup command creates a protected local `.env` when absent, starts Neo4j, 
 
 See [`docs/operations/laptop-host.md`](docs/operations/laptop-host.md) for start, status, backup, restore, and shutdown procedures. See [`docs/operations/graph-ingestion.md`](docs/operations/graph-ingestion.md) for the ingestion contract and lifecycle.
 
+## Persistent graph memory
+
+After startup, prior graph records can be recalled directly instead of reconstructed from disconnected files:
+
+```bash
+docker compose --profile operator run --rm operator recall "functional identity"
+docker compose --profile operator run --rm operator timeline --limit 20
+docker compose --profile operator run --rm operator entity "urn:caeluviim:claim:example"
+docker compose --profile operator run --rm operator neighbors "urn:caeluviim:claim:example" --depth 2
+```
+
+Recall is bounded by result count and graph depth, returns source provenance, and does not treat retrieval as ratification or truth. See [`docs/operations/graph-memory.md`](docs/operations/graph-memory.md) for the complete operational contract.
+
 ## Repository structure
 
-- `caeluviim_graph/` — graph runtime, validation, migrations, and CLI orchestration
+- `caeluviim_graph/` — graph runtime, validation, migrations, recall, and CLI orchestration
 - `graph/migrations/` — ordered Neo4j schema migrations
 - `ingest/manifests/` — production corpus manifests
 - `scripts/laptop/` — laptop-host lifecycle, backup, and restore commands
@@ -70,4 +84,4 @@ python -m caeluviim_graph.cli validate ingest/manifests/rrkc-r2.json
 
 The EMGN and RRKC modules are implemented but remain **proposed**, not ratified. Ratification requires the applicable independent validation and governance record for each module.
 
-The graph runtime is an operational implementation substrate. Loading a record does not ratify its semantic or governance claims; those states must be represented explicitly in the ingested material.
+The graph runtime is an operational implementation substrate. Loading or recalling a record does not ratify its semantic or governance claims; those states must be represented explicitly in the ingested material.
