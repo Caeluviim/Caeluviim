@@ -20,7 +20,8 @@
     "Created living-language contestation governance.",
     "Corrected the initial unilateral-removal model so an individual objection triggers suspension only and final disposition requires a speaker-wide vote under speaker-ratified rules.",
     "Renamed the governance artifact from language-community-veto.json to language-community-contestation-and-vote.json so the path matches the corrected collective-governance model.",
-    "Opened pull request 69."
+    "Opened pull request 69.",
+    "Verified the final five-file changed set and fetched back all substantive records from the task branch."
   ],
   "artifacts": [
     "identities/superposed-identity.emoji-rider.json",
@@ -43,20 +44,22 @@
     "governance_fetchback": "passed",
     "ontology_fetchback": "passed",
     "collective_vote_correction": "encoded in governance, manifest, and ontology",
-    "governance_path_alignment": "corrected and pending final changed-file verification",
-    "pull_request_diff_review": "pending final review after path correction",
+    "governance_path_alignment": "passed; superseded veto-named path absent from final changed set",
+    "pull_request_changed_file_review": "passed; exactly five expected paths",
+    "content_consistency_review": "passed for exact renderings, lexeme mapping, suspension status, speaker-wide vote requirement, insufficient-participation status, and tombstone rule",
     "merge_validation": "pending"
   },
   "known_boundaries": [
     "The protocol selection is a Caeluviim governance decision and does not assert external community ratification.",
     "Speaker-wide voting infrastructure and speaker-ratified election rules do not yet exist and must be constructed before any contested disposition can become binding.",
-    "Candidate emoji meanings derived from the user-supplied Copilot response remain generated interpretations unless separately ratified."
+    "Candidate emoji meanings derived from the user-supplied Copilot response remain generated interpretations unless separately ratified.",
+    "Validation in this execution consisted of repository fetchback and content/diff inspection; no separate RDF reasoner or JSON Schema suite was run."
   ],
   "failure_and_correction": {
-    "failure": "The first governance draft allowed a validated individual or community objection to revise, replace, or remove the lexeme, which could permit an individual or small group to decide for all speakers. The initial corrected file path still retained the superseded word veto.",
-    "correction": "The governing model now separates individual suspension standing from collective disposition authority, requires a speaker-wide ballot under speaker-ratified legitimacy rules, and uses a filename matching that contestation-and-vote structure.",
-    "status": "corrected in all substantive layers before merge"
+    "failure": "The first governance draft allowed a validated individual or community objection to revise, replace, or remove the lexeme, which could permit an individual or small group to decide for all speakers. The initial corrected file path still retained the superseded word veto. A first deletion attempt also used a stale blob SHA.",
+    "correction": "The governing model now separates individual suspension standing from collective disposition authority, requires a speaker-wide ballot under speaker-ratified legitimacy rules, uses a filename matching that contestation-and-vote structure, and the stale-SHA deletion was retried with the current verified SHA.",
+    "status": "corrected and verified before merge"
   },
-  "writeback_status": "completed-pending-final-diff-verification-and-merge",
-  "recorded_at": "2026-08-06T14:33:00-05:00"
+  "writeback_status": "verified-pending-merge",
+  "recorded_at": "2026-08-06T14:35:00-05:00"
 }
