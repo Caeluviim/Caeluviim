@@ -12,6 +12,12 @@ For each operational category below, Defendants allegedly knew the governing req
 
 The predicate violation is not the requested remedy. It supplies operative content for the actionable counts and explains why the challenged public-facing commercial representation, classification, consent environment, or omission was false, misleading, deceptive, or materially incomplete.
 
+## Medical character across the enterprise
+
+Commercial plasmapheresis is medical across the markets and institutional systems involved. Its medical character arises from the invasive venipuncture, extracorporeal circulation, anticoagulant administration, biological-material extraction, eligibility assessment, adverse-reaction risk, laboratory monitoring, professional supervision, regulated personnel functions, and integration into a therapeutic-product manufacturing chain.
+
+Educational, employment, licensing, regulatory, insurance, labor, and downstream pharmaceutical systems may each classify or recognize different components of the enterprise for their own purposes. Those consequence-specific classifications do not create the underlying medical character and must not be used to partition the enterprise into a falsely nonmedical public-facing transaction.
+
 ## Actionable destinations
 
 | Destination | Predicate function |
@@ -40,6 +46,12 @@ Defendants allegedly omitted actual or suspected nonconformity concerning Source
 
 Defendants allegedly omitted actual or suspected nonconformity concerning personnel competence, contemporaneous records, donor selection, consent, deferrals, adverse reactions and follow-up, immunization records, collection-personnel identification, device traceability, and accountability.
 
+### Clinical-training recognition
+
+The Relator has received a contemporaneous oral statement that a phlebotomist working at a commercial plasma center while attending medical school receives clinical-hours credit for that work. The statement remains subject to verification through the worker, educational institution, program requirements, placement or affiliation records, supervision records, competency evaluations, and hour logs.
+
+If verified, the clinical-hours arrangement would corroborate institutional recognition of the work as clinical activity. It would not create the medical character of commercial plasmapheresis; that character already inheres in the procedure, labor, supervision, risks, biological extraction, and therapeutic-product chain. The evidence is relevant to inconsistent classification, knowledge, staffing representations, professional-role allocation, educational affiliation, and the credibility of public-facing efforts to describe the enterprise as principally nonmedical donation activity.
+
 ### Automated volumes, frequency, laboratory review, and device-license conditions
 
 Defendants allegedly omitted the controlling collection-volume, interval, protein, immunoglobulin, physician-review, device, override, and license-specific operating conditions; any deviation from those conditions; and any unresolved compliance question. The controlling information and records were inaccessible to participants and controlled by Defendants.
@@ -54,7 +66,7 @@ The collection of Source Plasma for further manufacturing use within a compensat
 
 ## Disclosure-duty control
 
-For an omission theory, the Relator must plead circumstances creating a legal or equitable duty to disclose. The asserted duty is grounded, as applicable, in Defendants’ special and exclusive knowledge; control of compliance, device, laboratory, staffing, program, and participant records; partial and standardized representations; the imposed classification and consent regime; direct responses to participant questions; and any independently applicable disclosure obligation.
+For an omission theory, the Relator must plead circumstances creating a legal or equitable duty to disclose. The asserted duty is grounded, as applicable, in Defendants’ special and exclusive knowledge; control of compliance, device, laboratory, staffing, program, educational-affiliation, and participant records; partial and standardized representations; the imposed classification and consent regime; direct responses to participant questions; and any independently applicable disclosure obligation.
 
 Predicate unlawfulness supplies the content of the omitted matter. It does not eliminate the duty, knowledge, materiality, causation, and injury elements of the destination count.
 
@@ -64,4 +76,4 @@ The Relator requests adjudication of whether the challenged operating structures
 
 ## Status and provenance
 
-This is a source-controlled pleading module for consolidation. Allegations remain allegations unless admitted or adjudicated. It supersedes the controlling label “non-actionable violations” while preserving the legally necessary distinction between a predicate authority and an independently actionable cause of action.
+This is a source-controlled pleading module for consolidation. Allegations remain allegations unless admitted or adjudicated. The clinical-hours statement is preserved as an unverified source statement and corroborative evidence candidate. It supersedes the controlling label “non-actionable violations” while preserving the legally necessary distinction between a predicate authority and an independently actionable cause of action.
