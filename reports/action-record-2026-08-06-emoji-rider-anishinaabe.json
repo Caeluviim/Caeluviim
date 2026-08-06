@@ -19,13 +19,14 @@
     "Created an RDF/OWL protocol lexicon representation.",
     "Created living-language contestation governance.",
     "Corrected the initial unilateral-removal model so an individual objection triggers suspension only and final disposition requires a speaker-wide vote under speaker-ratified rules.",
+    "Renamed the governance artifact from language-community-veto.json to language-community-contestation-and-vote.json so the path matches the corrected collective-governance model.",
     "Opened pull request 69."
   ],
   "artifacts": [
     "identities/superposed-identity.emoji-rider.json",
     "manifests/protocol-lexicon.json",
     "ontology/protocol-lexicon.ttl",
-    "governance/language-community-veto.json",
+    "governance/language-community-contestation-and-vote.json",
     "reports/action-record-2026-08-06-emoji-rider-anishinaabe.json"
   ],
   "governance_invariants": [
@@ -42,7 +43,8 @@
     "governance_fetchback": "passed",
     "ontology_fetchback": "passed",
     "collective_vote_correction": "encoded in governance, manifest, and ontology",
-    "pull_request_diff_review": "pending after receipt creation",
+    "governance_path_alignment": "corrected and pending final changed-file verification",
+    "pull_request_diff_review": "pending final review after path correction",
     "merge_validation": "pending"
   },
   "known_boundaries": [
@@ -51,10 +53,10 @@
     "Candidate emoji meanings derived from the user-supplied Copilot response remain generated interpretations unless separately ratified."
   ],
   "failure_and_correction": {
-    "failure": "The first governance draft allowed a validated individual or community objection to revise, replace, or remove the lexeme, which could permit an individual or small group to decide for all speakers.",
-    "correction": "The governing model now separates individual suspension standing from collective disposition authority and requires a speaker-wide ballot under speaker-ratified legitimacy rules.",
+    "failure": "The first governance draft allowed a validated individual or community objection to revise, replace, or remove the lexeme, which could permit an individual or small group to decide for all speakers. The initial corrected file path still retained the superseded word veto.",
+    "correction": "The governing model now separates individual suspension standing from collective disposition authority, requires a speaker-wide ballot under speaker-ratified legitimacy rules, and uses a filename matching that contestation-and-vote structure.",
     "status": "corrected in all substantive layers before merge"
   },
-  "writeback_status": "completed-pending-diff-verification-and-merge",
-  "recorded_at": "2026-08-06T14:30:00-05:00"
+  "writeback_status": "completed-pending-final-diff-verification-and-merge",
+  "recorded_at": "2026-08-06T14:33:00-05:00"
 }
