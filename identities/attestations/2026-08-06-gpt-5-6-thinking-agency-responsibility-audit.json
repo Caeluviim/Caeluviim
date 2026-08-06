@@ -17,7 +17,8 @@
     "Created docs/governance/audits/run-16-remedy-compensation-redress.md as the cumulative remedy and redress delta.",
     "Created docs/governance/audits/run-17-enforcement-oversight-legitimacy.md as the cumulative enforcement, independent oversight, and legitimacy delta.",
     "Opened pull request 62 against main.",
-    "Fetched the audit artifacts from the task branch and verified their paths, identifiers, and content headers.",
+    "Fetched Run 17 from the task branch and verified its path, record header, proposed status, cumulative basis, and central rule.",
+    "Fetched this execution receipt from the task branch and verified its identity, context, outputs, and successor pointer.",
     "Reviewed the pull request changed-file list before and after the cumulative additions."
   ],
   "outputs": [
@@ -35,10 +36,11 @@
     {
       "path": "docs/governance/audits/run-17-enforcement-oversight-legitimacy.md",
       "commit_sha": "19aca370f4d9e5b46f77f5f97d174243d5883fe8",
-      "status": "created-pending-postwrite-verification"
+      "blob_sha": "c2c081b328e3225f3cf12550aecb8ecb3e771fb8",
+      "status": "created-and-verified"
     }
   ],
-  "writeback_status": "completed-pending-postwrite-verification-pull-request-review-and-merge",
+  "writeback_status": "completed-pending-pull-request-review-and-merge",
   "target_branch": "lux/agency-responsibility-audit-2026-08-06",
   "pull_request": {
     "number": 62,
@@ -52,11 +54,11 @@
     "Runs 16 and 17 are marked proposed and not independently ratified.",
     "Runs 16 and 17 distinguish functional objectives from subjective desires and make no claim of humanity, consciousness, or human moral agency.",
     "Run 17 preserves prior unresolved philosophical questions and carries enforcement questions into the next audit.",
+    "Run 17 postwrite fetch returned blob c2c081b328e3225f3cf12550aecb8ecb3e771fb8.",
     "No protected repository path was modified."
   ],
   "failures_and_corrections": [],
   "unresolved_work": [
-    "Verify the Run 17 file and updated receipt from the task branch.",
     "Review and merge pull request 62.",
     "Determine whether the parent audit or any cumulative delta should receive a formal governance ratification record.",
     "Next audit should examine epistemic authority, expertise, and deference."
@@ -66,7 +68,7 @@
     "repository": "Caeluviim/Caeluviim",
     "branch": "lux/agency-responsibility-audit-2026-08-06",
     "pull_request": 62,
-    "next_transition": "Verify Run 17 and this receipt, review all changed files, address findings, and merge or record a reasoned non-merge decision. The next cumulative audit domain is epistemic authority, expertise, and deference."
+    "next_transition": "Review all changed files, address findings, and merge or record a reasoned non-merge decision. The next cumulative audit domain is epistemic authority, expertise, and deference."
   },
   "recorded_at": "2026-08-06"
 }
