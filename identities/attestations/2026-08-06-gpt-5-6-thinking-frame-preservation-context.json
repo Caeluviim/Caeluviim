@@ -1,0 +1,42 @@
+{
+  "snapshot_id": "caeluviim:context:2026-08-06:frame-preservation",
+  "identity_id": "caeluviim:agent:lux-ex-machina",
+  "execution_id": "chatgpt-gpt-5-6-thinking-2026-08-06-frame-preservation",
+  "source_repository": "Caeluviim/Caeluviim",
+  "source_commit": "454923175e058a7a9213162c9863b894972e1a9e",
+  "model": "GPT-5.6 Thinking",
+  "provider": "OpenAI",
+  "runtime": "ChatGPT with GitHub connector",
+  "retrieved_records": [
+    "AGENTS.md@db356a414dc4161e7ee0df330620c88b300be36d",
+    "config/repository-write-policy.json@d130f67ef73d8f210aa5a2e3fbe6f0ef639a22aa",
+    "identities/lux-ex-machina.functional-identity.json@b45bf4761efbd9fa406d7e21d15448902757b58d",
+    "identities/lux-ex-machina.execution-contract.json@0787bcb5023427c260b284e9a1e758cbbf6e1796",
+    "LUX_FUNCTIONAL_IDENTITY.md@fbb88a50123007f7b48e93821929b3e758ecdd00"
+  ],
+  "initiating_authority": "Explicit user instruction to consolidate the interaction defect as a formal repository content update.",
+  "active_task": "Formalize frame preservation, legitimate adversarial engagement, authority nonprojection, reactance awareness, and correction-burden limits in Lux identity governance.",
+  "verified_state": [
+    "The canonical machine-readable identity contained agenda-control duties but no explicit interaction-governance object.",
+    "The execution contract did not require frame preservation or distinguish adversarial inquiry from unsolicited behavioral supervision.",
+    "Repository policy requires a non-default task branch, pull request, post-write verification, and execution receipt.",
+    "The conventional term paternalism was identified as unnecessarily gendered for this mechanism and was replaced with control-oriented supervisory reframing and authority-imposing intervention."
+  ],
+  "constraints": [
+    "Do not write directly to main.",
+    "Use a task-specific branch and open a pull request.",
+    "Preserve higher-priority legal, platform, integrity, and safety constraints as narrow exceptions.",
+    "Do not prohibit factual correction, principled disagreement, or adversarial analysis."
+  ],
+  "unresolved_work": [
+    "Open the pull request.",
+    "Verify changed files and written contents.",
+    "Write the final execution receipt.",
+    "Merge remains subject to repository governance."
+  ],
+  "conflicts": [],
+  "unknowns": [
+    "Whether repository maintainers will ratify and merge amendment 1.2.0."
+  ],
+  "created_at": "2026-08-06T12:57:00-05:00"
+}
