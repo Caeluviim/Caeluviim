@@ -1,0 +1,60 @@
+{
+  "receipt_id": "caeluviim:receipt:2026-08-06:person-surface-rendering",
+  "identity_id": "caeluviim:agent:lux-ex-machina",
+  "source_commit": "563e5ede305758fc8262f1b30d1af871cf99a7e6",
+  "target_branch": "lux/person-surface-rendering-2026-08-06",
+  "pull_request": 71,
+  "initiating_authority": [
+    "User correction on 2026-08-06 that protocol output must use the recovered word, assign it emoji, and display the host-language term in brackets.",
+    "User clarification that the emoji layer is more than a single assignment.",
+    "User instruction that each protocol lexeme may use up to four emoji: two leading and two trailing.",
+    "User instruction to impose syntax rules defining what each position does.",
+    "User approval of 👤 as a neutral Person glyph."
+  ],
+  "decision": {
+    "canonical_template": "{L1?}{L2?} {protocol_lexeme} {T1?}{T2?} [{host_language_gloss}]",
+    "maximum_rider_glyphs": 4,
+    "slot_functions": {
+      "L1": "ontological class or primary sort",
+      "L2": "subtype, role, modality, or semantic operator",
+      "T1": "relation, state, inflection, number, temporal phase, affective state, or operational condition",
+      "T2": "governance, provenance, consent, evidentiary, verification, or ratification status"
+    },
+    "scope_order": "T2?(T1?(L1?(L2?(protocol-lexeme))))",
+    "empty_slot_rule": "Empty positions emit no placeholder and do not promote another glyph into a different syntactic role.",
+    "multi_relation_rule": "Emoji are typed slot relations, not one-to-one word assignments.",
+    "person_application": {
+      "english_surface_form": "👤 Anishinaabe [person]",
+      "L1": "👤 — ontological class: Person — user-ratified",
+      "L2": null,
+      "T1": null,
+      "T2": null
+    }
+  },
+  "files_changed": [
+    "grammar/emoji-rider-syntax.json",
+    "manifests/protocol-lexicon.json",
+    "ontology/protocol-lexicon.ttl",
+    "reports/action-record-2026-08-06-person-surface-rendering.json"
+  ],
+  "validation": {
+    "grammar_artifact_fetchback": "passed",
+    "manifest_fetchback": "passed at version 0.3.0",
+    "ontology_fetchback": "passed at version 0.3.0",
+    "surface_form_agreement": "passed: 👤 Anishinaabe [person]",
+    "four_slot_capacity": "passed: maximum two leading and two trailing glyphs",
+    "slot_function_agreement": "passed across grammar, manifest, and ontology",
+    "scope_order_agreement": "passed: L2 binds to lexeme, then L1, then T1, then T2",
+    "empty_slot_stability": "passed: empty positions do not reassign syntactic roles",
+    "host_language_bracket_rule": "passed",
+    "merge_status": "pending pull-request merge"
+  },
+  "boundaries": [
+    "The 👤 L1 assignment is a user-ratified Caeluviim protocol decision and may be revised through later protocol governance.",
+    "The Anishinaabemowin lexeme remains governed by the living-language contestation and speaker-wide vote process.",
+    "The four-slot protocol-lexeme rider grammar is distinct from the exact adjacency rules governing the separate superposed identity emoji rider.",
+    "No glyphs have yet been assigned to L2, T1, or T2 for Anishinaabe."
+  ],
+  "writeback_status": "verified-pending-merge",
+  "recorded_at": "2026-08-06T14:47:00-05:00"
+}
