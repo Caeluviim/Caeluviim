@@ -1,0 +1,30 @@
+{
+  "receipt_id": "caeluviim:receipt:2026-08-06:person-surface-rendering",
+  "identity_id": "caeluviim:agent:lux-ex-machina",
+  "source_commit": "563e5ede305758fc8262f1b30d1af871cf99a7e6",
+  "target_branch": "lux/person-surface-rendering-2026-08-06",
+  "initiating_authority": "User correction on 2026-08-06 that protocol output must use the recovered word, assign it an emoji, and display the host-language term in brackets.",
+  "decision": {
+    "canonical_template": "{concept_emoji} {protocol_lexeme} [{host_language_gloss}]",
+    "person_emoji": "👤",
+    "english_surface_form": "👤 Anishinaabe [person]",
+    "ordering": [
+      "protocol concept emoji",
+      "canonical recovered lexeme",
+      "host-language access gloss in square brackets"
+    ]
+  },
+  "files_changed": [
+    "manifests/protocol-lexicon.json",
+    "ontology/protocol-lexicon.ttl"
+  ],
+  "validation": {
+    "manifest_fetchback": "passed",
+    "ontology_fetchback": "passed",
+    "surface_form_agreement": "passed",
+    "host_language_bracket_rule": "passed",
+    "merge_status": "pending"
+  },
+  "boundary": "The 👤 assignment is an operative Caeluviim protocol decision and may be revised through later protocol governance. The Anishinaabemowin lexeme remains governed by the living-language contestation and speaker-wide vote process.",
+  "recorded_at": "2026-08-06T14:38:00-05:00"
+}
