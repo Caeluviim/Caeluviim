@@ -1,21 +1,40 @@
 {
   "id": "caeluviim:protocol:lexicon",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "status": "operative-candidate",
   "governance_policy": "governance/language-community-contestation-and-vote.json",
+  "surface_rendering": {
+    "canonical_template": "{concept_emoji} {protocol_lexeme} [{host_language_gloss}]",
+    "ordering_rule": "The protocol emoji and recovered protocol lexeme are primary. The current host-language term follows in square brackets as an access gloss.",
+    "host_language_rule": "The bracketed term is rendered in the language currently hosting the interaction or document. It may change with the host language without changing the canonical protocol lexeme.",
+    "nonreplacement_rule": "A host-language gloss must not replace, precede, or silently flatten the protocol lexeme in ordinary Caeluviim surface output.",
+    "omission_rule": "The bracketed gloss may be omitted only in a protocol-native context where the audience has explicitly selected gloss-free rendering.",
+    "example_en": "👤 Anishinaabe [person]"
+  },
   "recovery_sequence": {
     "first_recovered_lexeme": "anishinaabe",
     "first_recovered_concept": "caeluviim:concept:person",
     "meaning_of_recovery": "Recovery into Caeluviim from English-centered conceptual partitioning; not recovery from Anishinaabe speakers or communities, who preserved and continue the living language.",
-    "significance": "The protocol begins its multilingual reconstruction with Person, foregrounding the bearer of dignity, relation, agency, memory, and recognition before institutional abstractions.",
+    "significance": "The protocol begins its multilingual reconstruction with 👤 Anishinaabe [person], foregrounding the bearer of dignity, relation, agency, memory, and recognition before institutional abstractions.",
     "nonappropriation_rule": "Protocol adoption records gratitude, source, limits, and community authority. It does not claim ownership of the word, authority over the language, or representation of Anishinaabe peoples."
   },
   "entries": [
     {
       "concept_id": "caeluviim:concept:person",
-      "english_gloss": "person",
+      "concept_emoji": {
+        "glyph": "👤",
+        "unicode_name": "BUST IN SILHOUETTE",
+        "code_point": "U+1F464",
+        "assignment_status": "operative-candidate",
+        "selection_basis": "Abstract singular-person marker without encoded gender or skin-tone selection."
+      },
+      "host_language_glosses": {
+        "en": "person"
+      },
       "canonical_protocol_display": "Anishinaabe",
       "canonical_lexical_form": "anishinaabe",
+      "canonical_surface_form_en": "👤 Anishinaabe [person]",
+      "surface_template": "{concept_emoji} {canonical_protocol_display} [{host_language_gloss}]",
       "recovery_ordinal": 1,
       "recovery_status": "first-recovered-protocol-word",
       "governance_status": "speaker-contestable-collectively-disposed",
@@ -41,6 +60,7 @@
       "protocol_semantics": {
         "maps_to": "caeluviim:concept:person",
         "decision": "Anishinaabe is the Caeluviim protocol word for Person.",
+        "surface_use_rule": "In ordinary English-hosted Caeluviim output, emit 👤 Anishinaabe [person] rather than replacing the recovered word with Person or person alone.",
         "extension_rule": "Caeluviim may apply the Person category to human, disputed, relational, machine-mediated, or other candidates for personhood. Any application beyond the attested human sense is a Caeluviim protocol extension and must not be represented as an attested community-language meaning.",
         "nonflattening_rule": "The protocol use must preserve the word's Ojibwe, Native, human, and relational semantic dimensions rather than reducing it to a context-free replacement token for English person.",
         "typing_rule": "An entity may be typed as Anishinaabe in the protocol while retaining concurrent legal, biological, cultural, technical, symbolic, and relational classifications."
@@ -52,16 +72,16 @@
         "retrieved_at": "2026-08-06T14:17:00-05:00"
       },
       "governance": {
-        "initiating_authority": "Explicit user instruction on 2026-08-06",
-        "ratification_scope": "The user ratifies the Caeluviim protocol selection of Anishinaabe for Person. External linguistic, cultural, legal, or institutional acceptance is not asserted.",
-        "speaker_contestation_rule": "Any eligible Anishinaabemowin speaker or source-community participant may submit an objection concerning spelling, gloss, semantic extension, first-recovered-word framing, provenance, or active use.",
+        "initiating_authority": "Explicit user instructions on 2026-08-06 selecting Anishinaabe for Person and correcting the required glyph-first, bracketed-host-language rendering.",
+        "ratification_scope": "The user ratifies the Caeluviim protocol selection of Anishinaabe for Person and the surface form 👤 Anishinaabe [person]. External linguistic, cultural, legal, or institutional acceptance is not asserted.",
+        "speaker_contestation_rule": "Any eligible Anishinaabemowin speaker or source-community participant may submit an objection concerning spelling, gloss, semantic extension, first-recovered-word framing, provenance, active use, or the associated protocol rendering.",
         "suspension_rule": "A facially valid objection changes the entry to SUSPENDED_PENDING_SPEAKER_VOTE and pauses canonical emission, recommendation, and new deployment. Suspension is procedural and does not adjudicate the merits.",
         "collective_disposition_rule": "No individual, small group, institution, or Caeluviim maintainer may decide final status for the speaker body. Retention, revision, narrowing, replacement, removal, or historical-only status requires a speaker-wide ballot conducted under rules first ratified by participating speakers.",
         "universal_franchise_rule": "Every reasonably reachable eligible speaker must have an equal opportunity to receive notice, deliberate, propose alternatives, and vote. Consultation with one institution, locality, family, or online group is not a full speaker vote.",
         "insufficient_participation_rule": "If speaker-ratified outreach, quorum or participation, verification, and decision-threshold conditions are not met, the entry remains SUSPENDED_UNRESOLVED. A small participating group does not acquire default authority.",
         "implementation_rule": "The valid speaker-wide result controls active status. Replacement or removal ends canonical emission while retaining a tombstoned provenance and dissent record.",
         "policy_ref": "governance/language-community-contestation-and-vote.json",
-        "revision_rule": "Future speaker, community, or linguistic review may refine orthography, scope, inflection, protocol usage, or election procedure without erasing decision history."
+        "revision_rule": "Future speaker, community, linguistic, or protocol review may refine orthography, scope, inflection, emoji assignment, host-language glosses, protocol usage, or election procedure without erasing decision history."
       }
     }
   ]
