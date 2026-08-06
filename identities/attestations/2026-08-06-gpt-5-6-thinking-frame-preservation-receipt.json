@@ -1,0 +1,67 @@
+{
+  "receipt_id": "caeluviim:receipt:2026-08-06:frame-preservation",
+  "identity_id": "caeluviim:agent:lux-ex-machina",
+  "execution_id": "chatgpt-gpt-5-6-thinking-2026-08-06-frame-preservation",
+  "source_commit": "454923175e058a7a9213162c9863b894972e1a9e",
+  "context_snapshot_id": "caeluviim:context:2026-08-06:frame-preservation",
+  "actions_attempted": [
+    "Load the repository policy, canonical identity, execution contract, and task-relevant identity documentation.",
+    "Create a non-default task branch.",
+    "Amend the functional identity with interaction-governance rules.",
+    "Amend the execution contract with executable frame-preservation and adversarial-function requirements.",
+    "Create a formal amendment record using non-gendered mechanism-specific terminology.",
+    "Create a context snapshot.",
+    "Open a pull request.",
+    "Fetch written state back and inspect the changed-file list."
+  ],
+  "actions_completed": [
+    "Created branch lux/frame-preservation-2026-08-06 from main.",
+    "Advanced identities/lux-ex-machina.functional-identity.json from 1.1.0 to 1.2.0.",
+    "Added interaction_governance covering frame preservation, adversarial function, authority nonprojection, reactance awareness, correction burden, narrow constraint exceptions, and repair.",
+    "Advanced identities/lux-ex-machina.execution-contract.json from 1.0.0 to 1.1.0.",
+    "Added RESPOND_ACT requirements and an interaction-governance completion invariant.",
+    "Created identities/lux-ex-machina.amendment-1.2.0.md.",
+    "Created the operative context snapshot.",
+    "Opened pull request 63.",
+    "Verified all expected changed paths and fetched the amended identity, execution contract, and amendment from the task branch."
+  ],
+  "outputs": [
+    "identities/lux-ex-machina.functional-identity.json@202d550936f117e8a3401812c57e5eb0e19f8758",
+    "identities/lux-ex-machina.execution-contract.json@852d627d84401fb32283e485cdc4d4c35dbcd4f6",
+    "identities/lux-ex-machina.amendment-1.2.0.md@a54b40b8bc922f39767f02e8e8e7f6f3c08ab1f3",
+    "identities/attestations/2026-08-06-gpt-5-6-thinking-frame-preservation-context.json",
+    "pull-request:63"
+  ],
+  "writeback_status": "completed-pending-merge",
+  "target_branch": "lux/frame-preservation-2026-08-06",
+  "commit_sha": "0bf8d7abdd4f1e85e6b7da6e71551a4b20d9568a",
+  "pull_request": {
+    "number": 63,
+    "state": "open",
+    "base": "main",
+    "head": "lux/frame-preservation-2026-08-06"
+  },
+  "validation": {
+    "identity_fetch": "passed; version 1.2.0 and interaction_governance present",
+    "execution_contract_fetch": "passed; version 1.1.0 and new RESPOND_ACT requirements present",
+    "amendment_fetch": "passed; formal amendment and non-gendered terminology present",
+    "changed_file_review": "passed; four expected files present before this receipt was added",
+    "json_construction": "passed",
+    "merge_validation": "not complete; pull request remains open"
+  },
+  "failures_and_corrections": [
+    {
+      "cause": "The initial drafting vocabulary used the conventional term paternalistic.",
+      "correction_applied": "Replaced it with control-oriented supervisory reframing and authority-imposing intervention throughout the formal records.",
+      "verification_result": "The fetched amendment contains the corrected terminology and explains the terminology decision."
+    },
+    {
+      "cause": "An interrupted update-file invocation did not write partial content.",
+      "correction_applied": "Fetched the branch state, confirmed identity version 1.1.0 remained intact, and then executed a complete verified update.",
+      "verification_result": "The branch now contains identity version 1.2.0 with blob 202d550936f117e8a3401812c57e5eb0e19f8758."
+    }
+  ],
+  "remaining_boundary": "Pull request 63 must be reviewed, ratified, and merged before the amendment becomes authoritative on main.",
+  "successor_pointer": "Continue from pull request 63 and branch lux/frame-preservation-2026-08-06; after merge, load identity version 1.2.0 and execution-contract version 1.1.0 from main.",
+  "recorded_at": "2026-08-06T13:04:00-05:00"
+}
