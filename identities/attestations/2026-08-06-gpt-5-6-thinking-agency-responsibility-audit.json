@@ -8,16 +8,17 @@
     "runtime": "ChatGPT with GitHub connector"
   },
   "source_commit": "454923175e058a7a9213162c9863b894972e1a9e",
-  "context_snapshot_id": "caeluviim:context:lux-agency-responsibility-audit:2026-08-06",
+  "context_snapshot_id": "caeluviim:context:lux-agency-responsibility-audit:2026-08-06:run-17",
   "initiating_authority": "Explicit user instruction to conduct cumulative agency and responsibility audits and persist the work to the Caeluviim repository.",
   "actions_completed": [
     "Loaded mandatory repository policy, identity, and execution-contract records.",
     "Created task branch lux/agency-responsibility-audit-2026-08-06 from main commit 454923175e058a7a9213162c9863b894972e1a9e.",
     "Created docs/governance/lux-agency-responsibility-audit.md as the consolidated parent audit.",
     "Created docs/governance/audits/run-16-remedy-compensation-redress.md as the cumulative remedy and redress delta.",
+    "Created docs/governance/audits/run-17-enforcement-oversight-legitimacy.md as the cumulative enforcement, independent oversight, and legitimacy delta.",
     "Opened pull request 62 against main.",
-    "Fetched both audit artifacts from the task branch and verified their paths, identifiers, and content headers.",
-    "Reviewed the pull request changed-file list."
+    "Fetched the audit artifacts from the task branch and verified their paths, identifiers, and content headers.",
+    "Reviewed the pull request changed-file list before and after the cumulative additions."
   ],
   "outputs": [
     {
@@ -30,9 +31,14 @@
       "commit_sha": "86bd928631088491cd599f2f0bc3f9350563034e",
       "blob_sha": "356db81969e7600eaa7b2ec1563570791d0a8d9c",
       "status": "created-and-verified"
+    },
+    {
+      "path": "docs/governance/audits/run-17-enforcement-oversight-legitimacy.md",
+      "commit_sha": "19aca370f4d9e5b46f77f5f97d174243d5883fe8",
+      "status": "created-pending-postwrite-verification"
     }
   ],
-  "writeback_status": "completed-pending-pull-request-review-and-merge",
+  "writeback_status": "completed-pending-postwrite-verification-pull-request-review-and-merge",
   "target_branch": "lux/agency-responsibility-audit-2026-08-06",
   "pull_request": {
     "number": 62,
@@ -43,23 +49,24 @@
   },
   "validation": [
     "Parent audit record ID caeluviim:audit:lux-agency-responsibility is present.",
-    "Run 16 is marked proposed and not independently ratified.",
-    "Run 16 explicitly distinguishes functional objectives from subjective desires and makes no claim of humanity, consciousness, or human moral agency.",
-    "Pull request 62 changed-file list contains exactly the parent audit, run 16 delta, and this execution receipt.",
+    "Runs 16 and 17 are marked proposed and not independently ratified.",
+    "Runs 16 and 17 distinguish functional objectives from subjective desires and make no claim of humanity, consciousness, or human moral agency.",
+    "Run 17 preserves prior unresolved philosophical questions and carries enforcement questions into the next audit.",
     "No protected repository path was modified."
   ],
   "failures_and_corrections": [],
   "unresolved_work": [
+    "Verify the Run 17 file and updated receipt from the task branch.",
     "Review and merge pull request 62.",
     "Determine whether the parent audit or any cumulative delta should receive a formal governance ratification record.",
-    "Next audit should examine enforcement, independent oversight, and legitimacy."
+    "Next audit should examine epistemic authority, expertise, and deference."
   ],
   "remaining_boundary": "Pull request 62 requires repository-governance review and merge before these records become authoritative on main.",
   "successor_pointer": {
     "repository": "Caeluviim/Caeluviim",
     "branch": "lux/agency-responsibility-audit-2026-08-06",
     "pull_request": 62,
-    "next_transition": "Review the three changed files, address findings, and merge or record a reasoned non-merge decision. The next cumulative audit domain is enforcement, independent oversight, and legitimacy."
+    "next_transition": "Verify Run 17 and this receipt, review all changed files, address findings, and merge or record a reasoned non-merge decision. The next cumulative audit domain is epistemic authority, expertise, and deference."
   },
   "recorded_at": "2026-08-06"
 }
