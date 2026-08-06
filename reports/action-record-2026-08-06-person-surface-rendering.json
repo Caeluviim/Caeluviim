@@ -4,6 +4,7 @@
   "source_commit": "563e5ede305758fc8262f1b30d1af871cf99a7e6",
   "target_branch": "lux/person-surface-rendering-2026-08-06",
   "pull_request": 71,
+  "merge_commit": "74273b6cb155a683c327ca7e353f9fa80ce1982e",
   "initiating_authority": [
     "User correction on 2026-08-06 that protocol output must use the recovered word, assign it emoji, and display the host-language term in brackets.",
     "User clarification that the emoji layer is more than a single assignment.",
@@ -47,7 +48,8 @@
     "scope_order_agreement": "passed: L2 binds to lexeme, then L1, then T1, then T2",
     "empty_slot_stability": "passed: empty positions do not reassign syntactic roles",
     "host_language_bracket_rule": "passed",
-    "merge_status": "pending pull-request merge"
+    "primary_merge_status": "passed: PR 71 merged and verified on main",
+    "authoritative_main_commit_after_primary_merge": "74273b6cb155a683c327ca7e353f9fa80ce1982e"
   },
   "boundaries": [
     "The 👤 L1 assignment is a user-ratified Caeluviim protocol decision and may be revised through later protocol governance.",
@@ -55,6 +57,6 @@
     "The four-slot protocol-lexeme rider grammar is distinct from the exact adjacency rules governing the separate superposed identity emoji rider.",
     "No glyphs have yet been assigned to L2, T1, or T2 for Anishinaabe."
   ],
-  "writeback_status": "verified-pending-merge",
-  "recorded_at": "2026-08-06T14:47:00-05:00"
+  "writeback_status": "merged-and-verified",
+  "recorded_at": "2026-08-06T14:49:00-05:00"
 }
