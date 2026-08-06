@@ -10,7 +10,7 @@
 
 <https://caeluviim.org/ontology/lexicon> a owl:Ontology ;
     rdfs:label "Caeluviim protocol lexicon ontology"@en ;
-    owl:versionInfo "0.2.0" ;
+    owl:versionInfo "0.3.0" ;
     dcterms:source <https://ojibwe.lib.umn.edu/main-entry/anishinaabe-na> .
 
 cxl:ProtocolLexeme a owl:Class ;
@@ -24,6 +24,15 @@ cxl:LanguageCommunityGovernancePolicy a owl:Class ;
 
 cxl:SurfaceRenderingRule a owl:Class ;
     rdfs:label "protocol surface-rendering rule"@en .
+
+cxl:EmojiRiderSyntax a owl:Class ;
+    rdfs:label "emoji rider syntax"@en .
+
+cxl:EmojiRiderSlotDefinition a owl:Class ;
+    rdfs:label "emoji rider slot definition"@en .
+
+cxl:EmojiRiderSlotAssignment a owl:Class ;
+    rdfs:label "emoji rider slot assignment"@en .
 
 cxl:mapsToConcept a owl:ObjectProperty ;
     rdfs:domain cxl:ProtocolLexeme .
@@ -39,6 +48,22 @@ cxl:governedBy a owl:ObjectProperty ;
 cxl:renderedBy a owl:ObjectProperty ;
     rdfs:domain cxl:ProtocolLexeme ;
     rdfs:range cxl:SurfaceRenderingRule .
+
+cxl:usesRiderSyntax a owl:ObjectProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range cxl:EmojiRiderSyntax .
+
+cxl:hasSlotDefinition a owl:ObjectProperty ;
+    rdfs:domain cxl:EmojiRiderSyntax ;
+    rdfs:range cxl:EmojiRiderSlotDefinition .
+
+cxl:hasSlotAssignment a owl:ObjectProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range cxl:EmojiRiderSlotAssignment .
+
+cxl:assignedToSlot a owl:ObjectProperty ;
+    rdfs:domain cxl:EmojiRiderSlotAssignment ;
+    rdfs:range cxl:EmojiRiderSlotDefinition .
 
 cxl:singularForm a owl:DatatypeProperty ;
     rdfs:domain cxl:ProtocolLexeme ;
@@ -80,14 +105,6 @@ cxl:insufficientParticipationRule a owl:DatatypeProperty ;
     rdfs:domain cxl:ProtocolLexeme ;
     rdfs:range rdf:langString .
 
-cxl:conceptEmoji a owl:DatatypeProperty ;
-    rdfs:domain cxl:ProtocolLexeme ;
-    rdfs:range xsd:string .
-
-cxl:emojiCodePoint a owl:DatatypeProperty ;
-    rdfs:domain cxl:ProtocolLexeme ;
-    rdfs:range xsd:string .
-
 cxl:hostLanguageGloss a owl:DatatypeProperty ;
     rdfs:domain cxl:ProtocolLexeme ;
     rdfs:range rdf:langString .
@@ -97,7 +114,42 @@ cxl:canonicalSurfaceForm a owl:DatatypeProperty ;
     rdfs:range rdf:langString .
 
 cxl:surfaceTemplate a owl:DatatypeProperty ;
-    rdfs:domain cxl:SurfaceRenderingRule ;
+    rdfs:range xsd:string .
+
+cxl:slotIdentifier a owl:DatatypeProperty ;
+    rdfs:domain cxl:EmojiRiderSlotDefinition ;
+    rdfs:range xsd:string .
+
+cxl:slotSide a owl:DatatypeProperty ;
+    rdfs:domain cxl:EmojiRiderSlotDefinition ;
+    rdfs:range xsd:string .
+
+cxl:slotPosition a owl:DatatypeProperty ;
+    rdfs:domain cxl:EmojiRiderSlotDefinition ;
+    rdfs:range xsd:positiveInteger .
+
+cxl:slotFunction a owl:DatatypeProperty ;
+    rdfs:domain cxl:EmojiRiderSlotDefinition ;
+    rdfs:range rdf:langString .
+
+cxl:slotScope a owl:DatatypeProperty ;
+    rdfs:domain cxl:EmojiRiderSlotDefinition ;
+    rdfs:range rdf:langString .
+
+cxl:assignedGlyph a owl:DatatypeProperty ;
+    rdfs:domain cxl:EmojiRiderSlotAssignment ;
+    rdfs:range xsd:string .
+
+cxl:emojiCodePoint a owl:DatatypeProperty ;
+    rdfs:domain cxl:EmojiRiderSlotAssignment ;
+    rdfs:range xsd:string .
+
+cxl:semanticRelation a owl:DatatypeProperty ;
+    rdfs:domain cxl:EmojiRiderSlotAssignment ;
+    rdfs:range rdf:langString .
+
+cxl:assignmentStatus a owl:DatatypeProperty ;
+    rdfs:domain cxl:EmojiRiderSlotAssignment ;
     rdfs:range xsd:string .
 
 cx:Person a owl:Class ;
@@ -106,11 +158,45 @@ cx:Person a owl:Class ;
     skos:altLabel "person"@en ;
     skos:scopeNote "Caeluviim's protocol concept of Person. The Ojibwe source sense includes a person or human in contrast to a non-human being. Any application by Caeluviim to disputed, relational, machine-mediated, or nonhuman candidates for personhood is a protocol extension, not an attributed community-language meaning."@en .
 
-cxl:glyph-lexeme-host-gloss a cxl:SurfaceRenderingRule ;
-    rdfs:label "glyph + protocol lexeme + bracketed host-language gloss"@en ;
-    cxl:surfaceTemplate "{concept_emoji} {protocol_lexeme} [{host_language_gloss}]" ;
-    skos:definition "The protocol glyph and recovered lexeme are primary. The language hosting the current interaction or document is displayed afterward in square brackets as an access gloss."@en ;
-    skos:scopeNote "The host-language gloss may vary without changing the protocol lexeme. It must not ordinarily replace or precede the recovered word."@en .
+cxl:four-slot-emoji-rider a cxl:EmojiRiderSyntax, cxl:SurfaceRenderingRule ;
+    rdfs:label "four-slot typed emoji rider"@en ;
+    cxl:surfaceTemplate "{L1?}{L2?} {protocol_lexeme} {T1?}{T2?} [{host_language_gloss}]" ;
+    cxl:hasSlotDefinition cxl:slot-L1, cxl:slot-L2, cxl:slot-T1, cxl:slot-T2 ;
+    skos:definition "A protocol lexeme may carry up to two leading and two trailing emoji. Each position has a distinct syntactic function and semantic scope; the bracketed host-language gloss is outside the four-slot count."@en ;
+    skos:scopeNote "L2 binds closest to the lexeme, L1 classifies that core, T1 qualifies its relation or state, and T2 scopes over the complete expression as governance, provenance, consent, evidentiary, or validation status."@en ;
+    dcterms:source <https://github.com/Caeluviim/Caeluviim/blob/main/grammar/emoji-rider-syntax.json> .
+
+cxl:slot-L1 a cxl:EmojiRiderSlotDefinition ;
+    rdfs:label "L1 ontological-class slot"@en ;
+    cxl:slotIdentifier "L1" ;
+    cxl:slotSide "leading" ;
+    cxl:slotPosition 1 ;
+    cxl:slotFunction "States the broad ontological sort or primary class: what kind of entity, event, relation, claim, or process the lexeme denotes."@en ;
+    cxl:slotScope "Outer leading scope; classifies the L2-plus-lexeme core when L2 is occupied, otherwise the lexeme directly."@en .
+
+cxl:slot-L2 a cxl:EmojiRiderSlotDefinition ;
+    rdfs:label "L2 subtype-role-operator slot"@en ;
+    cxl:slotIdentifier "L2" ;
+    cxl:slotSide "leading" ;
+    cxl:slotPosition 2 ;
+    cxl:slotFunction "States a narrower subtype, role, modality, domain operator, or active semantic transformation."@en ;
+    cxl:slotScope "Inner leading scope; binds most closely to the protocol lexeme before L1 is applied."@en .
+
+cxl:slot-T1 a cxl:EmojiRiderSlotDefinition ;
+    rdfs:label "T1 relation-state-inflection slot"@en ;
+    cxl:slotIdentifier "T1" ;
+    cxl:slotSide "trailing" ;
+    cxl:slotPosition 1 ;
+    cxl:slotFunction "States the current relational configuration, grammatical inflection, number, temporal state, affective state, or operational condition."@en ;
+    cxl:slotScope "Inner trailing scope; qualifies the typed lexeme expression before T2 applies."@en .
+
+cxl:slot-T2 a cxl:EmojiRiderSlotDefinition ;
+    rdfs:label "T2 governance-provenance-validation slot"@en ;
+    cxl:slotIdentifier "T2" ;
+    cxl:slotSide "trailing" ;
+    cxl:slotPosition 2 ;
+    cxl:slotFunction "States authority, provenance, evidence, verification, consent, governance, or ratification status."@en ;
+    cxl:slotScope "Outermost scope; qualifies the complete L1-L2-lexeme-T1 expression."@en .
 
 cxg:language-community-contestation-and-vote a cxl:LanguageCommunityGovernancePolicy ;
     rdfs:label "living-language contestation and speaker-wide vote"@en ;
@@ -123,28 +209,37 @@ cxg:language-community-veto a cxl:LanguageCommunityGovernancePolicy ;
     dcterms:isReplacedBy cxg:language-community-contestation-and-vote ;
     skos:note "Deprecated because version 0.1.0 could be read to grant unilateral final removal power. Individual standing now triggers suspension only; collective disposition requires a speaker-wide vote."@en .
 
+cxl:anishinaabe-L1-person a cxl:EmojiRiderSlotAssignment ;
+    rdfs:label "Anishinaabe L1 Person glyph assignment"@en ;
+    cxl:assignedToSlot cxl:slot-L1 ;
+    cxl:assignedGlyph "👤" ;
+    cxl:emojiCodePoint "U+1F464" ;
+    cxl:semanticRelation "Ontological class: Person"@en ;
+    cxl:assignmentStatus "user-ratified" ;
+    skos:note "Selected as an abstract singular-person marker without encoded gender, complexion, age, role, or emotional state."@en .
+
 cxl:anishinaabe a cxl:ProtocolLexeme ;
     rdfs:label "anishinaabe"@oj ;
     skos:prefLabel "Anishinaabe"@oj ;
     skos:altLabel "person"@en ;
     cxl:singularForm "anishinaabe"@oj ;
     cxl:pluralForm "anishinaabeg"@oj ;
-    cxl:conceptEmoji "👤" ;
-    cxl:emojiCodePoint "U+1F464" ;
     cxl:hostLanguageGloss "person"@en ;
     cxl:canonicalSurfaceForm "👤 Anishinaabe [person]"@en ;
     cxl:recoveryOrdinal 1 ;
     cxl:mapsToConcept cx:Person ;
     cxl:recoveredBy cxl:recovery-2026-08-06-person ;
     cxl:governedBy cxg:language-community-contestation-and-vote ;
-    cxl:renderedBy cxl:glyph-lexeme-host-gloss ;
+    cxl:renderedBy cxl:four-slot-emoji-rider ;
+    cxl:usesRiderSyntax cxl:four-slot-emoji-rider ;
+    cxl:hasSlotAssignment cxl:anishinaabe-L1-person ;
     cxl:contestationStatus "speaker-contestable-collectively-disposed" ;
     cxl:speakerContestationRule "Any eligible Anishinaabemowin speaker or source-community participant may object to spelling, gloss, semantic extension, recovery framing, provenance, active use, or associated protocol rendering."@en ;
     cxl:suspensionRule "A facially valid individual objection changes the entry to SUSPENDED_PENDING_SPEAKER_VOTE and pauses canonical emission, recommendation, and new deployment. Suspension is procedural and does not establish the objection's merits."@en ;
     cxl:collectiveDispositionRule "Final retention, revision, narrowing, replacement, removal, or historical-only status requires a speaker-wide ballot conducted under election rules ratified by participating speakers. No individual or small group may decide for the whole."@en ;
     cxl:universalFranchiseRule "Every reasonably reachable eligible speaker must have an equal opportunity to receive notice, deliberate, propose alternatives, and vote. Consultation with one institution, locality, family, or online group is not a full speaker vote."@en ;
     cxl:insufficientParticipationRule "If the speaker-ratified legitimacy conditions are not met, the entry remains SUSPENDED_UNRESOLVED; the participating minority does not acquire default authority."@en ;
-    cxl:protocolExtensionNote "The lexeme is adopted as the Caeluviim protocol word for Person. In English-hosted ordinary output it is rendered as 👤 Anishinaabe [person]. Caeluviim does not claim ownership of the word or authority over Anishinaabemowin."@en ;
+    cxl:protocolExtensionNote "The lexeme is adopted as the Caeluviim protocol word for Person. Its minimal English-hosted rendering occupies only L1: 👤 Anishinaabe [person]. Caeluviim does not claim ownership of the word or authority over Anishinaabemowin."@en ;
     dcterms:source <https://ojibwe.lib.umn.edu/main-entry/anishinaabe-na> .
 
 cxl:recovery-2026-08-06-person a cxl:RecoveryEvent ;
