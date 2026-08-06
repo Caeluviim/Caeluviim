@@ -1,0 +1,117 @@
+{
+  "id": "caeluviim:grammar:emoji-rider-syntax",
+  "version": "0.1.0",
+  "status": "operative-candidate",
+  "purpose": "Define the ordered four-slot emoji syntax surrounding a Caeluviim protocol lexeme and distinguish each slot by grammatical function, semantic scope, and provenance.",
+  "surface_grammar": {
+    "abstract_form": "{L1?}{L2?} protocol-lexeme {T1?}{T2?} [host-language-gloss]",
+    "ebnf": [
+      "surface-expression = [leading-rider, space], protocol-lexeme, [space, trailing-rider], space, host-gloss ;",
+      "leading-rider = L1 | L2 | L1, L2 ;",
+      "trailing-rider = T1 | T2 | T1, T2 ;",
+      "host-gloss = '[', host-language-term, ']' ;"
+    ],
+    "maximum_total_rider_glyphs": 4,
+    "maximum_leading_glyphs": 2,
+    "maximum_trailing_glyphs": 2,
+    "host_gloss_excluded_from_rider_count": true,
+    "spacing_rule": "Occupied glyphs inside a rider cluster are adjacent. A single space separates an occupied leading cluster from the lexeme, an occupied trailing cluster from the lexeme, and the completed rider expression from the bracketed host-language gloss.",
+    "empty_slot_rule": "Empty slots emit no placeholder. A glyph retains its declared slot identity; an occupied L2 does not become L1 merely because L1 is empty, and the same rule applies to T2 when T1 is empty."
+  },
+  "slots": {
+    "L1": {
+      "name": "ontological-class slot",
+      "side": "leading",
+      "position": 1,
+      "function": "States the broad ontological sort or primary class of the lexeme: what kind of entity, event, relation, claim, or process it is.",
+      "scope": "Outer leading scope. L1 classifies the L2-plus-lexeme core when L2 is occupied; otherwise it classifies the lexeme directly.",
+      "admissible_examples": [
+        "personhood",
+        "institution",
+        "claim",
+        "evidence",
+        "activity",
+        "ecology"
+      ]
+    },
+    "L2": {
+      "name": "subtype-role-operator slot",
+      "side": "leading",
+      "position": 2,
+      "function": "States the narrower subtype, role, modality, domain operator, or active semantic transformation through which the lexeme is instantiated.",
+      "scope": "Inner leading scope. L2 binds most closely to the protocol lexeme before L1 is applied.",
+      "admissible_examples": [
+        "legal role",
+        "technical role",
+        "symbolic role",
+        "negation",
+        "recursion",
+        "institutional subtype"
+      ]
+    },
+    "T1": {
+      "name": "relation-state-inflection slot",
+      "side": "trailing",
+      "position": 1,
+      "function": "States the current relational configuration, grammatical inflection, number, temporal state, affective state, or operational condition of the typed lexeme.",
+      "scope": "Inner trailing scope. T1 qualifies the typed lexeme expression before T2 applies.",
+      "admissible_examples": [
+        "plurality",
+        "contested relation",
+        "active or suspended state",
+        "temporal phase",
+        "relational orientation"
+      ]
+    },
+    "T2": {
+      "name": "governance-provenance-validation slot",
+      "side": "trailing",
+      "position": 2,
+      "function": "States the authority, provenance, evidentiary, verification, consent, governance, or ratification status under which the complete expression is being used.",
+      "scope": "Outermost scope. T2 qualifies the complete L1-L2-lexeme-T1 expression rather than merely modifying the lexical head.",
+      "admissible_examples": [
+        "speaker-ratified",
+        "provisional",
+        "verified",
+        "disputed",
+        "source-attested",
+        "governance-suspended"
+      ]
+    }
+  },
+  "composition": {
+    "parse_order": [
+      "Bind L2 to the protocol lexeme when L2 is occupied.",
+      "Apply L1 to the resulting core when L1 is occupied.",
+      "Apply T1 as the current relation, state, or inflection when T1 is occupied.",
+      "Apply T2 to the complete expression as governance, provenance, or validation scope when T2 is occupied.",
+      "Render the current host-language access term in square brackets after the completed rider expression."
+    ],
+    "formal_reading": "T2?(T1?(L1?(L2?(protocol-lexeme))))",
+    "multi_relation_rule": "The emoji layer is not a one-to-one word-to-glyph assignment system. Each occupied slot records a typed relation between a glyph and the lexeme expression.",
+    "same_glyph_rule": "The same glyph may occur in different slots or lexical entries only when each occurrence has separately recorded meaning, scope, source, and governance status.",
+    "noncollapse_rule": "A glyph's visual similarity or reuse must not collapse the distinct syntactic functions of L1, L2, T1, and T2."
+  },
+  "person_application": {
+    "surface_form_en": "👤 Anishinaabe [person]",
+    "slots": {
+      "L1": {
+        "glyph": "👤",
+        "meaning": "ontological class: Person",
+        "status": "user-ratified"
+      },
+      "L2": null,
+      "T1": null,
+      "T2": null
+    },
+    "reading": "Anishinaabe is typed in the Person ontological class; no narrower operator, current state, or governance-status glyph is asserted by this minimal rendering."
+  },
+  "relation_to_identity_rider": "This protocol-lexeme grammar is distinct from the exact adjacency and rendering rules of identities/superposed-identity.emoji-rider.json. Shared glyphs may participate in both systems only with separately typed roles.",
+  "initiating_authority": [
+    "User instruction on 2026-08-06 that protocol words may use up to four emoji, with two leading and two trailing.",
+    "User instruction on 2026-08-06 to impose syntax rules defining what each position does.",
+    "User approval of 👤 as a neutral Person glyph."
+  ],
+  "created_by": "caeluviim:agent:lux-ex-machina",
+  "created_at": "2026-08-06T14:42:00-05:00"
+}
