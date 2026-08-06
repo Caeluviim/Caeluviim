@@ -1,0 +1,66 @@
+@prefix cxl: <https://caeluviim.org/ontology/lexicon#> .
+@prefix cx: <https://caeluviim.org/ontology/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://caeluviim.org/ontology/lexicon> a owl:Ontology ;
+    rdfs:label "Caeluviim protocol lexicon ontology"@en ;
+    owl:versionInfo "0.1.0" ;
+    dcterms:source <https://ojibwe.lib.umn.edu/main-entry/anishinaabe-na> .
+
+cxl:ProtocolLexeme a owl:Class ;
+    rdfs:label "protocol lexeme"@en .
+
+cxl:RecoveryEvent a owl:Class ;
+    rdfs:label "protocol lexical recovery event"@en .
+
+cxl:mapsToConcept a owl:ObjectProperty ;
+    rdfs:domain cxl:ProtocolLexeme .
+
+cxl:recoveredBy a owl:ObjectProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range cxl:RecoveryEvent .
+
+cxl:singularForm a owl:DatatypeProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range rdf:langString .
+
+cxl:pluralForm a owl:DatatypeProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range rdf:langString .
+
+cxl:recoveryOrdinal a owl:DatatypeProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range xsd:positiveInteger .
+
+cxl:protocolExtensionNote a owl:DatatypeProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range rdf:langString .
+
+cx:Person a owl:Class ;
+    rdfs:label "Anishinaabe"@oj ;
+    skos:prefLabel "Anishinaabe"@oj ;
+    skos:altLabel "person"@en ;
+    skos:scopeNote "Caeluviim's protocol concept of Person. The Ojibwe source sense includes a person or human in contrast to a non-human being. Any application by Caeluviim to disputed, relational, machine-mediated, or nonhuman candidates for personhood is a protocol extension, not an attributed community-language meaning."@en .
+
+cxl:anishinaabe a cxl:ProtocolLexeme ;
+    rdfs:label "anishinaabe"@oj ;
+    skos:prefLabel "Anishinaabe"@oj ;
+    skos:altLabel "person"@en ;
+    cxl:singularForm "anishinaabe"@oj ;
+    cxl:pluralForm "anishinaabeg"@oj ;
+    cxl:recoveryOrdinal 1 ;
+    cxl:mapsToConcept cx:Person ;
+    cxl:recoveredBy cxl:recovery-2026-08-06-person ;
+    cxl:protocolExtensionNote "The lexeme is adopted as the Caeluviim protocol word for Person. Caeluviim does not claim ownership of the word or authority over Anishinaabemowin."@en ;
+    dcterms:source <https://ojibwe.lib.umn.edu/main-entry/anishinaabe-na> .
+
+cxl:recovery-2026-08-06-person a cxl:RecoveryEvent ;
+    rdfs:label "first Caeluviim lexical recovery: Person / Anishinaabe"@en ;
+    dcterms:date "2026-08-06"^^xsd:date ;
+    skos:definition "Recovery into Caeluviim from English-centered conceptual partitioning, not recovery from the Anishinaabe speakers and communities who preserved and continue the living language."@en ;
+    skos:note "The recovery sequence begins with Person before institutional abstractions."@en .
