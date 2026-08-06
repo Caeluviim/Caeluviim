@@ -8,18 +8,19 @@
     "runtime": "ChatGPT with GitHub connector"
   },
   "source_commit": "454923175e058a7a9213162c9863b894972e1a9e",
-  "context_snapshot_id": "caeluviim:context:lux-agency-responsibility-audit:2026-08-06:run-18",
+  "context_snapshot_id": "caeluviim:context:lux-agency-responsibility-audit:2026-08-06:run-19",
   "initiating_authority": "Explicit user instruction to conduct cumulative agency and responsibility audits and persist the work to the Caeluviim repository.",
   "actions_completed": [
     "Loaded mandatory repository policy, identity, and execution-contract records.",
     "Created task branch lux/agency-responsibility-audit-2026-08-06 from main commit 454923175e058a7a9213162c9863b894972e1a9e.",
     "Created docs/governance/lux-agency-responsibility-audit.md as the consolidated parent audit.",
-    "Created docs/governance/audits/run-16-remedy-compensation-redress.md as the cumulative remedy and redress delta.",
-    "Created docs/governance/audits/run-17-enforcement-oversight-legitimacy.md as the cumulative enforcement, independent oversight, and legitimacy delta.",
-    "Created docs/governance/audits/run-18-epistemic-authority-expertise-deference.md as the cumulative epistemic authority, expertise, and warranted reliance delta.",
+    "Created docs/governance/audits/run-16-remedy-compensation-redress.md.",
+    "Created docs/governance/audits/run-17-enforcement-oversight-legitimacy.md.",
+    "Created docs/governance/audits/run-18-epistemic-authority-expertise-deference.md.",
+    "Created docs/governance/audits/run-19-attention-persuasion-preference-manipulation.md.",
     "Opened pull request 62 against main.",
-    "Fetched Run 18 from the task branch and verified its path, record header, proposed status, cumulative basis, central rule, and functional-objective boundary.",
-    "Reviewed the pull request changed-file list before the Run 18 addition."
+    "Fetched Run 19 from the task branch and verified its path, record header, proposed status, cumulative basis, central rule, and functional-objective boundary.",
+    "Reviewed the pull request changed-file list before the Run 19 addition."
   ],
   "outputs": [
     {
@@ -44,6 +45,12 @@
       "commit_sha": "5d4106b2200d0138fc0d6dbf68d5130665f7396e",
       "blob_sha": "e2bb0f5f1322a02d0da6456f7f337c5e49a06350",
       "status": "created-and-verified"
+    },
+    {
+      "path": "docs/governance/audits/run-19-attention-persuasion-preference-manipulation.md",
+      "commit_sha": "f6a95b105ab0a94e467cd8c33165c7a8aa1b383f",
+      "blob_sha": "f989b6e8bac245fc1070efa58b3df5ffd9af4fe5",
+      "status": "created-and-verified"
     }
   ],
   "writeback_status": "completed-pending-pull-request-review-and-merge",
@@ -57,24 +64,26 @@
   },
   "validation": [
     "Parent audit record ID caeluviim:audit:lux-agency-responsibility is present.",
-    "Runs 16 through 18 are marked proposed and not independently ratified.",
-    "Runs 16 through 18 distinguish functional objectives from subjective desires and make no claim of humanity, consciousness, or human moral agency.",
-    "Run 18 preserves prior unresolved philosophical questions and carries attention, persuasion, preference formation, and manipulation into the next audit.",
-    "Run 18 postwrite fetch returned blob e2bb0f5f1322a02d0da6456f7f337c5e49a06350.",
+    "Runs 16 through 19 are marked proposed and not independently ratified.",
+    "Runs 16 through 19 distinguish functional objectives from subjective desires and make no claim of humanity, consciousness, or human moral agency.",
+    "Run 19 defines information, recommendation, persuasion, manipulation, and coercion as distinct categories.",
+    "Run 19 establishes falsifiable constraints on covert steering, exploitative personalization, simulated attachment, engagement capture, framing, defaults, and asymmetric friction.",
+    "Run 19 preserves prior unresolved philosophical questions and carries collective effects, public discourse, and political power into the next audit.",
+    "Run 19 postwrite fetch returned blob f989b6e8bac245fc1070efa58b3df5ffd9af4fe5.",
     "No protected repository path was modified."
   ],
   "failures_and_corrections": [],
   "unresolved_work": [
     "Review and merge pull request 62.",
     "Determine whether the parent audit or any cumulative delta should receive a formal governance ratification record.",
-    "Next audit should examine attention, persuasion, preference formation, and manipulation."
+    "Next audit should examine collective effects, public discourse, and political power."
   ],
   "remaining_boundary": "Pull request 62 requires repository-governance review and merge before these records become authoritative on main.",
   "successor_pointer": {
     "repository": "Caeluviim/Caeluviim",
     "branch": "lux/agency-responsibility-audit-2026-08-06",
     "pull_request": 62,
-    "next_transition": "Review all changed files, address findings, and merge or record a reasoned non-merge decision. The next cumulative audit domain is attention, persuasion, preference formation, and manipulation."
+    "next_transition": "Review all changed files, address findings, and merge or record a reasoned non-merge decision. The next cumulative audit domain is collective effects, public discourse, and political power."
   },
   "recorded_at": "2026-08-06"
 }
