@@ -14,10 +14,10 @@ class RepositoryMemory:
     """Read-only memory projection built directly from repository manifests.
 
     This backend requires no Neo4j server, Docker runtime, Codex session, or network
-    service. It reconstructs the queryable graph from validated files committed to
-    the repository. Neo4j remains the preferred persistent runtime for mutation
-    receipts, database indexes, and larger traversals; this backend is the durable
-    repository fallback.
+    service. It reconstructs the same entity and relationship topology that the
+    Neo4j ingestion runtime materializes from validated repository files. Neo4j
+    remains the preferred persistent runtime for mutation receipts, database
+    indexes, and larger traversals; this backend is the durable repository fallback.
     """
 
     def __init__(self, manifest_directory: str | Path, schema_path: str | Path):
@@ -26,6 +26,7 @@ class RepositoryMemory:
         self._entities: dict[str, dict[str, Any]] = {}
         self._relationships: list[dict[str, Any]] = []
         self._adjacency: dict[str, list[dict[str, Any]]] = {}
+        self._manifest_count = 0
         self._load()
 
     def _manifest_paths(self) -> list[Path]:
@@ -116,6 +117,7 @@ class RepositoryMemory:
         manifests: list[dict[str, Any]] = []
         for path in self._manifest_paths():
             manifests.append(validate_manifest(load_manifest(path), schema))
+        self._manifest_count = len(manifests)
 
         for manifest in manifests:
             source = manifest["source"]
@@ -149,7 +151,7 @@ class RepositoryMemory:
                         "manifest_hash": sha256_record(manifest),
                         "source_id": source_id,
                     },
-                    "provenance": [source_summary],
+                    "provenance": [],
                     "captured_at": captured_at,
                 }
             )
@@ -159,6 +161,21 @@ class RepositoryMemory:
                         "id": node["id"],
                         "labels": ["Entity", *node["labels"]],
                         "properties": deepcopy(node.get("properties", {})),
+                        "provenance": [source_summary],
+                        "captured_at": captured_at,
+                    }
+                )
+            for relationship in manifest["relationships"]:
+                self._put_entity(
+                    {
+                        "id": relationship["id"],
+                        "labels": ["Entity", "RelationAssertion"],
+                        "properties": {
+                            "relationship_type": relationship["type"],
+                            "from_id": relationship["from"],
+                            "to_id": relationship["to"],
+                            **deepcopy(relationship.get("properties", {})),
+                        },
                         "provenance": [source_summary],
                         "captured_at": captured_at,
                     }
@@ -190,12 +207,41 @@ class RepositoryMemory:
                     source_id=source_id,
                 )
             for relationship in manifest["relationships"]:
+                assertion_id = relationship["id"]
                 self._put_relationship(
-                    relationship_id=relationship["id"],
+                    relationship_id=assertion_id,
                     relationship_type=relationship["type"],
                     from_id=relationship["from"],
                     to_id=relationship["to"],
                     properties=relationship.get("properties", {}),
+                    source_id=source_id,
+                )
+                self._put_relationship(
+                    relationship_id=f"{assertion_id}:FROM_ENTITY",
+                    relationship_type="FROM_ENTITY",
+                    from_id=assertion_id,
+                    to_id=relationship["from"],
+                    source_id=source_id,
+                )
+                self._put_relationship(
+                    relationship_id=f"{assertion_id}:TO_ENTITY",
+                    relationship_type="TO_ENTITY",
+                    from_id=assertion_id,
+                    to_id=relationship["to"],
+                    source_id=source_id,
+                )
+                self._put_relationship(
+                    relationship_id=f"{assertion_id}:HAS_PROVENANCE:{source_id}",
+                    relationship_type="HAS_PROVENANCE",
+                    from_id=assertion_id,
+                    to_id=source_id,
+                    source_id=source_id,
+                )
+                self._put_relationship(
+                    relationship_id=f"{ingest_id}:INGESTED_ENTITY:{assertion_id}",
+                    relationship_type="INGESTED_ENTITY",
+                    from_id=ingest_id,
+                    to_id=assertion_id,
                     source_id=source_id,
                 )
 
@@ -213,7 +259,7 @@ class RepositoryMemory:
         return {
             "entities": len(self._entities),
             "relationships": len(self._relationships),
-            "manifests": len(self._manifest_paths()),
+            "manifests": self._manifest_count,
         }
 
     def entity(self, entity_id: str) -> dict[str, Any] | None:
