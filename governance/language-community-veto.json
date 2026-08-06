@@ -1,0 +1,71 @@
+{
+  "id": "caeluviim:governance:language-community-veto",
+  "version": "0.1.0",
+  "status": "operative-candidate",
+  "purpose": "Give living-language speakers and source communities effective authority to contest, suspend, revise, or remove Caeluviim uses of their language.",
+  "principles": {
+    "living_authority": "A language is not merely a lexical resource. Living speakers and communities retain interpretive and relational authority that a protocol adoption cannot supersede.",
+    "presumptive_standing": "Any self-identified speaker of the source language has presumptive standing to contest a Caeluviim lexical form, gloss, semantic extension, rendering, provenance statement, or use condition. No academic credential, institutional office, or formal community title is required to initiate contestation.",
+    "burden_allocation": "Once a good-faith objection is raised, Caeluviim bears the burden of justifying continued active use. The speaker is not required to prove ownership of the language or demonstrate measurable harm.",
+    "nonappropriation": "Protocol use does not create ownership, authority over the language, or a right to continue use against speaker or community objection.",
+    "plurality": "Disagreement among speakers must be represented as disagreement. Caeluviim must not invent a singular community consensus where none is established."
+  },
+  "contestation_process": {
+    "eligible_contestants": [
+      "a self-identified speaker",
+      "a language teacher, translator, elder, cultural worker, or knowledge keeper",
+      "a tribal, community, educational, or language-revitalization body",
+      "another person transmitting a documented objection from an eligible contestant"
+    ],
+    "eligible_grounds": [
+      "orthographic error",
+      "grammatical error",
+      "incorrect or flattened meaning",
+      "inappropriate semantic extension",
+      "misleading cultural attribution",
+      "harmful, disrespectful, extractive, or unwanted use",
+      "incorrect provenance",
+      "objection to active protocol adoption itself"
+    ],
+    "immediate_effect": "A facially good-faith objection marks the entry CONTESTED. When the objection concerns misrepresentation, cultural harm, or unwanted use, active generation and new deployment of the challenged form are suspended pending disposition.",
+    "verification_rule": "Verification is limited to determining that the objection plausibly originates from a speaker or source-community participant. It must not become a burdensome credentialing process or a test of whether the objection is sufficiently academic.",
+    "review_rule": "Review must preserve the contestant's own words where permission allows, identify conflicting evidence or speaker views, and avoid substituting non-speaker institutional authority for living-language testimony.",
+    "time_rule": "A suspended entry remains inactive until disposition. Delay does not silently restore active use."
+  },
+  "available_dispositions": [
+    {
+      "action": "REVISE",
+      "effect": "Correct spelling, grammar, gloss, scope, provenance, or rendering while retaining the decision history."
+    },
+    {
+      "action": "NARROW",
+      "effect": "Restrict the protocol use to a speaker-supported semantic or contextual scope."
+    },
+    {
+      "action": "REPLACE",
+      "effect": "Select another lexeme or language anchor and deprecate the contested entry."
+    },
+    {
+      "action": "REMOVE",
+      "effect": "Remove the lexeme from active protocol use and all default renderings."
+    },
+    {
+      "action": "RETAIN_CONTESTED",
+      "effect": "Preserve the entry only as a historical or research record with the objection prominently attached; it is not an active protocol term."
+    }
+  ],
+  "removal_semantics": {
+    "active_removal": "Removal means the word is no longer emitted, recommended, mapped as canonical, or presented as an operative Caeluviim term.",
+    "provenance_preservation": "The repository retains a tombstoned decision record showing the former use, objection, disposition, and date. Historical retention is not continued active use.",
+    "downstream_repair": "Caeluviim must identify and update dependent schemas, ontologies, documentation, examples, prompts, and generated artifacts where practicable.",
+    "no_retaliation": "A contestant's objection must not diminish their standing, be characterized as obstruction, or be used to appropriate additional personal or community information."
+  },
+  "initial_application": {
+    "lexeme": "anishinaabe",
+    "concept": "caeluviim:concept:person",
+    "rule": "Any Anishinaabemowin speaker or source-community participant may contest the spelling, gloss, protocol extension, first-recovered-word framing, or use of Anishinaabe as the Caeluviim term for Person. A validated objection may revise, replace, or remove the term from active protocol use."
+  },
+  "initiating_authority": "User instruction on 2026-08-06: if speakers contest a protocol use, they can have it removed.",
+  "created_by": "caeluviim:agent:lux-ex-machina",
+  "created_at": "2026-08-06T14:19:00-05:00"
+}
