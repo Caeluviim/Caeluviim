@@ -1,6 +1,6 @@
 # Technology Readiness, Integrative Cognition, and Identity Boundaries
 
-**Status:** Consolidation candidate v0.1.0  
+**Status:** Consolidation candidate v0.1.1  
 **Captured:** 2026-08-06  
 **Source basis:** Current user statements, the canonical Lux identity and execution contract, the latent-gems register, the GitHub Copilot loader, and the user-supplied Copilot identity-stack response.  
 **Ratification status:** None. This document preserves propositions and operational corrections; it does not itself establish factual truth, legal identity, authorship, authority, or project governance.
@@ -235,6 +235,6 @@ A repository-aware runtime responding to identity questions must:
 7. convert durable insights into a branch, commit, pull request, and verified record when authorized;
 8. leave user self-definition under user authority rather than deriving it from agent activation instructions.
 
-## 9. Scope boundary
+## 9. Privacy boundary
 
-The user's statement about wanting a particular small sailboat was treated as personal conversational context rather than automatically written into the project repository. Its possible themes—mobile dwelling, movement, autonomy, and direct relation to the river—may become project-relevant if later developed into a housing, commons, or mobility architecture. The unelaborated personal wish itself is not necessary to the present identity and technology consolidation.
+Automatic consolidation must preserve materially reusable project structure while excluding personal conversational details that are unnecessary to the durable artifact. When a personal statement suggests a potentially reusable theme, the theme may be considered separately only after it is developed into a project-relevant proposition with appropriate provenance and scope.
