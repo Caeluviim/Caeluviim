@@ -63,10 +63,10 @@ class GraphMemory:
     def __init__(self, config: Neo4jConfig):
         self.config = config
 
-    def _execute(self, query: str, **parameters: Any) -> list[dict[str, Any]]:
+    def _execute(self, cypher: str, **parameters: Any) -> list[dict[str, Any]]:
         with _driver(self.config) as driver:
             records, _, _ = driver.execute_query(
-                query,
+                cypher,
                 database_=self.config.database,
                 **parameters,
             )
@@ -124,10 +124,10 @@ class GraphMemory:
             MATCH (n:Entity)
             WHERE ($labels = [] OR any(label IN labels(n) WHERE label IN $labels))
               AND (
-                $query = ''
-                OR toLower(n.id) CONTAINS $query
+                $query_text = ''
+                OR toLower(n.id) CONTAINS $query_text
                 OR any(key IN keys(n)
-                       WHERE toLower(coalesce(toString(n[key]), '')) CONTAINS $query)
+                       WHERE toLower(coalesce(toString(n[key]), '')) CONTAINS $query_text)
               )
             OPTIONAL MATCH (n)-[:HAS_PROVENANCE]->(source:Source)
             WITH n,
@@ -143,7 +143,7 @@ class GraphMemory:
             ORDER BY coalesce(n.updated_at, n.created_at) DESC, n.id
             LIMIT $limit
             """,
-            query=query_text,
+            query_text=query_text,
             labels=label_filter,
             limit=limit,
         )
@@ -222,6 +222,7 @@ class GraphMemory:
             for match in matches:
                 match["context"] = []
         return {
+            "backend": "neo4j",
             "query": request.text,
             "labels": list(request.labels),
             "limit": request.limit,
