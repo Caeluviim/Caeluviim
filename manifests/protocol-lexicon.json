@@ -2,7 +2,7 @@
   "id": "caeluviim:protocol:lexicon",
   "version": "0.1.3",
   "status": "operative-candidate",
-  "governance_policy": "governance/language-community-veto.json",
+  "governance_policy": "governance/language-community-contestation-and-vote.json",
   "recovery_sequence": {
     "first_recovered_lexeme": "anishinaabe",
     "first_recovered_concept": "caeluviim:concept:person",
@@ -60,7 +60,7 @@
         "universal_franchise_rule": "Every reasonably reachable eligible speaker must have an equal opportunity to receive notice, deliberate, propose alternatives, and vote. Consultation with one institution, locality, family, or online group is not a full speaker vote.",
         "insufficient_participation_rule": "If speaker-ratified outreach, quorum or participation, verification, and decision-threshold conditions are not met, the entry remains SUSPENDED_UNRESOLVED. A small participating group does not acquire default authority.",
         "implementation_rule": "The valid speaker-wide result controls active status. Replacement or removal ends canonical emission while retaining a tombstoned provenance and dissent record.",
-        "policy_ref": "governance/language-community-veto.json",
+        "policy_ref": "governance/language-community-contestation-and-vote.json",
         "revision_rule": "Future speaker, community, or linguistic review may refine orthography, scope, inflection, protocol usage, or election procedure without erasing decision history."
       }
     }
