@@ -83,7 +83,7 @@ cxg:language-community-contestation-and-vote a cxl:LanguageCommunityGovernancePo
     rdfs:label "living-language contestation and speaker-wide vote"@en ;
     skos:definition "An eligible individual objection suspends active protocol use without adjudicating the merits. Final retention, revision, narrowing, replacement, removal, or historical-only status requires a speaker-wide vote under rules ratified by participating speakers."@en ;
     skos:scopeNote "No individual, small group, institution, or Caeluviim maintainer may decide the substantive outcome for the entire speaker body."@en ;
-    dcterms:source <https://github.com/Caeluviim/Caeluviim/blob/main/governance/language-community-veto.json> .
+    dcterms:source <https://github.com/Caeluviim/Caeluviim/blob/main/governance/language-community-contestation-and-vote.json> .
 
 cxg:language-community-veto a cxl:LanguageCommunityGovernancePolicy ;
     owl:deprecated true ;
