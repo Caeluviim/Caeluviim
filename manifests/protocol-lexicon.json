@@ -1,7 +1,8 @@
 {
   "id": "caeluviim:protocol:lexicon",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "status": "operative-candidate",
+  "governance_policy": "governance/language-community-veto.json",
   "recovery_sequence": {
     "first_recovered_lexeme": "anishinaabe",
     "first_recovered_concept": "caeluviim:concept:person",
@@ -17,6 +18,7 @@
       "canonical_lexical_form": "anishinaabe",
       "recovery_ordinal": 1,
       "recovery_status": "first-recovered-protocol-word",
+      "governance_status": "speaker-contestable",
       "input_aliases": [
         {
           "form": "anishinabe",
@@ -52,6 +54,10 @@
       "governance": {
         "initiating_authority": "Explicit user instruction on 2026-08-06",
         "ratification_scope": "The user ratifies the Caeluviim protocol selection of Anishinaabe for Person. External linguistic, cultural, legal, or institutional acceptance is not asserted.",
+        "speaker_contestation_rule": "Any self-identified Anishinaabemowin speaker or source-community participant has presumptive standing to contest the spelling, gloss, semantic extension, first-recovered-word framing, provenance, or active use of this entry.",
+        "immediate_effect": "A facially good-faith objection marks this entry CONTESTED and may suspend active generation while the objection is reviewed.",
+        "removal_rule": "A validated speaker or community objection may revise, replace, or remove this lexeme from active protocol use. Removal preserves a tombstoned provenance record but ends canonical emission and recommendation.",
+        "policy_ref": "governance/language-community-veto.json",
         "revision_rule": "Future speaker, community, or linguistic review may refine orthography, scope, inflection, or protocol usage without erasing this decision history."
       }
     }
