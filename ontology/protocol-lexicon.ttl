@@ -10,7 +10,7 @@
 
 <https://caeluviim.org/ontology/lexicon> a owl:Ontology ;
     rdfs:label "Caeluviim protocol lexicon ontology"@en ;
-    owl:versionInfo "0.1.1" ;
+    owl:versionInfo "0.1.2" ;
     dcterms:source <https://ojibwe.lib.umn.edu/main-entry/anishinaabe-na> .
 
 cxl:ProtocolLexeme a owl:Class ;
@@ -57,7 +57,19 @@ cxl:speakerContestationRule a owl:DatatypeProperty ;
     rdfs:domain cxl:ProtocolLexeme ;
     rdfs:range rdf:langString .
 
-cxl:activeRemovalRule a owl:DatatypeProperty ;
+cxl:suspensionRule a owl:DatatypeProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range rdf:langString .
+
+cxl:collectiveDispositionRule a owl:DatatypeProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range rdf:langString .
+
+cxl:universalFranchiseRule a owl:DatatypeProperty ;
+    rdfs:domain cxl:ProtocolLexeme ;
+    rdfs:range rdf:langString .
+
+cxl:insufficientParticipationRule a owl:DatatypeProperty ;
     rdfs:domain cxl:ProtocolLexeme ;
     rdfs:range rdf:langString .
 
@@ -67,10 +79,16 @@ cx:Person a owl:Class ;
     skos:altLabel "person"@en ;
     skos:scopeNote "Caeluviim's protocol concept of Person. The Ojibwe source sense includes a person or human in contrast to a non-human being. Any application by Caeluviim to disputed, relational, machine-mediated, or nonhuman candidates for personhood is a protocol extension, not an attributed community-language meaning."@en .
 
-cxg:language-community-veto a cxl:LanguageCommunityGovernancePolicy ;
-    rdfs:label "living-language speaker and community veto"@en ;
-    skos:definition "A good-faith objection by a speaker or source-community participant can suspend, revise, replace, or remove a Caeluviim protocol lexeme from active use while preserving a tombstoned provenance record."@en ;
+cxg:language-community-contestation-and-vote a cxl:LanguageCommunityGovernancePolicy ;
+    rdfs:label "living-language contestation and speaker-wide vote"@en ;
+    skos:definition "An eligible individual objection suspends active protocol use without adjudicating the merits. Final retention, revision, narrowing, replacement, removal, or historical-only status requires a speaker-wide vote under rules ratified by participating speakers."@en ;
+    skos:scopeNote "No individual, small group, institution, or Caeluviim maintainer may decide the substantive outcome for the entire speaker body."@en ;
     dcterms:source <https://github.com/Caeluviim/Caeluviim/blob/main/governance/language-community-veto.json> .
+
+cxg:language-community-veto a cxl:LanguageCommunityGovernancePolicy ;
+    owl:deprecated true ;
+    dcterms:isReplacedBy cxg:language-community-contestation-and-vote ;
+    skos:note "Deprecated because version 0.1.0 could be read to grant unilateral final removal power. Individual standing now triggers suspension only; collective disposition requires a speaker-wide vote."@en .
 
 cxl:anishinaabe a cxl:ProtocolLexeme ;
     rdfs:label "anishinaabe"@oj ;
@@ -81,10 +99,13 @@ cxl:anishinaabe a cxl:ProtocolLexeme ;
     cxl:recoveryOrdinal 1 ;
     cxl:mapsToConcept cx:Person ;
     cxl:recoveredBy cxl:recovery-2026-08-06-person ;
-    cxl:governedBy cxg:language-community-veto ;
-    cxl:contestationStatus "speaker-contestable" ;
-    cxl:speakerContestationRule "Any self-identified Anishinaabemowin speaker or source-community participant has presumptive standing to contest spelling, gloss, semantic extension, recovery framing, provenance, or active use."@en ;
-    cxl:activeRemovalRule "A validated speaker or community objection may remove the lexeme from canonical emission and recommendation. Historical provenance remains tombstoned rather than erased."@en ;
+    cxl:governedBy cxg:language-community-contestation-and-vote ;
+    cxl:contestationStatus "speaker-contestable-collectively-disposed" ;
+    cxl:speakerContestationRule "Any eligible Anishinaabemowin speaker or source-community participant may object to spelling, gloss, semantic extension, recovery framing, provenance, or active use."@en ;
+    cxl:suspensionRule "A facially valid individual objection changes the entry to SUSPENDED_PENDING_SPEAKER_VOTE and pauses canonical emission, recommendation, and new deployment. Suspension is procedural and does not establish the objection's merits."@en ;
+    cxl:collectiveDispositionRule "Final retention, revision, narrowing, replacement, removal, or historical-only status requires a speaker-wide ballot conducted under election rules ratified by participating speakers. No individual or small group may decide for the whole."@en ;
+    cxl:universalFranchiseRule "Every reasonably reachable eligible speaker must have an equal opportunity to receive notice, deliberate, propose alternatives, and vote. Consultation with one institution, locality, family, or online group is not a full speaker vote."@en ;
+    cxl:insufficientParticipationRule "If the speaker-ratified legitimacy conditions are not met, the entry remains SUSPENDED_UNRESOLVED; the participating minority does not acquire default authority."@en ;
     cxl:protocolExtensionNote "The lexeme is adopted as the Caeluviim protocol word for Person. Caeluviim does not claim ownership of the word or authority over Anishinaabemowin."@en ;
     dcterms:source <https://ojibwe.lib.umn.edu/main-entry/anishinaabe-na> .
 
