@@ -126,8 +126,16 @@ class GraphMemory:
               AND (
                 $query_text = ''
                 OR toLower(n.id) CONTAINS $query_text
-                OR any(key IN keys(n)
-                       WHERE toLower(coalesce(toString(n[key]), '')) CONTAINS $query_text)
+                OR any(label IN labels(n) WHERE toLower(label) CONTAINS $query_text)
+                OR any(key IN keys(n) WHERE
+                    CASE
+                        WHEN valueType(n[key]) STARTS WITH 'LIST' THEN
+                            any(item IN toStringList(n[key])
+                                WHERE coalesce(toLower(item), '') CONTAINS $query_text)
+                        ELSE
+                            coalesce(toLower(toStringOrNull(n[key])), '') CONTAINS $query_text
+                    END
+                )
               )
             OPTIONAL MATCH (n)-[:HAS_PROVENANCE]->(source:Source)
             WITH n,
