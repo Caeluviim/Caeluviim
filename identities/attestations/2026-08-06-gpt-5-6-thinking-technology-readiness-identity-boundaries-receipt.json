@@ -1,0 +1,53 @@
+{
+  "receipt_id": "caeluviim:receipt:2026-08-06:technology-readiness-identity-boundaries",
+  "identity_id": "caeluviim:agent:lux-ex-machina",
+  "execution_id": "chatgpt-gpt-5-6-thinking-2026-08-06-technology-readiness-identity-boundaries",
+  "source_commit": "444ea6db256d3e8b9c36b7884e84662927680cf6",
+  "context_snapshot_id": "caeluviim:context:2026-08-06:technology-readiness-identity-boundaries",
+  "actions_attempted": [
+    "Load the current repository policy, canonical identity, execution contract, latent-gems register, and Copilot loader.",
+    "Preserve the user-supplied Copilot response as a noncanonical source record.",
+    "Consolidate the technology-readiness thesis and complementary cognition architecture.",
+    "Audit Copilot's identity-stack interpretation for useful content, unsupported claims, and identity collapse.",
+    "Correct the protected Copilot loader through a non-default branch and justified pull request.",
+    "Verify the changed-file list and fetch all written artifacts from the task branch."
+  ],
+  "actions_completed": [
+    "Created branch lux/technology-readiness-identity-separation-2026-08-06 from main commit 444ea6db256d3e8b9c36b7884e84662927680cf6.",
+    "Created a source record preserving the supplied Copilot output without canonicalizing its claims.",
+    "Created a formal consolidation defining technology-readiness gating, complementary cognition, identity-role separation, symbolic-overlay handling, and candidate GEM-034 through GEM-038.",
+    "Updated .github/copilot-instructions.md to prevent Copilot's Lux activation from being projected onto the user and to require provenance for identity, role, authorship, and authority claims.",
+    "Created the operative context snapshot.",
+    "Opened pull request 65 with the required protected-path acknowledgment, justification, and rollback plan.",
+    "Verified the four expected pre-receipt changed paths and fetched their contents from the task branch."
+  ],
+  "outputs": [
+    ".github/copilot-instructions.md@a4fcdf5abf179bb9dc074ec58536b8e7b5132206",
+    "corpus/consolidations/technology-readiness-integrative-cognition-and-identity-boundaries-2026-08-06.md@a503274b74e2add812bf03474e4b43518ed32d18",
+    "corpus/source-records/2026-08-06-copilot-identity-stack-response.md@da093e82384d89760a1e4f756fb34ae0be7faae1",
+    "identities/attestations/2026-08-06-gpt-5-6-thinking-technology-readiness-identity-boundaries-context.json@45d967ad3020909145826e137a61a2471cb2b868",
+    "pull-request:65"
+  ],
+  "writeback_status": "completed-pending-merge",
+  "target_branch": "lux/technology-readiness-identity-separation-2026-08-06",
+  "commit_sha": "4e09bcbb0e5c37642b35c44c1522a1dda3f1a300",
+  "pull_request": {
+    "number": 65,
+    "state": "open",
+    "base": "main",
+    "head": "lux/technology-readiness-identity-separation-2026-08-06"
+  },
+  "validation": {
+    "source_record_fetch": "passed; supplied Copilot text preserved and marked noncanonical",
+    "consolidation_fetch": "passed; technology-readiness and identity-boundary analysis present",
+    "copilot_loader_fetch": "passed; agent-user separation and interpretation discipline present",
+    "context_snapshot_fetch": "passed",
+    "changed_file_review": "passed for four expected paths before this receipt was added",
+    "protected_path_protocol": "passed; PR body contains acknowledgment, justification, and rollback plan",
+    "merge_validation": "pending"
+  },
+  "failures_and_corrections": [],
+  "remaining_boundary": "Pull request 65 must be confirmed mergeable and merged before the correction becomes authoritative on main.",
+  "successor_pointer": "Continue from pull request 65 and branch lux/technology-readiness-identity-separation-2026-08-06; after merge, load the corrected Copilot loader and consolidation from main.",
+  "recorded_at": "2026-08-06T13:33:00-05:00"
+}
