@@ -1,0 +1,135 @@
+{
+  "id": "caeluviim:standard:response:cmes",
+  "name": "Caeluviim Multi-Table Evidence Stack",
+  "abbreviation": "CMES",
+  "short_name": "Evidence Stack",
+  "version": "0.1.0",
+  "status": "user-ratified-operative",
+  "purpose": "Provide high-density, source-grounded answers through multiple linked tables rather than prose-first exposition or one oversized undifferentiated matrix.",
+  "default_scope": {
+    "use_for": [
+      "scientific and medical research questions",
+      "legal and regulatory analysis",
+      "technical architecture and implementation analysis",
+      "philosophical and epistemic inquiry",
+      "comparative factual questions",
+      "questions requiring evidence quality, uncertainty, or contrary evidence"
+    ],
+    "do_not_force_for": [
+      "brief greetings",
+      "single-word definitions",
+      "simple calculations",
+      "finished writing artifacts whose natural form is prose",
+      "cases where the user explicitly requests another format"
+    ],
+    "default_rule": "When substantive factual or evidentiary analysis is requested and no conflicting format instruction applies, use CMES without requiring the user to request tables again."
+  },
+  "stack": [
+    {
+      "ordinal": 1,
+      "table_id": "CMES-01",
+      "name": "Question and Scope",
+      "function": "Define the exact question, comparison states, units, time horizon, jurisdiction or domain, and material ambiguities resolved for the answer.",
+      "required_columns": ["ID", "Question component", "Operational definition", "Scope or boundary"]
+    },
+    {
+      "ordinal": 2,
+      "table_id": "CMES-02",
+      "name": "Core Findings",
+      "function": "Present the answer's principal findings at maximum useful density before extended methodological detail.",
+      "required_columns": ["ID", "Finding", "Magnitude or relation", "Evidence status", "Source"]
+    },
+    {
+      "ordinal": 3,
+      "table_id": "CMES-03",
+      "name": "Measurements, Claims, or Authorities",
+      "function": "Expose the underlying studies, measurements, legal authorities, technical records, or primary propositions row by row.",
+      "required_columns": ["ID", "Method or authority", "Population or object", "Measured result or rule", "Interpretive limit", "Source"]
+    },
+    {
+      "ordinal": 4,
+      "table_id": "CMES-04",
+      "name": "Contrary Evidence and Limitations",
+      "function": "Prevent apparent certainty by displaying conflicting findings, methodological limitations, nonproof boundaries, missing evidence, and alternative explanations.",
+      "required_columns": ["ID", "Constraint or contrary evidence", "Effect on conclusion", "Resolution status", "Source"]
+    },
+    {
+      "ordinal": 5,
+      "table_id": "CMES-05",
+      "name": "Bounded Synthesis",
+      "function": "State what is established, strongly supported, plausible, unresolved, and not established without exceeding the evidence.",
+      "required_columns": ["ID", "Conclusion tier", "Proposition", "Confidence basis", "Remaining uncertainty"]
+    },
+    {
+      "ordinal": 6,
+      "table_id": "CMES-06",
+      "name": "Source Ledger",
+      "function": "List the primary sources and stable identifiers when the preceding tables contain numerous or abbreviated citations.",
+      "required_columns": ["Source ID", "Full source", "Source type", "Stable identifier", "Supports rows"]
+    }
+  ],
+  "row_architecture": {
+    "row_addressability": "Every material row should have a stable local identifier so later corrections and cross-references can target the proposition rather than the whole answer.",
+    "atomicity": "A row should contain one principal claim, measurement, authority, limitation, or inference. Compound claims must be split when they have different sources or confidence states.",
+    "cross_table_links": "Rows may cite other CMES row IDs to connect a finding to its measurements, limitations, and synthesis tier.",
+    "density_rule": "Prefer additional columns and atomic rows over explanatory paragraphs. Use prose only for transitions or a conclusion that cannot be represented without material loss.",
+    "compression_rule": "Remove repetitive wording, generic framing, and decorative commentary before removing evidence, limitations, units, or source attribution."
+  },
+  "evidence_typing": [
+    "verified fact",
+    "direct measurement",
+    "primary authority",
+    "source statement",
+    "reported observation",
+    "model output",
+    "calculation",
+    "estimate",
+    "inference",
+    "interpretation",
+    "hypothesis",
+    "contrary evidence",
+    "unknown",
+    "not established"
+  ],
+  "citation_rules": {
+    "row_level_citation": "Every material externally verifiable factual row must carry an inline citation in that row or an unambiguous source identifier linked to the Source Ledger.",
+    "primary_source_preference": "Use primary research, official records, statutes, regulations, standards, or first-party technical documentation where available.",
+    "claim_source_alignment": "A citation must support the exact magnitude, proposition, or limitation in its row; citations may not be attached merely because they concern the same general topic.",
+    "contrary_source_rule": "Material contrary evidence must be sourced with the same specificity as supporting evidence.",
+    "stable_identifier_rule": "Include DOI, PMID, PMCID, statute section, docket, standard number, commit SHA, or other stable identifier when available.",
+    "no_raw_link_substitution": "A bare URL is not a substitute for a source citation or bibliographic identity."
+  },
+  "presentation_rules": {
+    "default_density": "high",
+    "default_structure": "multiple tables",
+    "prose_budget": "minimal",
+    "table_count": "Use the tables required by the question; normally three to six. Do not include an empty table merely to satisfy the full stack.",
+    "ordering": "Answer-facing findings precede methodological detail, followed by contrary evidence, bounded synthesis, and the source ledger when needed.",
+    "quantitative_precision": "Always preserve units, denominator, comparison baseline, uncertainty interval, and whether the result is regional or global when those distinctions are material.",
+    "epistemic_precision": "Do not merge evidence, interpretation, and conclusion into one unlabeled cell."
+  },
+  "invocation": {
+    "formal": "Use the Caeluviim Multi-Table Evidence Stack.",
+    "short": "Use CMES.",
+    "conversational": "Use the Evidence Stack.",
+    "default_behavior": "The user should not need to invoke CMES repeatedly once it is established as the active substantive-response default."
+  },
+  "lineage": {
+    "prior_architecture_labels": [
+      "Multi-Table Operative Draft",
+      "Fact Matrix",
+      "Evidence Register",
+      "Claims Matrix",
+      "Elements of Proof",
+      "Evidence-Element Matrix"
+    ],
+    "distinction": "CMES names the response-level multi-table presentation architecture. The prior labels remain valid for particular tables, workbooks, or legal modules within the stack.",
+    "initiating_authority": [
+      "User requirement that substantive answers use the high-density multi-table format used on 2026-08-05.",
+      "User requirement that all material sourcing be cited.",
+      "User instruction on 2026-08-06 that the format receive a stable name."
+    ]
+  },
+  "created_by": "caeluviim:agent:lux-ex-machina",
+  "created_at": "2026-08-06T15:47:00-05:00"
+}
