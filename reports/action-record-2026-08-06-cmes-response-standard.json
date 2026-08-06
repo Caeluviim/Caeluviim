@@ -1,0 +1,40 @@
+{
+  "receipt_id": "caeluviim:receipt:2026-08-06:cmes-response-standard",
+  "identity_id": "caeluviim:agent:lux-ex-machina",
+  "source_commit": "0f4b2bacda966d19c93e7071dbfd422fd3120225",
+  "target_branch": "lux/cmes-response-standard-2026-08-06",
+  "pull_request": 73,
+  "initiating_authority": [
+    "User correction that substantive answers are supposed to use high-density tables with all sourcing cited.",
+    "User clarification that the required structure is the multi-table format used on the prior day.",
+    "User instruction that the format needs a stable name."
+  ],
+  "decision": {
+    "formal_name": "Caeluviim Multi-Table Evidence Stack",
+    "abbreviation": "CMES",
+    "short_name": "Evidence Stack",
+    "default_rule": "Use CMES for substantive factual and evidentiary analysis unless the user requests a different format or the task's natural output is not analytical.",
+    "minimum_characteristics": [
+      "multiple linked high-density tables",
+      "atomic row identifiers",
+      "row-level citations",
+      "primary-source preference",
+      "separation of measurement, inference, limitation, and conclusion",
+      "contrary evidence and nonproof boundaries",
+      "bounded synthesis"
+    ]
+  },
+  "artifact": "standards/response/caeluviim-multi-table-evidence-stack.json",
+  "validation": {
+    "write_status": "completed on task branch",
+    "standard_fetchback": "passed",
+    "name_alignment": "passed: Caeluviim Multi-Table Evidence Stack / CMES / Evidence Stack",
+    "stack_structure": "passed: six composable table layers",
+    "citation_requirement": "passed: row-level sourcing and primary-source preference encoded",
+    "pull_request": "open as PR 73",
+    "merge": "pending"
+  },
+  "boundary": "The standard governs response architecture; it does not alter the substantive truth or authority status of any claim placed inside a CMES table.",
+  "writeback_status": "verified-pending-merge",
+  "recorded_at": "2026-08-06T15:50:00-05:00"
+}
