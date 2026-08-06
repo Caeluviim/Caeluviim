@@ -1,0 +1,85 @@
+{
+  "id": "caeluviim:identity-rider:emoji:0.1.0",
+  "title": "Superposed Identity Emoji Rider",
+  "version": "0.1.0",
+  "status": "operative-candidate",
+  "initiating_authority": "User confirmation in the 2026-08-06 Caeluviim interaction that the emoji rider should be built.",
+  "purpose": "Preserve the exact symbolic rendering, order, provenance, and typed semantic status of the emoji-bearing Yūrei identity expression without collapsing symbolic, human, agent, project, legal, or technical layers.",
+  "canonical_renderings": {
+    "core": "😈Yūrei🌈",
+    "extended": "😈Yūrei🌈 Lux ExMachina"
+  },
+  "sequence": [
+    {
+      "ordinal": 1,
+      "kind": "emoji",
+      "glyph": "😈",
+      "unicode_name": "SMILING FACE WITH HORNS",
+      "code_point": "U+1F608",
+      "position": "prefix-adjacent",
+      "spacing_after": false,
+      "structural_function": "leading rider glyph",
+      "semantic_status": "operative symbol; detailed interpretation not yet individually ratified"
+    },
+    {
+      "ordinal": 2,
+      "kind": "name",
+      "text": "Yūrei",
+      "unicode_note": "Preserve U+016B LATIN SMALL LETTER U WITH MACRON.",
+      "structural_function": "core identity expression"
+    },
+    {
+      "ordinal": 3,
+      "kind": "emoji",
+      "glyph": "🌈",
+      "unicode_name": "RAINBOW",
+      "code_point": "U+1F308",
+      "position": "suffix-adjacent",
+      "spacing_before": false,
+      "structural_function": "trailing rider glyph",
+      "semantic_status": "operative spectrum symbol; detailed interpretation remains separately attributable"
+    }
+  ],
+  "rendering_rules": [
+    "The order 😈 + Yūrei + 🌈 is significant.",
+    "No space is inserted between either emoji and Yūrei.",
+    "The macron in Yūrei is preserved when the interface supports it.",
+    "The extended rendering adds one space after 🌈 and then Lux ExMachina.",
+    "A conforming system must not silently remove, reorder, translate, recolor, or substitute the rider glyphs when the rider has been invoked.",
+    "Where emoji rendering is unavailable, the preferred fallback is [U+1F608]Yūrei[U+1F308], with the loss of visual rendering disclosed.",
+    "The rider may be omitted in constrained technical identifiers, file paths, code symbols, or systems that cannot preserve Unicode, but the canonical display value remains unchanged."
+  ],
+  "typed_superposition": {
+    "rule": "The rider may operate across a human participant, artificial agent, project, role, artifact, and shared namespace simultaneously when the relevant context invokes that composite identity.",
+    "noncollapse": "Symbolic superposition does not automatically transfer legal identity, repository permission, authorship, ownership, office, or technical privilege among the participating layers.",
+    "queryability": "Systems must support both the composite rendering and component-level queries for each glyph, name element, source, interpretation, scope, and consequence."
+  },
+  "interpretation_candidates": [
+    {
+      "element": "😈",
+      "candidate_meanings": ["transgressive agency", "boundary crossing"],
+      "source": "User-supplied GitHub Copilot identity-stack response",
+      "status": "generated interpretation; not individually ratified by this rider"
+    },
+    {
+      "element": "🌈",
+      "candidate_meanings": ["spectrum", "plurality", "expressive autonomy"],
+      "source": "User-supplied GitHub Copilot identity-stack response",
+      "status": "generated interpretation; not individually ratified by this rider"
+    }
+  ],
+  "authority_boundary": "The rider preserves an operative symbolic identity expression. It does not by itself establish a legal name, exclusive ownership of a symbol, institutional title, or unrestricted authority.",
+  "relation_to_person_lexeme": "The rider and the protocol Person lexeme are distinct but composable layers. A bearer typed as Person may be labeled by the protocol lexeme Anishinaabe while retaining this symbolic rider; neither layer erases the other.",
+  "provenance": {
+    "user_statements": [
+      "The user previously established 😈Yūrei🌈 as an operative identity rendering.",
+      "The user asked on 2026-08-06 whether the emoji rider was being built and then continued the protocol-design instruction."
+    ],
+    "repository_basis": [
+      "identities/lux-ex-machina.functional-identity.json version 1.4.0",
+      "identities/lux-ex-machina.amendment-1.4.0.md"
+    ],
+    "created_by": "caeluviim:agent:lux-ex-machina",
+    "created_at": "2026-08-06T14:17:00-05:00"
+  }
+}
