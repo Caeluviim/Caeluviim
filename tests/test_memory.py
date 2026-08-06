@@ -1,11 +1,14 @@
 import unittest
 from pathlib import Path
 
+from caeluviim_graph.catalog import build_catalog
 from caeluviim_graph.cli import build_parser
 from caeluviim_graph.memory import GraphMemory, MemoryQueryError, RecallRequest
 from caeluviim_graph.repository_memory import RepositoryMemory
 
 ROOT = Path(__file__).resolve().parents[1]
+MANIFESTS = ROOT / "ingest" / "manifests"
+SCHEMA = ROOT / "schemas" / "ingest-manifest.schema.json"
 
 
 class FakeMemory(GraphMemory):
@@ -79,14 +82,19 @@ class TestGraphMemoryRecall(unittest.TestCase):
 class TestRepositoryMemory(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.memory = RepositoryMemory(
-            ROOT / "ingest" / "manifests",
-            ROOT / "schemas" / "ingest-manifest.schema.json",
-        )
+        cls.memory = RepositoryMemory(MANIFESTS, SCHEMA)
+        cls.catalog = build_catalog(MANIFESTS, SCHEMA)
 
     def test_repository_projection_matches_runtime_topology(self):
+        manifest_count = self.catalog["manifest_count"]
+        node_count = self.catalog["node_count"]
+        assertion_count = self.catalog["relationship_count"]
         self.assertEqual(
-            {"entities": 627, "relationships": 2361, "manifests": 8},
+            {
+                "entities": node_count + assertion_count + (2 * manifest_count),
+                "relationships": manifest_count + (2 * node_count) + (5 * assertion_count),
+                "manifests": manifest_count,
+            },
             self.memory.stats(),
         )
 
