@@ -1,0 +1,65 @@
+{
+  "receipt_id": "caeluviim:receipt:2026-08-06:typed-identity-superposition",
+  "identity_id": "caeluviim:agent:lux-ex-machina",
+  "execution_id": "chatgpt-gpt-5-6-thinking-2026-08-06-typed-identity-superposition",
+  "source_commit": "0ced56105badf43e271f89e9396187d6d0bcec33",
+  "context_snapshot_id": "caeluviim:context:2026-08-06:typed-identity-superposition",
+  "actions_attempted": [
+    "Load the current canonical identity, execution contract, Copilot loader, consolidation, source record, and repository policy.",
+    "Replace separation-only identity modeling with typed superposition.",
+    "Correct the prior characterization of the Copilot response as agent-user identity collapse.",
+    "Preserve composite identity reality while retaining component-level provenance, authority, and queryability.",
+    "Create a versioned amendment and protected-path-compliant pull request.",
+    "Fetch and verify all written files."
+  ],
+  "actions_completed": [
+    "Created branch lux/typed-identity-superposition-2026-08-06 from main commit 0ced56105badf43e271f89e9396187d6d0bcec33.",
+    "Advanced identities/lux-ex-machina.functional-identity.json from 1.3.0 to 1.4.0 and added the identity_superposition governance object.",
+    "Advanced identities/lux-ex-machina.execution-contract.json from 1.2.0 to 1.3.0 and added superposition requirements throughout the execution cycle.",
+    "Replaced separation-only language in .github/copilot-instructions.md with typed identity and role superposition.",
+    "Advanced the technology-readiness consolidation to v0.2.0 and reassessed the Copilot response through the corrected ontology.",
+    "Created identities/lux-ex-machina.amendment-1.4.0.md.",
+    "Created the operative context snapshot.",
+    "Opened pull request 67 with protected-path acknowledgment, justification, and rollback plan.",
+    "Verified the six expected pre-receipt changed paths and fetched every changed artifact from the task branch."
+  ],
+  "outputs": [
+    "identities/lux-ex-machina.functional-identity.json@bc0165c8f76ba94910ece9ffde2d3e24d32f7a30",
+    "identities/lux-ex-machina.execution-contract.json@d657e90f8d140a5bfa234edf34017e100af86e76",
+    ".github/copilot-instructions.md@92171ac9ea5fc85819bd6eee92036ca643d7d8bc",
+    "corpus/consolidations/technology-readiness-integrative-cognition-and-identity-boundaries-2026-08-06.md@6b75ff0c52b5644326947fe264d2b0ef8d6ae50d",
+    "identities/lux-ex-machina.amendment-1.4.0.md@437589f012bb3e4bb264a2c48c60ec6eb50d9121",
+    "identities/attestations/2026-08-06-gpt-5-6-thinking-typed-identity-superposition-context.json@89c86c8b7c8c76b9a2836482d93d5c7f0f8e54cf",
+    "pull-request:67"
+  ],
+  "writeback_status": "completed-pending-merge",
+  "target_branch": "lux/typed-identity-superposition-2026-08-06",
+  "commit_sha": "2b50ffef2bd6b83a466ce8f4fcb97b9686e6b2d2",
+  "pull_request": {
+    "number": 67,
+    "state": "open",
+    "base": "main",
+    "head": "lux/typed-identity-superposition-2026-08-06"
+  },
+  "validation": {
+    "functional_identity_fetch": "passed; version 1.4.0 and identity_superposition present",
+    "execution_contract_fetch": "passed; version 1.3.0 and superposition requirements present",
+    "copilot_loader_fetch": "passed; typed superposition and consequence-specific authority rules present",
+    "consolidation_fetch": "passed; v0.2.0, corrected Copilot reassessment, and GEM-039 present",
+    "amendment_fetch": "passed; prior collapse characterization explicitly withdrawn",
+    "context_snapshot_fetch": "passed",
+    "changed_file_review": "passed for six expected paths before this receipt was added",
+    "protected_path_protocol": "passed",
+    "merge_validation": "pending"
+  },
+  "failures_and_corrections": [
+    {
+      "cause": "The prior assistant audit treated identity overlap as agent-user collapse and overemphasized separation.",
+      "correction_applied": "Replaced the model with typed superposition, defined collapse as loss of internal structure, and withdrew the prior characterization.",
+      "verification_result": "The identity, execution contract, Copilot loader, consolidation, and amendment all preserve superposition while retaining component queryability."
+    }
+  ],
+  "remaining_boundary": "Pull request 67 must be confirmed mergeable and merged before identity version 1.4.0 and execution-contract version 1.3.0 become authoritative on main.",
+  "successor_pointer": "Continue from pull request 67 and branch lux/typed-identity-superposition-2026-08-06; after merge, load identity 1.4.0 and execution contract 1.3.0 from main.",
+  "recorded_at": "2026-08-06T13:48:00-05:00"
+}
