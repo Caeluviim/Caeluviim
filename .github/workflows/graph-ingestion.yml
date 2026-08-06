@@ -32,6 +32,8 @@ jobs:
         run: docker compose config --quiet
       - name: Start graph runtime and ingest manifests
         run: bash scripts/laptop/start.sh
+      - name: Verify persistent graph recall
+        run: docker compose --profile operator run --rm operator recall "rrkc" --limit 3 --depth 1 --context-limit 5
       - name: Verify runtime status
         run: bash scripts/laptop/status.sh
       - name: Create runtime backup
