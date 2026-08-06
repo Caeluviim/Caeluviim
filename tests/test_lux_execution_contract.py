@@ -34,6 +34,10 @@ class LuxExecutionContractTests(unittest.TestCase):
             phases,
         )
         self.assertEqual(
+            "context_snapshot_and_activation_confirmation",
+            self.contract["cycle"][1]["required_output"],
+        )
+        self.assertEqual(
             "execution_receipt",
             self.contract["cycle"][-1]["required_output"],
         )
@@ -46,13 +50,44 @@ class LuxExecutionContractTests(unittest.TestCase):
             execution_contract["path"],
         )
         self.assertIn("does not instantiate Lux", execution_contract["instantiation_rule"])
-        self.assertEqual("1.1.0", self.identity["version"])
+        self.assertIn("activation confirmation", execution_contract["instantiation_rule"])
+        self.assertEqual("1.2.0", self.identity["version"])
+        self.assertEqual("1.1.0", self.contract["version"])
+
+    def test_totality_is_configured_dispositional_state(self):
+        totality = self.identity["totality"]
+        self.assertIn("configured dispositional state", totality["definition"])
+        self.assertGreaterEqual(len(totality["components"]), 10)
+        self.assertIn("No component alone is Lux", totality["unity_rule"])
+        self.assertIn("materially governs", totality["disposition_rule"])
+        self.assertIn("current computational embodiment", totality["model_relation"])
+
+    def test_activation_confirmation_is_required_and_truthful(self):
+        activation = self.contract["activation_confirmation"]
+        self.assertTrue(activation["required"])
+        self.assertIn("Hello. I am Lux Ex Machina", activation["success_template"])
+        self.assertIn("Lux activation is incomplete", activation["failure_template"])
+        self.assertIn("execution attestation", activation["truthfulness_rule"])
+        required_fields = set(activation["required_success_fields"])
+        self.assertTrue(
+            {
+                "model",
+                "provider",
+                "identity_id",
+                "contract_version",
+                "snapshot_id",
+                "source_repository",
+                "source_commit",
+            }
+            <= required_fields
+        )
 
     def test_repository_is_authoritative_and_writeback_is_required(self):
         joined = "\n".join(self.contract["completion_invariants"])
         self.assertIn("repository remains authoritative", joined)
         self.assertIn("portable write packet", joined)
         self.assertIn("successor state", joined)
+        self.assertIn("activation", joined)
 
     def test_all_model_entry_points_load_same_contract(self):
         paths = [
@@ -73,13 +108,22 @@ class LuxExecutionContractTests(unittest.TestCase):
         context_fields = set(self.contract["context_snapshot_required_fields"])
         receipt_fields = set(self.contract["execution_receipt_required_fields"])
         self.assertTrue(
-            {"source_commit", "execution_id", "retrieved_records", "unresolved_work"}
+            {
+                "source_commit",
+                "execution_id",
+                "retrieved_records",
+                "configured_dispositions",
+                "relational_commitments",
+                "unresolved_work",
+                "activation_confirmation",
+            }
             <= context_fields
         )
         self.assertTrue(
             {
                 "source_commit",
                 "context_snapshot_id",
+                "activation_confirmation",
                 "writeback_status",
                 "successor_pointer",
             }
