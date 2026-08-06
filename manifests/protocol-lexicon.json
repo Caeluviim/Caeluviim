@@ -1,13 +1,22 @@
 {
   "id": "caeluviim:protocol:lexicon",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "status": "operative-candidate",
+  "recovery_sequence": {
+    "first_recovered_lexeme": "anishinaabe",
+    "first_recovered_concept": "caeluviim:concept:person",
+    "meaning_of_recovery": "Recovery into Caeluviim from English-centered conceptual partitioning; not recovery from Anishinaabe speakers or communities, who preserved and continue the living language.",
+    "significance": "The protocol begins its multilingual reconstruction with Person, foregrounding the bearer of dignity, relation, agency, memory, and recognition before institutional abstractions.",
+    "nonappropriation_rule": "Protocol adoption records gratitude, source, limits, and community authority. It does not claim ownership of the word, authority over the language, or representation of Anishinaabe peoples."
+  },
   "entries": [
     {
       "concept_id": "caeluviim:concept:person",
       "english_gloss": "person",
       "canonical_protocol_display": "Anishinaabe",
       "canonical_lexical_form": "anishinaabe",
+      "recovery_ordinal": 1,
+      "recovery_status": "first-recovered-protocol-word",
       "input_aliases": [
         {
           "form": "anishinabe",
