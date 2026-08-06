@@ -1,0 +1,71 @@
+name: Repository memory recall
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: Text to recall from committed graph manifests
+        required: true
+        type: string
+      label:
+        description: Optional entity label filter such as Claim or Rule
+        required: false
+        type: string
+      limit:
+        description: Maximum matching entities
+        required: true
+        default: "10"
+        type: string
+      depth:
+        description: Related-entity traversal depth from 0 through 3
+        required: true
+        default: "1"
+        type: string
+      context_limit:
+        description: Maximum related entities per match
+        required: true
+        default: "8"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  recall:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: python -m pip install -r requirements-dev.txt
+      - name: Validate repository graph catalog
+        run: python -m caeluviim_graph.cli catalog
+      - name: Recall committed memory
+        env:
+          QUERY: ${{ inputs.query }}
+          LABEL: ${{ inputs.label }}
+          RESULT_LIMIT: ${{ inputs.limit }}
+          DEPTH: ${{ inputs.depth }}
+          CONTEXT_LIMIT: ${{ inputs.context_limit }}
+        run: |
+          args=(
+            recall "$QUERY"
+            --backend repository
+            --limit "$RESULT_LIMIT"
+            --depth "$DEPTH"
+            --context-limit "$CONTEXT_LIMIT"
+          )
+          if [[ -n "$LABEL" ]]; then
+            args+=(--label "$LABEL")
+          fi
+          python -m caeluviim_graph.cli "${args[@]}" | tee repository-memory-result.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: repository-memory-result
+          path: repository-memory-result.json
+          if-no-files-found: error
+          retention-days: 30

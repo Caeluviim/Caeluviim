@@ -9,8 +9,10 @@ from .catalog import build_catalog
 from .client import GraphRuntime, Neo4jConfig
 from .closure import check_claim_closure
 from .manifest import load_manifest, load_schema, validate_manifest
+from .memory import GraphMemory, RecallRequest
 from .receipt_audit import audit_receipts
 from .receipts import build_ingestion_receipt, runtime_identity, verify_receipt, write_receipt
+from .repository_memory import RepositoryMemory
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SCHEMA = ROOT / "schemas" / "ingest-manifest.schema.json"
@@ -59,6 +61,33 @@ def _ingest_with_receipt(runtime: GraphRuntime, manifest_path: Path, manifest: d
     return {"ingestion": ingestion, "receipt": receipt, "receipt_path": str(receipt_path), "receipt_verification": verification}
 
 
+def _add_memory_backend_arguments(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--backend",
+        choices=("auto", "neo4j", "repository"),
+        default="auto",
+        help="Use Neo4j, repository manifests, or automatically fall back to repository manifests",
+    )
+    parser.add_argument("--manifests", type=Path, default=DEFAULT_MANIFESTS)
+    parser.add_argument("--schema", type=Path, default=DEFAULT_SCHEMA)
+
+
+def _memory_backend(args: argparse.Namespace):
+    if args.backend == "repository":
+        return RepositoryMemory(args.manifests, args.schema)
+
+    config = Neo4jConfig.from_env()
+    graph_memory = GraphMemory(config)
+    if args.backend == "neo4j":
+        return graph_memory
+
+    try:
+        GraphRuntime(config).health()
+    except Exception:
+        return RepositoryMemory(args.manifests, args.schema)
+    return graph_memory
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="caeluviim-graph")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -98,7 +127,32 @@ def build_parser() -> argparse.ArgumentParser:
     audit.add_argument("--schema", type=Path, default=DEFAULT_SCHEMA)
     audit.add_argument("--without-catalog", action="store_true")
     audit.add_argument("--output", type=Path)
-    subparsers.add_parser("stats", help="Return graph entity and ingestion counts")
+    subparsers.add_parser("stats", help="Return Neo4j entity and ingestion counts")
+
+    memory_stats = subparsers.add_parser("memory-stats", help="Return queryable memory counts")
+    _add_memory_backend_arguments(memory_stats)
+
+    entity = subparsers.add_parser("entity", help="Retrieve one entity with provenance and direct relations")
+    entity.add_argument("entity_id")
+    _add_memory_backend_arguments(entity)
+
+    recall = subparsers.add_parser("recall", help="Search persistent memory and return bounded context")
+    recall.add_argument("text")
+    recall.add_argument("--limit", type=int, default=10)
+    recall.add_argument("--depth", type=int, default=1)
+    recall.add_argument("--context-limit", type=int, default=8)
+    recall.add_argument("--label", action="append", default=[])
+    _add_memory_backend_arguments(recall)
+
+    neighbors = subparsers.add_parser("neighbors", help="Retrieve a bounded memory neighborhood")
+    neighbors.add_argument("entity_id")
+    neighbors.add_argument("--depth", type=int, default=1)
+    neighbors.add_argument("--limit", type=int, default=50)
+    _add_memory_backend_arguments(neighbors)
+
+    timeline = subparsers.add_parser("timeline", help="Return the most recent memory entities")
+    timeline.add_argument("--limit", type=int, default=20)
+    _add_memory_backend_arguments(timeline)
     return parser
 
 
@@ -134,6 +188,33 @@ def main(argv: list[str] | None = None) -> int:
             args.output.write_text(json.dumps(result, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
         _print(result)
         return 0 if result["status"] == "valid" else 1
+
+    if args.command in {"memory-stats", "entity", "recall", "neighbors", "timeline"}:
+        memory = _memory_backend(args)
+        if args.command == "memory-stats":
+            if isinstance(memory, RepositoryMemory):
+                _print({"backend": "repository", **memory.stats()})
+            else:
+                _print({"backend": "neo4j", **GraphRuntime(memory.config).stats()})
+        elif args.command == "entity":
+            result = memory.entity(args.entity_id)
+            _print({"status": "found", "backend": type(memory).__name__, "entity": result} if result is not None else {"status": "not_found", "backend": type(memory).__name__, "entity_id": args.entity_id})
+            return 0 if result is not None else 1
+        elif args.command == "recall":
+            _print(memory.recall(RecallRequest(
+                text=args.text,
+                limit=args.limit,
+                depth=args.depth,
+                context_limit=args.context_limit,
+                labels=tuple(args.label),
+            )))
+        elif args.command == "neighbors":
+            result = memory.neighbors(args.entity_id, depth=args.depth, limit=args.limit)
+            _print({"status": "found", "backend": type(memory).__name__, "result": result} if result is not None else {"status": "not_found", "backend": type(memory).__name__, "entity_id": args.entity_id})
+            return 0 if result is not None else 1
+        elif args.command == "timeline":
+            _print({"backend": type(memory).__name__, "entities": memory.timeline(limit=args.limit)})
+        return 0
 
     runtime = GraphRuntime(Neo4jConfig.from_env())
     if args.command == "health":

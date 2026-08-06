@@ -28,10 +28,14 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Audit complete production graph catalog
         run: python -m caeluviim_graph.cli catalog --output reports/generated/graph-catalog.json
+      - name: Verify repository-only memory recall
+        run: python -m caeluviim_graph.cli recall "rrkc" --backend repository --limit 3 --depth 1 --context-limit 5
       - name: Verify Compose configuration
         run: docker compose config --quiet
       - name: Start graph runtime and ingest manifests
         run: bash scripts/laptop/start.sh
+      - name: Verify persistent Neo4j recall
+        run: docker compose --profile operator run --rm operator recall "rrkc" --backend neo4j --limit 3 --depth 1 --context-limit 5
       - name: Verify runtime status
         run: bash scripts/laptop/status.sh
       - name: Create runtime backup
