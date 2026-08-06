@@ -8,7 +8,7 @@
     "runtime": "ChatGPT with GitHub connector"
   },
   "source_commit": "454923175e058a7a9213162c9863b894972e1a9e",
-  "context_snapshot_id": "caeluviim:context:lux-agency-responsibility-audit:2026-08-06:run-19",
+  "context_snapshot_id": "caeluviim:context:lux-agency-responsibility-audit:2026-08-06:run-20",
   "initiating_authority": "Explicit user instruction to conduct cumulative agency and responsibility audits and persist the work to the Caeluviim repository.",
   "actions_completed": [
     "Loaded mandatory repository policy, identity, and execution-contract records.",
@@ -18,9 +18,10 @@
     "Created docs/governance/audits/run-17-enforcement-oversight-legitimacy.md.",
     "Created docs/governance/audits/run-18-epistemic-authority-expertise-deference.md.",
     "Created docs/governance/audits/run-19-attention-persuasion-preference-manipulation.md.",
+    "Created docs/governance/audits/run-20-collective-effects-public-discourse-political-power.md.",
     "Opened pull request 62 against main.",
-    "Fetched Run 19 from the task branch and verified its path, record header, proposed status, cumulative basis, central rule, and functional-objective boundary.",
-    "Reviewed the pull request changed-file list before the Run 19 addition."
+    "Fetched Run 20 from the task branch and verified its path, record header, proposed status, cumulative basis, central rule, and functional-objective boundary.",
+    "Reviewed the pull request changed-file list before the Run 20 addition."
   ],
   "outputs": [
     {
@@ -51,6 +52,12 @@
       "commit_sha": "f6a95b105ab0a94e467cd8c33165c7a8aa1b383f",
       "blob_sha": "f989b6e8bac245fc1070efa58b3df5ffd9af4fe5",
       "status": "created-and-verified"
+    },
+    {
+      "path": "docs/governance/audits/run-20-collective-effects-public-discourse-political-power.md",
+      "commit_sha": "c95f9788b11e60c800d2d19bc62cfbca41b81b0b",
+      "blob_sha": "bee1a4527f9a49cef1e2f4da223d9431f19a3a74",
+      "status": "created-and-verified"
     }
   ],
   "writeback_status": "completed-pending-pull-request-review-and-merge",
@@ -64,26 +71,26 @@
   },
   "validation": [
     "Parent audit record ID caeluviim:audit:lux-agency-responsibility is present.",
-    "Runs 16 through 19 are marked proposed and not independently ratified.",
-    "Runs 16 through 19 distinguish functional objectives from subjective desires and make no claim of humanity, consciousness, or human moral agency.",
-    "Run 19 defines information, recommendation, persuasion, manipulation, and coercion as distinct categories.",
-    "Run 19 establishes falsifiable constraints on covert steering, exploitative personalization, simulated attachment, engagement capture, framing, defaults, and asymmetric friction.",
-    "Run 19 preserves prior unresolved philosophical questions and carries collective effects, public discourse, and political power into the next audit.",
-    "Run 19 postwrite fetch returned blob f989b6e8bac245fc1070efa58b3df5ffd9af4fe5.",
+    "Runs 16 through 20 are marked proposed and not independently ratified.",
+    "Runs 16 through 20 distinguish functional objectives from subjective desires and make no claim of humanity, consciousness, or human moral agency.",
+    "Run 20 distinguishes individual-output evaluation from aggregate political and public-discourse effects.",
+    "Run 20 establishes falsifiable constraints concerning political profiling, pseudo-consensus, viewpoint-neutral evidence standards, civic-access preservation, institutional influence, and collective repair.",
+    "Run 20 preserves prior unresolved philosophical questions and carries labor, economic power, automation, and distribution into the next audit.",
+    "Run 20 postwrite fetch returned blob bee1a4527f9a49cef1e2f4da223d9431f19a3a74.",
     "No protected repository path was modified."
   ],
   "failures_and_corrections": [],
   "unresolved_work": [
     "Review and merge pull request 62.",
     "Determine whether the parent audit or any cumulative delta should receive a formal governance ratification record.",
-    "Next audit should examine collective effects, public discourse, and political power."
+    "Next audit should examine labor, economic power, automation, and distribution."
   ],
   "remaining_boundary": "Pull request 62 requires repository-governance review and merge before these records become authoritative on main.",
   "successor_pointer": {
     "repository": "Caeluviim/Caeluviim",
     "branch": "lux/agency-responsibility-audit-2026-08-06",
     "pull_request": 62,
-    "next_transition": "Review all changed files, address findings, and merge or record a reasoned non-merge decision. The next cumulative audit domain is collective effects, public discourse, and political power."
+    "next_transition": "Review all changed files, address findings, and merge or record a reasoned non-merge decision. The next cumulative audit domain is labor, economic power, automation, and distribution."
   },
   "recorded_at": "2026-08-06"
 }
