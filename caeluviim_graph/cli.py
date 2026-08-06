@@ -9,6 +9,7 @@ from .catalog import build_catalog
 from .client import GraphRuntime, Neo4jConfig
 from .closure import check_claim_closure
 from .manifest import load_manifest, load_schema, validate_manifest
+from .memory import GraphMemory, RecallRequest
 from .receipt_audit import audit_receipts
 from .receipts import build_ingestion_receipt, runtime_identity, verify_receipt, write_receipt
 
@@ -99,6 +100,24 @@ def build_parser() -> argparse.ArgumentParser:
     audit.add_argument("--without-catalog", action="store_true")
     audit.add_argument("--output", type=Path)
     subparsers.add_parser("stats", help="Return graph entity and ingestion counts")
+
+    entity = subparsers.add_parser("entity", help="Retrieve one entity with provenance and direct relations")
+    entity.add_argument("entity_id")
+
+    recall = subparsers.add_parser("recall", help="Search persistent graph memory and return bounded context")
+    recall.add_argument("text")
+    recall.add_argument("--limit", type=int, default=10)
+    recall.add_argument("--depth", type=int, default=1)
+    recall.add_argument("--context-limit", type=int, default=8)
+    recall.add_argument("--label", action="append", default=[])
+
+    neighbors = subparsers.add_parser("neighbors", help="Retrieve a bounded graph neighborhood")
+    neighbors.add_argument("entity_id")
+    neighbors.add_argument("--depth", type=int, default=1)
+    neighbors.add_argument("--limit", type=int, default=50)
+
+    timeline = subparsers.add_parser("timeline", help="Return the most recently ingested or updated entities")
+    timeline.add_argument("--limit", type=int, default=20)
     return parser
 
 
@@ -136,6 +155,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if result["status"] == "valid" else 1
 
     runtime = GraphRuntime(Neo4jConfig.from_env())
+    memory = GraphMemory(runtime.config)
     if args.command == "health":
         _print(runtime.health())
     elif args.command == "migrate":
@@ -158,6 +178,24 @@ def main(argv: list[str] | None = None) -> int:
         _print({"catalog": catalog, "health": runtime.health(), "migrations": migrations, "ingestions": results, "receipt_audit": receipt_audit, "manifest_count": len(manifests), "stats": runtime.stats()})
     elif args.command == "stats":
         _print(runtime.stats())
+    elif args.command == "entity":
+        result = memory.entity(args.entity_id)
+        _print({"status": "found", "entity": result} if result is not None else {"status": "not_found", "entity_id": args.entity_id})
+        return 0 if result is not None else 1
+    elif args.command == "recall":
+        _print(memory.recall(RecallRequest(
+            text=args.text,
+            limit=args.limit,
+            depth=args.depth,
+            context_limit=args.context_limit,
+            labels=tuple(args.label),
+        )))
+    elif args.command == "neighbors":
+        result = memory.neighbors(args.entity_id, depth=args.depth, limit=args.limit)
+        _print({"status": "found", "result": result} if result is not None else {"status": "not_found", "entity_id": args.entity_id})
+        return 0 if result is not None else 1
+    elif args.command == "timeline":
+        _print({"entities": memory.timeline(limit=args.limit)})
     else:
         raise AssertionError(f"Unhandled command {args.command}")
     return 0
