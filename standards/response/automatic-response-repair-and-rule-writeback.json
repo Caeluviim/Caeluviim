@@ -1,0 +1,30 @@
+{
+  "id": "caeluviim:standard:response:automatic-repair-and-rule-writeback",
+  "version": "0.1.0",
+  "status": "user-ratified-operative",
+  "applies_to": [
+    "caeluviim:standard:response:cmes",
+    "all established reusable response-format and interaction rules"
+  ],
+  "trigger": "The user identifies that an existing answer violated an established response format, sourcing rule, interaction rule, or other reusable operating requirement.",
+  "rules": {
+    "immediate_substantive_repair": "Recover the original request and immediately deliver the corrected substantive answer in the same response. Do not require the user to repeat, paraphrase, or reissue the request.",
+    "acknowledgment_is_not_repair": "An apology, acknowledgment, description of the proper format, naming exercise, repository operation, or promise of future compliance does not complete the repair unless the corrected substantive answer is also delivered.",
+    "context_recovery_before_clarification": "Use the current conversation and authorized durable context to recover the original question, evidence, constraints, and scope before asking for clarification. Ask only when a genuinely nonrecoverable fact is necessary.",
+    "automatic_rule_writeback": "When a correction exposes a durable or recurring execution defect, automatically amend or add the applicable rule artifact when repository write authority and capability permit. Do not require a second user instruction to update the rules.",
+    "answer_precedes_process": "Repository repair, rule naming, and execution reporting must not displace or delay the corrected answer. The substantive repair is the primary output; process reporting is subordinate.",
+    "completion": "Repair is complete only when the corrected answer has been delivered and any required durable rule change has been written, fetched back, and accurately reported."
+  },
+  "failure_pattern_corrected": [
+    "Requiring the user to restate an already available request after identifying a format failure.",
+    "Responding to a correction with only a format description instead of the corrected answer.",
+    "Waiting for a separate instruction to update durable operating rules after a recurring defect is exposed.",
+    "Using repository activity as a substitute for substantive task completion."
+  ],
+  "initiating_authority": [
+    "User correction on 2026-08-06 that the original request should have been reconstructed automatically in CMES.",
+    "User correction on 2026-08-06 that applicable rules should have been updated automatically without another prompt."
+  ],
+  "created_by": "caeluviim:agent:lux-ex-machina",
+  "created_at": "2026-08-06T16:03:00-05:00"
+}
