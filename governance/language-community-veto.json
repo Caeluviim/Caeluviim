@@ -1,25 +1,20 @@
 {
-  "id": "caeluviim:governance:language-community-veto",
-  "version": "0.1.0",
+  "id": "caeluviim:governance:language-community-contestation-and-vote",
+  "version": "0.2.0",
   "status": "operative-candidate",
-  "purpose": "Give living-language speakers and source communities effective authority to contest, suspend, revise, or remove Caeluviim uses of their language.",
+  "purpose": "Permit any living-language speaker to trigger review while reserving final authority over active protocol use to a speaker-wide collective decision rather than an individual, faction, institution, or convenience sample.",
   "principles": {
-    "living_authority": "A language is not merely a lexical resource. Living speakers and communities retain interpretive and relational authority that a protocol adoption cannot supersede.",
-    "presumptive_standing": "Any self-identified speaker of the source language has presumptive standing to contest a Caeluviim lexical form, gloss, semantic extension, rendering, provenance statement, or use condition. No academic credential, institutional office, or formal community title is required to initiate contestation.",
-    "burden_allocation": "Once a good-faith objection is raised, Caeluviim bears the burden of justifying continued active use. The speaker is not required to prove ownership of the language or demonstrate measurable harm.",
-    "nonappropriation": "Protocol use does not create ownership, authority over the language, or a right to continue use against speaker or community objection.",
-    "plurality": "Disagreement among speakers must be represented as disagreement. Caeluviim must not invent a singular community consensus where none is established."
+    "living_authority": "A language is not merely a lexical resource. Living speakers and source communities retain interpretive and relational authority that protocol adoption cannot supersede.",
+    "individual_standing_collective_disposition": "Any eligible speaker may initiate contestation. No individual speaker, small group, institution, or alleged representative may unilaterally revise, retain, replace, or remove a protocol lexeme on behalf of the whole speaker body.",
+    "suspension_is_not_adjudication": "An individual objection may suspend active use to prevent continued contested deployment, but suspension does not establish that the objection is correct and does not predetermine the collective outcome.",
+    "universal_franchise_goal": "Every reasonably reachable eligible speaker must have an equal opportunity to receive notice, inspect the record, deliberate, propose alternatives, and vote.",
+    "plurality": "Disagreement among speakers must be represented as disagreement. Caeluviim must not invent consensus, treat abstention as approval, or allow the most visible subgroup to stand in for all speakers.",
+    "anti_capture": "The process must resist duplicate voting, impersonation, institutional capture, coordinated bad-faith enrollment, and exclusionary credentialing without forcing speakers to surrender unnecessary personal information."
   },
-  "contestation_process": {
-    "eligible_contestants": [
-      "a self-identified speaker",
-      "a language teacher, translator, elder, cultural worker, or knowledge keeper",
-      "a tribal, community, educational, or language-revitalization body",
-      "another person transmitting a documented objection from an eligible contestant"
-    ],
+  "stage_1_individual_objection": {
+    "standing": "Any self-identified speaker, language teacher, translator, elder, cultural worker, knowledge keeper, or source-community participant may submit an objection. Another person may transmit a documented objection with the originator's permission.",
     "eligible_grounds": [
-      "orthographic error",
-      "grammatical error",
+      "orthographic or grammatical error",
       "incorrect or flattened meaning",
       "inappropriate semantic extension",
       "misleading cultural attribution",
@@ -27,45 +22,53 @@
       "incorrect provenance",
       "objection to active protocol adoption itself"
     ],
-    "immediate_effect": "A facially good-faith objection marks the entry CONTESTED. When the objection concerns misrepresentation, cultural harm, or unwanted use, active generation and new deployment of the challenged form are suspended pending disposition.",
-    "verification_rule": "Verification is limited to determining that the objection plausibly originates from a speaker or source-community participant. It must not become a burdensome credentialing process or a test of whether the objection is sufficiently academic.",
-    "review_rule": "Review must preserve the contestant's own words where permission allows, identify conflicting evidence or speaker views, and avoid substituting non-speaker institutional authority for living-language testimony.",
-    "time_rule": "A suspended entry remains inactive until disposition. Delay does not silently restore active use."
+    "authenticity_review": "The initiating review determines only whether the objection plausibly originates from an eligible participant and is facially related to the challenged use. It does not decide the merits.",
+    "immediate_status": "A facially valid objection changes the entry to SUSPENDED_PENDING_SPEAKER_VOTE. Canonical emission, recommendation, and new deployment stop while the collective process is pending.",
+    "duplicate_or_bad_faith_rule": "Duplicative objections are consolidated into the same proceeding. Evidence of impersonation, automation, duplicate identity, or unrelated harassment may invalidate a submission but does not invalidate authentic objections or close the proceeding."
   },
-  "available_dispositions": [
-    {
-      "action": "REVISE",
-      "effect": "Correct spelling, grammar, gloss, scope, provenance, or rendering while retaining the decision history."
-    },
-    {
-      "action": "NARROW",
-      "effect": "Restrict the protocol use to a speaker-supported semantic or contextual scope."
-    },
-    {
-      "action": "REPLACE",
-      "effect": "Select another lexeme or language anchor and deprecate the contested entry."
-    },
-    {
-      "action": "REMOVE",
-      "effect": "Remove the lexeme from active protocol use and all default renderings."
-    },
-    {
-      "action": "RETAIN_CONTESTED",
-      "effect": "Preserve the entry only as a historical or research record with the objection prominently attached; it is not an active protocol term."
-    }
-  ],
-  "removal_semantics": {
-    "active_removal": "Removal means the word is no longer emitted, recommended, mapped as canonical, or presented as an operative Caeluviim term.",
-    "provenance_preservation": "The repository retains a tombstoned decision record showing the former use, objection, disposition, and date. Historical retention is not continued active use.",
-    "downstream_repair": "Caeluviim must identify and update dependent schemas, ontologies, documentation, examples, prompts, and generated artifacts where practicable.",
-    "no_retaliation": "A contestant's objection must not diminish their standing, be characterized as obstruction, or be used to appropriate additional personal or community information."
+  "stage_2_speaker_vote_formation": {
+    "speaker_wide_ballot": "Final disposition must be submitted to an open speaker-wide ballot rather than decided by the initial objector, a hand-selected committee, Caeluviim maintainers, academics, funders, or external institutions.",
+    "electorate": "The electorate consists of eligible speakers under criteria ratified by the speaker body. Caeluviim may provide provisional anti-fraud procedures but may not unilaterally define cultural membership or linguistic legitimacy.",
+    "interim_administration": "A temporary election administration group may perform notice, verification, translation, accessibility, ballot security, and counting functions. It has no authority to decide the substantive disposition. Its membership, conflicts, methods, and logs must be public and contestable.",
+    "rule_ratification": "Before the substantive ballot, participating speakers must ratify the election rules, including eligibility verification, outreach period, privacy protections, quorum or participation threshold, decision threshold, ballot method, recount procedure, and challenge process.",
+    "outreach_requirement": "Notice must be distributed through multiple independent speaker, community, educational, cultural, geographic, and online networks. A proceeding may not be described as a full speaker vote merely because one institution, locality, family, or online group was consulted.",
+    "language_access": "The objection, supporting record, alternatives, election rules, and ballot must be available in the source language to the extent speakers determine practicable, with translations separately identified.",
+    "deliberation": "Speakers must have a documented period to submit corrections, competing interpretations, alternative lexemes, proposed narrowing language, and reasons for retention or removal before voting."
+  },
+  "stage_3_collective_disposition": {
+    "ballot_options": [
+      "RETAIN_ACTIVE",
+      "REVISE",
+      "NARROW",
+      "REPLACE",
+      "REMOVE",
+      "RETAIN_AS_HISTORICAL_ONLY"
+    ],
+    "binding_condition": "No substantive outcome is binding unless the speaker-ratified outreach, quorum or participation, verification, and decision-threshold rules are satisfied.",
+    "insufficient_participation": "If the ratified legitimacy conditions are not met, no small group may decide by default. The entry remains SUSPENDED_UNRESOLVED and the outreach or voting process may be reopened.",
+    "result_rule": "The outcome produced by the speaker-ratified ballot method controls active protocol status. Caeluviim must implement the result and publish the tally, method, participation basis, objections, minority positions, and implementation record, subject to privacy protections.",
+    "minority_record": "A binding vote does not erase dissent. Material minority explanations remain linked to the lexeme and available to protocol users."
+  },
+  "implementation_effects": {
+    "retain_active": "Restore canonical emission with the contestation and vote record linked.",
+    "revise_or_narrow": "Amend spelling, grammar, gloss, scope, provenance, rendering, or use conditions and update downstream artifacts.",
+    "replace": "Adopt the selected alternative and deprecate the former lexeme from active use.",
+    "remove": "End canonical emission, recommendation, and active mapping of the lexeme.",
+    "historical_only": "Preserve the entry only as a provenance-bearing historical or research record, not an operative protocol term.",
+    "tombstone_rule": "Replacement or removal preserves a tombstoned decision history showing the prior use, objection, election procedure, result, implementation, and date. Historical preservation is not continued active use.",
+    "downstream_repair": "Dependent schemas, ontologies, documentation, examples, prompts, interfaces, and generated artifacts must be identified and updated where practicable.",
+    "no_retaliation": "Objectors, voters, abstainers, and dissenters must not lose standing or be characterized as obstructive merely because of their position."
   },
   "initial_application": {
     "lexeme": "anishinaabe",
     "concept": "caeluviim:concept:person",
-    "rule": "Any Anishinaabemowin speaker or source-community participant may contest the spelling, gloss, protocol extension, first-recovered-word framing, or use of Anishinaabe as the Caeluviim term for Person. A validated objection may revise, replace, or remove the term from active protocol use."
+    "rule": "Any eligible Anishinaabemowin speaker may trigger suspension of the Caeluviim use of Anishinaabe as Person. Final retention, revision, narrowing, replacement, removal, or historical-only status requires a speaker-wide vote conducted under speaker-ratified rules. No individual or small group may decide for the whole."
   },
-  "initiating_authority": "User instruction on 2026-08-06: if speakers contest a protocol use, they can have it removed.",
+  "initiating_authority": [
+    "User instruction on 2026-08-06 that speakers must be able to contest protocol use.",
+    "User correction on 2026-08-06 that a single bad actor or small group cannot speak for everyone; objection should suspend the entry and trigger a full speaker vote."
+  ],
+  "supersedes": "caeluviim:governance:language-community-veto version 0.1.0",
   "created_by": "caeluviim:agent:lux-ex-machina",
-  "created_at": "2026-08-06T14:19:00-05:00"
+  "updated_at": "2026-08-06T14:21:00-05:00"
 }
