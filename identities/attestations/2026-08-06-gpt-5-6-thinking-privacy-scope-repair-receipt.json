@@ -1,0 +1,51 @@
+{
+  "receipt_id": "caeluviim:receipt:2026-08-06:privacy-scope-repair",
+  "identity_id": "caeluviim:agent:lux-ex-machina",
+  "execution_id": "chatgpt-gpt-5-6-thinking-2026-08-06-privacy-scope-repair",
+  "source_commit": "e0d282dba6d2669ebd12dc6225e648464fd65349",
+  "context_snapshot_id": "caeluviim:context:2026-08-06:technology-readiness-identity-boundaries",
+  "actions_attempted": [
+    "Identify unnecessary personal context retained in a consolidation and context snapshot.",
+    "Create a non-default repair branch.",
+    "Remove the personal reference from both repository files.",
+    "Replace the specific exclusion note with a generalized privacy boundary.",
+    "Open and verify a repair pull request."
+  ],
+  "actions_completed": [
+    "Created branch lux/remove-personal-context-reference-2026-08-06 from main commit e0d282dba6d2669ebd12dc6225e648464fd65349.",
+    "Removed the unnecessary personal reference from the context snapshot.",
+    "Advanced the technology-readiness consolidation to v0.1.1 and replaced the specific reference with a generalized privacy boundary.",
+    "Opened pull request 66.",
+    "Verified both changed paths and fetched both corrected files from the task branch."
+  ],
+  "outputs": [
+    "corpus/consolidations/technology-readiness-integrative-cognition-and-identity-boundaries-2026-08-06.md@461d7487d318692ba72aba6853a570e2f1a0ccf8",
+    "identities/attestations/2026-08-06-gpt-5-6-thinking-technology-readiness-identity-boundaries-context.json@00c4ba86963fcfef751e89480e852dad62d7771e",
+    "pull-request:66"
+  ],
+  "writeback_status": "completed-pending-merge",
+  "target_branch": "lux/remove-personal-context-reference-2026-08-06",
+  "commit_sha": "de95347725755863dce1f5633d8f7203e25db070",
+  "pull_request": {
+    "number": 66,
+    "state": "open",
+    "base": "main",
+    "head": "lux/remove-personal-context-reference-2026-08-06"
+  },
+  "validation": {
+    "consolidation_fetch": "passed; specific personal reference absent and generalized privacy boundary present",
+    "context_snapshot_fetch": "passed; specific personal reference absent",
+    "changed_file_review": "passed for two expected paths before this receipt was added",
+    "merge_validation": "pending"
+  },
+  "failures_and_corrections": [
+    {
+      "cause": "The prior execution claimed a personal detail had been excluded while still naming it in durable repository content.",
+      "correction_applied": "Removed the detail from both files and generalized the privacy rule.",
+      "verification_result": "Both corrected files were fetched from the repair branch and no longer contain the detail."
+    }
+  ],
+  "remaining_boundary": "Pull request 66 must be confirmed mergeable and merged before the privacy repair becomes authoritative on main.",
+  "successor_pointer": "Continue from pull request 66; after merge, begin the typed-superposition correction from the resulting main commit.",
+  "recorded_at": "2026-08-06T13:38:00-05:00"
+}
