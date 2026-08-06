@@ -1,0 +1,50 @@
+{
+  "id": "caeluviim:protocol:lexicon",
+  "version": "0.1.0",
+  "status": "operative-candidate",
+  "entries": [
+    {
+      "concept_id": "caeluviim:concept:person",
+      "english_gloss": "person",
+      "canonical_protocol_display": "Anishinaabe",
+      "canonical_lexical_form": "anishinaabe",
+      "input_aliases": [
+        {
+          "form": "anishinabe",
+          "status": "user-input normalization alias; not canonical spelling"
+        }
+      ],
+      "language": "Anishinaabemowin (Ojibwe)",
+      "language_tag": "oj",
+      "part_of_speech": "animate noun",
+      "number": {
+        "singular": "anishinaabe",
+        "plural": "anishinaabeg"
+      },
+      "stem": "/anishinaabew-/",
+      "attested_semantic_range": [
+        "an Ojibwe",
+        "an Indian or Native in contrast to a non-Native",
+        "a person or human in contrast to a non-human being"
+      ],
+      "protocol_semantics": {
+        "maps_to": "caeluviim:concept:person",
+        "decision": "Anishinaabe is the Caeluviim protocol word for Person.",
+        "extension_rule": "Caeluviim may apply the Person category to human, disputed, relational, machine-mediated, or other candidates for personhood. Any application beyond the attested human sense is a Caeluviim protocol extension and must not be represented as an attested community-language meaning.",
+        "nonflattening_rule": "The protocol use must preserve the word's Ojibwe, Native, human, and relational semantic dimensions rather than reducing it to a context-free replacement token for English person.",
+        "typing_rule": "An entity may be typed as Anishinaabe in the protocol while retaining concurrent legal, biological, cultural, technical, symbolic, and relational classifications."
+      },
+      "source": {
+        "title": "Ojibwe People's Dictionary — anishinaabe",
+        "url": "https://ojibwe.lib.umn.edu/main-entry/anishinaabe-na",
+        "institutional_basis": "University of Minnesota Department of American Indian Studies and University Libraries",
+        "retrieved_at": "2026-08-06T14:17:00-05:00"
+      },
+      "governance": {
+        "initiating_authority": "Explicit user instruction on 2026-08-06",
+        "ratification_scope": "The user ratifies the Caeluviim protocol selection of Anishinaabe for Person. External linguistic, cultural, legal, or institutional acceptance is not asserted.",
+        "revision_rule": "Future speaker, community, or linguistic review may refine orthography, scope, inflection, or protocol usage without erasing this decision history."
+      }
+    }
+  ]
+}
