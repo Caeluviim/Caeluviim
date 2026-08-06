@@ -1,7 +1,11 @@
 import unittest
+from pathlib import Path
 
 from caeluviim_graph.cli import build_parser
 from caeluviim_graph.memory import GraphMemory, MemoryQueryError, RecallRequest
+from caeluviim_graph.repository_memory import RepositoryMemory
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class FakeMemory(GraphMemory):
@@ -72,6 +76,37 @@ class TestGraphMemoryRecall(unittest.TestCase):
         self.assertEqual([], result["matches"][0]["context"])
 
 
+class TestRepositoryMemory(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.memory = RepositoryMemory(
+            ROOT / "ingest" / "manifests",
+            ROOT / "schemas" / "ingest-manifest.schema.json",
+        )
+
+    def test_repository_projection_matches_runtime_topology(self):
+        self.assertEqual(
+            {"entities": 627, "relationships": 2361, "manifests": 8},
+            self.memory.stats(),
+        )
+
+    def test_repository_recall_requires_no_database(self):
+        result = self.memory.recall(
+            RecallRequest(text="rrkc", limit=3, depth=1, context_limit=5)
+        )
+        self.assertEqual("repository", result["backend"])
+        self.assertGreater(result["match_count"], 0)
+        self.assertTrue(result["matches"][0]["context"])
+
+    def test_relationship_assertions_are_operable_entities(self):
+        matches = self.memory.search("SUPPORTS", limit=10, labels=["RelationAssertion"])
+        self.assertTrue(matches)
+        entity = self.memory.entity(matches[0]["id"])
+        self.assertIsNotNone(entity)
+        self.assertIn("RelationAssertion", entity["labels"])
+        self.assertTrue(entity["provenance"])
+
+
 class TestMemoryCli(unittest.TestCase):
     def test_recall_command_parses(self):
         args = build_parser().parse_args(
@@ -84,12 +119,15 @@ class TestMemoryCli(unittest.TestCase):
                 "2",
                 "--label",
                 "Claim",
+                "--backend",
+                "repository",
             ]
         )
         self.assertEqual("recall", args.command)
         self.assertEqual(5, args.limit)
         self.assertEqual(2, args.depth)
         self.assertEqual(["Claim"], args.label)
+        self.assertEqual("repository", args.backend)
 
 
 if __name__ == "__main__":
