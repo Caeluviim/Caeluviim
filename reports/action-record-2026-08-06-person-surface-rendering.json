@@ -38,19 +38,23 @@
     "reports/action-record-2026-08-06-person-surface-rendering.json"
   ],
   "validation": {
-    "grammar_artifact_written": "passed",
-    "manifest_fetchback": "pending final fetchback after version 0.3.0 update",
-    "ontology_fetchback": "pending final fetchback after version 0.3.0 update",
-    "surface_form_agreement": "pending final comparison",
-    "four_slot_capacity": "encoded in grammar, manifest, and ontology",
-    "slot_function_agreement": "encoded in grammar, manifest, and ontology",
-    "host_language_bracket_rule": "encoded",
-    "merge_status": "pending"
+    "grammar_artifact_fetchback": "passed",
+    "manifest_fetchback": "passed at version 0.3.0",
+    "ontology_fetchback": "passed at version 0.3.0",
+    "surface_form_agreement": "passed: 👤 Anishinaabe [person]",
+    "four_slot_capacity": "passed: maximum two leading and two trailing glyphs",
+    "slot_function_agreement": "passed across grammar, manifest, and ontology",
+    "scope_order_agreement": "passed: L2 binds to lexeme, then L1, then T1, then T2",
+    "empty_slot_stability": "passed: empty positions do not reassign syntactic roles",
+    "host_language_bracket_rule": "passed",
+    "merge_status": "pending pull-request merge"
   },
   "boundaries": [
     "The 👤 L1 assignment is a user-ratified Caeluviim protocol decision and may be revised through later protocol governance.",
     "The Anishinaabemowin lexeme remains governed by the living-language contestation and speaker-wide vote process.",
-    "The four-slot protocol-lexeme rider grammar is distinct from the exact adjacency rules governing the separate superposed identity emoji rider."
+    "The four-slot protocol-lexeme rider grammar is distinct from the exact adjacency rules governing the separate superposed identity emoji rider.",
+    "No glyphs have yet been assigned to L2, T1, or T2 for Anishinaabe."
   ],
-  "recorded_at": "2026-08-06T14:45:00-05:00"
+  "writeback_status": "verified-pending-merge",
+  "recorded_at": "2026-08-06T14:47:00-05:00"
 }
