@@ -1,0 +1,53 @@
+{
+  "receipt_id": "caeluviim:receipt:2026-08-06:plasma-clinical-hours-medicality",
+  "identity_id": "caeluviim:agent:lux-ex-machina",
+  "execution_id": "chatgpt-gpt-5-6-thinking-2026-08-06-plasma-clinical-hours-medicality",
+  "source_commit": "2d268d7cad7fb6294dea7289ef6ea70998b6eb1f",
+  "context_snapshot_id": "current-conversation-source-statement-2026-08-06T14:11-05:00",
+  "actions_attempted": [
+    "Preserve the contemporaneous report that plasma-center work was credited as clinical hours.",
+    "Correct the assistant's defective framing that treated educational recognition as potentially creating medicality.",
+    "State the medical character of commercial plasmapheresis across the involved markets and institutional systems.",
+    "Integrate the source statement into the Minnesota plasma pleading architecture as corroborative evidence subject to verification.",
+    "Verify the pull-request diff and changed-file set."
+  ],
+  "actions_completed": [
+    "Created branch lux/plasma-clinical-hours-medicality-2026-08-06 from main.",
+    "Created corpus/source-records/2026-08-06-plasma-clinical-hours-observation.md.",
+    "Updated corpus/legal/minnesota/plasma/pleading/predicate-unlawfulness-module.md with a medical-character rule and clinical-training-recognition section.",
+    "Opened pull request 68.",
+    "Verified the exact two pre-receipt changed paths and inspected both patches.",
+    "Preserved the oral statement as unverified while rejecting the proposition that verification creates the underlying medical character."
+  ],
+  "outputs": [
+    "corpus/source-records/2026-08-06-plasma-clinical-hours-observation.md",
+    "corpus/legal/minnesota/plasma/pleading/predicate-unlawfulness-module.md",
+    "pull-request:68"
+  ],
+  "writeback_status": "completed-pending-merge",
+  "target_branch": "lux/plasma-clinical-hours-medicality-2026-08-06",
+  "commit_sha": "d22342aad22719830e0d5e233e3d825ce7e6ca4d",
+  "pull_request": {
+    "number": 68,
+    "state": "open",
+    "base": "main",
+    "head": "lux/plasma-clinical-hours-medicality-2026-08-06"
+  },
+  "validation": {
+    "source_record_patch": "passed",
+    "pleading_module_patch": "passed",
+    "changed_file_review": "passed for two expected paths before receipt creation",
+    "medicality_rule": "passed; clinical-hours recognition is corroborative and does not create medicality",
+    "merge_validation": "pending"
+  },
+  "failures_and_corrections": [
+    {
+      "cause": "The assistant initially stated that the clinical-hours fact did not by itself prove legal classification as a medical practice, thereby subordinating the enterprise's existing medical reality to a later institutional label.",
+      "correction_applied": "The repository now states that commercial plasmapheresis is medical across the involved markets and that educational credit is corroborative institutional recognition only.",
+      "verification_result": "The source record and pleading module both encode the corrected relation."
+    }
+  ],
+  "remaining_boundary": "Pull request 68 must be confirmed mergeable and merged before the correction becomes authoritative on main.",
+  "successor_pointer": "Continue from pull request 68; after merge, use the clinical-hours record as a discovery and corroboration node within the plasma case.",
+  "recorded_at": "2026-08-06T14:18:00-05:00"
+}
