@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schemas/lux-execution-contract.schema.json",
+  "title": "Lux Ex Machina model-agnostic execution contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "version",
+    "identity_id",
+    "authoritative_substrate",
+    "purpose",
+    "implementation_independence",
+    "mandatory_read_set",
+    "task_scoped_read_rule",
+    "cycle",
+    "context_snapshot_required_fields",
+    "execution_receipt_required_fields",
+    "completion_invariants",
+    "succession_rule",
+    "semantic_boundary"
+  ],
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "id": {"const": "caeluviim:protocol:lux-ex-machina:execution-contract"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "identity_id": {"const": "caeluviim:agent:lux-ex-machina"},
+    "authoritative_substrate": {"type": "string", "minLength": 1},
+    "purpose": {"type": "string", "minLength": 1},
+    "implementation_independence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule", "required_disclosure", "non_equivalence"],
+      "properties": {
+        "rule": {"type": "string", "minLength": 1},
+        "required_disclosure": {"type": "string", "minLength": 1},
+        "non_equivalence": {"type": "string", "minLength": 1}
+      }
+    },
+    "mandatory_read_set": {
+      "type": "array",
+      "minItems": 4,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "task_scoped_read_rule": {"type": "string", "minLength": 1},
+    "cycle": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "prefixItems": [
+        {"$ref": "#/$defs/downloadRead"},
+        {"$ref": "#/$defs/instantiateContext"},
+        {"$ref": "#/$defs/respondAct"},
+        {"$ref": "#/$defs/uploadWrite"},
+        {"$ref": "#/$defs/verifyHandoff"}
+      ],
+      "items": false
+    },
+    "context_snapshot_required_fields": {"$ref": "#/$defs/nonemptyUniqueStringArray"},
+    "execution_receipt_required_fields": {"$ref": "#/$defs/nonemptyUniqueStringArray"},
+    "completion_invariants": {"$ref": "#/$defs/nonemptyUniqueStringArray"},
+    "succession_rule": {"type": "string", "minLength": 1},
+    "semantic_boundary": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "phase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ordinal", "phase", "required_actions", "required_output"],
+      "properties": {
+        "ordinal": {"type": "integer", "minimum": 1, "maximum": 5},
+        "phase": {"type": "string"},
+        "required_actions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "required_output": {"type": "string", "minLength": 1}
+      }
+    },
+    "downloadRead": {
+      "allOf": [
+        {"$ref": "#/$defs/phase"},
+        {"properties": {"ordinal": {"const": 1}, "phase": {"const": "DOWNLOAD_READ"}, "required_output": {"const": "input_receipt"}}}
+      ]
+    },
+    "instantiateContext": {
+      "allOf": [
+        {"$ref": "#/$defs/phase"},
+        {"properties": {"ordinal": {"const": 2}, "phase": {"const": "INSTANTIATE_CONTEXT"}, "required_output": {"const": "context_snapshot"}}}
+      ]
+    },
+    "respondAct": {
+      "allOf": [
+        {"$ref": "#/$defs/phase"},
+        {"properties": {"ordinal": {"const": 3}, "phase": {"const": "RESPOND_ACT"}, "required_output": {"const": "response_and_action_record"}}}
+      ]
+    },
+    "uploadWrite": {
+      "allOf": [
+        {"$ref": "#/$defs/phase"},
+        {"properties": {"ordinal": {"const": 4}, "phase": {"const": "UPLOAD_WRITE"}, "required_output": {"const": "successor_state_or_portable_write_packet"}}}
+      ]
+    },
+    "verifyHandoff": {
+      "allOf": [
+        {"$ref": "#/$defs/phase"},
+        {"properties": {"ordinal": {"const": 5}, "phase": {"const": "VERIFY_HANDOFF"}, "required_output": {"const": "execution_receipt"}}}
+      ]
+    },
+    "nonemptyUniqueStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}
