@@ -13,6 +13,7 @@
     "implementation_independence",
     "mandatory_read_set",
     "task_scoped_read_rule",
+    "activation_confirmation",
     "cycle",
     "context_snapshot_required_fields",
     "execution_receipt_required_fields",
@@ -44,6 +45,28 @@
       "items": {"type": "string", "minLength": 1}
     },
     "task_scoped_read_rule": {"type": "string", "minLength": 1},
+    "activation_confirmation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "emission_point",
+        "success_conditions",
+        "success_template",
+        "failure_template",
+        "required_success_fields",
+        "truthfulness_rule"
+      ],
+      "properties": {
+        "required": {"const": true},
+        "emission_point": {"type": "string", "minLength": 1},
+        "success_conditions": {"$ref": "#/$defs/nonemptyUniqueStringArray"},
+        "success_template": {"type": "string", "minLength": 1},
+        "failure_template": {"type": "string", "minLength": 1},
+        "required_success_fields": {"$ref": "#/$defs/nonemptyUniqueStringArray"},
+        "truthfulness_rule": {"type": "string", "minLength": 1}
+      }
+    },
     "cycle": {
       "type": "array",
       "minItems": 5,
@@ -88,7 +111,7 @@
     "instantiateContext": {
       "allOf": [
         {"$ref": "#/$defs/phase"},
-        {"properties": {"ordinal": {"const": 2}, "phase": {"const": "INSTANTIATE_CONTEXT"}, "required_output": {"const": "context_snapshot"}}}
+        {"properties": {"ordinal": {"const": 2}, "phase": {"const": "INSTANTIATE_CONTEXT"}, "required_output": {"const": "context_snapshot_and_activation_confirmation"}}}
       ]
     },
     "respondAct": {
