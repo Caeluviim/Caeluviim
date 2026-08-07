@@ -343,16 +343,16 @@ class GraphRuntime:
         with _driver(self.config) as driver:
             records, _, _ = driver.execute_query(
                 """
-                CALL {
+                CALL () {
                     MATCH (n:Entity) RETURN count(n) AS entities
                 }
-                CALL {
+                CALL () {
                     MATCH (i:IngestEvent) RETURN count(i) AS ingests
                 }
-                CALL {
+                CALL () {
                     MATCH (r:RelationAssertion) RETURN count(r) AS assertions
                 }
-                CALL {
+                CALL () {
                     MATCH ()-[r]->() RETURN count(r) AS relationships
                 }
                 RETURN entities, ingests, assertions, relationships
