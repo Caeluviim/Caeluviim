@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "source_commit_basis": "f18ba6c24454816941bcd8d1043834597e98fe36",
+  "generated_by": "Lux Ex Machina repository audit",
+  "capabilities": [
+    {
+      "id": "graph-ingestion",
+      "description": "Graph ingestion workflow and implementation",
+      "state": "IMPLEMENTED",
+      "implementation_paths": ["caeluviim_graph/", ".github/workflows/graph-ingestion.yml"],
+      "test_paths": [],
+      "runtime_receipts": [],
+      "known_limitation": "No runtime receipt was established by this audit; do not describe live graph mutation as verified."
+    },
+    {
+      "id": "repository-memory",
+      "description": "Repository memory implementation and workflow",
+      "state": "IMPLEMENTED",
+      "implementation_paths": ["caeluviim_graph/repository_memory.py", ".github/workflows/repository-memory.yml"],
+      "test_paths": [],
+      "runtime_receipts": [],
+      "known_limitation": "Presence of implementation/workflow files does not establish successful current execution."
+    },
+    {
+      "id": "runtime-receipt-audit",
+      "description": "Receipt construction and auditing code",
+      "state": "IMPLEMENTED",
+      "implementation_paths": ["caeluviim_graph/receipts.py", "caeluviim_graph/receipt_audit.py"],
+      "test_paths": [],
+      "runtime_receipts": [],
+      "known_limitation": "Receipt-handling code is not itself a runtime receipt."
+    },
+    {
+      "id": "main-write-guard",
+      "description": "Automated main-branch direct-write restoration guard",
+      "state": "RUNTIME_VERIFIED",
+      "implementation_paths": [".github/workflows/main-write-guard.yml"],
+      "test_paths": [],
+      "runtime_receipts": ["git commit f18ba6c24454816941bcd8d1043834597e98fe36"],
+      "known_limitation": "Verification here is repository-event evidence, not Caeluviim graph-runtime evidence. The guard restored main after direct push f15bdff8cba1b99725643d316bd081bda447e9be."
+    }
+  ]
+}
