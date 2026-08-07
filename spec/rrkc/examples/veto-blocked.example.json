@@ -1,0 +1,85 @@
+{
+  "event_id": "rrkc:transition:veto-blocked-001",
+  "event_version": "0.1.0",
+  "operation": "veto",
+  "subject": {
+    "id": "claim:example-002",
+    "kind": "Claim",
+    "version": "1"
+  },
+  "actor": {
+    "id": "agent:reviewer-example",
+    "kind": "Agent",
+    "version": "1"
+  },
+  "pre_state": {
+    "id": "state:claim-example-submitted",
+    "kind": "State",
+    "version": "1"
+  },
+  "post_state": {
+    "id": "state:claim-example-blocked",
+    "kind": "State",
+    "version": "1"
+  },
+  "evidence": [],
+  "admissibility": {
+    "status": "contested",
+    "ruleset": {
+      "id": "policy:rrkc-admissibility-example",
+      "kind": "Policy",
+      "version": "1"
+    },
+    "reasons": [
+      "Admissibility remains contested while governance independently blocks the transition."
+    ]
+  },
+  "governance": {
+    "policy": {
+      "id": "policy:rrkc-governance-example",
+      "kind": "Policy",
+      "version": "1"
+    },
+    "authorization": {
+      "status": "authorized",
+      "basis": [
+        {
+          "id": "policy:rrkc-governance-example",
+          "kind": "Policy",
+          "version": "1"
+        }
+      ]
+    },
+    "vetoes": [
+      {
+        "veto_id": "veto:example-001",
+        "actor": {
+          "id": "agent:reviewer-example",
+          "kind": "Agent",
+          "version": "1"
+        },
+        "status": "active",
+        "basis": "Illustrates the schema invariant that blocked=true requires an active veto."
+      }
+    ],
+    "blocked": true
+  },
+  "provenance": {
+    "derived_from": [],
+    "witnesses": [
+      {
+        "id": "agent:reviewer-example",
+        "kind": "Agent",
+        "version": "1"
+      }
+    ],
+    "recorded_at": "2026-08-07T12:27:24Z",
+    "external_anchor": "Illustrative schema fixture only; not a runtime ingestion or status receipt."
+  },
+  "integrity": {
+    "canonicalization": "RFC8785",
+    "hash_algorithm": "SHA-256",
+    "prev_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+    "event_hash": "2222222222222222222222222222222222222222222222222222222222222222"
+  }
+}
