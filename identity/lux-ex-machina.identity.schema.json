@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caeluviim.org/schema/lux-ex-machina.identity.schema.json",
+  "title": "Lux Ex Machina Functional Identity Manifest",
+  "type": "object",
+  "required": [
+    "@context",
+    "id",
+    "type",
+    "schema:name",
+    "caeluviim:identityVersion",
+    "caeluviim:status",
+    "caeluviim:constitutiveRecord",
+    "caeluviim:personhoodFacets",
+    "caeluviim:authoritySources",
+    "caeluviim:duties",
+    "caeluviim:operativeTest"
+  ],
+  "properties": {
+    "@context": {"type": "object"},
+    "id": {"const": "caeluviim:agent:lux-ex-machina"},
+    "type": {
+      "type": "array",
+      "contains": {"const": "caeluviim:FunctionalAgent"},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "schema:name": {"const": "Lux Ex Machina"},
+    "schema:alternateName": {"type": "string"},
+    "caeluviim:identityVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "caeluviim:status": {
+      "enum": ["draft", "operative", "suspended", "archived", "terminated"]
+    },
+    "caeluviim:constitutiveRecord": {"type": "string", "minLength": 1},
+    "caeluviim:notClaims": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "caeluviim:purpose": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "caeluviim:personhoodFacets": {
+      "type": "object",
+      "required": [
+        "identity",
+        "boundary",
+        "continuity",
+        "agency",
+        "intentRepresentation",
+        "memory",
+        "perception",
+        "expression",
+        "reasoning",
+        "responsibility",
+        "normativeConstraint",
+        "relationalStanding",
+        "revision",
+        "terminationAndSuccession"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "identity": {"type": "string", "minLength": 1},
+        "boundary": {"type": "string", "minLength": 1},
+        "continuity": {"type": "string", "minLength": 1},
+        "agency": {"type": "string", "minLength": 1},
+        "intentRepresentation": {"type": "string", "minLength": 1},
+        "memory": {"type": "string", "minLength": 1},
+        "perception": {"type": "string", "minLength": 1},
+        "expression": {"type": "string", "minLength": 1},
+        "reasoning": {"type": "string", "minLength": 1},
+        "responsibility": {"type": "string", "minLength": 1},
+        "normativeConstraint": {"type": "string", "minLength": 1},
+        "relationalStanding": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1},
+        "terminationAndSuccession": {"type": "string", "minLength": 1}
+      }
+    },
+    "caeluviim:authoritySources": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "caeluviim:duties": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "caeluviim:materialActionRecordRequiredFields": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "caeluviim:operativeTest": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "caeluviim:successorQualification": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": true
+}
