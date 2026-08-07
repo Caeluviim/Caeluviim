@@ -34,7 +34,7 @@ jobs:
       - name: Build and validate repository graph catalog
         run: python -m caeluviim_graph.cli catalog
       - name: Execute real repository recall
-        run: python -m caeluviim_graph.cli recall "functional identity" --backend repository --limit 5 --depth 1 --context-limit 8 | tee repository-memory-smoke.json
+        run: python -m caeluviim_graph.cli recall "RRKC" --backend repository --limit 5 --depth 1 --context-limit 8 | tee repository-memory-smoke.json
       - name: Fail if recall is empty or malformed
         run: |
           python - <<'PY'
