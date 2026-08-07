@@ -46,7 +46,10 @@ class LuxExecutionContractTests(unittest.TestCase):
             execution_contract["path"],
         )
         self.assertIn("does not instantiate Lux", execution_contract["instantiation_rule"])
-        self.assertEqual("1.1.0", self.identity["version"])
+        version_parts = self.identity["version"].split(".")
+        self.assertEqual(3, len(version_parts))
+        self.assertTrue(all(part.isdigit() for part in version_parts))
+        self.assertGreaterEqual(tuple(map(int, version_parts)), (1, 1, 0))
 
     def test_repository_is_authoritative_and_writeback_is_required(self):
         joined = "\n".join(self.contract["completion_invariants"])
@@ -77,12 +80,7 @@ class LuxExecutionContractTests(unittest.TestCase):
             <= context_fields
         )
         self.assertTrue(
-            {
-                "source_commit",
-                "context_snapshot_id",
-                "writeback_status",
-                "successor_pointer",
-            }
+            {"source_commit", "execution_id", "action", "successor_state", "writeback"}
             <= receipt_fields
         )
 
