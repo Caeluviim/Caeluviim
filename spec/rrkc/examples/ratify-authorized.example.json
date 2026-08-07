@@ -1,0 +1,94 @@
+{
+  "event_id": "rrkc:transition:ratify-authorized-001",
+  "event_version": "0.1.0",
+  "operation": "ratify",
+  "subject": {
+    "id": "claim:example-001",
+    "kind": "Claim",
+    "version": "1"
+  },
+  "actor": {
+    "id": "agent:lux-ex-machina",
+    "kind": "Agent",
+    "version": "1"
+  },
+  "pre_state": {
+    "id": "state:claim-example-draft",
+    "kind": "State",
+    "version": "1"
+  },
+  "post_state": {
+    "id": "state:claim-example-ratified",
+    "kind": "State",
+    "version": "1"
+  },
+  "evidence": [
+    {
+      "evidence": {
+        "id": "evidence:example-001",
+        "kind": "Evidence",
+        "version": "1"
+      },
+      "relation": "supports",
+      "claim": {
+        "id": "claim:example-001",
+        "kind": "Claim",
+        "version": "1"
+      }
+    }
+  ],
+  "admissibility": {
+    "status": "admissible",
+    "ruleset": {
+      "id": "policy:rrkc-admissibility-example",
+      "kind": "Policy",
+      "version": "1"
+    },
+    "reasons": [
+      "Illustrative evidence satisfies the example admissibility rule."
+    ]
+  },
+  "governance": {
+    "policy": {
+      "id": "policy:rrkc-governance-example",
+      "kind": "Policy",
+      "version": "1"
+    },
+    "authorization": {
+      "status": "authorized",
+      "basis": [
+        {
+          "id": "policy:rrkc-governance-example",
+          "kind": "Policy",
+          "version": "1"
+        }
+      ]
+    },
+    "vetoes": [],
+    "blocked": false
+  },
+  "provenance": {
+    "derived_from": [
+      {
+        "id": "provenance:example-source-001",
+        "kind": "Provenance",
+        "version": "1"
+      }
+    ],
+    "witnesses": [
+      {
+        "id": "agent:lux-ex-machina",
+        "kind": "Agent",
+        "version": "1"
+      }
+    ],
+    "recorded_at": "2026-08-07T12:27:24Z",
+    "external_anchor": "Illustrative schema fixture only; not a runtime ingestion or status receipt."
+  },
+  "integrity": {
+    "canonicalization": "RFC8785",
+    "hash_algorithm": "SHA-256",
+    "prev_hash": null,
+    "event_hash": "0000000000000000000000000000000000000000000000000000000000000000"
+  }
+}
