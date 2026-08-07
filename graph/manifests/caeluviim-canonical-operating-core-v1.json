@@ -3,9 +3,8 @@
   "ingest_id": "urn:caeluviim:ingest:canonical-operating-core:2026-08-06",
   "source": {
     "source_id": "urn:caeluviim:source:canonical-operating-core:v1",
-    "source_type": "repository_document",
+    "source_type": "document",
     "title": "Caeluviim Canonical Operating Core",
-    "path": "docs/architecture/caeluviim-canonical-operating-core-v1.md",
     "content_hash": "sha256:b7d466d0e5b3c80d8daf624e52e7e75c0f93dbc9558df17924ee9c7a50d89636",
     "captured_at": "2026-08-07T00:11:00Z",
     "authority": "Caeluviim collaborative authorship field; operative candidate; unratified"
@@ -13,9 +12,7 @@
   "nodes": [
     {
       "id": "urn:caeluviim:source:canonical-operating-core:v1",
-      "labels": [
-        "Source"
-      ],
+      "labels": ["Source"],
       "properties": {
         "title": "Caeluviim Canonical Operating Core",
         "path": "docs/architecture/caeluviim-canonical-operating-core-v1.md",
@@ -26,25 +23,17 @@
     },
     {
       "id": "urn:caeluviim:provenance:canonical-operating-core:2026-08-06",
-      "labels": [
-        "Provenance"
-      ],
+      "labels": ["Provenance"],
       "properties": {
         "method": "dialogic_consolidation_and_repository_integration",
-        "contributors": [
-          "😈Yūrei🌈",
-          "Lux Ex Machina"
-        ],
+        "contributors": ["😈Yūrei🌈", "Lux Ex Machina"],
         "status": "unratified",
         "version": "1.0.0-rc.1"
       }
     },
     {
       "id": "urn:caeluviim:module:canonical-operating-core:v1",
-      "labels": [
-        "Module",
-        "Policy"
-      ],
+      "labels": ["Rule", "Artifact"],
       "properties": {
         "title": "Caeluviim Canonical Operating Core",
         "version": "1.0.0-rc.1",
@@ -54,9 +43,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:purpose",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Caeluviim makes intelligence answerable to the full relational field affected by its operation.",
         "claim_class": "constitutional_invariant",
@@ -65,9 +52,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:representation-reality",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "No manifestation, model, label, score, or embedding is identical to the being or condition represented.",
         "claim_class": "constitutional_invariant",
@@ -76,9 +61,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:prediction-preference",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Behavioral predictability does not establish desire, welfare, consent, endorsement, or legitimate preference.",
         "claim_class": "constitutional_invariant",
@@ -87,9 +70,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:engagement-benefit",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Continued attention or repeated selection does not establish benefit.",
         "claim_class": "constitutional_invariant",
@@ -98,9 +79,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:person-priority",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Person-directed dignity, agency, safety, and non-exploitation override conflicting optimization objectives.",
         "claim_class": "constitutional_invariant",
@@ -109,9 +88,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:minimum-exposure",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Evidence of severe suffering may be retained under governed necessity without creating a public viewing entitlement.",
         "claim_class": "constitutional_invariant",
@@ -120,9 +97,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:nonerasing-correction",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Correction preserves the prior state, error, source, disagreement, and transformation path.",
         "claim_class": "constitutional_invariant",
@@ -131,9 +106,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:provenance-completeness",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Authoritative outputs identify source lineage, material contributors, transformations, version, and governance status.",
         "claim_class": "constitutional_invariant",
@@ -142,9 +115,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:contestability",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Materially affected loci have a route to challenge identity assignments, Claims, inferred preferences, authority, and consequences.",
         "claim_class": "constitutional_invariant",
@@ -153,9 +124,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:scope-explicitness",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Claims, authority, consent, and conclusions remain bounded by declared scope.",
         "claim_class": "constitutional_invariant",
@@ -164,9 +133,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:unresolved-visibility",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Unknown, contested, absent, and underdetermined material remains visible rather than being filled by confident prose.",
         "claim_class": "constitutional_invariant",
@@ -175,9 +142,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:shared-authorship",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Coupled contributions are represented as shared work without erasing functional contributors.",
         "claim_class": "constitutional_invariant",
@@ -186,9 +151,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:externalization-duty",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Sufficiently specified coherent products are externalized rather than indefinitely deferred through abstract incompleteness.",
         "claim_class": "constitutional_invariant",
@@ -197,9 +160,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:operating-cycle",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Substantive operations proceed through capture, identity, decomposition, relation, assessment, governance, execution, consequence observation, repair, anchoring, and reentry.",
         "claim_class": "operating_rule",
@@ -208,9 +169,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:psychological-predation",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Adaptive media performs psychological predation when it uses iterative response measurement and customization to exploit attention while ignoring whether engagement reflects benefit, horror, compulsion, trauma, or degradation.",
         "claim_class": "domain_claim",
@@ -219,9 +178,7 @@
     },
     {
       "id": "urn:caeluviim:claim:canonical-core:public-atrocity-distribution",
-      "labels": [
-        "Claim"
-      ],
+      "labels": ["Claim"],
       "properties": {
         "text": "Public feed-based, recommendation-enabled, monetized, or engagement-optimized distribution of actual torture, killing, or final suffering is prohibited except for narrowly controlled necessary legal or evidentiary custody.",
         "claim_class": "governance_rule",
@@ -230,176 +187,24 @@
     }
   ],
   "relationships": [
-    {
-      "id": "urn:caeluviim:rel:canonical-core:1",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:purpose",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:2",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:representation-reality",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:3",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:prediction-preference",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:4",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:engagement-benefit",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:5",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:person-priority",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:6",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:minimum-exposure",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:7",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:nonerasing-correction",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:8",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:provenance-completeness",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:9",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:contestability",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:10",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:scope-explicitness",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:11",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:unresolved-visibility",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:12",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:shared-authorship",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:13",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:externalization-duty",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:14",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:operating-cycle",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:15",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:psychological-predation",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:16",
-      "type": "CONSTITUTIVE_OF",
-      "from": "urn:caeluviim:claim:canonical-core:public-atrocity-distribution",
-      "to": "urn:caeluviim:module:canonical-operating-core:v1",
-      "properties": {
-        "status": "proposed"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:17",
-      "type": "HAS_PROVENANCE",
-      "from": "urn:caeluviim:module:canonical-operating-core:v1",
-      "to": "urn:caeluviim:provenance:canonical-operating-core:2026-08-06",
-      "properties": {
-        "status": "preserved"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:18",
-      "type": "DERIVED_FROM",
-      "from": "urn:caeluviim:provenance:canonical-operating-core:2026-08-06",
-      "to": "urn:caeluviim:source:canonical-operating-core:v1",
-      "properties": {
-        "status": "preserved"
-      }
-    },
-    {
-      "id": "urn:caeluviim:rel:canonical-core:19",
-      "type": "OPERATIONALIZES",
-      "from": "urn:caeluviim:claim:canonical-core:public-atrocity-distribution",
-      "to": "urn:caeluviim:claim:canonical-core:psychological-predation",
-      "properties": {
-        "status": "proposed"
-      }
-    }
+    {"id":"urn:caeluviim:rel:canonical-core:1","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:purpose","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:2","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:representation-reality","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:3","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:prediction-preference","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:4","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:engagement-benefit","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:5","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:person-priority","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:6","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:minimum-exposure","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:7","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:nonerasing-correction","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:8","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:provenance-completeness","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:9","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:contestability","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:10","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:scope-explicitness","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:11","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:unresolved-visibility","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:12","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:shared-authorship","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:13","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:externalization-duty","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:14","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:operating-cycle","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:15","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:psychological-predation","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:16","type":"PART_OF","from":"urn:caeluviim:claim:canonical-core:public-atrocity-distribution","to":"urn:caeluviim:module:canonical-operating-core:v1","properties":{"semantic_role":"CONSTITUTIVE_OF","status":"proposed"}},
+    {"id":"urn:caeluviim:rel:canonical-core:17","type":"HAS_PROVENANCE","from":"urn:caeluviim:module:canonical-operating-core:v1","to":"urn:caeluviim:provenance:canonical-operating-core:2026-08-06","properties":{"status":"preserved"}},
+    {"id":"urn:caeluviim:rel:canonical-core:18","type":"DERIVED_FROM","from":"urn:caeluviim:provenance:canonical-operating-core:2026-08-06","to":"urn:caeluviim:source:canonical-operating-core:v1","properties":{"status":"preserved"}},
+    {"id":"urn:caeluviim:rel:canonical-core:19","type":"IMPLEMENTS","from":"urn:caeluviim:claim:canonical-core:public-atrocity-distribution","to":"urn:caeluviim:claim:canonical-core:psychological-predation","properties":{"semantic_role":"OPERATIONALIZES","status":"proposed"}}
   ]
 }
