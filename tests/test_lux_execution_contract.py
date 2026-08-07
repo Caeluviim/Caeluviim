@@ -80,7 +80,13 @@ class LuxExecutionContractTests(unittest.TestCase):
             <= context_fields
         )
         self.assertTrue(
-            {"source_commit", "execution_id", "action", "successor_state", "writeback"}
+            {
+                "source_commit",
+                "execution_id",
+                "context_snapshot_id",
+                "writeback_status",
+                "successor_pointer",
+            }
             <= receipt_fields
         )
 
