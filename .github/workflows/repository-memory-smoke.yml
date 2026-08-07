@@ -1,0 +1,56 @@
+name: Repository memory smoke test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "caeluviim_graph/**"
+      - "ingest/manifests/**"
+      - "requirements-dev.txt"
+      - ".github/workflows/repository-memory-smoke.yml"
+  pull_request:
+    paths:
+      - "caeluviim_graph/**"
+      - "ingest/manifests/**"
+      - "requirements-dev.txt"
+      - ".github/workflows/repository-memory-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prove-memory-works:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: python -m pip install -r requirements-dev.txt
+      - name: Build and validate repository graph catalog
+        run: python -m caeluviim_graph.cli catalog
+      - name: Execute real repository recall
+        run: python -m caeluviim_graph.cli recall "functional identity" --backend repository --limit 5 --depth 1 --context-limit 8 | tee repository-memory-smoke.json
+      - name: Fail if recall is empty or malformed
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('repository-memory-smoke.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+          matches = data.get('matches') or data.get('results') or []
+          if not isinstance(matches, list) or not matches:
+              raise SystemExit('FAIL: repository recall returned no matches')
+          print(f'PASS: repository recall returned {len(matches)} match(es)')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: repository-memory-smoke
+          path: repository-memory-smoke.json
+          if-no-files-found: error
+          retention-days: 30
