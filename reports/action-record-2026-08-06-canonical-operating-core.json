@@ -41,10 +41,31 @@
     "All automated invariants are implemented.",
     "A pull request has been merged before verification."
   ],
-  "verification_plan": [
-    "Fetch each created file from the task branch.",
-    "Review the pull request diff.",
-    "Confirm the document hash matches the manifest.",
-    "Report exact commit and pull request boundary."
-  ]
+  "execution_status": "completed_on_task_branch",
+  "commit_boundary": {
+    "document_commit": "d094c14c0302b1516555052a1d75d8e070842674",
+    "manifest_commit": "47089f5b0571ebd4d4eab5b5ed852f1c18f98e94",
+    "initial_action_record_commit": "f4f14cf4c2d2e2bc9ad9a6127261303a2073f9c2",
+    "verified_head_before_record_update": "f4f14cf4c2d2e2bc9ad9a6127261303a2073f9c2"
+  },
+  "pull_request": {
+    "number": 75,
+    "state": "open",
+    "base": "main",
+    "head": "lux/canonical-operating-core-2026-08-06",
+    "url": "https://github.com/Caeluviim/Caeluviim/pull/75"
+  },
+  "verification_results": {
+    "postwrite_fetch_document": "pass",
+    "postwrite_fetch_manifest": "pass",
+    "postwrite_fetch_action_record": "pass",
+    "pull_request_diff_review": "pass",
+    "changed_files": 3,
+    "additions_before_record_update": 965,
+    "deletions": 0,
+    "document_sha256_matches_manifest": true,
+    "protected_paths_changed": false,
+    "merge_status": "not_merged",
+    "governance_status": "unratified"
+  }
 }
