@@ -1,0 +1,50 @@
+{
+  "action_record_version": "1.0.0",
+  "action_id": "urn:caeluviim:action:canonical-operating-core:2026-08-06",
+  "timestamp": "2026-08-07T00:11:00Z",
+  "actor_identity": "Lux Ex Machina / GPT-5.6 Thinking",
+  "collaborative_context": [
+    "😈Yūrei🌈",
+    "Lux Ex Machina"
+  ],
+  "trigger": "User required externalization of the abstract final product and rejected further descriptive deferral.",
+  "objective": "Create one canonical operating core binding existing Caeluviim formal, semantic, governance, provenance, graph, identity, and application layers.",
+  "repository": "Caeluviim/Caeluviim",
+  "branch": "lux/canonical-operating-core-2026-08-06",
+  "base_branch": "main",
+  "policy_conformance": {
+    "direct_main_write": false,
+    "explicit_task_branch": true,
+    "pull_request_required": true,
+    "placeholder_payload": false,
+    "protected_paths_changed": false,
+    "postwrite_fetch_required": true,
+    "changed_file_review_required": true
+  },
+  "artifacts": [
+    {
+      "path": "docs/architecture/caeluviim-canonical-operating-core-v1.md",
+      "purpose": "Human-readable canonical integration and operating contract",
+      "sha256": "b7d466d0e5b3c80d8daf624e52e7e75c0f93dbc9558df17924ee9c7a50d89636"
+    },
+    {
+      "path": "graph/manifests/caeluviim-canonical-operating-core-v1.json",
+      "purpose": "Machine-readable graph projection of the operating core"
+    },
+    {
+      "path": "reports/action-record-2026-08-06-canonical-operating-core.json",
+      "purpose": "Auditable record of the repository mutation and verification boundary"
+    }
+  ],
+  "claims_not_made": [
+    "The candidate is governance-ratified.",
+    "All automated invariants are implemented.",
+    "A pull request has been merged before verification."
+  ],
+  "verification_plan": [
+    "Fetch each created file from the task branch.",
+    "Review the pull request diff.",
+    "Confirm the document hash matches the manifest.",
+    "Report exact commit and pull request boundary."
+  ]
+}
